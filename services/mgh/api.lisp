@@ -21,11 +21,13 @@
 (common-lisp:defvar *error-map*
   '(("AccessDeniedException" . access-denied-exception)
     ("DryRunOperation" . dry-run-operation)
+    ("HomeRegionNotSetException" . home-region-not-set-exception)
     ("InternalServerError" . internal-server-error)
     ("InvalidInputException" . invalid-input-exception)
     ("PolicyErrorException" . policy-error-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
     ("ServiceUnavailableException" . service-unavailable-exception)
+    ("ThrottlingException" . throttling-exception)
     ("UnauthorizedOperation" . unauthorized-operation)))
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
@@ -35,6 +37,64 @@
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype application-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype application-ids ()
+   '(trivial-types:proper-list application-id))
+ (common-lisp:defun |make-application-ids|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list application-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (application-state (:copier common-lisp:nil)
+      (:conc-name "struct-shape-application-state-"))
+   (application-id common-lisp:nil :type
+    (common-lisp:or application-id common-lisp:null))
+   (application-status common-lisp:nil :type
+    (common-lisp:or application-status common-lisp:null))
+   (last-updated-time common-lisp:nil :type
+    (common-lisp:or update-date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'application-state 'make-application-state))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input application-state))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input application-state))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'application-id))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'application-status))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-time))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input application-state))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype application-state-list ()
+   '(trivial-types:proper-list application-state))
+ (common-lisp:defun |make-application-state-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list application-state))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype application-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -728,6 +788,14 @@
   (common-lisp:list 'dry-run-operation 'dry-run-operation-message)))
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:define-condition home-region-not-set-exception
+     (mgh-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       home-region-not-set-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'home-region-not-set-exception
+                    'home-region-not-set-exception-message)))
+(common-lisp:progn
  (common-lisp:defstruct
      (import-migration-task-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-import-migration-task-request-"))
@@ -821,6 +889,94 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list resource-attribute))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-application-states-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-application-states-request-"))
+   (application-ids common-lisp:nil :type
+    (common-lisp:or application-ids common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-application-states-request
+                    'make-list-application-states-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'application-ids))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-application-states-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-application-states-result-"))
+   (application-state-list common-lisp:nil :type
+    (common-lisp:or application-state-list common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-application-states-result
+                    'make-list-application-states-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'application-state-list))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationStateList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-application-states-result))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-created-artifacts-request (:copier common-lisp:nil)
@@ -1342,6 +1498,8 @@
     (common-lisp:or application-id common-lisp:null))
    (status (common-lisp:error ":status is required") :type
     (common-lisp:or application-status common-lisp:null))
+   (update-date-time common-lisp:nil :type
+    (common-lisp:or update-date-time common-lisp:null))
    (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'notify-application-state-request
@@ -1368,6 +1526,13 @@
                            aws-sdk/generator/shape::input 'status))
       (common-lisp:list
        (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-date-time))
+      (common-lisp:list
+       (common-lisp:cons "UpdateDateTime"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1688,6 +1853,7 @@
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
+(common-lisp:deftype retry-after-seconds () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition service-unavailable-exception
      (mgh-error)
@@ -1738,6 +1904,16 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input task))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition throttling-exception
+     (mgh-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       throttling-exception-message)
+      (retry-after-seconds :initarg :retry-after-seconds :initform
+       common-lisp:nil :reader throttling-exception-retry-after-seconds)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'throttling-exception-message
+                    'throttling-exception-retry-after-seconds)))
 (common-lisp:deftype token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition unauthorized-operation
@@ -1935,6 +2111,25 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-migration-task))
 (common-lisp:progn
+ (common-lisp:defun list-application-states
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key application-ids next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable application-ids next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-application-states-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mgh-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListApplicationStates"
+                                                        "2017-05-31"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-application-states))
+(common-lisp:progn
  (common-lisp:defun list-created-artifacts
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -2019,8 +2214,10 @@
  (common-lisp:defun notify-application-state
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key application-id status dry-run)
-   (common-lisp:declare (common-lisp:ignorable application-id status dry-run))
+                     common-lisp:&key application-id status update-date-time
+                     dry-run)
+   (common-lisp:declare
+    (common-lisp:ignorable application-id status update-date-time dry-run))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-notify-application-state-request
                                          aws-sdk/generator/operation::args)))

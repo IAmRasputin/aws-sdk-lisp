@@ -1,63 +1,81 @@
 {
   "pagination": {
+    "DescribeSchemas": {
+      "result_key": "Schemas",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
     "DescribeCertificates": {
-      "input_token": "Marker",
+      "result_key": "Certificates",
       "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeConnections": {
       "input_token": "Marker",
-      "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeEndpointTypes": {
-      "input_token": "Marker",
-      "output_token": "Marker",
       "limit_key": "MaxRecords"
     },
     "DescribeEndpoints": {
-      "input_token": "Marker",
+      "result_key": "Endpoints",
       "output_token": "Marker",
+      "input_token": "Marker",
       "limit_key": "MaxRecords"
     },
     "DescribeEventSubscriptions": {
-      "input_token": "Marker",
+      "result_key": "EventSubscriptionsList",
       "output_token": "Marker",
+      "input_token": "Marker",
       "limit_key": "MaxRecords"
     },
-    "DescribeEvents": {
-      "input_token": "Marker",
+    "DescribeEndpointTypes": {
+      "result_key": "SupportedEndpointTypes",
       "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeOrderableReplicationInstances": {
       "input_token": "Marker",
-      "output_token": "Marker",
       "limit_key": "MaxRecords"
     },
     "DescribeReplicationInstances": {
-      "input_token": "Marker",
+      "result_key": "ReplicationInstances",
       "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeReplicationSubnetGroups": {
       "input_token": "Marker",
-      "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeReplicationTasks": {
-      "input_token": "Marker",
-      "output_token": "Marker",
-      "limit_key": "MaxRecords"
-    },
-    "DescribeSchemas": {
-      "input_token": "Marker",
-      "output_token": "Marker",
       "limit_key": "MaxRecords"
     },
     "DescribeTableStatistics": {
-      "input_token": "Marker",
+      "result_key": "TableStatistics",
       "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeConnections": {
+      "result_key": "Connections",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeReplicationTaskAssessmentResults": {
+      "result_key": "ReplicationTaskAssessmentResults",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeEvents": {
+      "result_key": "Events",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeOrderableReplicationInstances": {
+      "result_key": "OrderableReplicationInstances",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeReplicationSubnetGroups": {
+      "result_key": "ReplicationSubnetGroups",
+      "output_token": "Marker",
+      "input_token": "Marker",
+      "limit_key": "MaxRecords"
+    },
+    "DescribeReplicationTasks": {
+      "result_key": "ReplicationTasks",
+      "output_token": "Marker",
+      "input_token": "Marker",
       "limit_key": "MaxRecords"
     }
   }

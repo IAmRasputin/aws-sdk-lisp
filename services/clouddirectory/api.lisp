@@ -31,6 +31,7 @@
     ("FacetInUseException" . facet-in-use-exception)
     ("FacetNotFoundException" . facet-not-found-exception)
     ("FacetValidationException" . facet-validation-exception)
+    ("IncompatibleSchemaException" . incompatible-schema-exception)
     ("IndexedAttributeMissingException" . indexed-attribute-missing-exception)
     ("InternalServiceException" . internal-service-exception)
     ("InvalidArnException" . invalid-arn-exception)
@@ -309,7 +310,8 @@
  (common-lisp:defstruct
      (attach-policy-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-attach-policy-request-"))
-   (directory-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (directory-arn (common-lisp:error ":directory-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
    (policy-reference (common-lisp:error ":policy-reference is required") :type
     (common-lisp:or object-reference common-lisp:null))
    (object-reference (common-lisp:error ":object-reference is required") :type
@@ -1171,12 +1173,11 @@
    (object-attribute-list
     (common-lisp:error ":object-attribute-list is required") :type
     (common-lisp:or attribute-key-and-value-list common-lisp:null))
-   (parent-reference (common-lisp:error ":parent-reference is required") :type
+   (parent-reference common-lisp:nil :type
     (common-lisp:or object-reference common-lisp:null))
-   (link-name (common-lisp:error ":link-name is required") :type
+   (link-name common-lisp:nil :type
     (common-lisp:or link-name common-lisp:null))
-   (batch-reference-name
-    (common-lisp:error ":batch-reference-name is required") :type
+   (batch-reference-name common-lisp:nil :type
     (common-lisp:or batch-reference-name common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-create-object 'make-batch-create-object))
@@ -1382,8 +1383,7 @@
     (common-lisp:or object-reference common-lisp:null))
    (link-name (common-lisp:error ":link-name is required") :type
     (common-lisp:or link-name common-lisp:null))
-   (batch-reference-name
-    (common-lisp:error ":batch-reference-name is required") :type
+   (batch-reference-name common-lisp:nil :type
     (common-lisp:or batch-reference-name common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-detach-object 'make-batch-detach-object))
@@ -1558,6 +1558,159 @@
                         (
                          (aws-sdk/generator/shape::input
                           batch-detach-typed-link-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-get-link-attributes (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-get-link-attributes-"))
+   (typed-link-specifier
+    (common-lisp:error ":typed-link-specifier is required") :type
+    (common-lisp:or typed-link-specifier common-lisp:null))
+   (attribute-names (common-lisp:error ":attribute-names is required") :type
+    (common-lisp:or attribute-name-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-get-link-attributes
+                    'make-batch-get-link-attributes))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'typed-link-specifier))
+      (common-lisp:list
+       (common-lisp:cons "TypedLinkSpecifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-names))
+      (common-lisp:list
+       (common-lisp:cons "AttributeNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-get-link-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-get-link-attributes-response-"))
+   (attributes common-lisp:nil :type
+    (common-lisp:or attribute-key-and-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-get-link-attributes-response
+                    'make-batch-get-link-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attributes))
+      (common-lisp:list
+       (common-lisp:cons "Attributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-link-attributes-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-get-object-attributes (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-get-object-attributes-"))
+   (object-reference (common-lisp:error ":object-reference is required") :type
+    (common-lisp:or object-reference common-lisp:null))
+   (schema-facet (common-lisp:error ":schema-facet is required") :type
+    (common-lisp:or schema-facet common-lisp:null))
+   (attribute-names (common-lisp:error ":attribute-names is required") :type
+    (common-lisp:or attribute-name-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-get-object-attributes
+                    'make-batch-get-object-attributes))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'object-reference))
+      (common-lisp:list
+       (common-lisp:cons "ObjectReference"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-facet))
+      (common-lisp:list
+       (common-lisp:cons "SchemaFacet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-names))
+      (common-lisp:list
+       (common-lisp:cons "AttributeNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-get-object-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-get-object-attributes-response-"))
+   (attributes common-lisp:nil :type
+    (common-lisp:or attribute-key-and-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-get-object-attributes-response
+                    'make-batch-get-object-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attributes))
+      (common-lisp:list
+       (common-lisp:cons "Attributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-get-object-attributes-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2198,6 +2351,95 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (batch-list-object-parents (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-list-object-parents-"))
+   (object-reference (common-lisp:error ":object-reference is required") :type
+    (common-lisp:or object-reference common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or number-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-list-object-parents
+                    'make-batch-list-object-parents))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'object-reference))
+      (common-lisp:list
+       (common-lisp:cons "ObjectReference"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-list-object-parents-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-list-object-parents-response-"))
+   (parent-links common-lisp:nil :type
+    (common-lisp:or object-identifier-and-link-name-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-list-object-parents-response
+                    'make-batch-list-object-parents-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'parent-links))
+      (common-lisp:list
+       (common-lisp:cons "ParentLinks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-list-object-parents-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (batch-list-object-policies (:copier common-lisp:nil)
       (:conc-name "struct-shape-batch-list-object-policies-"))
    (object-reference (common-lisp:error ":object-reference is required") :type
@@ -2614,6 +2856,10 @@
     (common-lisp:or batch-list-object-parent-paths common-lisp:null))
    (get-object-information common-lisp:nil :type
     (common-lisp:or batch-get-object-information common-lisp:null))
+   (get-object-attributes common-lisp:nil :type
+    (common-lisp:or batch-get-object-attributes common-lisp:null))
+   (list-object-parents common-lisp:nil :type
+    (common-lisp:or batch-list-object-parents common-lisp:null))
    (list-object-policies common-lisp:nil :type
     (common-lisp:or batch-list-object-policies common-lisp:null))
    (list-policy-attachments common-lisp:nil :type
@@ -2625,7 +2871,9 @@
    (list-outgoing-typed-links common-lisp:nil :type
     (common-lisp:or batch-list-outgoing-typed-links common-lisp:null))
    (list-incoming-typed-links common-lisp:nil :type
-    (common-lisp:or batch-list-incoming-typed-links common-lisp:null)))
+    (common-lisp:or batch-list-incoming-typed-links common-lisp:null))
+   (get-link-attributes common-lisp:nil :type
+    (common-lisp:or batch-get-link-attributes common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-read-operation 'make-batch-read-operation))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2677,6 +2925,21 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'get-object-attributes))
+      (common-lisp:list
+       (common-lisp:cons "GetObjectAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'list-object-parents))
+      (common-lisp:list
+       (common-lisp:cons "ListObjectParents"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'list-object-policies))
       (common-lisp:list
        (common-lisp:cons "ListObjectPolicies"
@@ -2718,6 +2981,13 @@
                            'list-incoming-typed-links))
       (common-lisp:list
        (common-lisp:cons "ListIncomingTypedLinks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'get-link-attributes))
+      (common-lisp:list
+       (common-lisp:cons "GetLinkAttributes"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2851,6 +3121,8 @@
     (common-lisp:or batch-list-object-children-response common-lisp:null))
    (get-object-information common-lisp:nil :type
     (common-lisp:or batch-get-object-information-response common-lisp:null))
+   (get-object-attributes common-lisp:nil :type
+    (common-lisp:or batch-get-object-attributes-response common-lisp:null))
    (list-attached-indices common-lisp:nil :type
     (common-lisp:or batch-list-attached-indices-response common-lisp:null))
    (list-object-parent-paths common-lisp:nil :type
@@ -2866,8 +3138,11 @@
    (list-outgoing-typed-links common-lisp:nil :type
     (common-lisp:or batch-list-outgoing-typed-links-response common-lisp:null))
    (list-incoming-typed-links common-lisp:nil :type
-    (common-lisp:or batch-list-incoming-typed-links-response
-                    common-lisp:null)))
+    (common-lisp:or batch-list-incoming-typed-links-response common-lisp:null))
+   (get-link-attributes common-lisp:nil :type
+    (common-lisp:or batch-get-link-attributes-response common-lisp:null))
+   (list-object-parents common-lisp:nil :type
+    (common-lisp:or batch-list-object-parents-response common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-read-successful-response
                     'make-batch-read-successful-response))
@@ -2903,6 +3178,14 @@
                            'get-object-information))
       (common-lisp:list
        (common-lisp:cons "GetObjectInformation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'get-object-attributes))
+      (common-lisp:list
+       (common-lisp:cons "GetObjectAttributes"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2965,6 +3248,20 @@
                            'list-incoming-typed-links))
       (common-lisp:list
        (common-lisp:cons "ListIncomingTypedLinks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'get-link-attributes))
+      (common-lisp:list
+       (common-lisp:cons "GetLinkAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'list-object-parents))
+      (common-lisp:list
+       (common-lisp:cons "ListObjectParents"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3034,6 +3331,70 @@
                         (
                          (aws-sdk/generator/shape::input
                           batch-remove-facet-from-object-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-update-link-attributes (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-update-link-attributes-"))
+   (typed-link-specifier
+    (common-lisp:error ":typed-link-specifier is required") :type
+    (common-lisp:or typed-link-specifier common-lisp:null))
+   (attribute-updates (common-lisp:error ":attribute-updates is required")
+    :type (common-lisp:or link-attribute-update-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-update-link-attributes
+                    'make-batch-update-link-attributes))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'typed-link-specifier))
+      (common-lisp:list
+       (common-lisp:cons "TypedLinkSpecifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-updates))
+      (common-lisp:list
+       (common-lisp:cons "AttributeUpdates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-update-link-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-update-link-attributes-response-")))
+ (common-lisp:export
+  (common-lisp:list 'batch-update-link-attributes-response
+                    'make-batch-update-link-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-update-link-attributes-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3151,7 +3512,9 @@
    (attach-typed-link common-lisp:nil :type
     (common-lisp:or batch-attach-typed-link common-lisp:null))
    (detach-typed-link common-lisp:nil :type
-    (common-lisp:or batch-detach-typed-link common-lisp:null)))
+    (common-lisp:or batch-detach-typed-link common-lisp:null))
+   (update-link-attributes common-lisp:nil :type
+    (common-lisp:or batch-update-link-attributes common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-write-operation 'make-batch-write-operation))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3263,6 +3626,14 @@
       (common-lisp:list
        (common-lisp:cons "DetachTypedLink"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'update-link-attributes))
+      (common-lisp:list
+       (common-lisp:cons "UpdateLinkAttributes"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -3308,7 +3679,9 @@
    (attach-typed-link common-lisp:nil :type
     (common-lisp:or batch-attach-typed-link-response common-lisp:null))
    (detach-typed-link common-lisp:nil :type
-    (common-lisp:or batch-detach-typed-link-response common-lisp:null)))
+    (common-lisp:or batch-detach-typed-link-response common-lisp:null))
+   (update-link-attributes common-lisp:nil :type
+    (common-lisp:or batch-update-link-attributes-response common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'batch-write-operation-response
                     'make-batch-write-operation-response))
@@ -3420,6 +3793,14 @@
                            aws-sdk/generator/shape::input 'detach-typed-link))
       (common-lisp:list
        (common-lisp:cons "DetachTypedLink"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'update-link-attributes))
+      (common-lisp:list
+       (common-lisp:cons "UpdateLinkAttributes"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3609,8 +3990,10 @@
     (common-lisp:or facet-name common-lisp:null))
    (attributes common-lisp:nil :type
     (common-lisp:or facet-attribute-list common-lisp:null))
-   (object-type (common-lisp:error ":object-type is required") :type
-    (common-lisp:or object-type common-lisp:null)))
+   (object-type common-lisp:nil :type
+    (common-lisp:or object-type common-lisp:null))
+   (facet-style common-lisp:nil :type
+    (common-lisp:or facet-style common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-facet-request 'make-create-facet-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3643,6 +4026,13 @@
                            aws-sdk/generator/shape::input 'object-type))
       (common-lisp:list
        (common-lisp:cons "ObjectType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'facet-style))
+      (common-lisp:list
+       (common-lisp:cons "FacetStyle"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4741,7 +5131,9 @@
      (facet (:copier common-lisp:nil) (:conc-name "struct-shape-facet-"))
    (name common-lisp:nil :type (common-lisp:or facet-name common-lisp:null))
    (object-type common-lisp:nil :type
-    (common-lisp:or object-type common-lisp:null)))
+    (common-lisp:or object-type common-lisp:null))
+   (facet-style common-lisp:nil :type
+    (common-lisp:or facet-style common-lisp:null)))
  (common-lisp:export (common-lisp:list 'facet 'make-facet))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input facet))
@@ -4761,6 +5153,13 @@
                            aws-sdk/generator/shape::input 'object-type))
       (common-lisp:list
        (common-lisp:cons "ObjectType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'facet-style))
+      (common-lisp:list
+       (common-lisp:cons "FacetStyle"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5003,6 +5402,7 @@
  (common-lisp:export
   (common-lisp:list 'facet-not-found-exception
                     'facet-not-found-exception-message)))
+(common-lisp:deftype facet-style () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition facet-validation-exception
      (clouddirectory-error)
@@ -5011,6 +5411,68 @@
  (common-lisp:export
   (common-lisp:list 'facet-validation-exception
                     'facet-validation-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-applied-schema-version-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-applied-schema-version-request-"))
+   (schema-arn (common-lisp:error ":schema-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-applied-schema-version-request
+                    'make-get-applied-schema-version-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "SchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-applied-schema-version-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-applied-schema-version-response-"))
+   (applied-schema-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-applied-schema-version-response
+                    'make-get-applied-schema-version-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'applied-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "AppliedSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-applied-schema-version-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-directory-request (:copier common-lisp:nil)
@@ -5122,6 +5584,188 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input get-facet-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-link-attributes-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-link-attributes-request-"))
+   (directory-arn (common-lisp:error ":directory-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (typed-link-specifier
+    (common-lisp:error ":typed-link-specifier is required") :type
+    (common-lisp:or typed-link-specifier common-lisp:null))
+   (attribute-names (common-lisp:error ":attribute-names is required") :type
+    (common-lisp:or attribute-name-list common-lisp:null))
+   (consistency-level common-lisp:nil :type
+    (common-lisp:or consistency-level common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-link-attributes-request
+                    'make-get-link-attributes-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'directory-arn))
+      (common-lisp:cons "x-amz-data-partition"
+                        aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'typed-link-specifier))
+      (common-lisp:list
+       (common-lisp:cons "TypedLinkSpecifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-names))
+      (common-lisp:list
+       (common-lisp:cons "AttributeNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consistency-level))
+      (common-lisp:list
+       (common-lisp:cons "ConsistencyLevel"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-link-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-link-attributes-response-"))
+   (attributes common-lisp:nil :type
+    (common-lisp:or attribute-key-and-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-link-attributes-response
+                    'make-get-link-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attributes))
+      (common-lisp:list
+       (common-lisp:cons "Attributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-link-attributes-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-object-attributes-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-object-attributes-request-"))
+   (directory-arn (common-lisp:error ":directory-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (object-reference (common-lisp:error ":object-reference is required") :type
+    (common-lisp:or object-reference common-lisp:null))
+   (consistency-level common-lisp:nil :type
+    (common-lisp:or consistency-level common-lisp:null))
+   (schema-facet (common-lisp:error ":schema-facet is required") :type
+    (common-lisp:or schema-facet common-lisp:null))
+   (attribute-names (common-lisp:error ":attribute-names is required") :type
+    (common-lisp:or attribute-name-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-object-attributes-request
+                    'make-get-object-attributes-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'directory-arn))
+      (common-lisp:cons "x-amz-data-partition" aws-sdk/generator/shape::value))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consistency-level))
+      (common-lisp:cons "x-amz-consistency-level"
+                        aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'object-reference))
+      (common-lisp:list
+       (common-lisp:cons "ObjectReference"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-facet))
+      (common-lisp:list
+       (common-lisp:cons "SchemaFacet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-names))
+      (common-lisp:list
+       (common-lisp:cons "AttributeNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-object-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-object-attributes-response-"))
+   (attributes common-lisp:nil :type
+    (common-lisp:or attribute-key-and-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-object-attributes-response
+                    'make-get-object-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attributes))
+      (common-lisp:list
+       (common-lisp:cons "Attributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-object-attributes-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -5346,6 +5990,14 @@
                           get-typed-link-facet-information-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:define-condition incompatible-schema-exception
+     (clouddirectory-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       incompatible-schema-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'incompatible-schema-exception
+                    'incompatible-schema-exception-message)))
+(common-lisp:progn
  (common-lisp:defstruct
      (index-attachment (:copier common-lisp:nil)
       (:conc-name "struct-shape-index-attachment-"))
@@ -5464,6 +6116,94 @@
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (link-attribute-action (:copier common-lisp:nil)
+      (:conc-name "struct-shape-link-attribute-action-"))
+   (attribute-action-type common-lisp:nil :type
+    (common-lisp:or update-action-type common-lisp:null))
+   (attribute-update-value common-lisp:nil :type
+    (common-lisp:or typed-attribute-value common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'link-attribute-action 'make-link-attribute-action))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-action))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-action))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'attribute-action-type))
+      (common-lisp:list
+       (common-lisp:cons "AttributeActionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'attribute-update-value))
+      (common-lisp:list
+       (common-lisp:cons "AttributeUpdateValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-action))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (link-attribute-update (:copier common-lisp:nil)
+      (:conc-name "struct-shape-link-attribute-update-"))
+   (attribute-key common-lisp:nil :type
+    (common-lisp:or attribute-key common-lisp:null))
+   (attribute-action common-lisp:nil :type
+    (common-lisp:or link-attribute-action common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'link-attribute-update 'make-link-attribute-update))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-update))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-update))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-key))
+      (common-lisp:list
+       (common-lisp:cons "AttributeKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-action))
+      (common-lisp:list
+       (common-lisp:cons "AttributeAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          link-attribute-update))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype link-attribute-update-list ()
+   '(trivial-types:proper-list link-attribute-update))
+ (common-lisp:defun |make-link-attribute-update-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list link-attribute-update))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype link-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition link-name-already-in-use-exception
@@ -5488,6 +6228,7 @@
       (:conc-name "struct-shape-list-applied-schema-arns-request-"))
    (directory-arn (common-lisp:error ":directory-arn is required") :type
     (common-lisp:or arn common-lisp:null))
+   (schema-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
    (next-token common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null))
    (max-results common-lisp:nil :type
@@ -5510,6 +6251,13 @@
                            aws-sdk/generator/shape::input 'directory-arn))
       (common-lisp:list
        (common-lisp:cons "DirectoryArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "SchemaArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -6245,6 +6993,93 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-managed-schema-arns-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-managed-schema-arns-request-"))
+   (schema-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or number-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-managed-schema-arns-request
+                    'make-list-managed-schema-arns-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "SchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-managed-schema-arns-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-managed-schema-arns-response-"))
+   (schema-arns common-lisp:nil :type (common-lisp:or arns common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-managed-schema-arns-response
+                    'make-list-managed-schema-arns-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-arns))
+      (common-lisp:list
+       (common-lisp:cons "SchemaArns"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-managed-schema-arns-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-object-attributes-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-object-attributes-request-"))
    (directory-arn (common-lisp:error ":directory-arn is required") :type
@@ -6566,7 +7401,9 @@
    (max-results common-lisp:nil :type
     (common-lisp:or number-results common-lisp:null))
    (consistency-level common-lisp:nil :type
-    (common-lisp:or consistency-level common-lisp:null)))
+    (common-lisp:or consistency-level common-lisp:null))
+   (include-all-links-to-each-parent common-lisp:nil :type
+    (common-lisp:or bool common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-object-parents-request
                     'make-list-object-parents-request))
@@ -6609,6 +7446,14 @@
       (common-lisp:list
        (common-lisp:cons "MaxResults"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'include-all-links-to-each-parent))
+      (common-lisp:list
+       (common-lisp:cons "IncludeAllLinksToEachParent"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -6622,7 +7467,9 @@
    (parents common-lisp:nil :type
     (common-lisp:or object-identifier-to-link-name-map common-lisp:null))
    (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+    (common-lisp:or next-token common-lisp:null))
+   (parent-links common-lisp:nil :type
+    (common-lisp:or object-identifier-and-link-name-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-object-parents-response
                     'make-list-object-parents-response))
@@ -6648,6 +7495,13 @@
                            aws-sdk/generator/shape::input 'next-token))
       (common-lisp:list
        (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'parent-links))
+      (common-lisp:list
+       (common-lisp:cons "ParentLinks"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6988,6 +7842,7 @@
  (common-lisp:defstruct
      (list-published-schema-arns-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-published-schema-arns-request-"))
+   (schema-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
    (next-token common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null))
    (max-results common-lisp:nil :type
@@ -7005,6 +7860,13 @@
                          (aws-sdk/generator/shape::input
                           list-published-schema-arns-request))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "SchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'next-token))
@@ -7599,6 +8461,55 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype object-identifier () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype object-identifier-and-link-name-list ()
+   '(trivial-types:proper-list object-identifier-and-link-name-tuple))
+ (common-lisp:defun |make-object-identifier-and-link-name-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            object-identifier-and-link-name-tuple))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (object-identifier-and-link-name-tuple (:copier common-lisp:nil)
+      (:conc-name "struct-shape-object-identifier-and-link-name-tuple-"))
+   (object-identifier common-lisp:nil :type
+    (common-lisp:or object-identifier common-lisp:null))
+   (link-name common-lisp:nil :type
+    (common-lisp:or link-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-identifier-and-link-name-tuple
+                    'make-object-identifier-and-link-name-tuple))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          object-identifier-and-link-name-tuple))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          object-identifier-and-link-name-tuple))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'object-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ObjectIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'link-name))
+      (common-lisp:list
+       (common-lisp:cons "LinkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          object-identifier-and-link-name-tuple))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:deftype object-identifier-list ()
    '(trivial-types:proper-list object-identifier))
  (common-lisp:defun |make-object-identifier-list|
@@ -7796,6 +8707,8 @@
     (common-lisp:or arn common-lisp:null))
    (version (common-lisp:error ":version is required") :type
     (common-lisp:or version common-lisp:null))
+   (minor-version common-lisp:nil :type
+    (common-lisp:or version common-lisp:null))
    (name common-lisp:nil :type (common-lisp:or schema-name common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'publish-schema-request 'make-publish-schema-request))
@@ -7820,6 +8733,13 @@
                            aws-sdk/generator/shape::input 'version))
       (common-lisp:list
        (common-lisp:cons "Version"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'minor-version))
+      (common-lisp:list
+       (common-lisp:cons "MinorVersion"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -8840,6 +9760,77 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-link-attributes-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-link-attributes-request-"))
+   (directory-arn (common-lisp:error ":directory-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (typed-link-specifier
+    (common-lisp:error ":typed-link-specifier is required") :type
+    (common-lisp:or typed-link-specifier common-lisp:null))
+   (attribute-updates (common-lisp:error ":attribute-updates is required")
+    :type (common-lisp:or link-attribute-update-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-link-attributes-request
+                    'make-update-link-attributes-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'directory-arn))
+      (common-lisp:cons "x-amz-data-partition"
+                        aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'typed-link-specifier))
+      (common-lisp:list
+       (common-lisp:cons "TypedLinkSpecifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-updates))
+      (common-lisp:list
+       (common-lisp:cons "AttributeUpdates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-link-attributes-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-link-attributes-response-")))
+ (common-lisp:export
+  (common-lisp:list 'update-link-attributes-response
+                    'make-update-link-attributes-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-link-attributes-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-object-attributes-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-object-attributes-request-"))
    (directory-arn (common-lisp:error ":directory-arn is required") :type
@@ -9064,6 +10055,187 @@
                           update-typed-link-facet-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (upgrade-applied-schema-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-upgrade-applied-schema-request-"))
+   (published-schema-arn
+    (common-lisp:error ":published-schema-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (directory-arn (common-lisp:error ":directory-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (dry-run common-lisp:nil :type (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'upgrade-applied-schema-request
+                    'make-upgrade-applied-schema-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'published-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "PublishedSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'directory-arn))
+      (common-lisp:list
+       (common-lisp:cons "DirectoryArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'dry-run))
+      (common-lisp:list
+       (common-lisp:cons "DryRun"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (upgrade-applied-schema-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-upgrade-applied-schema-response-"))
+   (upgraded-schema-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (directory-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'upgrade-applied-schema-response
+                    'make-upgrade-applied-schema-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'upgraded-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "UpgradedSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'directory-arn))
+      (common-lisp:list
+       (common-lisp:cons "DirectoryArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-applied-schema-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (upgrade-published-schema-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-upgrade-published-schema-request-"))
+   (development-schema-arn
+    (common-lisp:error ":development-schema-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (published-schema-arn
+    (common-lisp:error ":published-schema-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (minor-version (common-lisp:error ":minor-version is required") :type
+    (common-lisp:or version common-lisp:null))
+   (dry-run common-lisp:nil :type (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'upgrade-published-schema-request
+                    'make-upgrade-published-schema-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'development-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "DevelopmentSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'published-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "PublishedSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'minor-version))
+      (common-lisp:list
+       (common-lisp:cons "MinorVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'dry-run))
+      (common-lisp:list
+       (common-lisp:cons "DryRun"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (upgrade-published-schema-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-upgrade-published-schema-response-"))
+   (upgraded-schema-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'upgrade-published-schema-response
+                    'make-upgrade-published-schema-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'upgraded-schema-arn))
+      (common-lisp:list
+       (common-lisp:cons "UpgradedSchemaArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          upgrade-published-schema-response))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition validation-exception
      (clouddirectory-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -9090,7 +10262,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/facets"
                                                         "AddFacetToObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-facet-to-object))
 (common-lisp:progn
@@ -9110,7 +10282,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema/apply"
                                                         "ApplySchema"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'apply-schema))
 (common-lisp:progn
@@ -9132,7 +10304,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/attach"
                                                         "AttachObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'attach-object))
 (common-lisp:progn
@@ -9153,7 +10325,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/policy/attach"
                                                         "AttachPolicy"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'attach-policy))
 (common-lisp:progn
@@ -9174,7 +10346,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/index/attach"
                                                         "AttachToIndex"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'attach-to-index))
 (common-lisp:progn
@@ -9196,7 +10368,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/attach"
                                                         "AttachTypedLink"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'attach-typed-link))
 (common-lisp:progn
@@ -9217,7 +10389,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/batchread"
                                                         "BatchRead"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-read))
 (common-lisp:progn
@@ -9236,7 +10408,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/batchwrite"
                                                         "BatchWrite"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-write))
 (common-lisp:progn
@@ -9255,16 +10427,17 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/directory/create"
                                                         "CreateDirectory"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-directory))
 (common-lisp:progn
  (common-lisp:defun create-facet
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key schema-arn name attributes object-type)
+                     common-lisp:&key schema-arn name attributes object-type
+                     facet-style)
    (common-lisp:declare
-    (common-lisp:ignorable schema-arn name attributes object-type))
+    (common-lisp:ignorable schema-arn name attributes object-type facet-style))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-facet-request
                                          aws-sdk/generator/operation::args)))
@@ -9275,7 +10448,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/facet/create"
                                                         "CreateFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-facet))
 (common-lisp:progn
@@ -9298,7 +10471,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/index"
                                                         "CreateIndex"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-index))
 (common-lisp:progn
@@ -9320,7 +10493,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object"
                                                         "CreateObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-object))
 (common-lisp:progn
@@ -9339,7 +10512,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema/create"
                                                         "CreateSchema"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-schema))
 (common-lisp:progn
@@ -9358,7 +10531,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/create"
                                                         "CreateTypedLinkFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-typed-link-facet))
 (common-lisp:progn
@@ -9377,7 +10550,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/directory"
                                                         "DeleteDirectory"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-directory))
 (common-lisp:progn
@@ -9396,7 +10569,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/facet/delete"
                                                         "DeleteFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-facet))
 (common-lisp:progn
@@ -9415,7 +10588,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/delete"
                                                         "DeleteObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-object))
 (common-lisp:progn
@@ -9434,7 +10607,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema"
                                                         "DeleteSchema"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-schema))
 (common-lisp:progn
@@ -9453,7 +10626,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/delete"
                                                         "DeleteTypedLinkFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-typed-link-facet))
 (common-lisp:progn
@@ -9474,7 +10647,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/index/detach"
                                                         "DetachFromIndex"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detach-from-index))
 (common-lisp:progn
@@ -9494,7 +10667,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/detach"
                                                         "DetachObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detach-object))
 (common-lisp:progn
@@ -9515,7 +10688,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/policy/detach"
                                                         "DetachPolicy"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detach-policy))
 (common-lisp:progn
@@ -9535,7 +10708,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/detach"
                                                         "DetachTypedLink"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detach-typed-link))
 (common-lisp:progn
@@ -9554,7 +10727,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/directory/disable"
                                                         "DisableDirectory"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disable-directory))
 (common-lisp:progn
@@ -9573,9 +10746,29 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/directory/enable"
                                                         "EnableDirectory"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable-directory))
+(common-lisp:progn
+ (common-lisp:defun get-applied-schema-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key schema-arn)
+   (common-lisp:declare (common-lisp:ignorable schema-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-applied-schema-version-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/amazonclouddirectory/2017-01-11/schema/getappliedschema"
+                                                        "GetAppliedSchemaVersion"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-applied-schema-version))
 (common-lisp:progn
  (common-lisp:defun get-directory
                     (
@@ -9592,7 +10785,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/directory/get"
                                                         "GetDirectory"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-directory))
 (common-lisp:progn
@@ -9611,9 +10804,53 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/facet"
                                                         "GetFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-facet))
+(common-lisp:progn
+ (common-lisp:defun get-link-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key directory-arn typed-link-specifier
+                     attribute-names consistency-level)
+   (common-lisp:declare
+    (common-lisp:ignorable directory-arn typed-link-specifier attribute-names
+     consistency-level))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-link-attributes-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/amazonclouddirectory/2017-01-11/typedlink/attributes/get"
+                                                        "GetLinkAttributes"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-link-attributes))
+(common-lisp:progn
+ (common-lisp:defun get-object-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key directory-arn object-reference
+                     consistency-level schema-facet attribute-names)
+   (common-lisp:declare
+    (common-lisp:ignorable directory-arn object-reference consistency-level
+     schema-facet attribute-names))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-object-attributes-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/amazonclouddirectory/2017-01-11/object/attributes/get"
+                                                        "GetObjectAttributes"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-object-attributes))
 (common-lisp:progn
  (common-lisp:defun get-object-information
                     (
@@ -9632,7 +10869,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/information"
                                                         "GetObjectInformation"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-object-information))
 (common-lisp:progn
@@ -9651,7 +10888,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/schema/json"
                                                         "GetSchemaAsJson"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-schema-as-json))
 (common-lisp:progn
@@ -9671,16 +10908,17 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/get"
                                                         "GetTypedLinkFacetInformation"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-typed-link-facet-information))
 (common-lisp:progn
  (common-lisp:defun list-applied-schema-arns
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key directory-arn next-token max-results)
+                     common-lisp:&key directory-arn schema-arn next-token
+                     max-results)
    (common-lisp:declare
-    (common-lisp:ignorable directory-arn next-token max-results))
+    (common-lisp:ignorable directory-arn schema-arn next-token max-results))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-applied-schema-arns-request
                                          aws-sdk/generator/operation::args)))
@@ -9691,7 +10929,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/schema/applied"
                                                         "ListAppliedSchemaArns"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-applied-schema-arns))
 (common-lisp:progn
@@ -9713,7 +10951,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/indices"
                                                         "ListAttachedIndices"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-attached-indices))
 (common-lisp:progn
@@ -9733,7 +10971,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/schema/development"
                                                         "ListDevelopmentSchemaArns"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-development-schema-arns))
 (common-lisp:progn
@@ -9752,7 +10990,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/directory/list"
                                                         "ListDirectories"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-directories))
 (common-lisp:progn
@@ -9772,7 +11010,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/facet/attributes"
                                                         "ListFacetAttributes"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-facet-attributes))
 (common-lisp:progn
@@ -9792,7 +11030,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/facet/list"
                                                         "ListFacetNames"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-facet-names))
 (common-lisp:progn
@@ -9817,7 +11055,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/incoming"
                                                         "ListIncomingTypedLinks"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-incoming-typed-links))
 (common-lisp:progn
@@ -9839,9 +11077,29 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/index/targets"
                                                         "ListIndex"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-index))
+(common-lisp:progn
+ (common-lisp:defun list-managed-schema-arns
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key schema-arn next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable schema-arn next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-managed-schema-arns-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/amazonclouddirectory/2017-01-11/schema/managed"
+                                                        "ListManagedSchemaArns"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-managed-schema-arns))
 (common-lisp:progn
  (common-lisp:defun list-object-attributes
                     (
@@ -9861,7 +11119,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/attributes"
                                                         "ListObjectAttributes"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-object-attributes))
 (common-lisp:progn
@@ -9883,7 +11141,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/children"
                                                         "ListObjectChildren"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-object-children))
 (common-lisp:progn
@@ -9905,7 +11163,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/parentpaths"
                                                         "ListObjectParentPaths"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-object-parent-paths))
 (common-lisp:progn
@@ -9913,10 +11171,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key directory-arn object-reference next-token
-                     max-results consistency-level)
+                     max-results consistency-level
+                     include-all-links-to-each-parent)
    (common-lisp:declare
     (common-lisp:ignorable directory-arn object-reference next-token
-     max-results consistency-level))
+     max-results consistency-level include-all-links-to-each-parent))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-object-parents-request
                                          aws-sdk/generator/operation::args)))
@@ -9927,7 +11186,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/parent"
                                                         "ListObjectParents"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-object-parents))
 (common-lisp:progn
@@ -9949,7 +11208,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/object/policy"
                                                         "ListObjectPolicies"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-object-policies))
 (common-lisp:progn
@@ -9974,7 +11233,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/outgoing"
                                                         "ListOutgoingTypedLinks"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-outgoing-typed-links))
 (common-lisp:progn
@@ -9996,15 +11255,16 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/policy/attachment"
                                                         "ListPolicyAttachments"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-policy-attachments))
 (common-lisp:progn
  (common-lisp:defun list-published-schema-arns
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key next-token max-results)
-   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+                     common-lisp:&key schema-arn next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable schema-arn next-token max-results))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-list-published-schema-arns-request
@@ -10016,7 +11276,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/schema/published"
                                                         "ListPublishedSchemaArns"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-published-schema-arns))
 (common-lisp:progn
@@ -10036,7 +11296,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/tags"
                                                         "ListTagsForResource"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -10057,7 +11317,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/attributes"
                                                         "ListTypedLinkFacetAttributes"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-typed-link-facet-attributes))
 (common-lisp:progn
@@ -10078,7 +11338,7 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/list"
                                                         "ListTypedLinkFacetNames"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-typed-link-facet-names))
 (common-lisp:progn
@@ -10100,16 +11360,17 @@
                                                         "POST"
                                                         "/amazonclouddirectory/2017-01-11/policy/lookup"
                                                         "LookupPolicy"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'lookup-policy))
 (common-lisp:progn
  (common-lisp:defun publish-schema
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key development-schema-arn version name)
+                     common-lisp:&key development-schema-arn version
+                     minor-version name)
    (common-lisp:declare
-    (common-lisp:ignorable development-schema-arn version name))
+    (common-lisp:ignorable development-schema-arn version minor-version name))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-publish-schema-request
                                          aws-sdk/generator/operation::args)))
@@ -10120,7 +11381,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema/publish"
                                                         "PublishSchema"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'publish-schema))
 (common-lisp:progn
@@ -10139,7 +11400,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema/json"
                                                         "PutSchemaFromJson"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-schema-from-json))
 (common-lisp:progn
@@ -10160,7 +11421,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/facets/delete"
                                                         "RemoveFacetFromObject"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'remove-facet-from-object))
 (common-lisp:progn
@@ -10179,7 +11440,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/tags/add"
                                                         "TagResource"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -10198,7 +11459,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/tags/remove"
                                                         "UntagResource"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -10219,9 +11480,31 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/facet"
                                                         "UpdateFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-facet))
+(common-lisp:progn
+ (common-lisp:defun update-link-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key directory-arn typed-link-specifier
+                     attribute-updates)
+   (common-lisp:declare
+    (common-lisp:ignorable directory-arn typed-link-specifier
+     attribute-updates))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-link-attributes-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/amazonclouddirectory/2017-01-11/typedlink/attributes/update"
+                                                        "UpdateLinkAttributes"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-link-attributes))
 (common-lisp:progn
  (common-lisp:defun update-object-attributes
                     (
@@ -10240,7 +11523,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/object/update"
                                                         "UpdateObjectAttributes"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-object-attributes))
 (common-lisp:progn
@@ -10259,7 +11542,7 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/schema/update"
                                                         "UpdateSchema"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-schema))
 (common-lisp:progn
@@ -10281,6 +11564,49 @@
                                                         "PUT"
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet"
                                                         "UpdateTypedLinkFacet"
-                                                        "2016-05-10"))
+                                                        "2017-01-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-typed-link-facet))
+(common-lisp:progn
+ (common-lisp:defun upgrade-applied-schema
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key published-schema-arn directory-arn
+                     dry-run)
+   (common-lisp:declare
+    (common-lisp:ignorable published-schema-arn directory-arn dry-run))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-upgrade-applied-schema-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        "/amazonclouddirectory/2017-01-11/schema/upgradeapplied"
+                                                        "UpgradeAppliedSchema"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'upgrade-applied-schema))
+(common-lisp:progn
+ (common-lisp:defun upgrade-published-schema
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key development-schema-arn
+                     published-schema-arn minor-version dry-run)
+   (common-lisp:declare
+    (common-lisp:ignorable development-schema-arn published-schema-arn
+     minor-version dry-run))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-upgrade-published-schema-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        "/amazonclouddirectory/2017-01-11/schema/upgradepublished"
+                                                        "UpgradePublishedSchema"
+                                                        "2017-01-11"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'upgrade-published-schema))

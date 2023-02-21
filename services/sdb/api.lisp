@@ -224,52 +224,12 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
-     (deletable-attribute (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deletable-attribute-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or string common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'deletable-attribute 'make-deletable-attribute))
- (common-lisp:defmethod aws-sdk/generator/shape::input-headers
-                        ((aws-sdk/generator/shape::input deletable-attribute))
-   (common-lisp:append))
- (common-lisp:defmethod aws-sdk/generator/shape::input-params
-                        ((aws-sdk/generator/shape::input deletable-attribute))
-   (common-lisp:append
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'name))
-      (common-lisp:list
-       (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'value))
-      (common-lisp:list
-       (common-lisp:cons "Value"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))))
- (common-lisp:defmethod aws-sdk/generator/shape::input-payload
-                        ((aws-sdk/generator/shape::input deletable-attribute))
-   common-lisp:nil))
-(common-lisp:progn
- (common-lisp:deftype deletable-attribute-list ()
-   '(trivial-types:proper-list deletable-attribute))
- (common-lisp:defun |make-deletable-attribute-list|
-                    (common-lisp:&rest aws-sdk/generator/shape::members)
-   (common-lisp:check-type aws-sdk/generator/shape::members
-                           (trivial-types:proper-list deletable-attribute))
-   aws-sdk/generator/shape::members))
-(common-lisp:progn
- (common-lisp:defstruct
      (deletable-item (:copier common-lisp:nil)
       (:conc-name "struct-shape-deletable-item-"))
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or string common-lisp:null))
    (attributes common-lisp:nil :type
-    (common-lisp:or deletable-attribute-list common-lisp:null)))
+    (common-lisp:or attribute-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'deletable-item 'make-deletable-item))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input deletable-item))
@@ -311,7 +271,7 @@
    (item-name (common-lisp:error ":item-name is required") :type
     (common-lisp:or string common-lisp:null))
    (attributes common-lisp:nil :type
-    (common-lisp:or deletable-attribute-list common-lisp:null))
+    (common-lisp:or attribute-list common-lisp:null))
    (expected common-lisp:nil :type
     (common-lisp:or update-condition common-lisp:null)))
  (common-lisp:export

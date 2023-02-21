@@ -40,6 +40,8 @@
     ("ParameterGroupAlreadyExistsFault" . parameter-group-already-exists-fault)
     ("ParameterGroupNotFoundFault" . parameter-group-not-found-fault)
     ("ParameterGroupQuotaExceededFault" . parameter-group-quota-exceeded-fault)
+    ("ServiceLinkedRoleNotFoundFault" . service-linked-role-not-found-fault)
+    ("ServiceQuotaExceededException" . service-quota-exceeded-exception)
     ("SubnetGroupAlreadyExistsFault" . subnet-group-already-exists-fault)
     ("SubnetGroupInUseFault" . subnet-group-in-use-fault)
     ("SubnetGroupNotFoundFault" . subnet-group-not-found-fault)
@@ -87,7 +89,11 @@
    (iam-role-arn common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (parameter-group common-lisp:nil :type
-    (common-lisp:or parameter-group-status common-lisp:null)))
+    (common-lisp:or parameter-group-status common-lisp:null))
+   (ssedescription common-lisp:nil :type
+    (common-lisp:or ssedescription common-lisp:null))
+   (cluster-endpoint-encryption-type common-lisp:nil :type
+    (common-lisp:or cluster-endpoint-encryption-type common-lisp:null)))
  (common-lisp:export (common-lisp:list 'cluster 'make-cluster))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cluster))
@@ -209,6 +215,21 @@
       (common-lisp:list
        (common-lisp:cons "ParameterGroup"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ssedescription))
+      (common-lisp:list
+       (common-lisp:cons "SSEDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cluster-endpoint-encryption-type))
+      (common-lisp:list
+       (common-lisp:cons "ClusterEndpointEncryptionType"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input cluster))
@@ -218,6 +239,7 @@
      (dax-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'cluster-already-exists-fault)))
+(common-lisp:deftype cluster-endpoint-encryption-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype cluster-list () '(trivial-types:proper-list cluster))
  (common-lisp:defun |make-cluster-list|
@@ -268,7 +290,11 @@
     (common-lisp:or string common-lisp:null))
    (parameter-group-name common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (ssespecification common-lisp:nil :type
+    (common-lisp:or ssespecification common-lisp:null))
+   (cluster-endpoint-encryption-type common-lisp:nil :type
+    (common-lisp:or cluster-endpoint-encryption-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-cluster-request 'make-create-cluster-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -366,6 +392,21 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ssespecification))
+      (common-lisp:list
+       (common-lisp:cons "SSESpecification"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cluster-endpoint-encryption-type))
+      (common-lisp:list
+       (common-lisp:cons "ClusterEndpointEncryptionType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1387,7 +1428,8 @@
  (common-lisp:defstruct
      (endpoint (:copier common-lisp:nil) (:conc-name "struct-shape-endpoint-"))
    (address common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (port common-lisp:nil :type (common-lisp:or integer common-lisp:null)))
+   (port common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (url common-lisp:nil :type (common-lisp:or string common-lisp:null)))
  (common-lisp:export (common-lisp:list 'endpoint 'make-endpoint))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input endpoint))
@@ -1407,6 +1449,13 @@
                            aws-sdk/generator/shape::input 'port))
       (common-lisp:list
        (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'url))
+      (common-lisp:list
+       (common-lisp:cons "URL"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2168,6 +2217,54 @@
                         ((aws-sdk/generator/shape::input reboot-node-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (ssedescription (:copier common-lisp:nil)
+      (:conc-name "struct-shape-ssedescription-"))
+   (status common-lisp:nil :type (common-lisp:or ssestatus common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'ssedescription 'make-ssedescription))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input ssedescription))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input ssedescription))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input ssedescription))
+   common-lisp:nil))
+(common-lisp:deftype sseenabled () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (ssespecification (:copier common-lisp:nil)
+      (:conc-name "struct-shape-ssespecification-"))
+   (enabled (common-lisp:error ":enabled is required") :type
+    (common-lisp:or sseenabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'ssespecification 'make-ssespecification))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input ssespecification))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input ssespecification))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input ssespecification))
+   common-lisp:nil))
+(common-lisp:deftype ssestatus () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:deftype security-group-identifier-list ()
    '(trivial-types:proper-list string))
  (common-lisp:defun |make-security-group-identifier-list|
@@ -2224,6 +2321,16 @@
                            (trivial-types:proper-list
                             security-group-membership))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition service-linked-role-not-found-fault
+     (dax-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'service-linked-role-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition service-quota-exceeded-exception
+     (dax-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'service-quota-exceeded-exception)))
 (common-lisp:deftype source-type () 'common-lisp:string)
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
@@ -2822,12 +2929,13 @@
                      replication-factor availability-zones subnet-group-name
                      security-group-ids preferred-maintenance-window
                      notification-topic-arn iam-role-arn parameter-group-name
-                     tags)
+                     tags ssespecification cluster-endpoint-encryption-type)
    (common-lisp:declare
     (common-lisp:ignorable cluster-name node-type description
      replication-factor availability-zones subnet-group-name security-group-ids
      preferred-maintenance-window notification-topic-arn iam-role-arn
-     parameter-group-name tags))
+     parameter-group-name tags ssespecification
+     cluster-endpoint-encryption-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-cluster-request
                                          aws-sdk/generator/operation::args)))

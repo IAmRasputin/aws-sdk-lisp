@@ -19,7 +19,8 @@
      common-lisp:nil)
  (common-lisp:export 'health-error))
 (common-lisp:defvar *error-map*
-  '(("InvalidPaginationToken" . invalid-pagination-token)
+  '(("ConcurrentModificationException" . concurrent-modification-exception)
+    ("InvalidPaginationToken" . invalid-pagination-token)
     ("UnsupportedLocale" . unsupported-locale)))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -31,6 +32,8 @@
     (common-lisp:or |eventArn| common-lisp:null))
    (entity-value common-lisp:nil :type
     (common-lisp:or |entityValue| common-lisp:null))
+   (entity-url common-lisp:nil :type
+    (common-lisp:or |entityUrl| common-lisp:null))
    (aws-account-id common-lisp:nil :type
     (common-lisp:or |accountId| common-lisp:null))
    (last-updated-time common-lisp:nil :type
@@ -68,6 +71,13 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'entity-url))
+      (common-lisp:list
+       (common-lisp:cons "entityUrl"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'aws-account-id))
       (common-lisp:list
        (common-lisp:cons "awsAccountId"
@@ -97,6 +107,14 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input affected-entity))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition concurrent-modification-exception
+     (health-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       concurrent-modification-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-modification-exception
+                    'concurrent-modification-exception-message)))
 (common-lisp:progn
  (common-lisp:defstruct
      (date-time-range (:copier common-lisp:nil)
@@ -128,6 +146,230 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input date-time-range))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-affected-accounts-for-organization-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-affected-accounts-for-organization-request-"))
+   (event-arn (common-lisp:error ":eventarn is required") :type
+    (common-lisp:or |eventArn| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or |maxResults| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-affected-accounts-for-organization-request
+                    'make-describe-affected-accounts-for-organization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-arn))
+      (common-lisp:list
+       (common-lisp:cons "eventArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-affected-accounts-for-organization-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-affected-accounts-for-organization-response-"))
+   (affected-accounts common-lisp:nil :type
+    (common-lisp:or |affectedAccountsList| common-lisp:null))
+   (event-scope-code common-lisp:nil :type
+    (common-lisp:or |eventScopeCode| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-affected-accounts-for-organization-response
+                    'make-describe-affected-accounts-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'affected-accounts))
+      (common-lisp:list
+       (common-lisp:cons "affectedAccounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-scope-code))
+      (common-lisp:list
+       (common-lisp:cons "eventScopeCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-accounts-for-organization-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype describe-affected-entities-for-organization-failed-set ()
+   '(trivial-types:proper-list organization-affected-entities-error-item))
+ (common-lisp:defun |make-describe-affected-entities-for-organization-failed-set|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            organization-affected-entities-error-item))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-affected-entities-for-organization-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-affected-entities-for-organization-request-"))
+   (organization-entity-filters
+    (common-lisp:error ":organizationentityfilters is required") :type
+    (common-lisp:or organization-entity-filters-list common-lisp:null))
+   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or |maxResultsLowerRange| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-affected-entities-for-organization-request
+                    'make-describe-affected-entities-for-organization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'organization-entity-filters))
+      (common-lisp:list
+       (common-lisp:cons "organizationEntityFilters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'locale))
+      (common-lisp:list
+       (common-lisp:cons "locale"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-affected-entities-for-organization-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-affected-entities-for-organization-response-"))
+   (entities common-lisp:nil :type
+    (common-lisp:or entity-list common-lisp:null))
+   (failed-set common-lisp:nil :type
+    (common-lisp:or describe-affected-entities-for-organization-failed-set
+                    common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-affected-entities-for-organization-response
+                    'make-describe-affected-entities-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'entities))
+      (common-lisp:list
+       (common-lisp:cons "entities"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failed-set))
+      (common-lisp:list
+       (common-lisp:cons "failedSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-affected-entities-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -396,6 +638,110 @@
                             event-details-error-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype describe-event-details-for-organization-failed-set ()
+   '(trivial-types:proper-list organization-event-details-error-item))
+ (common-lisp:defun |make-describe-event-details-for-organization-failed-set|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            organization-event-details-error-item))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-event-details-for-organization-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-event-details-for-organization-request-"))
+   (organization-event-detail-filters
+    (common-lisp:error ":organizationeventdetailfilters is required") :type
+    (common-lisp:or organization-event-detail-filters-list common-lisp:null))
+   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-event-details-for-organization-request
+                    'make-describe-event-details-for-organization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'organization-event-detail-filters))
+      (common-lisp:list
+       (common-lisp:cons "organizationEventDetailFilters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'locale))
+      (common-lisp:list
+       (common-lisp:cons "locale"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-event-details-for-organization-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-event-details-for-organization-response-"))
+   (successful-set common-lisp:nil :type
+    (common-lisp:or describe-event-details-for-organization-successful-set
+                    common-lisp:null))
+   (failed-set common-lisp:nil :type
+    (common-lisp:or describe-event-details-for-organization-failed-set
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-event-details-for-organization-response
+                    'make-describe-event-details-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'successful-set))
+      (common-lisp:list
+       (common-lisp:cons "successfulSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failed-set))
+      (common-lisp:list
+       (common-lisp:cons "failedSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-event-details-for-organization-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype describe-event-details-for-organization-successful-set ()
+   '(trivial-types:proper-list organization-event-details))
+ (common-lisp:defun |make-describe-event-details-for-organization-successful-set|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            organization-event-details))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (describe-event-details-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-event-details-request-"))
@@ -581,6 +927,103 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-events-for-organization-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-events-for-organization-request-"))
+   (filter common-lisp:nil :type
+    (common-lisp:or organization-event-filter common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or |maxResultsLowerRange| common-lisp:null))
+   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-events-for-organization-request
+                    'make-describe-events-for-organization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filter))
+      (common-lisp:list
+       (common-lisp:cons "filter"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'locale))
+      (common-lisp:list
+       (common-lisp:cons "locale"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-events-for-organization-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-events-for-organization-response-"))
+   (events common-lisp:nil :type
+    (common-lisp:or organization-event-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-events-for-organization-response
+                    'make-describe-events-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'events))
+      (common-lisp:list
+       (common-lisp:cons "events"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-events-for-organization-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-events-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-events-request-"))
    (filter common-lisp:nil :type
@@ -672,6 +1115,41 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-events-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-health-service-status-for-organization-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-health-service-status-for-organization-response-"))
+   (health-service-access-status-for-organization common-lisp:nil :type
+    (common-lisp:or |healthServiceAccessStatusForOrganization|
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-health-service-status-for-organization-response
+                    'make-describe-health-service-status-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-health-service-status-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-health-service-status-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'health-service-access-status-for-organization))
+      (common-lisp:list
+       (common-lisp:cons "healthServiceAccessStatusForOrganization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-health-service-status-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -807,7 +1285,9 @@
    (last-updated-time common-lisp:nil :type
     (common-lisp:or common-lisp:string common-lisp:null))
    (status-code common-lisp:nil :type
-    (common-lisp:or |eventStatusCode| common-lisp:null)))
+    (common-lisp:or |eventStatusCode| common-lisp:null))
+   (event-scope-code common-lisp:nil :type
+    (common-lisp:or |eventScopeCode| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'event 'make-event))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event))
@@ -884,9 +1364,49 @@
       (common-lisp:list
        (common-lisp:cons "statusCode"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-scope-code))
+      (common-lisp:list
+       (common-lisp:cons "eventScopeCode"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input event))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (event-account-filter (:copier common-lisp:nil)
+      (:conc-name "struct-shape-event-account-filter-"))
+   (event-arn (common-lisp:error ":eventarn is required") :type
+    (common-lisp:or |eventArn| common-lisp:null))
+   (aws-account-id common-lisp:nil :type
+    (common-lisp:or |accountId| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'event-account-filter 'make-event-account-filter))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input event-account-filter))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input event-account-filter))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-arn))
+      (common-lisp:list
+       (common-lisp:cons "eventArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aws-account-id))
+      (common-lisp:list
+       (common-lisp:cons "awsAccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input event-account-filter))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1301,6 +1821,427 @@
   (common-lisp:list 'invalid-pagination-token
                     'invalid-pagination-token-message)))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (organization-affected-entities-error-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organization-affected-entities-error-item-"))
+   (aws-account-id common-lisp:nil :type
+    (common-lisp:or |accountId| common-lisp:null))
+   (event-arn common-lisp:nil :type
+    (common-lisp:or |eventArn| common-lisp:null))
+   (error-name common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (error-message common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-affected-entities-error-item
+                    'make-organization-affected-entities-error-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-affected-entities-error-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-affected-entities-error-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aws-account-id))
+      (common-lisp:list
+       (common-lisp:cons "awsAccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-arn))
+      (common-lisp:list
+       (common-lisp:cons "eventArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-name))
+      (common-lisp:list
+       (common-lisp:cons "errorName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-message))
+      (common-lisp:list
+       (common-lisp:cons "errorMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-affected-entities-error-item))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype organization-entity-filters-list ()
+   '(trivial-types:proper-list event-account-filter))
+ (common-lisp:defun |make-organization-entity-filters-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list event-account-filter))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-event (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organization-event-"))
+   (arn common-lisp:nil :type (common-lisp:or |eventArn| common-lisp:null))
+   (service common-lisp:nil :type (common-lisp:or |service| common-lisp:null))
+   (event-type-code common-lisp:nil :type
+    (common-lisp:or |eventTypeCode| common-lisp:null))
+   (event-type-category common-lisp:nil :type
+    (common-lisp:or |eventTypeCategory| common-lisp:null))
+   (event-scope-code common-lisp:nil :type
+    (common-lisp:or |eventScopeCode| common-lisp:null))
+   (region common-lisp:nil :type (common-lisp:or |region| common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (end-time common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (last-updated-time common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (status-code common-lisp:nil :type
+    (common-lisp:or |eventStatusCode| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-event 'make-organization-event))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input organization-event))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input organization-event))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service))
+      (common-lisp:list
+       (common-lisp:cons "service"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-type-code))
+      (common-lisp:list
+       (common-lisp:cons "eventTypeCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-type-category))
+      (common-lisp:list
+       (common-lisp:cons "eventTypeCategory"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-scope-code))
+      (common-lisp:list
+       (common-lisp:cons "eventScopeCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'region))
+      (common-lisp:list
+       (common-lisp:cons "region"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "startTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "endTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-time))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-code))
+      (common-lisp:list
+       (common-lisp:cons "statusCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input organization-event))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype organization-event-detail-filters-list ()
+   '(trivial-types:proper-list event-account-filter))
+ (common-lisp:defun |make-organization-event-detail-filters-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list event-account-filter))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-event-details (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organization-event-details-"))
+   (aws-account-id common-lisp:nil :type
+    (common-lisp:or |accountId| common-lisp:null))
+   (event common-lisp:nil :type (common-lisp:or event common-lisp:null))
+   (event-description common-lisp:nil :type
+    (common-lisp:or event-description common-lisp:null))
+   (event-metadata common-lisp:nil :type
+    (common-lisp:or |eventMetadata| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-event-details
+                    'make-organization-event-details))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aws-account-id))
+      (common-lisp:list
+       (common-lisp:cons "awsAccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event))
+      (common-lisp:list
+       (common-lisp:cons "event"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-description))
+      (common-lisp:list
+       (common-lisp:cons "eventDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-metadata))
+      (common-lisp:list
+       (common-lisp:cons "eventMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-event-details-error-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organization-event-details-error-item-"))
+   (aws-account-id common-lisp:nil :type
+    (common-lisp:or |accountId| common-lisp:null))
+   (event-arn common-lisp:nil :type
+    (common-lisp:or |eventArn| common-lisp:null))
+   (error-name common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (error-message common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-event-details-error-item
+                    'make-organization-event-details-error-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details-error-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details-error-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aws-account-id))
+      (common-lisp:list
+       (common-lisp:cons "awsAccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-arn))
+      (common-lisp:list
+       (common-lisp:cons "eventArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-name))
+      (common-lisp:list
+       (common-lisp:cons "errorName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-message))
+      (common-lisp:list
+       (common-lisp:cons "errorMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-details-error-item))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-event-filter (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organization-event-filter-"))
+   (event-type-codes common-lisp:nil :type
+    (common-lisp:or |eventTypeList| common-lisp:null))
+   (aws-account-ids common-lisp:nil :type
+    (common-lisp:or |awsAccountIdsList| common-lisp:null))
+   (services common-lisp:nil :type
+    (common-lisp:or |serviceList| common-lisp:null))
+   (regions common-lisp:nil :type
+    (common-lisp:or |regionList| common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time-range common-lisp:null))
+   (end-time common-lisp:nil :type
+    (common-lisp:or date-time-range common-lisp:null))
+   (last-updated-time common-lisp:nil :type
+    (common-lisp:or date-time-range common-lisp:null))
+   (entity-arns common-lisp:nil :type
+    (common-lisp:or |entityArnList| common-lisp:null))
+   (entity-values common-lisp:nil :type
+    (common-lisp:or |entityValueList| common-lisp:null))
+   (event-type-categories common-lisp:nil :type
+    (common-lisp:or |eventTypeCategoryList| common-lisp:null))
+   (event-status-codes common-lisp:nil :type
+    (common-lisp:or |eventStatusCodeList| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-event-filter
+                    'make-organization-event-filter))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-filter))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-filter))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-type-codes))
+      (common-lisp:list
+       (common-lisp:cons "eventTypeCodes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aws-account-ids))
+      (common-lisp:list
+       (common-lisp:cons "awsAccountIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'services))
+      (common-lisp:list
+       (common-lisp:cons "services"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'regions))
+      (common-lisp:list
+       (common-lisp:cons "regions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "startTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "endTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-time))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'entity-arns))
+      (common-lisp:list
+       (common-lisp:cons "entityArns"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'entity-values))
+      (common-lisp:list
+       (common-lisp:cons "entityValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'event-type-categories))
+      (common-lisp:list
+       (common-lisp:cons "eventTypeCategories"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'event-status-codes))
+      (common-lisp:list
+       (common-lisp:cons "eventStatusCodes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          organization-event-filter))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype organization-event-list ()
+   '(trivial-types:proper-list organization-event))
+ (common-lisp:defun |make-organization-event-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list organization-event))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:define-condition unsupported-locale
      (health-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -1308,6 +2249,14 @@
  (common-lisp:export
   (common-lisp:list 'unsupported-locale 'unsupported-locale-message)))
 (common-lisp:deftype |accountId| () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype |affectedAccountsList| ()
+   '(trivial-types:proper-list |accountId|))
+ (common-lisp:defun |make-affectedaccountslist|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list |accountId|))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype |aggregateValue| () 'common-lisp:string)
 (common-lisp:deftype |availabilityZone| () 'common-lisp:string)
 (common-lisp:progn
@@ -1317,6 +2266,14 @@
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list |availabilityZone|))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |awsAccountIdsList| ()
+   '(trivial-types:proper-list |accountId|))
+ (common-lisp:defun |make-awsaccountidslist|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list |accountId|))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype |count| () 'common-lisp:integer)
 (common-lisp:progn
@@ -1345,6 +2302,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list |entityStatusCode|))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype |entityUrl| () 'common-lisp:string)
 (common-lisp:deftype |entityValue| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype |entityValueList| ()
@@ -1372,6 +2330,7 @@
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype |eventScopeCode| () 'common-lisp:string)
 (common-lisp:deftype |eventStatusCode| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype |eventStatusCodeList| ()
@@ -1400,8 +2359,11 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list |eventType|))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype |healthServiceAccessStatusForOrganization| ()
+  'common-lisp:string)
 (common-lisp:deftype |locale| () 'common-lisp:string)
 (common-lisp:deftype |maxResults| () 'common-lisp:integer)
+(common-lisp:deftype |maxResultsLowerRange| () 'common-lisp:integer)
 (common-lisp:deftype |metadataKey| () 'common-lisp:string)
 (common-lisp:deftype |metadataValue| () 'common-lisp:string)
 (common-lisp:deftype |nextToken| () 'common-lisp:string)
@@ -1440,6 +2402,26 @@ common-lisp:nil
 (common-lisp:deftype |tagValue| () 'common-lisp:string)
 common-lisp:nil
 (common-lisp:progn
+ (common-lisp:defun describe-affected-accounts-for-organization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key event-arn next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable event-arn next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-affected-accounts-for-organization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'health-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeAffectedAccountsForOrganization"
+                                                        "2016-08-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-affected-accounts-for-organization))
+(common-lisp:progn
  (common-lisp:defun describe-affected-entities
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -1459,6 +2441,28 @@ common-lisp:nil
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-affected-entities))
+(common-lisp:progn
+ (common-lisp:defun describe-affected-entities-for-organization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key organization-entity-filters locale
+                     next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-entity-filters locale next-token
+     max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-affected-entities-for-organization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'health-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeAffectedEntitiesForOrganization"
+                                                        "2016-08-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-affected-entities-for-organization))
 (common-lisp:progn
  (common-lisp:defun describe-entity-aggregates
                     (
@@ -1518,6 +2522,26 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-event-details))
 (common-lisp:progn
+ (common-lisp:defun describe-event-details-for-organization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key organization-event-detail-filters locale)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-event-detail-filters locale))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-event-details-for-organization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'health-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeEventDetailsForOrganization"
+                                                        "2016-08-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-event-details-for-organization))
+(common-lisp:progn
  (common-lisp:defun describe-event-types
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -1555,3 +2579,56 @@ common-lisp:nil
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-events))
+(common-lisp:progn
+ (common-lisp:defun describe-events-for-organization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key filter next-token max-results locale)
+   (common-lisp:declare
+    (common-lisp:ignorable filter next-token max-results locale))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-events-for-organization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'health-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeEventsForOrganization"
+                                                        "2016-08-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-events-for-organization))
+(common-lisp:progn
+ (common-lisp:defun describe-health-service-status-for-organization ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :params
+                                `(("Action"
+                                   ,@"DescribeHealthServiceStatusForOrganization")
+                                  ("Version" ,@"2016-08-04"))))
+    common-lisp:nil common-lisp:nil *error-map*))
+ (common-lisp:export 'describe-health-service-status-for-organization))
+(common-lisp:progn
+ (common-lisp:defun disable-health-service-access-for-organization ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :params
+                                `(("Action"
+                                   ,@"DisableHealthServiceAccessForOrganization")
+                                  ("Version" ,@"2016-08-04"))))
+    common-lisp:nil common-lisp:nil *error-map*))
+ (common-lisp:export 'disable-health-service-access-for-organization))
+(common-lisp:progn
+ (common-lisp:defun enable-health-service-access-for-organization ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :params
+                                `(("Action"
+                                   ,@"EnableHealthServiceAccessForOrganization")
+                                  ("Version" ,@"2016-08-04"))))
+    common-lisp:nil common-lisp:nil *error-map*))
+ (common-lisp:export 'enable-health-service-access-for-organization))

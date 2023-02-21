@@ -25,7 +25,9 @@
     ("InternalException" . internal-exception)
     ("InvalidTypeException" . invalid-type-exception)
     ("LimitExceededException" . limit-exceeded-exception)
-    ("ResourceNotFoundException" . resource-not-found-exception)))
+    ("ResourceAlreadyExistsException" . resource-already-exists-exception)
+    ("ResourceNotFoundException" . resource-not-found-exception)
+    ("ValidationException" . validation-exception)))
 (common-lisp:deftype apiversion () 'common-lisp:string)
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
@@ -1302,6 +1304,77 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-domain-endpoint-options-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-domain-endpoint-options-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (deployed common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-domain-endpoint-options-request
+                    'make-describe-domain-endpoint-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'deployed))
+      (common-lisp:list
+       (common-lisp:cons "Deployed"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-domain-endpoint-options-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-domain-endpoint-options-response-"))
+   (domain-endpoint-options common-lisp:nil :type
+    (common-lisp:or domain-endpoint-options-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-domain-endpoint-options-response
+                    'make-describe-domain-endpoint-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'domain-endpoint-options))
+      (common-lisp:list
+       (common-lisp:cons "DomainEndpointOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-domain-endpoint-options-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-domains-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-domains-request-"))
    (domain-names common-lisp:nil :type
@@ -1783,6 +1856,85 @@
                         (
                          (aws-sdk/generator/shape::input
                           document-suggester-options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (domain-endpoint-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-domain-endpoint-options-"))
+   (enforce-https common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (tlssecurity-policy common-lisp:nil :type
+    (common-lisp:or tlssecurity-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'domain-endpoint-options 'make-domain-endpoint-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enforce-https))
+      (common-lisp:list
+       (common-lisp:cons "EnforceHTTPS"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tlssecurity-policy))
+      (common-lisp:list
+       (common-lisp:cons "TLSSecurityPolicy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (domain-endpoint-options-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-domain-endpoint-options-status-"))
+   (options (common-lisp:error ":options is required") :type
+    (common-lisp:or domain-endpoint-options common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or option-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'domain-endpoint-options-status
+                    'make-domain-endpoint-options-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-endpoint-options-status))
    common-lisp:nil))
 (common-lisp:deftype domain-id () 'common-lisp:string)
 (common-lisp:deftype domain-name () 'common-lisp:string)
@@ -2879,6 +3031,11 @@
 (common-lisp:deftype partition-instance-type () 'common-lisp:string)
 (common-lisp:deftype policy-document () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:define-condition resource-already-exists-exception
+     (cloudsearch-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'resource-already-exists-exception)))
+(common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (cloudsearch-error)
      common-lisp:nil)
@@ -3080,6 +3237,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list suggester-status))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype tlssecurity-policy () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (text-array-options (:copier common-lisp:nil)
@@ -3283,6 +3441,80 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-domain-endpoint-options-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-domain-endpoint-options-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (domain-endpoint-options
+    (common-lisp:error ":domain-endpoint-options is required") :type
+    (common-lisp:or domain-endpoint-options common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-domain-endpoint-options-request
+                    'make-update-domain-endpoint-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'domain-endpoint-options))
+      (common-lisp:list
+       (common-lisp:cons "DomainEndpointOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-domain-endpoint-options-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-domain-endpoint-options-response-"))
+   (domain-endpoint-options common-lisp:nil :type
+    (common-lisp:or domain-endpoint-options-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-domain-endpoint-options-response
+                    'make-update-domain-endpoint-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'domain-endpoint-options))
+      (common-lisp:list
+       (common-lisp:cons "DomainEndpointOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-domain-endpoint-options-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-scaling-parameters-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-scaling-parameters-request-"))
    (domain-name (common-lisp:error ":domain-name is required") :type
@@ -3424,6 +3656,11 @@
                           update-service-access-policies-response))
    common-lisp:nil))
 (common-lisp:deftype update-timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition validation-exception
+     (cloudsearch-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'validation-exception)))
 (common-lisp:deftype word () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun build-suggesters
@@ -3665,6 +3902,25 @@
       common-lisp:nil "DescribeAvailabilityOptionsResult" *error-map*)))
  (common-lisp:export 'describe-availability-options))
 (common-lisp:progn
+ (common-lisp:defun describe-domain-endpoint-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name deployed)
+   (common-lisp:declare (common-lisp:ignorable domain-name deployed))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-domain-endpoint-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeDomainEndpointOptions"
+                                                        "2013-01-01"))
+      common-lisp:nil "DescribeDomainEndpointOptionsResult" *error-map*)))
+ (common-lisp:export 'describe-domain-endpoint-options))
+(common-lisp:progn
  (common-lisp:defun describe-domains
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3824,6 +4080,26 @@
                                                         "2013-01-01"))
       common-lisp:nil "UpdateAvailabilityOptionsResult" *error-map*)))
  (common-lisp:export 'update-availability-options))
+(common-lisp:progn
+ (common-lisp:defun update-domain-endpoint-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name domain-endpoint-options)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-name domain-endpoint-options))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-domain-endpoint-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateDomainEndpointOptions"
+                                                        "2013-01-01"))
+      common-lisp:nil "UpdateDomainEndpointOptionsResult" *error-map*)))
+ (common-lisp:export 'update-domain-endpoint-options))
 (common-lisp:progn
  (common-lisp:defun update-scaling-parameters
                     (

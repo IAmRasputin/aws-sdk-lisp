@@ -128,9 +128,16 @@
                                           (make-pathname :directory `(:relative "specs" "apis" ,service))))
          (api-2.json
            (merge-pathnames #P"api-2.json"
+                            (car (last (uiop:subdirectories service-dir)))))
+         (service-2.json
+           (merge-pathnames #P"service-2.json"
                             (car (last (uiop:subdirectories service-dir))))))
-    (assert (probe-file api-2.json))
-    (dump-service service api-2.json output-dir)))
+    (assert (or (probe-file api-2.json)
+                (probe-file service-2.json)))
+    (cond
+      ((probe-file api-2.json) (dump-service service api-2.json output-dir))
+      ((probe-file service-2.json) (dump-service service service-2.json output-dir))
+      (t (error "Service file not found")))))
 
 (defun generate-all-services (&key silent)
   (dolist (service-dir

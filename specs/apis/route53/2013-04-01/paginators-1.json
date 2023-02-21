@@ -2,32 +2,66 @@
   "pagination": {
     "ListHealthChecks": {
       "input_token": "Marker",
-      "limit_key": "MaxItems",
-      "more_results": "IsTruncated",
       "output_token": "NextMarker",
+      "more_results": "IsTruncated",
+      "limit_key": "MaxItems",
       "result_key": "HealthChecks"
     },
     "ListHostedZones": {
       "input_token": "Marker",
-      "limit_key": "MaxItems",
-      "more_results": "IsTruncated",
       "output_token": "NextMarker",
+      "more_results": "IsTruncated",
+      "limit_key": "MaxItems",
       "result_key": "HostedZones"
     },
     "ListResourceRecordSets": {
+      "more_results": "IsTruncated",
+      "limit_key": "MaxItems",
+      "result_key": "ResourceRecordSets",
       "input_token": [
         "StartRecordName",
         "StartRecordType",
         "StartRecordIdentifier"
       ],
-      "limit_key": "MaxItems",
-      "more_results": "IsTruncated",
       "output_token": [
         "NextRecordName",
         "NextRecordType",
         "NextRecordIdentifier"
+      ]
+    },
+    "ListVPCAssociationAuthorizations": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "non_aggregate_keys": [
+        "HostedZoneId"
       ],
-      "result_key": "ResourceRecordSets"
+      "result_key": [
+        "VPCs"
+      ]
+    },
+    "ListQueryLoggingConfigs": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "QueryLoggingConfigs"
+    },
+    "ListCidrBlocks": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "CidrBlocks"
+    },
+    "ListCidrCollections": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "CidrCollections"
+    },
+    "ListCidrLocations": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "CidrLocations"
     }
   }
 }

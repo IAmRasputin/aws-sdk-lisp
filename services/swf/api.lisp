@@ -24,6 +24,7 @@
     ("DomainDeprecatedFault" . domain-deprecated-fault)
     ("LimitExceededFault" . limit-exceeded-fault)
     ("OperationNotPermittedFault" . operation-not-permitted-fault)
+    ("TooManyTagsFault" . too-many-tags-fault)
     ("TypeAlreadyExistsFault" . type-already-exists-fault)
     ("TypeDeprecatedFault" . type-deprecated-fault)
     ("UnknownResourceFault" . unknown-resource-fault)
@@ -2632,7 +2633,8 @@
    (status (common-lisp:error ":status is required") :type
     (common-lisp:or registration-status common-lisp:null))
    (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null)))
+    (common-lisp:or description common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
  (common-lisp:export (common-lisp:list 'domain-info 'make-domain-info))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-info))
@@ -2659,6 +2661,13 @@
                            aws-sdk/generator/shape::input 'description))
       (common-lisp:list
        (common-lisp:cons "description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "arn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4269,6 +4278,68 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-tags-for-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-input
+                    'make-list-tags-for-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-output-"))
+   (tags common-lisp:nil :type
+    (common-lisp:or resource-tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-output
+                    'make-list-tags-for-resource-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-workflow-types-input (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-workflow-types-input-"))
    (domain (common-lisp:error ":domain is required") :type
@@ -4819,7 +4890,9 @@
     (common-lisp:or description common-lisp:null))
    (workflow-execution-retention-period-in-days
     (common-lisp:error ":workflowexecutionretentionperiodindays is required")
-    :type (common-lisp:or duration-in-days common-lisp:null)))
+    :type (common-lisp:or duration-in-days common-lisp:null))
+   (tags common-lisp:nil :type
+    (common-lisp:or resource-tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'register-domain-input 'make-register-domain-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -4852,6 +4925,13 @@
                            'workflow-execution-retention-period-in-days))
       (common-lisp:list
        (common-lisp:cons "workflowExecutionRetentionPeriodInDays"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5310,6 +5390,56 @@
                          (aws-sdk/generator/shape::input
                           request-cancel-workflow-execution-input))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-tag (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resource-tag-"))
+   (key (common-lisp:error ":key is required") :type
+    (common-lisp:or resource-tag-key common-lisp:null))
+   (value common-lisp:nil :type
+    (common-lisp:or resource-tag-value common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'resource-tag 'make-resource-tag))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input resource-tag))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input resource-tag))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'key))
+      (common-lisp:list
+       (common-lisp:cons "key"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input resource-tag))
+   common-lisp:nil))
+(common-lisp:deftype resource-tag-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype resource-tag-key-list ()
+   '(trivial-types:proper-list resource-tag-key))
+ (common-lisp:defun |make-resource-tag-key-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list resource-tag-key))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype resource-tag-list ()
+   '(trivial-types:proper-list resource-tag))
+ (common-lisp:defun |make-resource-tag-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list resource-tag))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype resource-tag-value () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (respond-activity-task-canceled-input (:copier common-lisp:nil)
@@ -6750,6 +6880,39 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (tag-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tag-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (tags (common-lisp:error ":tags is required") :type
+    (common-lisp:or resource-tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-input 'make-tag-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (task-list (:copier common-lisp:nil)
       (:conc-name "struct-shape-task-list-"))
    (name (common-lisp:error ":name is required") :type
@@ -7002,6 +7165,13 @@
                           timer-started-event-attributes))
    common-lisp:nil))
 (common-lisp:deftype timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition too-many-tags-fault
+     (swf-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       too-many-tags-fault-message)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-fault 'too-many-tags-fault-message)))
 (common-lisp:deftype truncated () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:define-condition type-already-exists-fault
@@ -7019,12 +7189,155 @@
  (common-lisp:export
   (common-lisp:list 'type-deprecated-fault 'type-deprecated-fault-message)))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (undeprecate-activity-type-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-undeprecate-activity-type-input-"))
+   (domain (common-lisp:error ":domain is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (activity-type (common-lisp:error ":activitytype is required") :type
+    (common-lisp:or activity-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'undeprecate-activity-type-input
+                    'make-undeprecate-activity-type-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-activity-type-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-activity-type-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain))
+      (common-lisp:list
+       (common-lisp:cons "domain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'activity-type))
+      (common-lisp:list
+       (common-lisp:cons "activityType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-activity-type-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (undeprecate-domain-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-undeprecate-domain-input-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'undeprecate-domain-input 'make-undeprecate-domain-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-domain-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-domain-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-domain-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (undeprecate-workflow-type-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-undeprecate-workflow-type-input-"))
+   (domain (common-lisp:error ":domain is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (workflow-type (common-lisp:error ":workflowtype is required") :type
+    (common-lisp:or workflow-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'undeprecate-workflow-type-input
+                    'make-undeprecate-workflow-type-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-workflow-type-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-workflow-type-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain))
+      (common-lisp:list
+       (common-lisp:cons "domain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workflow-type))
+      (common-lisp:list
+       (common-lisp:cons "workflowType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          undeprecate-workflow-type-input))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition unknown-resource-fault
      (swf-error)
      ((message :initarg :message :initform common-lisp:nil :reader
        unknown-resource-fault-message)))
  (common-lisp:export
   (common-lisp:list 'unknown-resource-fault 'unknown-resource-fault-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (untag-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-untag-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (tag-keys (common-lisp:error ":tagkeys is required") :type
+    (common-lisp:or resource-tag-key-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-input 'make-untag-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-keys))
+      (common-lisp:list
+       (common-lisp:cons "tagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   common-lisp:nil))
 (common-lisp:deftype version () 'common-lisp:string)
 (common-lisp:deftype version-optional () 'common-lisp:string)
 (common-lisp:progn
@@ -8719,6 +9032,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-open-workflow-executions))
 (common-lisp:progn
+ (common-lisp:defun list-tags-for-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-tags-for-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListTagsForResource"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
  (common-lisp:defun list-workflow-types
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -8830,10 +9161,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key name description
-                     workflow-execution-retention-period-in-days)
+                     workflow-execution-retention-period-in-days tags)
    (common-lisp:declare
     (common-lisp:ignorable name description
-     workflow-execution-retention-period-in-days))
+     workflow-execution-retention-period-in-days tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-register-domain-input
                                          aws-sdk/generator/operation::args)))
@@ -9013,6 +9344,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-workflow-execution))
 (common-lisp:progn
+ (common-lisp:defun tag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tags)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-tag-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "TagResource"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'tag-resource))
+(common-lisp:progn
  (common-lisp:defun terminate-workflow-execution
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9034,3 +9383,75 @@
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'terminate-workflow-execution))
+(common-lisp:progn
+ (common-lisp:defun undeprecate-activity-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain activity-type)
+   (common-lisp:declare (common-lisp:ignorable domain activity-type))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-undeprecate-activity-type-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UndeprecateActivityType"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'undeprecate-activity-type))
+(common-lisp:progn
+ (common-lisp:defun undeprecate-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key name)
+   (common-lisp:declare (common-lisp:ignorable name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-undeprecate-domain-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UndeprecateDomain"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'undeprecate-domain))
+(common-lisp:progn
+ (common-lisp:defun undeprecate-workflow-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain workflow-type)
+   (common-lisp:declare (common-lisp:ignorable domain workflow-type))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-undeprecate-workflow-type-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UndeprecateWorkflowType"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'undeprecate-workflow-type))
+(common-lisp:progn
+ (common-lisp:defun untag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tag-keys)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tag-keys))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-untag-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'swf-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UntagResource"
+                                                        "2012-01-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'untag-resource))

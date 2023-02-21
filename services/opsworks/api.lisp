@@ -3328,6 +3328,37 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-operating-systems-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-operating-systems-response-"))
+   (operating-systems common-lisp:nil :type
+    (common-lisp:or operating-systems common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-operating-systems-response
+                    'make-describe-operating-systems-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-operating-systems-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-operating-systems-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operating-systems))
+      (common-lisp:list
+       (common-lisp:cons "OperatingSystems"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-operating-systems-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-permissions-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-permissions-request-"))
    (iam-user-arn common-lisp:nil :type
@@ -4999,6 +5030,8 @@
     (common-lisp:or integer common-lisp:null))
    (start-failed common-lisp:nil :type
     (common-lisp:or integer common-lisp:null))
+   (stop-failed common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
    (stopped common-lisp:nil :type (common-lisp:or integer common-lisp:null))
    (stopping common-lisp:nil :type (common-lisp:or integer common-lisp:null))
    (terminated common-lisp:nil :type (common-lisp:or integer common-lisp:null))
@@ -5109,6 +5142,13 @@
                            aws-sdk/generator/shape::input 'start-failed))
       (common-lisp:list
        (common-lisp:cons "StartFailed"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'stop-failed))
+      (common-lisp:list
+       (common-lisp:cons "StopFailed"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -5562,6 +5602,136 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype minute () 'common-lisp:integer)
 (common-lisp:deftype next-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (operating-system (:copier common-lisp:nil)
+      (:conc-name "struct-shape-operating-system-"))
+   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (configuration-managers common-lisp:nil :type
+    (common-lisp:or operating-system-configuration-managers common-lisp:null))
+   (reported-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (reported-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (supported common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'operating-system 'make-operating-system))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input operating-system))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input operating-system))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-managers))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationManagers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reported-name))
+      (common-lisp:list
+       (common-lisp:cons "ReportedName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reported-version))
+      (common-lisp:list
+       (common-lisp:cons "ReportedVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'supported))
+      (common-lisp:list
+       (common-lisp:cons "Supported"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input operating-system))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (operating-system-configuration-manager (:copier common-lisp:nil)
+      (:conc-name "struct-shape-operating-system-configuration-manager-"))
+   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (version common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'operating-system-configuration-manager
+                    'make-operating-system-configuration-manager))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          operating-system-configuration-manager))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          operating-system-configuration-manager))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'version))
+      (common-lisp:list
+       (common-lisp:cons "Version"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          operating-system-configuration-manager))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype operating-system-configuration-managers ()
+   '(trivial-types:proper-list operating-system-configuration-manager))
+ (common-lisp:defun |make-operating-system-configuration-managers|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            operating-system-configuration-manager))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype operating-systems ()
+   '(trivial-types:proper-list operating-system))
+ (common-lisp:defun |make-operating-systems|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list operating-system))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype parameters () 'common-lisp:hash-table)
  (common-lisp:defun |make-parameters| (aws-sdk/generator/shape::key-values)
@@ -7185,7 +7355,8 @@
      (stop-instance-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-stop-instance-request-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (force common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'stop-instance-request 'make-stop-instance-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -7203,6 +7374,13 @@
                            aws-sdk/generator/shape::input 'instance-id))
       (common-lisp:list
        (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'force))
+      (common-lisp:list
+       (common-lisp:cons "Force"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8398,7 +8576,8 @@
    (availability-zone common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (volume-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (iops common-lisp:nil :type (common-lisp:or integer common-lisp:null)))
+   (iops common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (encrypted common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export (common-lisp:list 'volume 'make-volume))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input volume))
@@ -8496,6 +8675,13 @@
       (common-lisp:list
        (common-lisp:cons "Iops"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'encrypted))
+      (common-lisp:list
+       (common-lisp:cons "Encrypted"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input volume))
@@ -8512,7 +8698,8 @@
    (size (common-lisp:error ":size is required") :type
     (common-lisp:or integer common-lisp:null))
    (volume-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (iops common-lisp:nil :type (common-lisp:or integer common-lisp:null)))
+   (iops common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (encrypted common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'volume-configuration 'make-volume-configuration))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -8561,6 +8748,13 @@
                            aws-sdk/generator/shape::input 'iops))
       (common-lisp:list
        (common-lisp:cons "Iops"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'encrypted))
+      (common-lisp:list
+       (common-lisp:cons "Encrypted"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9300,6 +9494,16 @@
     common-lisp:nil common-lisp:nil *error-map*))
  (common-lisp:export 'describe-my-user-profile))
 (common-lisp:progn
+ (common-lisp:defun describe-operating-systems ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'opsworks-request :method "POST" :path "/"
+                                :params
+                                `(("Action" ,@"DescribeOperatingSystems")
+                                  ("Version" ,@"2013-02-18"))))
+    common-lisp:nil common-lisp:nil *error-map*))
+ (common-lisp:export 'describe-operating-systems))
+(common-lisp:progn
  (common-lisp:defun describe-permissions
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9792,8 +9996,8 @@
  (common-lisp:defun stop-instance
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key instance-id)
-   (common-lisp:declare (common-lisp:ignorable instance-id))
+                     common-lisp:&key instance-id force)
+   (common-lisp:declare (common-lisp:ignorable instance-id force))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-stop-instance-request
                                          aws-sdk/generator/operation::args)))

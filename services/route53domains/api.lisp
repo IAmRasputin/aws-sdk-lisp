@@ -20,12 +20,162 @@
      common-lisp:nil)
  (common-lisp:export 'route53domains-error))
 (common-lisp:defvar *error-map*
-  '(("DomainLimitExceeded" . domain-limit-exceeded)
+  '(("DnssecLimitExceeded" . dnssec-limit-exceeded)
+    ("DomainLimitExceeded" . domain-limit-exceeded)
     ("DuplicateRequest" . duplicate-request) ("InvalidInput" . invalid-input)
     ("OperationLimitExceeded" . operation-limit-exceeded)
     ("TLDRulesViolation" . tldrules-violation)
     ("UnsupportedTLD" . unsupported-tld)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (accept-domain-transfer-from-another-aws-account-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-accept-domain-transfer-from-another-aws-account-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (password (common-lisp:error ":password is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'accept-domain-transfer-from-another-aws-account-request
+                    'make-accept-domain-transfer-from-another-aws-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'password))
+      (common-lisp:list
+       (common-lisp:cons "Password"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (accept-domain-transfer-from-another-aws-account-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-accept-domain-transfer-from-another-aws-account-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'accept-domain-transfer-from-another-aws-account-response
+                    'make-accept-domain-transfer-from-another-aws-account-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-domain-transfer-from-another-aws-account-response))
+   common-lisp:nil))
+(common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:deftype address-line () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-delegation-signer-to-domain-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-associate-delegation-signer-to-domain-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (signing-attributes (common-lisp:error ":signing-attributes is required")
+    :type (common-lisp:or dnssec-signing-attributes common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-delegation-signer-to-domain-request
+                    'make-associate-delegation-signer-to-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'signing-attributes))
+      (common-lisp:list
+       (common-lisp:cons "SigningAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-delegation-signer-to-domain-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-associate-delegation-signer-to-domain-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-delegation-signer-to-domain-response
+                    'make-associate-delegation-signer-to-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-delegation-signer-to-domain-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (billing-record (:copier common-lisp:nil)
@@ -95,6 +245,72 @@
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
+     (cancel-domain-transfer-to-another-aws-account-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-cancel-domain-transfer-to-another-aws-account-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cancel-domain-transfer-to-another-aws-account-request
+                    'make-cancel-domain-transfer-to-another-aws-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cancel-domain-transfer-to-another-aws-account-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-cancel-domain-transfer-to-another-aws-account-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cancel-domain-transfer-to-another-aws-account-response
+                    'make-cancel-domain-transfer-to-another-aws-account-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-domain-transfer-to-another-aws-account-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (check-domain-availability-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-check-domain-availability-request-"))
    (domain-name (common-lisp:error ":domain-name is required") :type
@@ -137,7 +353,7 @@
  (common-lisp:defstruct
      (check-domain-availability-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-check-domain-availability-response-"))
-   (availability (common-lisp:error ":availability is required") :type
+   (availability common-lisp:nil :type
     (common-lisp:or domain-availability common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'check-domain-availability-response
@@ -164,7 +380,109 @@
                          (aws-sdk/generator/shape::input
                           check-domain-availability-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (check-domain-transferability-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-check-domain-transferability-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (auth-code common-lisp:nil :type
+    (common-lisp:or domain-auth-code common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'check-domain-transferability-request
+                    'make-check-domain-transferability-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auth-code))
+      (common-lisp:list
+       (common-lisp:cons "AuthCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (check-domain-transferability-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-check-domain-transferability-response-"))
+   (transferability common-lisp:nil :type
+    (common-lisp:or domain-transferability common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'check-domain-transferability-response
+                    'make-check-domain-transferability-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transferability))
+      (common-lisp:list
+       (common-lisp:cons "Transferability"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          check-domain-transferability-response))
+   common-lisp:nil))
 (common-lisp:deftype city () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (consent (:copier common-lisp:nil) (:conc-name "struct-shape-consent-"))
+   (max-price (common-lisp:error ":max-price is required") :type
+    (common-lisp:or price common-lisp:null))
+   (currency (common-lisp:error ":currency is required") :type
+    (common-lisp:or currency common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'consent 'make-consent))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input consent))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input consent))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-price))
+      (common-lisp:list
+       (common-lisp:cons "MaxPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'currency))
+      (common-lisp:list
+       (common-lisp:cons "Currency"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input consent))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (contact-detail (:copier common-lisp:nil)
@@ -304,8 +622,69 @@
 (common-lisp:deftype contact-number () 'common-lisp:string)
 (common-lisp:deftype contact-type () 'common-lisp:string)
 (common-lisp:deftype country-code () 'common-lisp:string)
+(common-lisp:deftype currency () 'common-lisp:string)
 (common-lisp:deftype current-expiry-year () 'common-lisp:integer)
 (common-lisp:deftype dnssec () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-domain-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-domain-request 'make-delete-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-domain-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-domain-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-domain-response 'make-delete-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-tags-for-domain-request (:copier common-lisp:nil)
@@ -456,7 +835,7 @@
  (common-lisp:defstruct
      (disable-domain-transfer-lock-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-disable-domain-transfer-lock-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'disable-domain-transfer-lock-response
@@ -483,6 +862,221 @@
                          (aws-sdk/generator/shape::input
                           disable-domain-transfer-lock-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-delegation-signer-from-domain-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-disassociate-delegation-signer-from-domain-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-delegation-signer-from-domain-request
+                    'make-disassociate-delegation-signer-from-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-delegation-signer-from-domain-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-disassociate-delegation-signer-from-domain-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-delegation-signer-from-domain-response
+                    'make-disassociate-delegation-signer-from-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-delegation-signer-from-domain-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dnssec-key (:copier common-lisp:nil)
+      (:conc-name "struct-shape-dnssec-key-"))
+   (algorithm common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (flags common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (public-key common-lisp:nil :type
+    (common-lisp:or dnssec-public-key common-lisp:null))
+   (digest-type common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (digest common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (key-tag common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'dnssec-key 'make-dnssec-key))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input dnssec-key))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input dnssec-key))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'algorithm))
+      (common-lisp:list
+       (common-lisp:cons "Algorithm"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flags))
+      (common-lisp:list
+       (common-lisp:cons "Flags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'public-key))
+      (common-lisp:list
+       (common-lisp:cons "PublicKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'digest-type))
+      (common-lisp:list
+       (common-lisp:cons "DigestType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'digest))
+      (common-lisp:list
+       (common-lisp:cons "Digest"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'key-tag))
+      (common-lisp:list
+       (common-lisp:cons "KeyTag"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input dnssec-key))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype dnssec-key-list ()
+   '(trivial-types:proper-list dnssec-key))
+ (common-lisp:defun |make-dnssec-key-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list dnssec-key))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition dnssec-limit-exceeded
+     (route53domains-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       dnssec-limit-exceeded-message)))
+ (common-lisp:export
+  (common-lisp:list 'dnssec-limit-exceeded 'dnssec-limit-exceeded-message)))
+(common-lisp:deftype dnssec-public-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dnssec-signing-attributes (:copier common-lisp:nil)
+      (:conc-name "struct-shape-dnssec-signing-attributes-"))
+   (algorithm common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (flags common-lisp:nil :type
+    (common-lisp:or nullable-integer common-lisp:null))
+   (public-key common-lisp:nil :type
+    (common-lisp:or dnssec-public-key common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dnssec-signing-attributes
+                    'make-dnssec-signing-attributes))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          dnssec-signing-attributes))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          dnssec-signing-attributes))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'algorithm))
+      (common-lisp:list
+       (common-lisp:cons "Algorithm"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flags))
+      (common-lisp:list
+       (common-lisp:cons "Flags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'public-key))
+      (common-lisp:list
+       (common-lisp:cons "PublicKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          dnssec-signing-attributes))
+   common-lisp:nil))
 (common-lisp:deftype domain-auth-code () 'common-lisp:string)
 (common-lisp:deftype domain-availability () 'common-lisp:string)
 (common-lisp:progn
@@ -493,6 +1087,84 @@
  (common-lisp:export
   (common-lisp:list 'domain-limit-exceeded 'domain-limit-exceeded-message)))
 (common-lisp:deftype domain-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (domain-price (:copier common-lisp:nil)
+      (:conc-name "struct-shape-domain-price-"))
+   (name common-lisp:nil :type
+    (common-lisp:or domain-price-name common-lisp:null))
+   (registration-price common-lisp:nil :type
+    (common-lisp:or price-with-currency common-lisp:null))
+   (transfer-price common-lisp:nil :type
+    (common-lisp:or price-with-currency common-lisp:null))
+   (renewal-price common-lisp:nil :type
+    (common-lisp:or price-with-currency common-lisp:null))
+   (change-ownership-price common-lisp:nil :type
+    (common-lisp:or price-with-currency common-lisp:null))
+   (restoration-price common-lisp:nil :type
+    (common-lisp:or price-with-currency common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'domain-price 'make-domain-price))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input domain-price))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input domain-price))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'registration-price))
+      (common-lisp:list
+       (common-lisp:cons "RegistrationPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transfer-price))
+      (common-lisp:list
+       (common-lisp:cons "TransferPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'renewal-price))
+      (common-lisp:list
+       (common-lisp:cons "RenewalPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'change-ownership-price))
+      (common-lisp:list
+       (common-lisp:cons "ChangeOwnershipPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'restoration-price))
+      (common-lisp:list
+       (common-lisp:cons "RestorationPrice"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input domain-price))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype domain-price-list ()
+   '(trivial-types:proper-list domain-price))
+ (common-lisp:defun |make-domain-price-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list domain-price))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype domain-price-name () 'common-lisp:string)
 (common-lisp:deftype domain-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype domain-status-list ()
@@ -547,7 +1219,7 @@
  (common-lisp:defstruct
      (domain-summary (:copier common-lisp:nil)
       (:conc-name "struct-shape-domain-summary-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
+   (domain-name common-lisp:nil :type
     (common-lisp:or domain-name common-lisp:null))
    (auto-renew common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
    (transfer-lock common-lisp:nil :type
@@ -599,6 +1271,36 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list domain-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (domain-transferability (:copier common-lisp:nil)
+      (:conc-name "struct-shape-domain-transferability-"))
+   (transferable common-lisp:nil :type
+    (common-lisp:or transferable common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'domain-transferability 'make-domain-transferability))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-transferability))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-transferability))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transferable))
+      (common-lisp:list
+       (common-lisp:cons "Transferable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          domain-transferability))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition duplicate-request
      (route53domains-error)
@@ -696,7 +1398,7 @@
  (common-lisp:defstruct
      (enable-domain-transfer-lock-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-enable-domain-transfer-lock-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'enable-domain-transfer-lock-response
@@ -767,6 +1469,56 @@
 (common-lisp:deftype extra-param-name () 'common-lisp:string)
 (common-lisp:deftype extra-param-value () 'common-lisp:string)
 (common-lisp:deftype fiauth-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (filter-condition (:copier common-lisp:nil)
+      (:conc-name "struct-shape-filter-condition-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or list-domains-attribute-name common-lisp:null))
+   (operator (common-lisp:error ":operator is required") :type
+    (common-lisp:or operator common-lisp:null))
+   (values (common-lisp:error ":values is required") :type
+    (common-lisp:or values common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'filter-condition 'make-filter-condition))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input filter-condition))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input filter-condition))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operator))
+      (common-lisp:list
+       (common-lisp:cons "Operator"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'values))
+      (common-lisp:list
+       (common-lisp:cons "Values"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input filter-condition))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype filter-conditions ()
+   '(trivial-types:proper-list filter-condition))
+ (common-lisp:defun |make-filter-conditions|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list filter-condition))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-contact-reachability-status-request (:copier common-lisp:nil)
@@ -873,16 +1625,16 @@
  (common-lisp:defstruct
      (get-domain-detail-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-domain-detail-response-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
+   (domain-name common-lisp:nil :type
     (common-lisp:or domain-name common-lisp:null))
-   (nameservers (common-lisp:error ":nameservers is required") :type
+   (nameservers common-lisp:nil :type
     (common-lisp:or nameserver-list common-lisp:null))
    (auto-renew common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (admin-contact (common-lisp:error ":admin-contact is required") :type
+   (admin-contact common-lisp:nil :type
     (common-lisp:or contact-detail common-lisp:null))
-   (registrant-contact (common-lisp:error ":registrant-contact is required")
-    :type (common-lisp:or contact-detail common-lisp:null))
-   (tech-contact (common-lisp:error ":tech-contact is required") :type
+   (registrant-contact common-lisp:nil :type
+    (common-lisp:or contact-detail common-lisp:null))
+   (tech-contact common-lisp:nil :type
     (common-lisp:or contact-detail common-lisp:null))
    (admin-privacy common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
@@ -911,7 +1663,9 @@
    (reseller common-lisp:nil :type (common-lisp:or reseller common-lisp:null))
    (dns-sec common-lisp:nil :type (common-lisp:or dnssec common-lisp:null))
    (status-list common-lisp:nil :type
-    (common-lisp:or domain-status-list common-lisp:null)))
+    (common-lisp:or domain-status-list common-lisp:null))
+   (dnssec-keys common-lisp:nil :type
+    (common-lisp:or dnssec-key-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-domain-detail-response
                     'make-get-domain-detail-response))
@@ -1071,6 +1825,13 @@
       (common-lisp:list
        (common-lisp:cons "StatusList"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'dnssec-keys))
+      (common-lisp:list
+       (common-lisp:cons "DnssecKeys"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1203,7 +1964,11 @@
    (type common-lisp:nil :type
     (common-lisp:or operation-type common-lisp:null))
    (submitted-date common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (last-updated-date common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (status-flag common-lisp:nil :type
+    (common-lisp:or status-flag common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-operation-detail-response
                     'make-get-operation-detail-response))
@@ -1258,6 +2023,20 @@
       (common-lisp:list
        (common-lisp:cons "SubmittedDate"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-date))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-flag))
+      (common-lisp:list
+       (common-lisp:cons "StatusFlag"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1281,11 +2060,17 @@
        invalid-input-message)))
  (common-lisp:export (common-lisp:list 'invalid-input 'invalid-input-message)))
 (common-lisp:deftype invoice-id () 'common-lisp:string)
+(common-lisp:deftype label () 'common-lisp:string)
 (common-lisp:deftype lang-code () 'common-lisp:string)
+(common-lisp:deftype list-domains-attribute-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-domains-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-domains-request-"))
+   (filter-conditions common-lisp:nil :type
+    (common-lisp:or filter-conditions common-lisp:null))
+   (sort-condition common-lisp:nil :type
+    (common-lisp:or sort-condition common-lisp:null))
    (marker common-lisp:nil :type (common-lisp:or page-marker common-lisp:null))
    (max-items common-lisp:nil :type
     (common-lisp:or page-max-items common-lisp:null)))
@@ -1297,6 +2082,20 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-params
                         ((aws-sdk/generator/shape::input list-domains-request))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filter-conditions))
+      (common-lisp:list
+       (common-lisp:cons "FilterConditions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sort-condition))
+      (common-lisp:list
+       (common-lisp:cons "SortCondition"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'marker))
@@ -1318,7 +2117,7 @@
  (common-lisp:defstruct
      (list-domains-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-domains-response-"))
-   (domains (common-lisp:error ":domains is required") :type
+   (domains common-lisp:nil :type
     (common-lisp:or domain-summary-list common-lisp:null))
    (next-page-marker common-lisp:nil :type
     (common-lisp:or page-marker common-lisp:null)))
@@ -1357,9 +2156,19 @@
  (common-lisp:defstruct
      (list-operations-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-operations-request-"))
+   (submitted-since common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
    (marker common-lisp:nil :type (common-lisp:or page-marker common-lisp:null))
    (max-items common-lisp:nil :type
-    (common-lisp:or page-max-items common-lisp:null)))
+    (common-lisp:or page-max-items common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or operation-status-list common-lisp:null))
+   (type common-lisp:nil :type
+    (common-lisp:or operation-type-list common-lisp:null))
+   (sort-by common-lisp:nil :type
+    (common-lisp:or list-operations-sort-attribute-name common-lisp:null))
+   (sort-order common-lisp:nil :type
+    (common-lisp:or sort-order common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-operations-request 'make-list-operations-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1374,6 +2183,13 @@
    (common-lisp:append
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'submitted-since))
+      (common-lisp:list
+       (common-lisp:cons "SubmittedSince"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'marker))
       (common-lisp:list
        (common-lisp:cons "Marker"
@@ -1385,6 +2201,34 @@
       (common-lisp:list
        (common-lisp:cons "MaxItems"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sort-by))
+      (common-lisp:list
+       (common-lisp:cons "SortBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sort-order))
+      (common-lisp:list
+       (common-lisp:cons "SortOrder"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1395,7 +2239,7 @@
  (common-lisp:defstruct
      (list-operations-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-operations-response-"))
-   (operations (common-lisp:error ":operations is required") :type
+   (operations common-lisp:nil :type
     (common-lisp:or operation-summary-list common-lisp:null))
    (next-page-marker common-lisp:nil :type
     (common-lisp:or page-marker common-lisp:null)))
@@ -1429,6 +2273,80 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-operations-response))
+   common-lisp:nil))
+(common-lisp:deftype list-operations-sort-attribute-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-prices-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-prices-request-"))
+   (tld common-lisp:nil :type (common-lisp:or tld-name common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or page-marker common-lisp:null))
+   (max-items common-lisp:nil :type
+    (common-lisp:or page-max-items common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-prices-request 'make-list-prices-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input list-prices-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input list-prices-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tld))
+      (common-lisp:list
+       (common-lisp:cons "Tld"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-items))
+      (common-lisp:list
+       (common-lisp:cons "MaxItems"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input list-prices-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-prices-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-prices-response-"))
+   (prices common-lisp:nil :type
+    (common-lisp:or domain-price-list common-lisp:null))
+   (next-page-marker common-lisp:nil :type
+    (common-lisp:or page-marker common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-prices-response 'make-list-prices-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input list-prices-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input list-prices-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'prices))
+      (common-lisp:list
+       (common-lisp:cons "Prices"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-page-marker))
+      (common-lisp:list
+       (common-lisp:cons "NextPageMarker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input list-prices-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1465,8 +2383,7 @@
  (common-lisp:defstruct
      (list-tags-for-domain-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-tags-for-domain-response-"))
-   (tag-list (common-lisp:error ":tag-list is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+   (tag-list common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-domain-response
                     'make-list-tags-for-domain-response))
@@ -1532,6 +2449,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list nameserver))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype nullable-integer () 'common-lisp:integer)
 (common-lisp:deftype operation-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition operation-limit-exceeded
@@ -1543,16 +2461,32 @@
                     'operation-limit-exceeded-message)))
 (common-lisp:deftype operation-status () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype operation-status-list ()
+   '(trivial-types:proper-list operation-status))
+ (common-lisp:defun |make-operation-status-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list operation-status))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (operation-summary (:copier common-lisp:nil)
       (:conc-name "struct-shape-operation-summary-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
+   (status common-lisp:nil :type
     (common-lisp:or operation-status common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
+   (type common-lisp:nil :type
     (common-lisp:or operation-type common-lisp:null))
-   (submitted-date (common-lisp:error ":submitted-date is required") :type
+   (submitted-date common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (domain-name common-lisp:nil :type
+    (common-lisp:or domain-name common-lisp:null))
+   (message common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null))
+   (status-flag common-lisp:nil :type
+    (common-lisp:or status-flag common-lisp:null))
+   (last-updated-date common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'operation-summary 'make-operation-summary))
@@ -1589,6 +2523,34 @@
       (common-lisp:list
        (common-lisp:cons "SubmittedDate"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message))
+      (common-lisp:list
+       (common-lisp:cons "Message"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-flag))
+      (common-lisp:list
+       (common-lisp:cons "StatusFlag"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-date))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedDate"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input operation-summary))
@@ -1602,9 +2564,84 @@
                            (trivial-types:proper-list operation-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype operation-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype operation-type-list ()
+   '(trivial-types:proper-list operation-type))
+ (common-lisp:defun |make-operation-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list operation-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype operator () 'common-lisp:string)
 (common-lisp:deftype page-marker () 'common-lisp:string)
 (common-lisp:deftype page-max-items () 'common-lisp:integer)
 (common-lisp:deftype price () 'common-lisp:double-float)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (price-with-currency (:copier common-lisp:nil)
+      (:conc-name "struct-shape-price-with-currency-"))
+   (price (common-lisp:error ":price is required") :type
+    (common-lisp:or price common-lisp:null))
+   (currency (common-lisp:error ":currency is required") :type
+    (common-lisp:or currency common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'price-with-currency 'make-price-with-currency))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input price-with-currency))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input price-with-currency))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'price))
+      (common-lisp:list
+       (common-lisp:cons "Price"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'currency))
+      (common-lisp:list
+       (common-lisp:cons "Currency"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input price-with-currency))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (push-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-push-domain-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (target (common-lisp:error ":target is required") :type
+    (common-lisp:or label common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'push-domain-request 'make-push-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input push-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input push-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target))
+      (common-lisp:list
+       (common-lisp:cons "Target"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input push-domain-request))
+   common-lisp:nil))
 (common-lisp:deftype reachability-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1723,7 +2760,7 @@
  (common-lisp:defstruct
      (register-domain-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-register-domain-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'register-domain-response 'make-register-domain-response))
@@ -1753,6 +2790,72 @@
 (common-lisp:deftype registrar-url () 'common-lisp:string)
 (common-lisp:deftype registrar-who-is-server () 'common-lisp:string)
 (common-lisp:deftype registry-domain-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reject-domain-transfer-from-another-aws-account-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-reject-domain-transfer-from-another-aws-account-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reject-domain-transfer-from-another-aws-account-request
+                    'make-reject-domain-transfer-from-another-aws-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reject-domain-transfer-from-another-aws-account-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-reject-domain-transfer-from-another-aws-account-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reject-domain-transfer-from-another-aws-account-response
+                    'make-reject-domain-transfer-from-another-aws-account-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-domain-transfer-from-another-aws-account-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (renew-domain-request (:copier common-lisp:nil)
@@ -1799,7 +2902,7 @@
  (common-lisp:defstruct
      (renew-domain-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-renew-domain-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'renew-domain-response 'make-renew-domain-response))
@@ -1908,6 +3011,37 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (resend-operation-authorization-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resend-operation-authorization-request-"))
+   (operation-id (common-lisp:error ":operation-id is required") :type
+    (common-lisp:or operation-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resend-operation-authorization-request
+                    'make-resend-operation-authorization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          resend-operation-authorization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          resend-operation-authorization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          resend-operation-authorization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (retrieve-domain-auth-code-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-retrieve-domain-auth-code-request-"))
    (domain-name (common-lisp:error ":domain-name is required") :type
@@ -1941,7 +3075,7 @@
  (common-lisp:defstruct
      (retrieve-domain-auth-code-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-retrieve-domain-auth-code-response-"))
-   (auth-code (common-lisp:error ":auth-code is required") :type
+   (auth-code common-lisp:nil :type
     (common-lisp:or domain-auth-code common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'retrieve-domain-auth-code-response
@@ -1968,7 +3102,41 @@
                          (aws-sdk/generator/shape::input
                           retrieve-domain-auth-code-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sort-condition (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sort-condition-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or list-domains-attribute-name common-lisp:null))
+   (sort-order (common-lisp:error ":sort-order is required") :type
+    (common-lisp:or sort-order common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'sort-condition 'make-sort-condition))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input sort-condition))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input sort-condition))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sort-order))
+      (common-lisp:list
+       (common-lisp:cons "SortOrder"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input sort-condition))
+   common-lisp:nil))
+(common-lisp:deftype sort-order () 'common-lisp:string)
 (common-lisp:deftype state () 'common-lisp:string)
+(common-lisp:deftype status-flag () 'common-lisp:string)
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition tldrules-violation
@@ -2023,6 +3191,7 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
+(common-lisp:deftype tld-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (transfer-domain-request (:copier common-lisp:nil)
@@ -2158,7 +3327,7 @@
  (common-lisp:defstruct
      (transfer-domain-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-transfer-domain-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'transfer-domain-response 'make-transfer-domain-response))
@@ -2184,6 +3353,88 @@
                          (aws-sdk/generator/shape::input
                           transfer-domain-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (transfer-domain-to-another-aws-account-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-transfer-domain-to-another-aws-account-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (account-id (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'transfer-domain-to-another-aws-account-request
+                    'make-transfer-domain-to-another-aws-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-name))
+      (common-lisp:list
+       (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-id))
+      (common-lisp:list
+       (common-lisp:cons "AccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (transfer-domain-to-another-aws-account-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-transfer-domain-to-another-aws-account-response-"))
+   (operation-id common-lisp:nil :type
+    (common-lisp:or operation-id common-lisp:null))
+   (password common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'transfer-domain-to-another-aws-account-response
+                    'make-transfer-domain-to-another-aws-account-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-id))
+      (common-lisp:list
+       (common-lisp:cons "OperationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'password))
+      (common-lisp:list
+       (common-lisp:cons "Password"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          transfer-domain-to-another-aws-account-response))
+   common-lisp:nil))
+(common-lisp:deftype transferable () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition unsupported-tld
      (route53domains-error)
@@ -2253,7 +3504,7 @@
  (common-lisp:defstruct
      (update-domain-contact-privacy-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-domain-contact-privacy-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-domain-contact-privacy-response
@@ -2291,7 +3542,8 @@
    (registrant-contact common-lisp:nil :type
     (common-lisp:or contact-detail common-lisp:null))
    (tech-contact common-lisp:nil :type
-    (common-lisp:or contact-detail common-lisp:null)))
+    (common-lisp:or contact-detail common-lisp:null))
+   (consent common-lisp:nil :type (common-lisp:or consent common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-domain-contact-request
                     'make-update-domain-contact-request))
@@ -2332,6 +3584,13 @@
       (common-lisp:list
        (common-lisp:cons "TechContact"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consent))
+      (common-lisp:list
+       (common-lisp:cons "Consent"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -2342,7 +3601,7 @@
  (common-lisp:defstruct
      (update-domain-contact-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-domain-contact-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-domain-contact-response
@@ -2422,7 +3681,7 @@
  (common-lisp:defstruct
      (update-domain-nameservers-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-domain-nameservers-response-"))
-   (operation-id (common-lisp:error ":operation-id is required") :type
+   (operation-id common-lisp:nil :type
     (common-lisp:or operation-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-domain-nameservers-response
@@ -2511,6 +3770,14 @@
                          (aws-sdk/generator/shape::input
                           update-tags-for-domain-response))
    common-lisp:nil))
+(common-lisp:deftype value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype values () '(trivial-types:proper-list value))
+ (common-lisp:defun |make-values|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list value))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (view-billing-request (:copier common-lisp:nil)
@@ -2600,6 +3867,63 @@
    common-lisp:nil))
 (common-lisp:deftype zip-code () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defun accept-domain-transfer-from-another-aws-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name password)
+   (common-lisp:declare (common-lisp:ignorable domain-name password))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-accept-domain-transfer-from-another-aws-account-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AcceptDomainTransferFromAnotherAwsAccount"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'accept-domain-transfer-from-another-aws-account))
+(common-lisp:progn
+ (common-lisp:defun associate-delegation-signer-to-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name signing-attributes)
+   (common-lisp:declare (common-lisp:ignorable domain-name signing-attributes))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-associate-delegation-signer-to-domain-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AssociateDelegationSignerToDomain"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'associate-delegation-signer-to-domain))
+(common-lisp:progn
+ (common-lisp:defun cancel-domain-transfer-to-another-aws-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name)
+   (common-lisp:declare (common-lisp:ignorable domain-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-cancel-domain-transfer-to-another-aws-account-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CancelDomainTransferToAnotherAwsAccount"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'cancel-domain-transfer-to-another-aws-account))
+(common-lisp:progn
  (common-lisp:defun check-domain-availability
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -2618,6 +3942,43 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'check-domain-availability))
+(common-lisp:progn
+ (common-lisp:defun check-domain-transferability
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name auth-code)
+   (common-lisp:declare (common-lisp:ignorable domain-name auth-code))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-check-domain-transferability-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CheckDomainTransferability"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'check-domain-transferability))
+(common-lisp:progn
+ (common-lisp:defun delete-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name)
+   (common-lisp:declare (common-lisp:ignorable domain-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-domain-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteDomain"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-domain))
 (common-lisp:progn
  (common-lisp:defun delete-tags-for-domain
                     (
@@ -2674,6 +4035,25 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disable-domain-transfer-lock))
+(common-lisp:progn
+ (common-lisp:defun disassociate-delegation-signer-from-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name id)
+   (common-lisp:declare (common-lisp:ignorable domain-name id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-disassociate-delegation-signer-from-domain-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DisassociateDelegationSignerFromDomain"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'disassociate-delegation-signer-from-domain))
 (common-lisp:progn
  (common-lisp:defun enable-domain-auto-renew
                     (
@@ -2790,8 +4170,10 @@
  (common-lisp:defun list-domains
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key marker max-items)
-   (common-lisp:declare (common-lisp:ignorable marker max-items))
+                     common-lisp:&key filter-conditions sort-condition marker
+                     max-items)
+   (common-lisp:declare
+    (common-lisp:ignorable filter-conditions sort-condition marker max-items))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-domains-request
                                          aws-sdk/generator/operation::args)))
@@ -2808,8 +4190,11 @@
  (common-lisp:defun list-operations
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key marker max-items)
-   (common-lisp:declare (common-lisp:ignorable marker max-items))
+                     common-lisp:&key submitted-since marker max-items status
+                     type sort-by sort-order)
+   (common-lisp:declare
+    (common-lisp:ignorable submitted-since marker max-items status type sort-by
+     sort-order))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-operations-request
                                          aws-sdk/generator/operation::args)))
@@ -2822,6 +4207,23 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-operations))
+(common-lisp:progn
+ (common-lisp:defun list-prices
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key tld marker max-items)
+   (common-lisp:declare (common-lisp:ignorable tld marker max-items))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-prices-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/" "ListPrices"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-prices))
 (common-lisp:progn
  (common-lisp:defun list-tags-for-domain
                     (
@@ -2840,6 +4242,23 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-domain))
+(common-lisp:progn
+ (common-lisp:defun push-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name target)
+   (common-lisp:declare (common-lisp:ignorable domain-name target))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-push-domain-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/" "PushDomain"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'push-domain))
 (common-lisp:progn
  (common-lisp:defun register-domain
                     (
@@ -2867,6 +4286,25 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'register-domain))
+(common-lisp:progn
+ (common-lisp:defun reject-domain-transfer-from-another-aws-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name)
+   (common-lisp:declare (common-lisp:ignorable domain-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-reject-domain-transfer-from-another-aws-account-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "RejectDomainTransferFromAnotherAwsAccount"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'reject-domain-transfer-from-another-aws-account))
 (common-lisp:progn
  (common-lisp:defun renew-domain
                     (
@@ -2906,6 +4344,25 @@
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'resend-contact-reachability-email))
+(common-lisp:progn
+ (common-lisp:defun resend-operation-authorization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key operation-id)
+   (common-lisp:declare (common-lisp:ignorable operation-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-resend-operation-authorization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ResendOperationAuthorization"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'resend-operation-authorization))
 (common-lisp:progn
  (common-lisp:defun retrieve-domain-auth-code
                     (
@@ -2953,14 +4410,33 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'transfer-domain))
 (common-lisp:progn
+ (common-lisp:defun transfer-domain-to-another-aws-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name account-id)
+   (common-lisp:declare (common-lisp:ignorable domain-name account-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-transfer-domain-to-another-aws-account-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "TransferDomainToAnotherAwsAccount"
+                                                        "2014-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'transfer-domain-to-another-aws-account))
+(common-lisp:progn
  (common-lisp:defun update-domain-contact
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key domain-name admin-contact
-                     registrant-contact tech-contact)
+                     registrant-contact tech-contact consent)
    (common-lisp:declare
     (common-lisp:ignorable domain-name admin-contact registrant-contact
-     tech-contact))
+     tech-contact consent))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-domain-contact-request
                                          aws-sdk/generator/operation::args)))

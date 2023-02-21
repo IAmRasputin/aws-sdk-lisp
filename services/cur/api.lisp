@@ -33,6 +33,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list additional-artifact))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype billing-view-arn () 'common-lisp:string)
 (common-lisp:deftype compression-format () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -198,6 +199,68 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
+     (modify-report-definition-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-report-definition-request-"))
+   (report-name (common-lisp:error ":report-name is required") :type
+    (common-lisp:or report-name common-lisp:null))
+   (report-definition (common-lisp:error ":report-definition is required")
+    :type (common-lisp:or report-definition common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-report-definition-request
+                    'make-modify-report-definition-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'report-name))
+      (common-lisp:list
+       (common-lisp:cons "ReportName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'report-definition))
+      (common-lisp:list
+       (common-lisp:cons "ReportDefinition"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-report-definition-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-report-definition-response-")))
+ (common-lisp:export
+  (common-lisp:list 'modify-report-definition-response
+                    'make-modify-report-definition-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-report-definition-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (put-report-definition-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-put-report-definition-request-"))
    (report-definition (common-lisp:error ":report-definition is required")
@@ -249,6 +312,7 @@
                          (aws-sdk/generator/shape::input
                           put-report-definition-response))
    common-lisp:nil))
+(common-lisp:deftype refresh-closed-reports () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
      (report-definition (:copier common-lisp:nil)
@@ -271,7 +335,13 @@
    (s3region (common-lisp:error ":s3region is required") :type
     (common-lisp:or awsregion common-lisp:null))
    (additional-artifacts common-lisp:nil :type
-    (common-lisp:or additional-artifact-list common-lisp:null)))
+    (common-lisp:or additional-artifact-list common-lisp:null))
+   (refresh-closed-reports common-lisp:nil :type
+    (common-lisp:or refresh-closed-reports common-lisp:null))
+   (report-versioning common-lisp:nil :type
+    (common-lisp:or report-versioning common-lisp:null))
+   (billing-view-arn common-lisp:nil :type
+    (common-lisp:or billing-view-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'report-definition 'make-report-definition))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -344,6 +414,28 @@
       (common-lisp:list
        (common-lisp:cons "AdditionalArtifacts"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'refresh-closed-reports))
+      (common-lisp:list
+       (common-lisp:cons "RefreshClosedReports"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'report-versioning))
+      (common-lisp:list
+       (common-lisp:cons "ReportVersioning"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'billing-view-arn))
+      (common-lisp:list
+       (common-lisp:cons "BillingViewArn"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input report-definition))
@@ -366,6 +458,7 @@
   (common-lisp:list 'report-limit-reached-exception
                     'report-limit-reached-exception-message)))
 (common-lisp:deftype report-name () 'common-lisp:string)
+(common-lisp:deftype report-versioning () 'common-lisp:string)
 (common-lisp:deftype s3bucket () 'common-lisp:string)
 (common-lisp:deftype s3prefix () 'common-lisp:string)
 (common-lisp:deftype schema-element () 'common-lisp:string)
@@ -422,6 +515,24 @@
                                                         "2017-01-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-report-definitions))
+(common-lisp:progn
+ (common-lisp:defun modify-report-definition
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key report-name report-definition)
+   (common-lisp:declare (common-lisp:ignorable report-name report-definition))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-report-definition-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cur-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyReportDefinition"
+                                                        "2017-01-06"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'modify-report-definition))
 (common-lisp:progn
  (common-lisp:defun put-report-definition
                     (

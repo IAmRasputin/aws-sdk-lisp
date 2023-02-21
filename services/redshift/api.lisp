@@ -19,13 +19,25 @@
      common-lisp:nil)
  (common-lisp:export 'redshift-error))
 (common-lisp:defvar *error-map*
-  '(("AccessToSnapshotDeniedFault" . access-to-snapshot-denied-fault)
+  '(("AccessToClusterDeniedFault" . access-to-cluster-denied-fault)
+    ("AccessToSnapshotDeniedFault" . access-to-snapshot-denied-fault)
+    ("AuthenticationProfileAlreadyExistsFault"
+     . authentication-profile-already-exists-fault)
+    ("AuthenticationProfileNotFoundFault"
+     . authentication-profile-not-found-fault)
+    ("AuthenticationProfileQuotaExceededFault"
+     . authentication-profile-quota-exceeded-fault)
     ("AuthorizationAlreadyExistsFault" . authorization-already-exists-fault)
     ("AuthorizationNotFoundFault" . authorization-not-found-fault)
     ("AuthorizationQuotaExceededFault" . authorization-quota-exceeded-fault)
+    ("BatchDeleteRequestSizeExceededFault"
+     . batch-delete-request-size-exceeded-fault)
+    ("BatchModifyClusterSnapshotsLimitExceededFault"
+     . batch-modify-cluster-snapshots-limit-exceeded-fault)
     ("BucketNotFoundFault" . bucket-not-found-fault)
     ("ClusterAlreadyExistsFault" . cluster-already-exists-fault)
     ("ClusterNotFoundFault" . cluster-not-found-fault)
+    ("ClusterOnLatestRevisionFault" . cluster-on-latest-revision-fault)
     ("ClusterParameterGroupAlreadyExistsFault"
      . cluster-parameter-group-already-exists-fault)
     ("ClusterParameterGroupNotFoundFault"
@@ -54,6 +66,18 @@
     ("DependentServiceRequestThrottlingFault"
      . dependent-service-request-throttling-fault)
     ("DependentServiceUnavailableFault" . dependent-service-unavailable-fault)
+    ("EndpointAlreadyExistsFault" . endpoint-already-exists-fault)
+    ("EndpointAuthorizationAlreadyExistsFault"
+     . endpoint-authorization-already-exists-fault)
+    ("EndpointAuthorizationNotFoundFault"
+     . endpoint-authorization-not-found-fault)
+    ("EndpointAuthorizationsPerClusterLimitExceededFault"
+     . endpoint-authorizations-per-cluster-limit-exceeded-fault)
+    ("EndpointNotFoundFault" . endpoint-not-found-fault)
+    ("EndpointsPerAuthorizationLimitExceededFault"
+     . endpoints-per-authorization-limit-exceeded-fault)
+    ("EndpointsPerClusterLimitExceededFault"
+     . endpoints-per-cluster-limit-exceeded-fault)
     ("EventSubscriptionQuotaExceededFault"
      . event-subscription-quota-exceeded-fault)
     ("HsmClientCertificateAlreadyExistsFault"
@@ -72,35 +96,53 @@
     ("IncompatibleOrderableOptions" . incompatible-orderable-options)
     ("InsufficientClusterCapacityFault" . insufficient-cluster-capacity-fault)
     ("InsufficientS3BucketPolicyFault" . insufficient-s3bucket-policy-fault)
+    ("InvalidAuthenticationProfileRequestFault"
+     . invalid-authentication-profile-request-fault)
+    ("InvalidAuthorizationStateFault" . invalid-authorization-state-fault)
     ("InvalidClusterParameterGroupStateFault"
      . invalid-cluster-parameter-group-state-fault)
     ("InvalidClusterSecurityGroupStateFault"
      . invalid-cluster-security-group-state-fault)
+    ("InvalidClusterSnapshotScheduleStateFault"
+     . invalid-cluster-snapshot-schedule-state-fault)
     ("InvalidClusterSnapshotStateFault" . invalid-cluster-snapshot-state-fault)
     ("InvalidClusterStateFault" . invalid-cluster-state-fault)
     ("InvalidClusterSubnetGroupStateFault"
      . invalid-cluster-subnet-group-state-fault)
     ("InvalidClusterSubnetStateFault" . invalid-cluster-subnet-state-fault)
+    ("InvalidClusterTrackFault" . invalid-cluster-track-fault)
+    ("InvalidDataShareFault" . invalid-data-share-fault)
     ("InvalidElasticIpFault" . invalid-elastic-ip-fault)
+    ("InvalidEndpointStateFault" . invalid-endpoint-state-fault)
     ("InvalidHsmClientCertificateStateFault"
      . invalid-hsm-client-certificate-state-fault)
     ("InvalidHsmConfigurationStateFault"
      . invalid-hsm-configuration-state-fault)
+    ("InvalidNamespaceFault" . invalid-namespace-fault)
+    ("InvalidReservedNodeStateFault" . invalid-reserved-node-state-fault)
     ("InvalidRestoreFault" . invalid-restore-fault)
+    ("InvalidRetentionPeriodFault" . invalid-retention-period-fault)
     ("InvalidS3BucketNameFault" . invalid-s3bucket-name-fault)
     ("InvalidS3KeyPrefixFault" . invalid-s3key-prefix-fault)
+    ("InvalidScheduleFault" . invalid-schedule-fault)
+    ("InvalidScheduledActionFault" . invalid-scheduled-action-fault)
     ("InvalidSnapshotCopyGrantStateFault"
      . invalid-snapshot-copy-grant-state-fault)
     ("InvalidSubnet" . invalid-subnet)
     ("InvalidSubscriptionStateFault" . invalid-subscription-state-fault)
     ("InvalidTableRestoreArgumentFault" . invalid-table-restore-argument-fault)
     ("InvalidTagFault" . invalid-tag-fault)
+    ("InvalidUsageLimitFault" . invalid-usage-limit-fault)
     ("InvalidVPCNetworkStateFault" . invalid-vpcnetwork-state-fault)
     ("LimitExceededFault" . limit-exceeded-fault)
     ("NumberOfNodesPerClusterLimitExceededFault"
      . number-of-nodes-per-cluster-limit-exceeded-fault)
     ("NumberOfNodesQuotaExceededFault" . number-of-nodes-quota-exceeded-fault)
+    ("PartnerNotFoundFault" . partner-not-found-fault)
     ("ReservedNodeAlreadyExistsFault" . reserved-node-already-exists-fault)
+    ("ReservedNodeAlreadyMigratedFault" . reserved-node-already-migrated-fault)
+    ("ReservedNodeExchangeNotFoundFault"
+     . reserved-node-exchange-not-found-fault)
     ("ReservedNodeNotFoundFault" . reserved-node-not-found-fault)
     ("ReservedNodeOfferingNotFoundFault"
      . reserved-node-offering-not-found-fault)
@@ -110,6 +152,15 @@
     ("SNSInvalidTopicFault" . snsinvalid-topic-fault)
     ("SNSNoAuthorizationFault" . snsno-authorization-fault)
     ("SNSTopicArnNotFoundFault" . snstopic-arn-not-found-fault)
+    ("ScheduleDefinitionTypeUnsupportedFault"
+     . schedule-definition-type-unsupported-fault)
+    ("ScheduledActionAlreadyExistsFault"
+     . scheduled-action-already-exists-fault)
+    ("ScheduledActionNotFoundFault" . scheduled-action-not-found-fault)
+    ("ScheduledActionQuotaExceededFault"
+     . scheduled-action-quota-exceeded-fault)
+    ("ScheduledActionTypeUnsupportedFault"
+     . scheduled-action-type-unsupported-fault)
     ("SnapshotCopyAlreadyDisabledFault" . snapshot-copy-already-disabled-fault)
     ("SnapshotCopyAlreadyEnabledFault" . snapshot-copy-already-enabled-fault)
     ("SnapshotCopyDisabledFault" . snapshot-copy-disabled-fault)
@@ -118,6 +169,13 @@
     ("SnapshotCopyGrantNotFoundFault" . snapshot-copy-grant-not-found-fault)
     ("SnapshotCopyGrantQuotaExceededFault"
      . snapshot-copy-grant-quota-exceeded-fault)
+    ("SnapshotScheduleAlreadyExistsFault"
+     . snapshot-schedule-already-exists-fault)
+    ("SnapshotScheduleNotFoundFault" . snapshot-schedule-not-found-fault)
+    ("SnapshotScheduleQuotaExceededFault"
+     . snapshot-schedule-quota-exceeded-fault)
+    ("SnapshotScheduleUpdateInProgressFault"
+     . snapshot-schedule-update-in-progress-fault)
     ("SourceNotFoundFault" . source-not-found-fault)
     ("SubnetAlreadyInUse" . subnet-already-in-use)
     ("SubscriptionAlreadyExistFault" . subscription-already-exist-fault)
@@ -128,17 +186,165 @@
     ("SubscriptionNotFoundFault" . subscription-not-found-fault)
     ("SubscriptionSeverityNotFoundFault"
      . subscription-severity-not-found-fault)
+    ("TableLimitExceededFault" . table-limit-exceeded-fault)
     ("TableRestoreNotFoundFault" . table-restore-not-found-fault)
     ("TagLimitExceededFault" . tag-limit-exceeded-fault)
     ("UnauthorizedOperation" . unauthorized-operation)
+    ("UnauthorizedPartnerIntegrationFault"
+     . unauthorized-partner-integration-fault)
     ("UnknownSnapshotCopyRegionFault" . unknown-snapshot-copy-region-fault)
     ("UnsupportedOperationFault" . unsupported-operation-fault)
-    ("UnsupportedOptionFault" . unsupported-option-fault)))
+    ("UnsupportedOptionFault" . unsupported-option-fault)
+    ("UsageLimitAlreadyExistsFault" . usage-limit-already-exists-fault)
+    ("UsageLimitNotFoundFault" . usage-limit-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (accept-reserved-node-exchange-input-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-accept-reserved-node-exchange-input-message-"))
+   (reserved-node-id (common-lisp:error ":reserved-node-id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (target-reserved-node-offering-id
+    (common-lisp:error ":target-reserved-node-offering-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'accept-reserved-node-exchange-input-message
+                    'make-accept-reserved-node-exchange-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-offering-id))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeOfferingId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (accept-reserved-node-exchange-output-message (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-accept-reserved-node-exchange-output-message-"))
+   (exchanged-reserved-node common-lisp:nil :type
+    (common-lisp:or reserved-node common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'accept-reserved-node-exchange-output-message
+                    'make-accept-reserved-node-exchange-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'exchanged-reserved-node))
+      (common-lisp:list
+       (common-lisp:cons "ExchangedReservedNode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          accept-reserved-node-exchange-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition access-to-cluster-denied-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'access-to-cluster-denied-fault)))
 (common-lisp:progn
  (common-lisp:define-condition access-to-snapshot-denied-fault
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'access-to-snapshot-denied-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (account-attribute (:copier common-lisp:nil)
+      (:conc-name "struct-shape-account-attribute-"))
+   (attribute-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (attribute-values common-lisp:nil :type
+    (common-lisp:or attribute-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'account-attribute 'make-account-attribute))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input account-attribute))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input account-attribute))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-name))
+      (common-lisp:list
+       (common-lisp:cons "AttributeName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-values))
+      (common-lisp:list
+       (common-lisp:cons "AttributeValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input account-attribute))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (account-attribute-list (:copier common-lisp:nil)
+      (:conc-name "struct-shape-account-attribute-list-"))
+   (account-attributes common-lisp:nil :type
+    (common-lisp:or attribute-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'account-attribute-list 'make-account-attribute-list))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          account-attribute-list))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          account-attribute-list))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-attributes))
+      (common-lisp:list
+       (common-lisp:cons "AccountAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          account-attribute-list))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (account-with-restore-access (:copier common-lisp:nil)
@@ -187,6 +393,233 @@
                            (trivial-types:proper-list
                             account-with-restore-access))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype action-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aqua-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-aqua-configuration-"))
+   (aqua-status common-lisp:nil :type
+    (common-lisp:or aqua-status common-lisp:null))
+   (aqua-configuration-status common-lisp:nil :type
+    (common-lisp:or aqua-configuration-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aqua-configuration 'make-aqua-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input aqua-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input aqua-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aqua-status))
+      (common-lisp:list
+       (common-lisp:cons "AquaStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'aqua-configuration-status))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfigurationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input aqua-configuration))
+   common-lisp:nil))
+(common-lisp:deftype aqua-configuration-status () 'common-lisp:string)
+(common-lisp:deftype aqua-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-data-share-consumer-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-associate-data-share-consumer-message-"))
+   (data-share-arn (common-lisp:error ":data-share-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (associate-entire-account common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (consumer-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (consumer-region common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-data-share-consumer-message
+                    'make-associate-data-share-consumer-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-data-share-consumer-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-data-share-consumer-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'associate-entire-account))
+      (common-lisp:list
+       (common-lisp:cons "AssociateEntireAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-arn))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-region))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerRegion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-data-share-consumer-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype associated-cluster-list ()
+   '(trivial-types:proper-list cluster-associated-to-schedule))
+ (common-lisp:defun |make-associated-cluster-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            cluster-associated-to-schedule))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype attribute-list ()
+   '(trivial-types:proper-list account-attribute))
+ (common-lisp:defun |make-attribute-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list account-attribute))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype attribute-name-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-attribute-name-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype attribute-value-list ()
+   '(trivial-types:proper-list attribute-value-target))
+ (common-lisp:defun |make-attribute-value-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list attribute-value-target))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (attribute-value-target (:copier common-lisp:nil)
+      (:conc-name "struct-shape-attribute-value-target-"))
+   (attribute-value common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'attribute-value-target 'make-attribute-value-target))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          attribute-value-target))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          attribute-value-target))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-value))
+      (common-lisp:list
+       (common-lisp:cons "AttributeValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          attribute-value-target))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (authentication-profile (:copier common-lisp:nil)
+      (:conc-name "struct-shape-authentication-profile-"))
+   (authentication-profile-name common-lisp:nil :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null))
+   (authentication-profile-content common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'authentication-profile 'make-authentication-profile))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          authentication-profile))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          authentication-profile))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-content))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          authentication-profile))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition authentication-profile-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'authentication-profile-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:deftype authentication-profile-list ()
+   '(trivial-types:proper-list authentication-profile))
+ (common-lisp:defun |make-authentication-profile-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list authentication-profile))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype authentication-profile-name-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition authentication-profile-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'authentication-profile-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition authentication-profile-quota-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'authentication-profile-quota-exceeded-fault)))
 (common-lisp:progn
  (common-lisp:define-condition authorization-already-exists-fault
      (redshift-error)
@@ -202,6 +635,7 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'authorization-quota-exceeded-fault)))
+(common-lisp:deftype authorization-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (authorize-cluster-security-group-ingress-message
@@ -300,10 +734,101 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (authorize-data-share-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-authorize-data-share-message-"))
+   (data-share-arn (common-lisp:error ":data-share-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (consumer-identifier (common-lisp:error ":consumer-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'authorize-data-share-message
+                    'make-authorize-data-share-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-data-share-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-data-share-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-data-share-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (authorize-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-authorize-endpoint-access-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (account (common-lisp:error ":account is required") :type
+    (common-lisp:or string common-lisp:null))
+   (vpc-ids common-lisp:nil :type
+    (common-lisp:or vpc-identifier-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'authorize-endpoint-access-message
+                    'make-authorize-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account))
+      (common-lisp:list
+       (common-lisp:cons "Account"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-ids))
+      (common-lisp:list
+       (common-lisp:cons "VpcIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          authorize-endpoint-access-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (authorize-snapshot-access-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-authorize-snapshot-access-message-"))
-   (snapshot-identifier (common-lisp:error ":snapshot-identifier is required")
-    :type (common-lisp:or string common-lisp:null))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (snapshot-cluster-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (account-with-restore-access
@@ -327,6 +852,13 @@
                            aws-sdk/generator/shape::input 'snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-arn))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -384,7 +916,9 @@
  (common-lisp:defstruct
      (availability-zone (:copier common-lisp:nil)
       (:conc-name "struct-shape-availability-zone-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (supported-platforms common-lisp:nil :type
+    (common-lisp:or supported-platforms-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'availability-zone 'make-availability-zone))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -399,6 +933,13 @@
       (common-lisp:list
        (common-lisp:cons "Name"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'supported-platforms))
+      (common-lisp:list
+       (common-lisp:cons "SupportedPlatforms"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input availability-zone))
@@ -411,6 +952,197 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list availability-zone))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-delete-cluster-snapshots-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-delete-cluster-snapshots-request-"))
+   (identifiers (common-lisp:error ":identifiers is required") :type
+    (common-lisp:or delete-cluster-snapshot-message-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-cluster-snapshots-request
+                    'make-batch-delete-cluster-snapshots-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'identifiers))
+      (common-lisp:list
+       (common-lisp:cons "Identifiers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-delete-cluster-snapshots-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-delete-cluster-snapshots-result-"))
+   (resources common-lisp:nil :type
+    (common-lisp:or snapshot-identifier-list common-lisp:null))
+   (errors common-lisp:nil :type
+    (common-lisp:or batch-snapshot-operation-error-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-cluster-snapshots-result
+                    'make-batch-delete-cluster-snapshots-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resources))
+      (common-lisp:list
+       (common-lisp:cons "Resources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'errors))
+      (common-lisp:list
+       (common-lisp:cons "Errors"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-cluster-snapshots-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition batch-delete-request-size-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-request-size-exceeded-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition batch-modify-cluster-snapshots-limit-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'batch-modify-cluster-snapshots-limit-exceeded-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-modify-cluster-snapshots-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-modify-cluster-snapshots-message-"))
+   (snapshot-identifier-list
+    (common-lisp:error ":snapshot-identifier-list is required") :type
+    (common-lisp:or snapshot-identifier-list common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (force common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-modify-cluster-snapshots-message
+                    'make-batch-modify-cluster-snapshots-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-identifier-list))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotIdentifierList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'force))
+      (common-lisp:list
+       (common-lisp:cons "Force"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-modify-cluster-snapshots-output-message (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-batch-modify-cluster-snapshots-output-message-"))
+   (resources common-lisp:nil :type
+    (common-lisp:or snapshot-identifier-list common-lisp:null))
+   (errors common-lisp:nil :type
+    (common-lisp:or batch-snapshot-operation-errors common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-modify-cluster-snapshots-output-message
+                    'make-batch-modify-cluster-snapshots-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resources))
+      (common-lisp:list
+       (common-lisp:cons "Resources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'errors))
+      (common-lisp:list
+       (common-lisp:cons "Errors"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-modify-cluster-snapshots-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype batch-snapshot-operation-error-list ()
+   '(trivial-types:proper-list snapshot-error-message))
+ (common-lisp:defun |make-batch-snapshot-operation-error-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list snapshot-error-message))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype batch-snapshot-operation-errors ()
+   '(trivial-types:proper-list snapshot-error-message))
+ (common-lisp:defun |make-batch-snapshot-operation-errors|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list snapshot-error-message))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype boolean-optional () 'common-lisp:boolean)
 (common-lisp:progn
@@ -420,11 +1152,43 @@
  (common-lisp:export (common-lisp:list 'bucket-not-found-fault)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (cancel-resize-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cancel-resize-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cancel-resize-message 'make-cancel-resize-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-resize-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-resize-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cancel-resize-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (cluster (:copier common-lisp:nil) (:conc-name "struct-shape-cluster-"))
    (cluster-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (node-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (cluster-status common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (cluster-availability-status common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (modify-status common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -435,6 +1199,8 @@
    (cluster-create-time common-lisp:nil :type
     (common-lisp:or tstamp common-lisp:null))
    (automated-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
     (common-lisp:or integer common-lisp:null))
    (cluster-security-groups common-lisp:nil :type
     (common-lisp:or cluster-security-group-membership-list common-lisp:null))
@@ -462,6 +1228,8 @@
    (encrypted common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
    (restore-status common-lisp:nil :type
     (common-lisp:or restore-status common-lisp:null))
+   (data-transfer-progress common-lisp:nil :type
+    (common-lisp:or data-transfer-progress common-lisp:null))
    (hsm-status common-lisp:nil :type
     (common-lisp:or hsm-status common-lisp:null))
    (cluster-snapshot-copy-status common-lisp:nil :type
@@ -479,7 +1247,39 @@
    (enhanced-vpc-routing common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
    (iam-roles common-lisp:nil :type
-    (common-lisp:or cluster-iam-role-list common-lisp:null)))
+    (common-lisp:or cluster-iam-role-list common-lisp:null))
+   (pending-actions common-lisp:nil :type
+    (common-lisp:or pending-actions-list common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (elastic-resize-number-of-node-options common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (deferred-maintenance-windows common-lisp:nil :type
+    (common-lisp:or deferred-maintenance-windows-list common-lisp:null))
+   (snapshot-schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-schedule-state common-lisp:nil :type
+    (common-lisp:or schedule-state common-lisp:null))
+   (expected-next-snapshot-schedule-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (expected-next-snapshot-schedule-time-status common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (next-maintenance-window-start-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (resize-info common-lisp:nil :type
+    (common-lisp:or resize-info common-lisp:null))
+   (availability-zone-relocation-status common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (cluster-namespace-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (total-storage-capacity-in-mega-bytes common-lisp:nil :type
+    (common-lisp:or long-optional common-lisp:null))
+   (aqua-configuration common-lisp:nil :type
+    (common-lisp:or aqua-configuration common-lisp:null))
+   (default-iam-role-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (reserved-node-exchange-status common-lisp:nil :type
+    (common-lisp:or reserved-node-exchange-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'cluster 'make-cluster))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cluster))
@@ -506,6 +1306,14 @@
                            aws-sdk/generator/shape::input 'cluster-status))
       (common-lisp:list
        (common-lisp:cons "ClusterStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cluster-availability-status))
+      (common-lisp:list
+       (common-lisp:cons "ClusterAvailabilityStatus"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -549,6 +1357,14 @@
                            'automated-snapshot-retention-period))
       (common-lisp:list
        (common-lisp:cons "AutomatedSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -657,6 +1473,14 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-transfer-progress))
+      (common-lisp:list
+       (common-lisp:cons "DataTransferProgress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'hsm-status))
       (common-lisp:list
        (common-lisp:cons "HsmStatus"
@@ -727,6 +1551,131 @@
       (common-lisp:list
        (common-lisp:cons "IamRoles"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pending-actions))
+      (common-lisp:list
+       (common-lisp:cons "PendingActions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'elastic-resize-number-of-node-options))
+      (common-lisp:list
+       (common-lisp:cons "ElasticResizeNumberOfNodeOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'deferred-maintenance-windows))
+      (common-lisp:list
+       (common-lisp:cons "DeferredMaintenanceWindows"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-schedule-state))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotScheduleState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'expected-next-snapshot-schedule-time))
+      (common-lisp:list
+       (common-lisp:cons "ExpectedNextSnapshotScheduleTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'expected-next-snapshot-schedule-time-status))
+      (common-lisp:list
+       (common-lisp:cons "ExpectedNextSnapshotScheduleTimeStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'next-maintenance-window-start-time))
+      (common-lisp:list
+       (common-lisp:cons "NextMaintenanceWindowStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resize-info))
+      (common-lisp:list
+       (common-lisp:cons "ResizeInfo"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'availability-zone-relocation-status))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZoneRelocationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cluster-namespace-arn))
+      (common-lisp:list
+       (common-lisp:cons "ClusterNamespaceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'total-storage-capacity-in-mega-bytes))
+      (common-lisp:list
+       (common-lisp:cons "TotalStorageCapacityInMegaBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aqua-configuration))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-iam-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DefaultIamRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-exchange-status))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeExchangeStatus"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input cluster))
@@ -736,6 +1685,47 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'cluster-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cluster-associated-to-schedule (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cluster-associated-to-schedule-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (schedule-association-state common-lisp:nil :type
+    (common-lisp:or schedule-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cluster-associated-to-schedule
+                    'make-cluster-associated-to-schedule))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-associated-to-schedule))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-associated-to-schedule))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-association-state))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleAssociationState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-associated-to-schedule))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (cluster-credentials (:copier common-lisp:nil)
@@ -775,6 +1765,163 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input cluster-credentials))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cluster-db-revision (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cluster-db-revision-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (current-database-revision common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (database-revision-release-date common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (revision-targets common-lisp:nil :type
+    (common-lisp:or revision-targets-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cluster-db-revision 'make-cluster-db-revision))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input cluster-db-revision))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input cluster-db-revision))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'current-database-revision))
+      (common-lisp:list
+       (common-lisp:cons "CurrentDatabaseRevision"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'database-revision-release-date))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseRevisionReleaseDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'revision-targets))
+      (common-lisp:list
+       (common-lisp:cons "RevisionTargets"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input cluster-db-revision))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype cluster-db-revisions-list ()
+   '(trivial-types:proper-list cluster-db-revision))
+ (common-lisp:defun |make-cluster-db-revisions-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list cluster-db-revision))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cluster-db-revisions-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cluster-db-revisions-message-"))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (cluster-db-revisions common-lisp:nil :type
+    (common-lisp:or cluster-db-revisions-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cluster-db-revisions-message
+                    'make-cluster-db-revisions-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-db-revisions-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-db-revisions-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cluster-db-revisions))
+      (common-lisp:list
+       (common-lisp:cons "ClusterDbRevisions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-db-revisions-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cluster-extended-credentials (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cluster-extended-credentials-"))
+   (db-user common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (db-password common-lisp:nil :type
+    (common-lisp:or sensitive-string common-lisp:null))
+   (expiration common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (next-refresh-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cluster-extended-credentials
+                    'make-cluster-extended-credentials))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-extended-credentials))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-extended-credentials))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'db-user))
+      (common-lisp:list
+       (common-lisp:cons "DbUser"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'db-password))
+      (common-lisp:list
+       (common-lisp:cons "DbPassword"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration))
+      (common-lisp:list
+       (common-lisp:cons "Expiration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-refresh-time))
+      (common-lisp:list
+       (common-lisp:cons "NextRefreshTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cluster-extended-credentials))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -877,6 +2024,11 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'cluster-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition cluster-on-latest-revision-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'cluster-on-latest-revision-fault)))
 (common-lisp:progn
  (common-lisp:defstruct
      (cluster-parameter-group (:copier common-lisp:nil)
@@ -1398,6 +2550,8 @@
     (common-lisp:or string common-lisp:null))
    (retention-period common-lisp:nil :type
     (common-lisp:or long common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
    (snapshot-copy-grant-name common-lisp:nil :type
     (common-lisp:or string common-lisp:null)))
  (common-lisp:export
@@ -1425,6 +2579,14 @@
                            aws-sdk/generator/shape::input 'retention-period))
       (common-lisp:list
        (common-lisp:cons "RetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1718,7 +2880,9 @@
     (common-lisp:or string common-lisp:null))
    (target-snapshot-identifier
     (common-lisp:error ":target-snapshot-identifier is required") :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'copy-cluster-snapshot-message
                     'make-copy-cluster-snapshot-message))
@@ -1754,6 +2918,14 @@
                            'target-snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "TargetSnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1798,6 +2970,92 @@
  (common-lisp:export (common-lisp:list 'copy-to-region-disabled-fault)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-authentication-profile-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-authentication-profile-message-"))
+   (authentication-profile-name
+    (common-lisp:error ":authentication-profile-name is required") :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null))
+   (authentication-profile-content
+    (common-lisp:error ":authentication-profile-content is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-authentication-profile-message
+                    'make-create-authentication-profile-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-content))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-authentication-profile-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-authentication-profile-result-"))
+   (authentication-profile-name common-lisp:nil :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null))
+   (authentication-profile-content common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-authentication-profile-result
+                    'make-create-authentication-profile-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-content))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-authentication-profile-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-cluster-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-cluster-message-"))
    (dbname common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -1826,6 +3084,8 @@
     (common-lisp:or string common-lisp:null))
    (automated-snapshot-retention-period common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
    (port common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
    (cluster-version common-lisp:nil :type
@@ -1850,7 +3110,19 @@
    (additional-info common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (iam-roles common-lisp:nil :type
-    (common-lisp:or iam-role-arn-list common-lisp:null)))
+    (common-lisp:or iam-role-arn-list common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (availability-zone-relocation common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (aqua-configuration-status common-lisp:nil :type
+    (common-lisp:or aqua-configuration-status common-lisp:null))
+   (default-iam-role-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (load-sample-data common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-cluster-message 'make-create-cluster-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1963,6 +3235,14 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'port))
       (common-lisp:list
        (common-lisp:cons "Port"
@@ -2061,6 +3341,53 @@
                            aws-sdk/generator/shape::input 'iam-roles))
       (common-lisp:list
        (common-lisp:cons "IamRoles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'availability-zone-relocation))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZoneRelocation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'aqua-configuration-status))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfigurationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-iam-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DefaultIamRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'load-sample-data))
+      (common-lisp:list
+       (common-lisp:cons "LoadSampleData"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2280,6 +3607,8 @@
     :type (common-lisp:or string common-lisp:null))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
     :type (common-lisp:or string common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-cluster-snapshot-message
@@ -2306,6 +3635,14 @@
                            aws-sdk/generator/shape::input 'cluster-identifier))
       (common-lisp:list
        (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2440,6 +3777,74 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-cluster-subnet-group-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-endpoint-access-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-owner common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (endpoint-name (common-lisp:error ":endpoint-name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (subnet-group-name (common-lisp:error ":subnet-group-name is required")
+    :type (common-lisp:or string common-lisp:null))
+   (vpc-security-group-ids common-lisp:nil :type
+    (common-lisp:or vpc-security-group-id-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-endpoint-access-message
+                    'make-create-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-owner))
+      (common-lisp:list
+       (common-lisp:cons "ResourceOwner"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-name))
+      (common-lisp:list
+       (common-lisp:cons "EndpointName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'subnet-group-name))
+      (common-lisp:list
+       (common-lisp:cons "SubnetGroupName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vpc-security-group-ids))
+      (common-lisp:list
+       (common-lisp:cons "VpcSecurityGroupIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-endpoint-access-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2759,6 +4164,101 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-scheduled-action-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-scheduled-action-message-"))
+   (scheduled-action-name
+    (common-lisp:error ":scheduled-action-name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (target-action (common-lisp:error ":target-action is required") :type
+    (common-lisp:or scheduled-action-type common-lisp:null))
+   (schedule (common-lisp:error ":schedule is required") :type
+    (common-lisp:or string common-lisp:null))
+   (iam-role (common-lisp:error ":iam-role is required") :type
+    (common-lisp:or string common-lisp:null))
+   (scheduled-action-description common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (start-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (enable common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-scheduled-action-message
+                    'make-create-scheduled-action-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-scheduled-action-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-scheduled-action-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-name))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target-action))
+      (common-lisp:list
+       (common-lisp:cons "TargetAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule))
+      (common-lisp:list
+       (common-lisp:cons "Schedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'iam-role))
+      (common-lisp:list
+       (common-lisp:cons "IamRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-description))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enable))
+      (common-lisp:list
+       (common-lisp:cons "Enable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-scheduled-action-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-snapshot-copy-grant-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-snapshot-copy-grant-message-"))
    (snapshot-copy-grant-name
@@ -2839,6 +4339,83 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-snapshot-schedule-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-snapshot-schedule-message-"))
+   (schedule-definitions common-lisp:nil :type
+    (common-lisp:or schedule-definition-list common-lisp:null))
+   (schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (schedule-description common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (dry-run common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (next-invocations common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-snapshot-schedule-message
+                    'make-create-snapshot-schedule-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-snapshot-schedule-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-snapshot-schedule-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-definitions))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-description))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'dry-run))
+      (common-lisp:list
+       (common-lisp:cons "DryRun"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-invocations))
+      (common-lisp:list
+       (common-lisp:cons "NextInvocations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-snapshot-schedule-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-tags-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-tags-message-"))
    (resource-name (common-lisp:error ":resource-name is required") :type
@@ -2871,12 +4448,401 @@
                         ((aws-sdk/generator/shape::input create-tags-message))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (create-usage-limit-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-usage-limit-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (feature-type (common-lisp:error ":feature-type is required") :type
+    (common-lisp:or usage-limit-feature-type common-lisp:null))
+   (limit-type (common-lisp:error ":limit-type is required") :type
+    (common-lisp:or usage-limit-limit-type common-lisp:null))
+   (amount (common-lisp:error ":amount is required") :type
+    (common-lisp:or long common-lisp:null))
+   (period common-lisp:nil :type
+    (common-lisp:or usage-limit-period common-lisp:null))
+   (breach-action common-lisp:nil :type
+    (common-lisp:or usage-limit-breach-action common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-usage-limit-message
+                    'make-create-usage-limit-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-usage-limit-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-usage-limit-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-type))
+      (common-lisp:list
+       (common-lisp:cons "FeatureType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'limit-type))
+      (common-lisp:list
+       (common-lisp:cons "LimitType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'amount))
+      (common-lisp:list
+       (common-lisp:cons "Amount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'period))
+      (common-lisp:list
+       (common-lisp:cons "Period"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'breach-action))
+      (common-lisp:list
+       (common-lisp:cons "BreachAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-usage-limit-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (customer-storage-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-customer-storage-message-"))
+   (total-backup-size-in-mega-bytes common-lisp:nil :type
+    (common-lisp:or double common-lisp:null))
+   (total-provisioned-storage-in-mega-bytes common-lisp:nil :type
+    (common-lisp:or double common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'customer-storage-message 'make-customer-storage-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          customer-storage-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          customer-storage-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'total-backup-size-in-mega-bytes))
+      (common-lisp:list
+       (common-lisp:cons "TotalBackupSizeInMegaBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'total-provisioned-storage-in-mega-bytes))
+      (common-lisp:list
+       (common-lisp:cons "TotalProvisionedStorageInMegaBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          customer-storage-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (data-share (:copier common-lisp:nil)
+      (:conc-name "struct-shape-data-share-"))
+   (data-share-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (producer-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (allow-publicly-accessible-consumers common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (data-share-associations common-lisp:nil :type
+    (common-lisp:or data-share-association-list common-lisp:null))
+   (managed-by common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'data-share 'make-data-share))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input data-share))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input data-share))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'producer-arn))
+      (common-lisp:list
+       (common-lisp:cons "ProducerArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'allow-publicly-accessible-consumers))
+      (common-lisp:list
+       (common-lisp:cons "AllowPubliclyAccessibleConsumers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-share-associations))
+      (common-lisp:list
+       (common-lisp:cons "DataShareAssociations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'managed-by))
+      (common-lisp:list
+       (common-lisp:cons "ManagedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input data-share))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (data-share-association (:copier common-lisp:nil)
+      (:conc-name "struct-shape-data-share-association-"))
+   (consumer-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or data-share-status common-lisp:null))
+   (consumer-region common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (created-date common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (status-change-date common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'data-share-association 'make-data-share-association))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-share-association))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-share-association))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-region))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerRegion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-date))
+      (common-lisp:list
+       (common-lisp:cons "CreatedDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-change-date))
+      (common-lisp:list
+       (common-lisp:cons "StatusChangeDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-share-association))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype data-share-association-list ()
+   '(trivial-types:proper-list data-share-association))
+ (common-lisp:defun |make-data-share-association-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list data-share-association))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype data-share-list ()
+   '(trivial-types:proper-list data-share))
+ (common-lisp:defun |make-data-share-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list data-share))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype data-share-status () 'common-lisp:string)
+(common-lisp:deftype data-share-status-for-consumer () 'common-lisp:string)
+(common-lisp:deftype data-share-status-for-producer () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (data-transfer-progress (:copier common-lisp:nil)
+      (:conc-name "struct-shape-data-transfer-progress-"))
+   (status common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (current-rate-in-mega-bytes-per-second common-lisp:nil :type
+    (common-lisp:or double-optional common-lisp:null))
+   (total-data-in-mega-bytes common-lisp:nil :type
+    (common-lisp:or long common-lisp:null))
+   (data-transferred-in-mega-bytes common-lisp:nil :type
+    (common-lisp:or long common-lisp:null))
+   (estimated-time-to-completion-in-seconds common-lisp:nil :type
+    (common-lisp:or long-optional common-lisp:null))
+   (elapsed-time-in-seconds common-lisp:nil :type
+    (common-lisp:or long-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'data-transfer-progress 'make-data-transfer-progress))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-transfer-progress))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-transfer-progress))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'current-rate-in-mega-bytes-per-second))
+      (common-lisp:list
+       (common-lisp:cons "CurrentRateInMegaBytesPerSecond"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'total-data-in-mega-bytes))
+      (common-lisp:list
+       (common-lisp:cons "TotalDataInMegaBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-transferred-in-mega-bytes))
+      (common-lisp:list
+       (common-lisp:cons "DataTransferredInMegaBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'estimated-time-to-completion-in-seconds))
+      (common-lisp:list
+       (common-lisp:cons "EstimatedTimeToCompletionInSeconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'elapsed-time-in-seconds))
+      (common-lisp:list
+       (common-lisp:cons "ElapsedTimeInSeconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-transfer-progress))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:deftype db-group-list () '(trivial-types:proper-list string))
  (common-lisp:defun |make-db-group-list|
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deauthorize-data-share-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deauthorize-data-share-message-"))
+   (data-share-arn (common-lisp:error ":data-share-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (consumer-identifier (common-lisp:error ":consumer-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deauthorize-data-share-message
+                    'make-deauthorize-data-share-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deauthorize-data-share-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deauthorize-data-share-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deauthorize-data-share-message))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (default-cluster-parameters (:copier common-lisp:nil)
@@ -2928,6 +4894,132 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (deferred-maintenance-window (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deferred-maintenance-window-"))
+   (defer-maintenance-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (defer-maintenance-start-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (defer-maintenance-end-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deferred-maintenance-window
+                    'make-deferred-maintenance-window))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deferred-maintenance-window))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deferred-maintenance-window))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-identifier))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-start-time))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-end-time))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceEndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deferred-maintenance-window))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype deferred-maintenance-windows-list ()
+   '(trivial-types:proper-list deferred-maintenance-window))
+ (common-lisp:defun |make-deferred-maintenance-windows-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            deferred-maintenance-window))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-authentication-profile-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-authentication-profile-message-"))
+   (authentication-profile-name
+    (common-lisp:error ":authentication-profile-name is required") :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-authentication-profile-message
+                    'make-delete-authentication-profile-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-authentication-profile-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-authentication-profile-result-"))
+   (authentication-profile-name common-lisp:nil :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-authentication-profile-result
+                    'make-delete-authentication-profile-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-authentication-profile-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-cluster-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-cluster-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
@@ -2935,7 +5027,9 @@
    (skip-final-cluster-snapshot common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
    (final-cluster-snapshot-identifier common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (final-cluster-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'delete-cluster-message 'make-delete-cluster-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2969,6 +5063,14 @@
                            'final-cluster-snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "FinalClusterSnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'final-cluster-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "FinalClusterSnapshotRetentionPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3113,6 +5215,15 @@
                           delete-cluster-snapshot-message))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:deftype delete-cluster-snapshot-message-list ()
+   '(trivial-types:proper-list delete-cluster-snapshot-message))
+ (common-lisp:defun |make-delete-cluster-snapshot-message-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            delete-cluster-snapshot-message))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (delete-cluster-snapshot-result (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-cluster-snapshot-result-"))
@@ -3174,6 +5285,37 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-cluster-subnet-group-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-endpoint-access-message-"))
+   (endpoint-name (common-lisp:error ":endpoint-name is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-endpoint-access-message
+                    'make-delete-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-name))
+      (common-lisp:list
+       (common-lisp:cons "EndpointName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-endpoint-access-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3274,6 +5416,39 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-scheduled-action-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-scheduled-action-message-"))
+   (scheduled-action-name
+    (common-lisp:error ":scheduled-action-name is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-scheduled-action-message
+                    'make-delete-scheduled-action-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-scheduled-action-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-scheduled-action-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-name))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-scheduled-action-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-snapshot-copy-grant-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-snapshot-copy-grant-message-"))
    (snapshot-copy-grant-name
@@ -3304,6 +5479,37 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-snapshot-copy-grant-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-snapshot-schedule-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-snapshot-schedule-message-"))
+   (schedule-identifier (common-lisp:error ":schedule-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-snapshot-schedule-message
+                    'make-delete-snapshot-schedule-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-snapshot-schedule-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-snapshot-schedule-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-snapshot-schedule-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3339,6 +5545,37 @@
                         ((aws-sdk/generator/shape::input delete-tags-message))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (delete-usage-limit-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-usage-limit-message-"))
+   (usage-limit-id (common-lisp:error ":usage-limit-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-usage-limit-message
+                    'make-delete-usage-limit-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-usage-limit-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-usage-limit-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-limit-id))
+      (common-lisp:list
+       (common-lisp:cons "UsageLimitId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-usage-limit-message))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition dependent-service-request-throttling-fault
      (redshift-error)
      common-lisp:nil)
@@ -3349,6 +5586,149 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'dependent-service-unavailable-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-account-attributes-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-account-attributes-message-"))
+   (attribute-names common-lisp:nil :type
+    (common-lisp:or attribute-name-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-account-attributes-message
+                    'make-describe-account-attributes-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-account-attributes-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-account-attributes-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute-names))
+      (common-lisp:list
+       (common-lisp:cons "AttributeNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-account-attributes-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-authentication-profiles-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-authentication-profiles-message-"))
+   (authentication-profile-name common-lisp:nil :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-authentication-profiles-message
+                    'make-describe-authentication-profiles-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-authentication-profiles-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-authentication-profiles-result-"))
+   (authentication-profiles common-lisp:nil :type
+    (common-lisp:or authentication-profile-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-authentication-profiles-result
+                    'make-describe-authentication-profiles-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profiles))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfiles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-authentication-profiles-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-cluster-db-revisions-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-cluster-db-revisions-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-cluster-db-revisions-message
+                    'make-describe-cluster-db-revisions-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-db-revisions-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-db-revisions-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-db-revisions-message))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-cluster-parameter-groups-message (:copier common-lisp:nil)
@@ -3549,6 +5929,8 @@
     (common-lisp:or string common-lisp:null))
    (snapshot-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
+   (snapshot-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (snapshot-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (start-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
@@ -3561,7 +5943,11 @@
    (tag-keys common-lisp:nil :type
     (common-lisp:or tag-key-list common-lisp:null))
    (tag-values common-lisp:nil :type
-    (common-lisp:or tag-value-list common-lisp:null)))
+    (common-lisp:or tag-value-list common-lisp:null))
+   (cluster-exists common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (sorting-entities common-lisp:nil :type
+    (common-lisp:or snapshot-sorting-entity-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-cluster-snapshots-message
                     'make-describe-cluster-snapshots-message))
@@ -3587,6 +5973,13 @@
                            aws-sdk/generator/shape::input 'snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-arn))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3643,6 +6036,20 @@
                            aws-sdk/generator/shape::input 'tag-values))
       (common-lisp:list
        (common-lisp:cons "TagValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-exists))
+      (common-lisp:list
+       (common-lisp:cons "ClusterExists"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sorting-entities))
+      (common-lisp:list
+       (common-lisp:cons "SortingEntities"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3716,6 +6123,55 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-cluster-subnet-groups-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-cluster-tracks-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-cluster-tracks-message-"))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-cluster-tracks-message
+                    'make-describe-cluster-tracks-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-tracks-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-tracks-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-cluster-tracks-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3843,6 +6299,285 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-data-shares-for-consumer-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-for-consumer-message-"))
+   (consumer-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or data-share-status-for-consumer common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-for-consumer-message
+                    'make-describe-data-shares-for-consumer-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-arn))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-shares-for-consumer-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-for-consumer-result-"))
+   (data-shares common-lisp:nil :type
+    (common-lisp:or data-share-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-for-consumer-result
+                    'make-describe-data-shares-for-consumer-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-shares))
+      (common-lisp:list
+       (common-lisp:cons "DataShares"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-consumer-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-shares-for-producer-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-for-producer-message-"))
+   (producer-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or data-share-status-for-producer common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-for-producer-message
+                    'make-describe-data-shares-for-producer-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'producer-arn))
+      (common-lisp:list
+       (common-lisp:cons "ProducerArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-shares-for-producer-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-for-producer-result-"))
+   (data-shares common-lisp:nil :type
+    (common-lisp:or data-share-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-for-producer-result
+                    'make-describe-data-shares-for-producer-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-shares))
+      (common-lisp:list
+       (common-lisp:cons "DataShares"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-for-producer-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-shares-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-message-"))
+   (data-share-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-message
+                    'make-describe-data-shares-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-shares-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-data-shares-result-"))
+   (data-shares common-lisp:nil :type
+    (common-lisp:or data-share-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-shares-result
+                    'make-describe-data-shares-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-shares))
+      (common-lisp:list
+       (common-lisp:cons "DataShares"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-shares-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-default-cluster-parameters-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-default-cluster-parameters-message-"))
    (parameter-group-family
@@ -3925,6 +6660,145 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-endpoint-access-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-owner common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (endpoint-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (vpc-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-endpoint-access-message
+                    'make-describe-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-owner))
+      (common-lisp:list
+       (common-lisp:cons "ResourceOwner"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-name))
+      (common-lisp:list
+       (common-lisp:cons "EndpointName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-id))
+      (common-lisp:list
+       (common-lisp:cons "VpcId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-access-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-endpoint-authorization-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-endpoint-authorization-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (account common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (grantee common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-endpoint-authorization-message
+                    'make-describe-endpoint-authorization-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-authorization-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-authorization-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account))
+      (common-lisp:list
+       (common-lisp:cons "Account"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'grantee))
+      (common-lisp:list
+       (common-lisp:cons "Grantee"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-endpoint-authorization-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-event-categories-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-event-categories-message-"))
    (source-type common-lisp:nil :type
@@ -3962,7 +6836,11 @@
     (common-lisp:or string common-lisp:null))
    (max-records common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
-   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (tag-keys common-lisp:nil :type
+    (common-lisp:or tag-key-list common-lisp:null))
+   (tag-values common-lisp:nil :type
+    (common-lisp:or tag-value-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-event-subscriptions-message
                     'make-describe-event-subscriptions-message))
@@ -3995,6 +6873,20 @@
                            aws-sdk/generator/shape::input 'marker))
       (common-lisp:list
        (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-keys))
+      (common-lisp:list
+       (common-lisp:cons "TagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-values))
+      (common-lisp:list
+       (common-lisp:cons "TagValues"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4250,6 +7142,99 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-node-configuration-options-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-node-configuration-options-message-"))
+   (action-type (common-lisp:error ":action-type is required") :type
+    (common-lisp:or action-type common-lisp:null))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (owner-account common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (filters common-lisp:nil :type
+    (common-lisp:or node-configuration-options-filter-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-node-configuration-options-message
+                    'make-describe-node-configuration-options-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-node-configuration-options-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-node-configuration-options-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'action-type))
+      (common-lisp:list
+       (common-lisp:cons "ActionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-arn))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'owner-account))
+      (common-lisp:list
+       (common-lisp:cons "OwnerAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filters))
+      (common-lisp:list
+       (common-lisp:cons "Filters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-node-configuration-options-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-orderable-cluster-options-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-orderable-cluster-options-message-"))
    (cluster-version common-lisp:nil :type
@@ -4303,6 +7288,199 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-orderable-cluster-options-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-partners-input-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-partners-input-message-"))
+   (account-id (common-lisp:error ":account-id is required") :type
+    (common-lisp:or partner-integration-account-id common-lisp:null))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type
+    (common-lisp:or partner-integration-cluster-identifier common-lisp:null))
+   (database-name common-lisp:nil :type
+    (common-lisp:or partner-integration-database-name common-lisp:null))
+   (partner-name common-lisp:nil :type
+    (common-lisp:or partner-integration-partner-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-partners-input-message
+                    'make-describe-partners-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-id))
+      (common-lisp:list
+       (common-lisp:cons "AccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'partner-name))
+      (common-lisp:list
+       (common-lisp:cons "PartnerName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-partners-output-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-partners-output-message-"))
+   (partner-integration-info-list common-lisp:nil :type
+    (common-lisp:or partner-integration-info-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-partners-output-message
+                    'make-describe-partners-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'partner-integration-info-list))
+      (common-lisp:list
+       (common-lisp:cons "PartnerIntegrationInfoList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-partners-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-reserved-node-exchange-status-input-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-reserved-node-exchange-status-input-message-"))
+   (reserved-node-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (reserved-node-exchange-request-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-reserved-node-exchange-status-input-message
+                    'make-describe-reserved-node-exchange-status-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-exchange-request-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeExchangeRequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-reserved-node-exchange-status-output-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-reserved-node-exchange-status-output-message-"))
+   (reserved-node-exchange-status-details common-lisp:nil :type
+    (common-lisp:or reserved-node-exchange-status-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-reserved-node-exchange-status-output-message
+                    'make-describe-reserved-node-exchange-status-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-exchange-status-details))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeExchangeStatusDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-reserved-node-exchange-status-output-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4433,6 +7611,98 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-scheduled-actions-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-scheduled-actions-message-"))
+   (scheduled-action-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-action-type common-lisp:nil :type
+    (common-lisp:or scheduled-action-type-values common-lisp:null))
+   (start-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (active common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (filters common-lisp:nil :type
+    (common-lisp:or scheduled-action-filter-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-scheduled-actions-message
+                    'make-describe-scheduled-actions-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-scheduled-actions-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-scheduled-actions-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-name))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target-action-type))
+      (common-lisp:list
+       (common-lisp:cons "TargetActionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'active))
+      (common-lisp:list
+       (common-lisp:cons "Active"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filters))
+      (common-lisp:list
+       (common-lisp:cons "Filters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-scheduled-actions-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-snapshot-copy-grants-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-snapshot-copy-grants-message-"))
    (snapshot-copy-grant-name common-lisp:nil :type
@@ -4497,6 +7767,120 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-snapshot-copy-grants-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-snapshot-schedules-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-snapshot-schedules-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (tag-keys common-lisp:nil :type
+    (common-lisp:or tag-key-list common-lisp:null))
+   (tag-values common-lisp:nil :type
+    (common-lisp:or tag-value-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-snapshot-schedules-message
+                    'make-describe-snapshot-schedules-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-keys))
+      (common-lisp:list
+       (common-lisp:cons "TagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-values))
+      (common-lisp:list
+       (common-lisp:cons "TagValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-snapshot-schedules-output-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-snapshot-schedules-output-message-"))
+   (snapshot-schedules common-lisp:nil :type
+    (common-lisp:or snapshot-schedule-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-snapshot-schedules-output-message
+                    'make-describe-snapshot-schedules-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-schedules))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotSchedules"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-snapshot-schedules-output-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4632,6 +8016,90 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-usage-limits-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-usage-limits-message-"))
+   (usage-limit-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (feature-type common-lisp:nil :type
+    (common-lisp:or usage-limit-feature-type common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (tag-keys common-lisp:nil :type
+    (common-lisp:or tag-key-list common-lisp:null))
+   (tag-values common-lisp:nil :type
+    (common-lisp:or tag-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-usage-limits-message
+                    'make-describe-usage-limits-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-usage-limits-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-usage-limits-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-limit-id))
+      (common-lisp:list
+       (common-lisp:cons "UsageLimitId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-type))
+      (common-lisp:list
+       (common-lisp:cons "FeatureType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-keys))
+      (common-lisp:list
+       (common-lisp:cons "TagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-values))
+      (common-lisp:list
+       (common-lisp:cons "TagValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-usage-limits-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (disable-logging-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-disable-logging-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
@@ -4720,6 +8188,65 @@
                         (
                          (aws-sdk/generator/shape::input
                           disable-snapshot-copy-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-data-share-consumer-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-disassociate-data-share-consumer-message-"))
+   (data-share-arn (common-lisp:error ":data-share-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (disassociate-entire-account common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (consumer-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (consumer-region common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-data-share-consumer-message
+                    'make-disassociate-data-share-consumer-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-data-share-consumer-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-data-share-consumer-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'disassociate-entire-account))
+      (common-lisp:list
+       (common-lisp:cons "DisassociateEntireAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-arn))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'consumer-region))
+      (common-lisp:list
+       (common-lisp:cons "ConsumerRegion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-data-share-consumer-message))
    common-lisp:nil))
 (common-lisp:deftype double () 'common-lisp:double-float)
 (common-lisp:deftype double-optional () 'common-lisp:double-float)
@@ -4814,15 +8341,26 @@
                         ((aws-sdk/generator/shape::input elastic-ip-status))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:deftype eligible-tracks-to-update-list ()
+   '(trivial-types:proper-list update-target))
+ (common-lisp:defun |make-eligible-tracks-to-update-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list update-target))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (enable-logging-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-enable-logging-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
     :type (common-lisp:or string common-lisp:null))
-   (bucket-name (common-lisp:error ":bucket-name is required") :type
-    (common-lisp:or string common-lisp:null))
+   (bucket-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (s3key-prefix common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (log-destination-type common-lisp:nil :type
+    (common-lisp:or log-destination-type common-lisp:null))
+   (log-exports common-lisp:nil :type
+    (common-lisp:or log-type-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'enable-logging-message 'make-enable-logging-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -4855,6 +8393,21 @@
       (common-lisp:list
        (common-lisp:cons "S3KeyPrefix"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'log-destination-type))
+      (common-lisp:list
+       (common-lisp:cons "LogDestinationType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'log-exports))
+      (common-lisp:list
+       (common-lisp:cons "LogExports"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -4872,7 +8425,9 @@
    (retention-period common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
    (snapshot-copy-grant-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'enable-snapshot-copy-message
                     'make-enable-snapshot-copy-message))
@@ -4914,6 +8469,14 @@
       (common-lisp:list
        (common-lisp:cons "SnapshotCopyGrantName"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -4954,7 +8517,9 @@
  (common-lisp:defstruct
      (endpoint (:copier common-lisp:nil) (:conc-name "struct-shape-endpoint-"))
    (address common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (port common-lisp:nil :type (common-lisp:or integer common-lisp:null)))
+   (port common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (vpc-endpoints common-lisp:nil :type
+    (common-lisp:or vpc-endpoints-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'endpoint 'make-endpoint))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input endpoint))
@@ -4975,10 +8540,349 @@
       (common-lisp:list
        (common-lisp:cons "Port"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-endpoints))
+      (common-lisp:list
+       (common-lisp:cons "VpcEndpoints"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input endpoint))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (endpoint-access (:copier common-lisp:nil)
+      (:conc-name "struct-shape-endpoint-access-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-owner common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (subnet-group-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (endpoint-status common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (endpoint-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (endpoint-create-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (port common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (address common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (vpc-security-groups common-lisp:nil :type
+    (common-lisp:or vpc-security-group-membership-list common-lisp:null))
+   (vpc-endpoint common-lisp:nil :type
+    (common-lisp:or vpc-endpoint common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'endpoint-access 'make-endpoint-access))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input endpoint-access))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input endpoint-access))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-owner))
+      (common-lisp:list
+       (common-lisp:cons "ResourceOwner"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'subnet-group-name))
+      (common-lisp:list
+       (common-lisp:cons "SubnetGroupName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-status))
+      (common-lisp:list
+       (common-lisp:cons "EndpointStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-name))
+      (common-lisp:list
+       (common-lisp:cons "EndpointName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'endpoint-create-time))
+      (common-lisp:list
+       (common-lisp:cons "EndpointCreateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'address))
+      (common-lisp:list
+       (common-lisp:cons "Address"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-security-groups))
+      (common-lisp:list
+       (common-lisp:cons "VpcSecurityGroups"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-endpoint))
+      (common-lisp:list
+       (common-lisp:cons "VpcEndpoint"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input endpoint-access))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (endpoint-access-list (:copier common-lisp:nil)
+      (:conc-name "struct-shape-endpoint-access-list-"))
+   (endpoint-access-list common-lisp:nil :type
+    (common-lisp:or endpoint-accesses common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'endpoint-access-list 'make-endpoint-access-list))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input endpoint-access-list))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input endpoint-access-list))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'endpoint-access-list))
+      (common-lisp:list
+       (common-lisp:cons "EndpointAccessList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input endpoint-access-list))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype endpoint-accesses ()
+   '(trivial-types:proper-list endpoint-access))
+ (common-lisp:defun |make-endpoint-accesses|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list endpoint-access))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition endpoint-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'endpoint-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (endpoint-authorization (:copier common-lisp:nil)
+      (:conc-name "struct-shape-endpoint-authorization-"))
+   (grantor common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (grantee common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (authorize-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (cluster-status common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or authorization-status common-lisp:null))
+   (allowed-all-vpcs common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (allowed-vpcs common-lisp:nil :type
+    (common-lisp:or vpc-identifier-list common-lisp:null))
+   (endpoint-count common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'endpoint-authorization 'make-endpoint-authorization))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'grantor))
+      (common-lisp:list
+       (common-lisp:cons "Grantor"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'grantee))
+      (common-lisp:list
+       (common-lisp:cons "Grantee"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'authorize-time))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizeTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-status))
+      (common-lisp:list
+       (common-lisp:cons "ClusterStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'allowed-all-vpcs))
+      (common-lisp:list
+       (common-lisp:cons "AllowedAllVPCs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'allowed-vpcs))
+      (common-lisp:list
+       (common-lisp:cons "AllowedVPCs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-count))
+      (common-lisp:list
+       (common-lisp:cons "EndpointCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition endpoint-authorization-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'endpoint-authorization-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (endpoint-authorization-list (:copier common-lisp:nil)
+      (:conc-name "struct-shape-endpoint-authorization-list-"))
+   (endpoint-authorization-list common-lisp:nil :type
+    (common-lisp:or endpoint-authorizations common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'endpoint-authorization-list
+                    'make-endpoint-authorization-list))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization-list))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization-list))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'endpoint-authorization-list))
+      (common-lisp:list
+       (common-lisp:cons "EndpointAuthorizationList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          endpoint-authorization-list))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition endpoint-authorization-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'endpoint-authorization-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:deftype endpoint-authorizations ()
+   '(trivial-types:proper-list endpoint-authorization))
+ (common-lisp:defun |make-endpoint-authorizations|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list endpoint-authorization))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition endpoint-authorizations-per-cluster-limit-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'endpoint-authorizations-per-cluster-limit-exceeded-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition endpoint-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'endpoint-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition endpoints-per-authorization-limit-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'endpoints-per-authorization-limit-exceeded-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition endpoints-per-cluster-limit-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'endpoints-per-cluster-limit-exceeded-fault)))
 (common-lisp:progn
  (common-lisp:defstruct
      (event (:copier common-lisp:nil) (:conc-name "struct-shape-event-"))
@@ -5466,6 +9370,258 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-cluster-credentials-with-iammessage (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-cluster-credentials-with-iammessage-"))
+   (db-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (duration-seconds common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-cluster-credentials-with-iammessage
+                    'make-get-cluster-credentials-with-iammessage))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-cluster-credentials-with-iammessage))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-cluster-credentials-with-iammessage))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'db-name))
+      (common-lisp:list
+       (common-lisp:cons "DbName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'duration-seconds))
+      (common-lisp:list
+       (common-lisp:cons "DurationSeconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-cluster-credentials-with-iammessage))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-reserved-node-exchange-configuration-options-input-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-reserved-node-exchange-configuration-options-input-message-"))
+   (action-type (common-lisp:error ":action-type is required") :type
+    (common-lisp:or reserved-node-exchange-action-type common-lisp:null))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'get-reserved-node-exchange-configuration-options-input-message
+   'make-get-reserved-node-exchange-configuration-options-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'action-type))
+      (common-lisp:list
+       (common-lisp:cons "ActionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-reserved-node-exchange-configuration-options-output-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-reserved-node-exchange-configuration-options-output-message-"))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (reserved-node-configuration-option-list common-lisp:nil :type
+    (common-lisp:or reserved-node-configuration-option-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'get-reserved-node-exchange-configuration-options-output-message
+   'make-get-reserved-node-exchange-configuration-options-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-configuration-option-list))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeConfigurationOptionList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-configuration-options-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-reserved-node-exchange-offerings-input-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-reserved-node-exchange-offerings-input-message-"))
+   (reserved-node-id (common-lisp:error ":reserved-node-id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (max-records common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-reserved-node-exchange-offerings-input-message
+                    'make-get-reserved-node-exchange-offerings-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-records))
+      (common-lisp:list
+       (common-lisp:cons "MaxRecords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-reserved-node-exchange-offerings-output-message
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-reserved-node-exchange-offerings-output-message-"))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (reserved-node-offerings common-lisp:nil :type
+    (common-lisp:or reserved-node-offering-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-reserved-node-exchange-offerings-output-message
+                    'make-get-reserved-node-exchange-offerings-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-offerings))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeOfferings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-reserved-node-exchange-offerings-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (hsm-client-certificate (:copier common-lisp:nil)
       (:conc-name "struct-shape-hsm-client-certificate-"))
    (hsm-client-certificate-identifier common-lisp:nil :type
@@ -5843,6 +9999,17 @@
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:deftype integer-optional () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:define-condition invalid-authentication-profile-request-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'invalid-authentication-profile-request-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-authorization-state-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-authorization-state-fault)))
+(common-lisp:progn
  (common-lisp:define-condition invalid-cluster-parameter-group-state-fault
      (redshift-error)
      common-lisp:nil)
@@ -5854,6 +10021,12 @@
      common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'invalid-cluster-security-group-state-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-cluster-snapshot-schedule-state-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'invalid-cluster-snapshot-schedule-state-fault)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-cluster-snapshot-state-fault
      (redshift-error)
@@ -5876,10 +10049,25 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-cluster-subnet-state-fault)))
 (common-lisp:progn
+ (common-lisp:define-condition invalid-cluster-track-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-cluster-track-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-data-share-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-data-share-fault)))
+(common-lisp:progn
  (common-lisp:define-condition invalid-elastic-ip-fault
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-elastic-ip-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-endpoint-state-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-endpoint-state-fault)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-hsm-client-certificate-state-fault
      (redshift-error)
@@ -5892,10 +10080,25 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-hsm-configuration-state-fault)))
 (common-lisp:progn
+ (common-lisp:define-condition invalid-namespace-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-namespace-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-reserved-node-state-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-reserved-node-state-fault)))
+(common-lisp:progn
  (common-lisp:define-condition invalid-restore-fault
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-restore-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-retention-period-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-retention-period-fault)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-s3bucket-name-fault
      (redshift-error)
@@ -5906,6 +10109,16 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-s3key-prefix-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-schedule-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-schedule-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-scheduled-action-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-scheduled-action-fault)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-snapshot-copy-grant-state-fault
      (redshift-error)
@@ -5933,6 +10146,11 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-tag-fault)))
 (common-lisp:progn
+ (common-lisp:define-condition invalid-usage-limit-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-usage-limit-fault)))
+(common-lisp:progn
  (common-lisp:define-condition invalid-vpcnetwork-state-fault
      (redshift-error)
      common-lisp:nil)
@@ -5942,6 +10160,14 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'limit-exceeded-fault)))
+(common-lisp:deftype log-destination-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype log-type-list () '(trivial-types:proper-list string))
+ (common-lisp:defun |make-log-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (logging-status (:copier common-lisp:nil)
@@ -5956,7 +10182,11 @@
    (last-failure-time common-lisp:nil :type
     (common-lisp:or tstamp common-lisp:null))
    (last-failure-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (log-destination-type common-lisp:nil :type
+    (common-lisp:or log-destination-type common-lisp:null))
+   (log-exports common-lisp:nil :type
+    (common-lisp:or log-type-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'logging-status 'make-logging-status))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input logging-status))
@@ -6007,12 +10237,299 @@
       (common-lisp:list
        (common-lisp:cons "LastFailureMessage"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'log-destination-type))
+      (common-lisp:list
+       (common-lisp:cons "LogDestinationType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'log-exports))
+      (common-lisp:list
+       (common-lisp:cons "LogExports"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input logging-status))
    common-lisp:nil))
 (common-lisp:deftype long () 'common-lisp:integer)
 (common-lisp:deftype long-optional () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (maintenance-track (:copier common-lisp:nil)
+      (:conc-name "struct-shape-maintenance-track-"))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (database-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (update-targets common-lisp:nil :type
+    (common-lisp:or eligible-tracks-to-update-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'maintenance-track 'make-maintenance-track))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input maintenance-track))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input maintenance-track))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-version))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-targets))
+      (common-lisp:list
+       (common-lisp:cons "UpdateTargets"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input maintenance-track))
+   common-lisp:nil))
+(common-lisp:deftype mode () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-aqua-input-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-aqua-input-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (aqua-configuration-status common-lisp:nil :type
+    (common-lisp:or aqua-configuration-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-aqua-input-message
+                    'make-modify-aqua-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'aqua-configuration-status))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfigurationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-aqua-output-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-aqua-output-message-"))
+   (aqua-configuration common-lisp:nil :type
+    (common-lisp:or aqua-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-aqua-output-message
+                    'make-modify-aqua-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'aqua-configuration))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-aqua-output-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-authentication-profile-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-authentication-profile-message-"))
+   (authentication-profile-name
+    (common-lisp:error ":authentication-profile-name is required") :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null))
+   (authentication-profile-content
+    (common-lisp:error ":authentication-profile-content is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-authentication-profile-message
+                    'make-modify-authentication-profile-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-content))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-authentication-profile-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-authentication-profile-result-"))
+   (authentication-profile-name common-lisp:nil :type
+    (common-lisp:or authentication-profile-name-string common-lisp:null))
+   (authentication-profile-content common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-authentication-profile-result
+                    'make-modify-authentication-profile-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-name))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-profile-content))
+      (common-lisp:list
+       (common-lisp:cons "AuthenticationProfileContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-authentication-profile-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-db-revision-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-db-revision-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (revision-target (common-lisp:error ":revision-target is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-db-revision-message
+                    'make-modify-cluster-db-revision-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'revision-target))
+      (common-lisp:list
+       (common-lisp:cons "RevisionTarget"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-db-revision-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-db-revision-result-"))
+   (cluster common-lisp:nil :type (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-db-revision-result
+                    'make-modify-cluster-db-revision-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster))
+      (common-lisp:list
+       (common-lisp:cons "Cluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-db-revision-result))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (modify-cluster-iam-roles-message (:copier common-lisp:nil)
@@ -6022,7 +10539,9 @@
    (add-iam-roles common-lisp:nil :type
     (common-lisp:or iam-role-arn-list common-lisp:null))
    (remove-iam-roles common-lisp:nil :type
-    (common-lisp:or iam-role-arn-list common-lisp:null)))
+    (common-lisp:or iam-role-arn-list common-lisp:null))
+   (default-iam-role-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'modify-cluster-iam-roles-message
                     'make-modify-cluster-iam-roles-message))
@@ -6055,6 +10574,14 @@
                            aws-sdk/generator/shape::input 'remove-iam-roles))
       (common-lisp:list
        (common-lisp:cons "RemoveIamRoles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-iam-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DefaultIamRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6094,6 +10621,116 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (modify-cluster-maintenance-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-maintenance-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (defer-maintenance common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (defer-maintenance-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (defer-maintenance-start-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (defer-maintenance-end-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (defer-maintenance-duration common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-maintenance-message
+                    'make-modify-cluster-maintenance-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'defer-maintenance))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenance"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-identifier))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-start-time))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-end-time))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceEndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'defer-maintenance-duration))
+      (common-lisp:list
+       (common-lisp:cons "DeferMaintenanceDuration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-maintenance-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-maintenance-result-"))
+   (cluster common-lisp:nil :type (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-maintenance-result
+                    'make-modify-cluster-maintenance-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster))
+      (common-lisp:list
+       (common-lisp:cons "Cluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-maintenance-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (modify-cluster-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-modify-cluster-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
@@ -6113,6 +10750,8 @@
     (common-lisp:or string common-lisp:null))
    (automated-snapshot-retention-period common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
    (preferred-maintenance-window common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (cluster-version common-lisp:nil :type
@@ -6129,7 +10768,18 @@
     (common-lisp:or boolean-optional common-lisp:null))
    (elastic-ip common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (enhanced-vpc-routing common-lisp:nil :type
-    (common-lisp:or boolean-optional common-lisp:null)))
+    (common-lisp:or boolean-optional common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (encrypted common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (kms-key-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (availability-zone-relocation common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (availability-zone common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (port common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'modify-cluster-message 'make-modify-cluster-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -6213,6 +10863,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'preferred-maintenance-window))
       (common-lisp:list
        (common-lisp:cons "PreferredMaintenanceWindow"
@@ -6277,6 +10935,50 @@
                            'enhanced-vpc-routing))
       (common-lisp:list
        (common-lisp:cons "EnhancedVpcRouting"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'encrypted))
+      (common-lisp:list
+       (common-lisp:cons "Encrypted"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-key-id))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'availability-zone-relocation))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZoneRelocation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'availability-zone))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZone"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6354,6 +11056,135 @@
                         (
                          (aws-sdk/generator/shape::input
                           modify-cluster-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-snapshot-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-snapshot-message-"))
+   (snapshot-identifier (common-lisp:error ":snapshot-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (force common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-snapshot-message
+                    'make-modify-cluster-snapshot-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'force))
+      (common-lisp:list
+       (common-lisp:cons "Force"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-snapshot-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-snapshot-result-"))
+   (snapshot common-lisp:nil :type (common-lisp:or snapshot common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-snapshot-result
+                    'make-modify-cluster-snapshot-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot))
+      (common-lisp:list
+       (common-lisp:cons "Snapshot"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-cluster-snapshot-schedule-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-cluster-snapshot-schedule-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (disassociate-schedule common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-cluster-snapshot-schedule-message
+                    'make-modify-cluster-snapshot-schedule-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-schedule-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-schedule-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'disassociate-schedule))
+      (common-lisp:list
+       (common-lisp:cons "DisassociateSchedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-cluster-snapshot-schedule-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -6436,6 +11267,47 @@
                         (
                          (aws-sdk/generator/shape::input
                           modify-cluster-subnet-group-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-endpoint-access-message-"))
+   (endpoint-name (common-lisp:error ":endpoint-name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (vpc-security-group-ids common-lisp:nil :type
+    (common-lisp:or vpc-security-group-id-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-endpoint-access-message
+                    'make-modify-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-name))
+      (common-lisp:list
+       (common-lisp:cons "EndpointName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vpc-security-group-ids))
+      (common-lisp:list
+       (common-lisp:cons "VpcSecurityGroupIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-endpoint-access-message))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -6553,13 +11425,107 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (modify-scheduled-action-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-scheduled-action-message-"))
+   (scheduled-action-name
+    (common-lisp:error ":scheduled-action-name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (target-action common-lisp:nil :type
+    (common-lisp:or scheduled-action-type common-lisp:null))
+   (schedule common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (iam-role common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (scheduled-action-description common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (start-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (enable common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-scheduled-action-message
+                    'make-modify-scheduled-action-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-scheduled-action-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-scheduled-action-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-name))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target-action))
+      (common-lisp:list
+       (common-lisp:cons "TargetAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule))
+      (common-lisp:list
+       (common-lisp:cons "Schedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'iam-role))
+      (common-lisp:list
+       (common-lisp:cons "IamRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-description))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enable))
+      (common-lisp:list
+       (common-lisp:cons "Enable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-scheduled-action-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (modify-snapshot-copy-retention-period-message (:copier common-lisp:nil)
       (:conc-name
        "struct-shape-modify-snapshot-copy-retention-period-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
     :type (common-lisp:or string common-lisp:null))
    (retention-period (common-lisp:error ":retention-period is required") :type
-    (common-lisp:or integer common-lisp:null)))
+    (common-lisp:or integer common-lisp:null))
+   (manual common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'modify-snapshot-copy-retention-period-message
                     'make-modify-snapshot-copy-retention-period-message))
@@ -6585,6 +11551,13 @@
                            aws-sdk/generator/shape::input 'retention-period))
       (common-lisp:list
        (common-lisp:cons "RetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'manual))
+      (common-lisp:list
+       (common-lisp:cons "Manual"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6624,6 +11597,322 @@
                           modify-snapshot-copy-retention-period-result))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (modify-snapshot-schedule-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-snapshot-schedule-message-"))
+   (schedule-identifier (common-lisp:error ":schedule-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (schedule-definitions
+    (common-lisp:error ":schedule-definitions is required") :type
+    (common-lisp:or schedule-definition-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-snapshot-schedule-message
+                    'make-modify-snapshot-schedule-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-snapshot-schedule-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-snapshot-schedule-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-definitions))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-snapshot-schedule-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (modify-usage-limit-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-modify-usage-limit-message-"))
+   (usage-limit-id (common-lisp:error ":usage-limit-id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (amount common-lisp:nil :type
+    (common-lisp:or long-optional common-lisp:null))
+   (breach-action common-lisp:nil :type
+    (common-lisp:or usage-limit-breach-action common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'modify-usage-limit-message
+                    'make-modify-usage-limit-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-usage-limit-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-usage-limit-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-limit-id))
+      (common-lisp:list
+       (common-lisp:cons "UsageLimitId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'amount))
+      (common-lisp:list
+       (common-lisp:cons "Amount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'breach-action))
+      (common-lisp:list
+       (common-lisp:cons "BreachAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          modify-usage-limit-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (network-interface (:copier common-lisp:nil)
+      (:conc-name "struct-shape-network-interface-"))
+   (network-interface-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (subnet-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (private-ip-address common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (availability-zone common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'network-interface 'make-network-interface))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input network-interface))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input network-interface))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'network-interface-id))
+      (common-lisp:list
+       (common-lisp:cons "NetworkInterfaceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'subnet-id))
+      (common-lisp:list
+       (common-lisp:cons "SubnetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'private-ip-address))
+      (common-lisp:list
+       (common-lisp:cons "PrivateIpAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'availability-zone))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZone"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input network-interface))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype network-interface-list ()
+   '(trivial-types:proper-list network-interface))
+ (common-lisp:defun |make-network-interface-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list network-interface))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (node-configuration-option (:copier common-lisp:nil)
+      (:conc-name "struct-shape-node-configuration-option-"))
+   (node-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (number-of-nodes common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (estimated-disk-utilization-percent common-lisp:nil :type
+    (common-lisp:or double-optional common-lisp:null))
+   (mode common-lisp:nil :type (common-lisp:or mode common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'node-configuration-option
+                    'make-node-configuration-option))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-option))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-option))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'node-type))
+      (common-lisp:list
+       (common-lisp:cons "NodeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'number-of-nodes))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfNodes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'estimated-disk-utilization-percent))
+      (common-lisp:list
+       (common-lisp:cons "EstimatedDiskUtilizationPercent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'mode))
+      (common-lisp:list
+       (common-lisp:cons "Mode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-option))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype node-configuration-option-list ()
+   '(trivial-types:proper-list node-configuration-option))
+ (common-lisp:defun |make-node-configuration-option-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            node-configuration-option))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (node-configuration-options-filter (:copier common-lisp:nil)
+      (:conc-name "struct-shape-node-configuration-options-filter-"))
+   (name common-lisp:nil :type
+    (common-lisp:or node-configuration-options-filter-name common-lisp:null))
+   (operator common-lisp:nil :type
+    (common-lisp:or operator-type common-lisp:null))
+   (values common-lisp:nil :type
+    (common-lisp:or value-string-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'node-configuration-options-filter
+                    'make-node-configuration-options-filter))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-filter))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-filter))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operator))
+      (common-lisp:list
+       (common-lisp:cons "Operator"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'values))
+      (common-lisp:list
+       (common-lisp:cons "Values"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-filter))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype node-configuration-options-filter-list ()
+   '(trivial-types:proper-list node-configuration-options-filter))
+ (common-lisp:defun |make-node-configuration-options-filter-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            node-configuration-options-filter))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype node-configuration-options-filter-name ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (node-configuration-options-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-node-configuration-options-message-"))
+   (node-configuration-option-list common-lisp:nil :type
+    (common-lisp:or node-configuration-option-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'node-configuration-options-message
+                    'make-node-configuration-options-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'node-configuration-option-list))
+      (common-lisp:list
+       (common-lisp:cons "NodeConfigurationOptionList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          node-configuration-options-message))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition number-of-nodes-per-cluster-limit-exceeded-fault
      (redshift-error)
      common-lisp:nil)
@@ -6634,6 +11923,7 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'number-of-nodes-quota-exceeded-fault)))
+(common-lisp:deftype operator-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (orderable-cluster-option (:copier common-lisp:nil)
@@ -6849,6 +12139,260 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list parameter))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype partner-integration-account-id () 'common-lisp:string)
+(common-lisp:deftype partner-integration-cluster-identifier ()
+  'common-lisp:string)
+(common-lisp:deftype partner-integration-database-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (partner-integration-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-partner-integration-info-"))
+   (database-name common-lisp:nil :type
+    (common-lisp:or partner-integration-database-name common-lisp:null))
+   (partner-name common-lisp:nil :type
+    (common-lisp:or partner-integration-partner-name common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or partner-integration-status common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or partner-integration-status-message common-lisp:null))
+   (created-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (updated-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'partner-integration-info 'make-partner-integration-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'partner-name))
+      (common-lisp:list
+       (common-lisp:cons "PartnerName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "StatusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-at))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-info))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype partner-integration-info-list ()
+   '(trivial-types:proper-list partner-integration-info))
+ (common-lisp:defun |make-partner-integration-info-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            partner-integration-info))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (partner-integration-input-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-partner-integration-input-message-"))
+   (account-id (common-lisp:error ":account-id is required") :type
+    (common-lisp:or partner-integration-account-id common-lisp:null))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type
+    (common-lisp:or partner-integration-cluster-identifier common-lisp:null))
+   (database-name (common-lisp:error ":database-name is required") :type
+    (common-lisp:or partner-integration-database-name common-lisp:null))
+   (partner-name (common-lisp:error ":partner-name is required") :type
+    (common-lisp:or partner-integration-partner-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'partner-integration-input-message
+                    'make-partner-integration-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-id))
+      (common-lisp:list
+       (common-lisp:cons "AccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'partner-name))
+      (common-lisp:list
+       (common-lisp:cons "PartnerName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (partner-integration-output-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-partner-integration-output-message-"))
+   (database-name common-lisp:nil :type
+    (common-lisp:or partner-integration-database-name common-lisp:null))
+   (partner-name common-lisp:nil :type
+    (common-lisp:or partner-integration-partner-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'partner-integration-output-message
+                    'make-partner-integration-output-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-output-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-output-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'partner-name))
+      (common-lisp:list
+       (common-lisp:cons "PartnerName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          partner-integration-output-message))
+   common-lisp:nil))
+(common-lisp:deftype partner-integration-partner-name () 'common-lisp:string)
+(common-lisp:deftype partner-integration-status () 'common-lisp:string)
+(common-lisp:deftype partner-integration-status-message () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition partner-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'partner-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (pause-cluster-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-pause-cluster-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'pause-cluster-message 'make-pause-cluster-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          pause-cluster-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          pause-cluster-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          pause-cluster-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (pause-cluster-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-pause-cluster-result-"))
+   (cluster common-lisp:nil :type (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'pause-cluster-result 'make-pause-cluster-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input pause-cluster-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input pause-cluster-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster))
+      (common-lisp:list
+       (common-lisp:cons "Cluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input pause-cluster-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype pending-actions-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-pending-actions-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (pending-modified-values (:copier common-lisp:nil)
@@ -6869,7 +12413,11 @@
    (publicly-accessible common-lisp:nil :type
     (common-lisp:or boolean-optional common-lisp:null))
    (enhanced-vpc-routing common-lisp:nil :type
-    (common-lisp:or boolean-optional common-lisp:null)))
+    (common-lisp:or boolean-optional common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (encryption-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'pending-modified-values 'make-pending-modified-values))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -6946,6 +12494,21 @@
                            'enhanced-vpc-routing))
       (common-lisp:list
        (common-lisp:cons "EnhancedVpcRouting"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'encryption-type))
+      (common-lisp:list
+       (common-lisp:cons "EncryptionType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7130,6 +12693,37 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (reject-data-share-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-reject-data-share-message-"))
+   (data-share-arn (common-lisp:error ":data-share-arn is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reject-data-share-message
+                    'make-reject-data-share-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-data-share-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-data-share-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          reject-data-share-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (reserved-node (:copier common-lisp:nil)
       (:conc-name "struct-shape-reserved-node-"))
    (reserved-node-id common-lisp:nil :type
@@ -7148,7 +12742,9 @@
    (offering-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (recurring-charges common-lisp:nil :type
-    (common-lisp:or recurring-charge-list common-lisp:null)))
+    (common-lisp:or recurring-charge-list common-lisp:null))
+   (reserved-node-offering-type common-lisp:nil :type
+    (common-lisp:or reserved-node-offering-type common-lisp:null)))
  (common-lisp:export (common-lisp:list 'reserved-node 'make-reserved-node))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input reserved-node))
@@ -7240,6 +12836,14 @@
       (common-lisp:list
        (common-lisp:cons "RecurringCharges"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-offering-type))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeOfferingType"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input reserved-node))
@@ -7249,6 +12853,199 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'reserved-node-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition reserved-node-already-migrated-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'reserved-node-already-migrated-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-node-configuration-option (:copier common-lisp:nil)
+      (:conc-name "struct-shape-reserved-node-configuration-option-"))
+   (source-reserved-node common-lisp:nil :type
+    (common-lisp:or reserved-node common-lisp:null))
+   (target-reserved-node-count common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (target-reserved-node-offering common-lisp:nil :type
+    (common-lisp:or reserved-node-offering common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-node-configuration-option
+                    'make-reserved-node-configuration-option))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-configuration-option))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-configuration-option))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-reserved-node))
+      (common-lisp:list
+       (common-lisp:cons "SourceReservedNode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-count))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-offering))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeOffering"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-configuration-option))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype reserved-node-configuration-option-list ()
+   '(trivial-types:proper-list reserved-node-configuration-option))
+ (common-lisp:defun |make-reserved-node-configuration-option-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            reserved-node-configuration-option))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype reserved-node-exchange-action-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition reserved-node-exchange-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'reserved-node-exchange-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-node-exchange-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-reserved-node-exchange-status-"))
+   (reserved-node-exchange-request-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or reserved-node-exchange-status-type common-lisp:null))
+   (request-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null))
+   (source-reserved-node-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (source-reserved-node-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (source-reserved-node-count common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (target-reserved-node-offering-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-reserved-node-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-reserved-node-count common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-node-exchange-status
+                    'make-reserved-node-exchange-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-exchange-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-exchange-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-exchange-request-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeExchangeRequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-time))
+      (common-lisp:list
+       (common-lisp:cons "RequestTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "SourceReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-reserved-node-type))
+      (common-lisp:list
+       (common-lisp:cons "SourceReservedNodeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-reserved-node-count))
+      (common-lisp:list
+       (common-lisp:cons "SourceReservedNodeCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-offering-id))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeOfferingId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-type))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-count))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          reserved-node-exchange-status))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype reserved-node-exchange-status-list ()
+   '(trivial-types:proper-list reserved-node-exchange-status))
+ (common-lisp:defun |make-reserved-node-exchange-status-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            reserved-node-exchange-status))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype reserved-node-exchange-status-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype reserved-node-list ()
    '(trivial-types:proper-list reserved-node))
@@ -7277,7 +13074,9 @@
    (offering-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (recurring-charges common-lisp:nil :type
-    (common-lisp:or recurring-charge-list common-lisp:null)))
+    (common-lisp:or recurring-charge-list common-lisp:null))
+   (reserved-node-offering-type common-lisp:nil :type
+    (common-lisp:or reserved-node-offering-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'reserved-node-offering 'make-reserved-node-offering))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -7346,6 +13145,14 @@
       (common-lisp:list
        (common-lisp:cons "RecurringCharges"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reserved-node-offering-type))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeOfferingType"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -7366,6 +13173,7 @@
      common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'reserved-node-offering-not-found-fault)))
+(common-lisp:deftype reserved-node-offering-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (reserved-node-offerings-message (:copier common-lisp:nil)
@@ -7502,6 +13310,150 @@
                           reset-cluster-parameter-group-message))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resize-cluster-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resize-cluster-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null))
+   (cluster-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (node-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (number-of-nodes common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (classic common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (reserved-node-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-reserved-node-offering-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resize-cluster-message 'make-resize-cluster-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-type))
+      (common-lisp:list
+       (common-lisp:cons "ClusterType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'node-type))
+      (common-lisp:list
+       (common-lisp:cons "NodeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'number-of-nodes))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfNodes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'classic))
+      (common-lisp:list
+       (common-lisp:cons "Classic"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-offering-id))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeOfferingId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resize-cluster-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resize-cluster-result-"))
+   (cluster common-lisp:nil :type (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resize-cluster-result 'make-resize-cluster-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster))
+      (common-lisp:list
+       (common-lisp:cons "Cluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          resize-cluster-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resize-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resize-info-"))
+   (resize-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (allow-cancel-resize common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'resize-info 'make-resize-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input resize-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input resize-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resize-type))
+      (common-lisp:list
+       (common-lisp:cons "ResizeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'allow-cancel-resize))
+      (common-lisp:list
+       (common-lisp:cons "AllowCancelResize"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input resize-info))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition resize-not-found-fault
      (redshift-error)
      common-lisp:nil)
@@ -7532,7 +13484,13 @@
    (elapsed-time-in-seconds common-lisp:nil :type
     (common-lisp:or long-optional common-lisp:null))
    (estimated-time-to-completion-in-seconds common-lisp:nil :type
-    (common-lisp:or long-optional common-lisp:null)))
+    (common-lisp:or long-optional common-lisp:null))
+   (resize-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (message common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (target-encryption-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (data-transfer-progress-percent common-lisp:nil :type
+    (common-lisp:or double-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resize-progress-message 'make-resize-progress-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -7637,6 +13595,36 @@
       (common-lisp:list
        (common-lisp:cons "EstimatedTimeToCompletionInSeconds"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resize-type))
+      (common-lisp:list
+       (common-lisp:cons "ResizeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message))
+      (common-lisp:list
+       (common-lisp:cons "Message"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-encryption-type))
+      (common-lisp:list
+       (common-lisp:cons "TargetEncryptionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-transfer-progress-percent))
+      (common-lisp:list
+       (common-lisp:cons "DataTransferProgressPercent"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -7662,8 +13650,10 @@
       (:conc-name "struct-shape-restore-from-cluster-snapshot-message-"))
    (cluster-identifier (common-lisp:error ":cluster-identifier is required")
     :type (common-lisp:or string common-lisp:null))
-   (snapshot-identifier (common-lisp:error ":snapshot-identifier is required")
-    :type (common-lisp:or string common-lisp:null))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (snapshot-cluster-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (port common-lisp:nil :type
@@ -7693,6 +13683,8 @@
     (common-lisp:or string common-lisp:null))
    (automated-snapshot-retention-period common-lisp:nil :type
     (common-lisp:or integer-optional common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
    (kms-key-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (node-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (enhanced-vpc-routing common-lisp:nil :type
@@ -7700,7 +13692,25 @@
    (additional-info common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (iam-roles common-lisp:nil :type
-    (common-lisp:or iam-role-arn-list common-lisp:null)))
+    (common-lisp:or iam-role-arn-list common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (number-of-nodes common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (availability-zone-relocation common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null))
+   (aqua-configuration-status common-lisp:nil :type
+    (common-lisp:or aqua-configuration-status common-lisp:null))
+   (default-iam-role-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (reserved-node-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-reserved-node-offering-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (encrypted common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'restore-from-cluster-snapshot-message
                     'make-restore-from-cluster-snapshot-message))
@@ -7726,6 +13736,13 @@
                            aws-sdk/generator/shape::input 'snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-arn))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -7845,6 +13862,14 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'kms-key-id))
       (common-lisp:list
        (common-lisp:cons "KmsKeyId"
@@ -7877,6 +13902,75 @@
                            aws-sdk/generator/shape::input 'iam-roles))
       (common-lisp:list
        (common-lisp:cons "IamRoles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'number-of-nodes))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfNodes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'availability-zone-relocation))
+      (common-lisp:list
+       (common-lisp:cons "AvailabilityZoneRelocation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'aqua-configuration-status))
+      (common-lisp:list
+       (common-lisp:cons "AquaConfigurationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-iam-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DefaultIamRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reserved-node-id))
+      (common-lisp:list
+       (common-lisp:cons "ReservedNodeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'target-reserved-node-offering-id))
+      (common-lisp:list
+       (common-lisp:cons "TargetReservedNodeOfferingId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'encrypted))
+      (common-lisp:list
+       (common-lisp:cons "Encrypted"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8006,7 +14100,9 @@
    (target-schema-name common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (new-table-name (common-lisp:error ":new-table-name is required") :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (enable-case-sensitive-identifier common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'restore-table-from-cluster-snapshot-message
                     'make-restore-table-from-cluster-snapshot-message))
@@ -8077,6 +14173,14 @@
       (common-lisp:list
        (common-lisp:cons "NewTableName"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-case-sensitive-identifier))
+      (common-lisp:list
+       (common-lisp:cons "EnableCaseSensitiveIdentifier"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -8115,6 +14219,114 @@
                          (aws-sdk/generator/shape::input
                           restore-table-from-cluster-snapshot-result))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resume-cluster-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resume-cluster-message-"))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resume-cluster-message 'make-resume-cluster-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resume-cluster-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resume-cluster-result-"))
+   (cluster common-lisp:nil :type (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resume-cluster-result 'make-resume-cluster-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster))
+      (common-lisp:list
+       (common-lisp:cons "Cluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          resume-cluster-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (revision-target (:copier common-lisp:nil)
+      (:conc-name "struct-shape-revision-target-"))
+   (database-revision common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (database-revision-release-date common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'revision-target 'make-revision-target))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input revision-target))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input revision-target))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-revision))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseRevision"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'database-revision-release-date))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseRevisionReleaseDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input revision-target))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype revision-targets-list ()
+   '(trivial-types:proper-list revision-target))
+ (common-lisp:defun |make-revision-targets-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list revision-target))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (revoke-cluster-security-group-ingress-message (:copier common-lisp:nil)
@@ -8212,10 +14424,68 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (revoke-endpoint-access-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-revoke-endpoint-access-message-"))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (account common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (vpc-ids common-lisp:nil :type
+    (common-lisp:or vpc-identifier-list common-lisp:null))
+   (force common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'revoke-endpoint-access-message
+                    'make-revoke-endpoint-access-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          revoke-endpoint-access-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          revoke-endpoint-access-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account))
+      (common-lisp:list
+       (common-lisp:cons "Account"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-ids))
+      (common-lisp:list
+       (common-lisp:cons "VpcIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'force))
+      (common-lisp:list
+       (common-lisp:cons "Force"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          revoke-endpoint-access-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (revoke-snapshot-access-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-revoke-snapshot-access-message-"))
-   (snapshot-identifier (common-lisp:error ":snapshot-identifier is required")
-    :type (common-lisp:or string common-lisp:null))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (snapshot-cluster-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (account-with-restore-access
@@ -8239,6 +14509,13 @@
                            aws-sdk/generator/shape::input 'snapshot-identifier))
       (common-lisp:list
        (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-arn))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -8368,6 +14645,297 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'snstopic-arn-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:deftype schedule-definition-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-schedule-definition-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition schedule-definition-type-unsupported-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'schedule-definition-type-unsupported-fault)))
+(common-lisp:deftype schedule-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-action (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-action-"))
+   (scheduled-action-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (target-action common-lisp:nil :type
+    (common-lisp:or scheduled-action-type common-lisp:null))
+   (schedule common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (iam-role common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (scheduled-action-description common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (state common-lisp:nil :type
+    (common-lisp:or scheduled-action-state common-lisp:null))
+   (next-invocations common-lisp:nil :type
+    (common-lisp:or scheduled-action-time-list common-lisp:null))
+   (start-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-action 'make-scheduled-action))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-name))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target-action))
+      (common-lisp:list
+       (common-lisp:cons "TargetAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule))
+      (common-lisp:list
+       (common-lisp:cons "Schedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'iam-role))
+      (common-lisp:list
+       (common-lisp:cons "IamRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-action-description))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActionDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'state))
+      (common-lisp:list
+       (common-lisp:cons "State"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-invocations))
+      (common-lisp:list
+       (common-lisp:cons "NextInvocations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition scheduled-action-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'scheduled-action-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-action-filter (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-action-filter-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or scheduled-action-filter-name common-lisp:null))
+   (values (common-lisp:error ":values is required") :type
+    (common-lisp:or value-string-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-action-filter 'make-scheduled-action-filter))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-filter))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-filter))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'values))
+      (common-lisp:list
+       (common-lisp:cons "Values"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-filter))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype scheduled-action-filter-list ()
+   '(trivial-types:proper-list scheduled-action-filter))
+ (common-lisp:defun |make-scheduled-action-filter-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list scheduled-action-filter))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype scheduled-action-filter-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype scheduled-action-list ()
+   '(trivial-types:proper-list scheduled-action))
+ (common-lisp:defun |make-scheduled-action-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list scheduled-action))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition scheduled-action-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'scheduled-action-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition scheduled-action-quota-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'scheduled-action-quota-exceeded-fault)))
+(common-lisp:deftype scheduled-action-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype scheduled-action-time-list ()
+   '(trivial-types:proper-list tstamp))
+ (common-lisp:defun |make-scheduled-action-time-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tstamp))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-action-type (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-action-type-"))
+   (resize-cluster common-lisp:nil :type
+    (common-lisp:or resize-cluster-message common-lisp:null))
+   (pause-cluster common-lisp:nil :type
+    (common-lisp:or pause-cluster-message common-lisp:null))
+   (resume-cluster common-lisp:nil :type
+    (common-lisp:or resume-cluster-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-action-type 'make-scheduled-action-type))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-type))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-type))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resize-cluster))
+      (common-lisp:list
+       (common-lisp:cons "ResizeCluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pause-cluster))
+      (common-lisp:list
+       (common-lisp:cons "PauseCluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resume-cluster))
+      (common-lisp:list
+       (common-lisp:cons "ResumeCluster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-action-type))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition scheduled-action-type-unsupported-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'scheduled-action-type-unsupported-fault)))
+(common-lisp:deftype scheduled-action-type-values () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-actions-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-actions-message-"))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (scheduled-actions common-lisp:nil :type
+    (common-lisp:or scheduled-action-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-actions-message
+                    'make-scheduled-actions-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-actions-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-actions-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scheduled-actions))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-actions-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype scheduled-snapshot-time-list ()
+   '(trivial-types:proper-list tstamp))
+ (common-lisp:defun |make-scheduled-snapshot-time-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tstamp))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype sensitive-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -8387,6 +14955,8 @@
    (master-username common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (cluster-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (engine-full-version common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (snapshot-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -8421,7 +14991,15 @@
    (restorable-node-types common-lisp:nil :type
     (common-lisp:or restorable-node-type-list common-lisp:null))
    (enhanced-vpc-routing common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (manual-snapshot-retention-period common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (manual-snapshot-remaining-days common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (snapshot-retention-start-time common-lisp:nil :type
+    (common-lisp:or tstamp common-lisp:null)))
  (common-lisp:export (common-lisp:list 'snapshot 'make-snapshot))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input snapshot))
@@ -8491,6 +15069,13 @@
                            aws-sdk/generator/shape::input 'cluster-version))
       (common-lisp:list
        (common-lisp:cons "ClusterVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'engine-full-version))
+      (common-lisp:list
+       (common-lisp:cons "EngineFullVersion"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -8641,10 +15226,43 @@
       (common-lisp:list
        (common-lisp:cons "EnhancedVpcRouting"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-retention-period))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRetentionPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'manual-snapshot-remaining-days))
+      (common-lisp:list
+       (common-lisp:cons "ManualSnapshotRemainingDays"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-retention-start-time))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotRetentionStartTime"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input snapshot))
    common-lisp:nil))
+(common-lisp:deftype snapshot-attribute-to-sort-by () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition snapshot-copy-already-disabled-fault
      (redshift-error)
@@ -8767,6 +15385,72 @@
  (common-lisp:export
   (common-lisp:list 'snapshot-copy-grant-quota-exceeded-fault)))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-error-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-snapshot-error-message-"))
+   (snapshot-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (snapshot-cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (failure-code common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (failure-reason common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-error-message 'make-snapshot-error-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-error-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-error-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'snapshot-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snapshot-cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SnapshotClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-code))
+      (common-lisp:list
+       (common-lisp:cons "FailureCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-error-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype snapshot-identifier-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-snapshot-identifier-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype snapshot-list () '(trivial-types:proper-list snapshot))
  (common-lisp:defun |make-snapshot-list|
                     (common-lisp:&rest aws-sdk/generator/shape::members)
@@ -8805,6 +15489,165 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input snapshot-message))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-schedule (:copier common-lisp:nil)
+      (:conc-name "struct-shape-snapshot-schedule-"))
+   (schedule-definitions common-lisp:nil :type
+    (common-lisp:or schedule-definition-list common-lisp:null))
+   (schedule-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (schedule-description common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (next-invocations common-lisp:nil :type
+    (common-lisp:or scheduled-snapshot-time-list common-lisp:null))
+   (associated-cluster-count common-lisp:nil :type
+    (common-lisp:or integer-optional common-lisp:null))
+   (associated-clusters common-lisp:nil :type
+    (common-lisp:or associated-cluster-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-schedule 'make-snapshot-schedule))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input snapshot-schedule))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input snapshot-schedule))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-definitions))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'schedule-description))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-invocations))
+      (common-lisp:list
+       (common-lisp:cons "NextInvocations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'associated-cluster-count))
+      (common-lisp:list
+       (common-lisp:cons "AssociatedClusterCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'associated-clusters))
+      (common-lisp:list
+       (common-lisp:cons "AssociatedClusters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input snapshot-schedule))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition snapshot-schedule-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'snapshot-schedule-already-exists-fault)))
+(common-lisp:progn
+ (common-lisp:deftype snapshot-schedule-list ()
+   '(trivial-types:proper-list snapshot-schedule))
+ (common-lisp:defun |make-snapshot-schedule-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list snapshot-schedule))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition snapshot-schedule-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'snapshot-schedule-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition snapshot-schedule-quota-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'snapshot-schedule-quota-exceeded-fault)))
+(common-lisp:progn
+ (common-lisp:define-condition snapshot-schedule-update-in-progress-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'snapshot-schedule-update-in-progress-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-sorting-entity (:copier common-lisp:nil)
+      (:conc-name "struct-shape-snapshot-sorting-entity-"))
+   (attribute (common-lisp:error ":attribute is required") :type
+    (common-lisp:or snapshot-attribute-to-sort-by common-lisp:null))
+   (sort-order common-lisp:nil :type
+    (common-lisp:or sort-by-order common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-sorting-entity 'make-snapshot-sorting-entity))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-sorting-entity))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-sorting-entity))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'attribute))
+      (common-lisp:list
+       (common-lisp:cons "Attribute"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sort-order))
+      (common-lisp:list
+       (common-lisp:cons "SortOrder"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          snapshot-sorting-entity))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype snapshot-sorting-entity-list ()
+   '(trivial-types:proper-list snapshot-sorting-entity))
+ (common-lisp:defun |make-snapshot-sorting-entity-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list snapshot-sorting-entity))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype sort-by-order () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype source-ids-list () '(trivial-types:proper-list string))
  (common-lisp:defun |make-source-ids-list|
@@ -8905,7 +15748,75 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'subscription-severity-not-found-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (supported-operation (:copier common-lisp:nil)
+      (:conc-name "struct-shape-supported-operation-"))
+   (operation-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'supported-operation 'make-supported-operation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input supported-operation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input supported-operation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation-name))
+      (common-lisp:list
+       (common-lisp:cons "OperationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input supported-operation))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype supported-operation-list ()
+   '(trivial-types:proper-list supported-operation))
+ (common-lisp:defun |make-supported-operation-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list supported-operation))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (supported-platform (:copier common-lisp:nil)
+      (:conc-name "struct-shape-supported-platform-"))
+   (name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'supported-platform 'make-supported-platform))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input supported-platform))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input supported-platform))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input supported-platform))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype supported-platforms-list ()
+   '(trivial-types:proper-list supported-platform))
+ (common-lisp:defun |make-supported-platforms-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list supported-platform))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype tstamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition table-limit-exceeded-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'table-limit-exceeded-fault)))
 (common-lisp:progn
  (common-lisp:define-condition table-restore-not-found-fault
      (redshift-error)
@@ -9248,10 +16159,56 @@
                           tagged-resource-list-message))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:deftype track-list ()
+   '(trivial-types:proper-list maintenance-track))
+ (common-lisp:defun |make-track-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list maintenance-track))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (track-list-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-track-list-message-"))
+   (maintenance-tracks common-lisp:nil :type
+    (common-lisp:or track-list common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'track-list-message 'make-track-list-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input track-list-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input track-list-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'maintenance-tracks))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTracks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input track-list-message))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition unauthorized-operation
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'unauthorized-operation)))
+(common-lisp:progn
+ (common-lisp:define-condition unauthorized-partner-integration-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'unauthorized-partner-integration-fault)))
 (common-lisp:progn
  (common-lisp:define-condition unknown-snapshot-copy-region-fault
      (redshift-error)
@@ -9267,6 +16224,326 @@
      (redshift-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'unsupported-option-fault)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-partner-status-input-message (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-partner-status-input-message-"))
+   (account-id (common-lisp:error ":account-id is required") :type
+    (common-lisp:or partner-integration-account-id common-lisp:null))
+   (cluster-identifier (common-lisp:error ":cluster-identifier is required")
+    :type
+    (common-lisp:or partner-integration-cluster-identifier common-lisp:null))
+   (database-name (common-lisp:error ":database-name is required") :type
+    (common-lisp:or partner-integration-database-name common-lisp:null))
+   (partner-name (common-lisp:error ":partner-name is required") :type
+    (common-lisp:or partner-integration-partner-name common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or partner-integration-status common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or partner-integration-status-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-partner-status-input-message
+                    'make-update-partner-status-input-message))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-partner-status-input-message))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-partner-status-input-message))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-id))
+      (common-lisp:list
+       (common-lisp:cons "AccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'partner-name))
+      (common-lisp:list
+       (common-lisp:cons "PartnerName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "StatusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-partner-status-input-message))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-target (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-target-"))
+   (maintenance-track-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (database-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (supported-operations common-lisp:nil :type
+    (common-lisp:or supported-operation-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'update-target 'make-update-target))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input update-target))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input update-target))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'maintenance-track-name))
+      (common-lisp:list
+       (common-lisp:cons "MaintenanceTrackName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-version))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'supported-operations))
+      (common-lisp:list
+       (common-lisp:cons "SupportedOperations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input update-target))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (usage-limit (:copier common-lisp:nil)
+      (:conc-name "struct-shape-usage-limit-"))
+   (usage-limit-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (cluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (feature-type common-lisp:nil :type
+    (common-lisp:or usage-limit-feature-type common-lisp:null))
+   (limit-type common-lisp:nil :type
+    (common-lisp:or usage-limit-limit-type common-lisp:null))
+   (amount common-lisp:nil :type (common-lisp:or long common-lisp:null))
+   (period common-lisp:nil :type
+    (common-lisp:or usage-limit-period common-lisp:null))
+   (breach-action common-lisp:nil :type
+    (common-lisp:or usage-limit-breach-action common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'usage-limit 'make-usage-limit))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input usage-limit))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input usage-limit))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-limit-id))
+      (common-lisp:list
+       (common-lisp:cons "UsageLimitId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ClusterIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-type))
+      (common-lisp:list
+       (common-lisp:cons "FeatureType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'limit-type))
+      (common-lisp:list
+       (common-lisp:cons "LimitType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'amount))
+      (common-lisp:list
+       (common-lisp:cons "Amount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'period))
+      (common-lisp:list
+       (common-lisp:cons "Period"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'breach-action))
+      (common-lisp:list
+       (common-lisp:cons "BreachAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input usage-limit))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition usage-limit-already-exists-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'usage-limit-already-exists-fault)))
+(common-lisp:deftype usage-limit-breach-action () 'common-lisp:string)
+(common-lisp:deftype usage-limit-feature-type () 'common-lisp:string)
+(common-lisp:deftype usage-limit-limit-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (usage-limit-list (:copier common-lisp:nil)
+      (:conc-name "struct-shape-usage-limit-list-"))
+   (usage-limits common-lisp:nil :type
+    (common-lisp:or usage-limits common-lisp:null))
+   (marker common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'usage-limit-list 'make-usage-limit-list))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input usage-limit-list))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input usage-limit-list))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-limits))
+      (common-lisp:list
+       (common-lisp:cons "UsageLimits"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input usage-limit-list))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition usage-limit-not-found-fault
+     (redshift-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'usage-limit-not-found-fault)))
+(common-lisp:deftype usage-limit-period () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype usage-limits () '(trivial-types:proper-list usage-limit))
+ (common-lisp:defun |make-usage-limits|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list usage-limit))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype value-string-list () '(trivial-types:proper-list string))
+ (common-lisp:defun |make-value-string-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (vpc-endpoint (:copier common-lisp:nil)
+      (:conc-name "struct-shape-vpc-endpoint-"))
+   (vpc-endpoint-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (vpc-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (network-interfaces common-lisp:nil :type
+    (common-lisp:or network-interface-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'vpc-endpoint 'make-vpc-endpoint))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input vpc-endpoint))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input vpc-endpoint))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-endpoint-id))
+      (common-lisp:list
+       (common-lisp:cons "VpcEndpointId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vpc-id))
+      (common-lisp:list
+       (common-lisp:cons "VpcId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-interfaces))
+      (common-lisp:list
+       (common-lisp:cons "NetworkInterfaces"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input vpc-endpoint))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype vpc-endpoints-list ()
+   '(trivial-types:proper-list vpc-endpoint))
+ (common-lisp:defun |make-vpc-endpoints-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list vpc-endpoint))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype vpc-identifier-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-vpc-identifier-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype vpc-security-group-id-list ()
    '(trivial-types:proper-list string))
@@ -9325,6 +16602,70 @@
                             vpc-security-group-membership))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defun accept-reserved-node-exchange
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key reserved-node-id
+                     target-reserved-node-offering-id)
+   (common-lisp:declare
+    (common-lisp:ignorable reserved-node-id target-reserved-node-offering-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-accept-reserved-node-exchange-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AcceptReservedNodeExchange"
+                                                        "2012-12-01"))
+      common-lisp:nil "AcceptReservedNodeExchangeResult" *error-map*)))
+ (common-lisp:export 'accept-reserved-node-exchange))
+(common-lisp:progn
+ (common-lisp:defun add-partner
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key account-id cluster-identifier
+                     database-name partner-name)
+   (common-lisp:declare
+    (common-lisp:ignorable account-id cluster-identifier database-name
+     partner-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-partner-integration-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/" "AddPartner"
+                                                        "2012-12-01"))
+      common-lisp:nil "AddPartnerResult" *error-map*)))
+ (common-lisp:export 'add-partner))
+(common-lisp:progn
+ (common-lisp:defun associate-data-share-consumer
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn associate-entire-account
+                     consumer-arn consumer-region)
+   (common-lisp:declare
+    (common-lisp:ignorable data-share-arn associate-entire-account consumer-arn
+     consumer-region))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-associate-data-share-consumer-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AssociateDataShareConsumer"
+                                                        "2012-12-01"))
+      common-lisp:nil "AssociateDataShareConsumerResult" *error-map*)))
+ (common-lisp:export 'associate-data-share-consumer))
+(common-lisp:progn
  (common-lisp:defun authorize-cluster-security-group-ingress
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9348,14 +16689,53 @@
       *error-map*)))
  (common-lisp:export 'authorize-cluster-security-group-ingress))
 (common-lisp:progn
+ (common-lisp:defun authorize-data-share
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn consumer-identifier)
+   (common-lisp:declare
+    (common-lisp:ignorable data-share-arn consumer-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-authorize-data-share-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AuthorizeDataShare"
+                                                        "2012-12-01"))
+      common-lisp:nil "AuthorizeDataShareResult" *error-map*)))
+ (common-lisp:export 'authorize-data-share))
+(common-lisp:progn
+ (common-lisp:defun authorize-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier account vpc-ids)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier account vpc-ids))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-authorize-endpoint-access-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AuthorizeEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "AuthorizeEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'authorize-endpoint-access))
+(common-lisp:progn
  (common-lisp:defun authorize-snapshot-access
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key snapshot-identifier
+                     common-lisp:&key snapshot-identifier snapshot-arn
                      snapshot-cluster-identifier account-with-restore-access)
    (common-lisp:declare
-    (common-lisp:ignorable snapshot-identifier snapshot-cluster-identifier
-     account-with-restore-access))
+    (common-lisp:ignorable snapshot-identifier snapshot-arn
+     snapshot-cluster-identifier account-with-restore-access))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-authorize-snapshot-access-message
@@ -9370,15 +16750,76 @@
       common-lisp:nil "AuthorizeSnapshotAccessResult" *error-map*)))
  (common-lisp:export 'authorize-snapshot-access))
 (common-lisp:progn
+ (common-lisp:defun batch-delete-cluster-snapshots
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifiers)
+   (common-lisp:declare (common-lisp:ignorable identifiers))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-batch-delete-cluster-snapshots-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "BatchDeleteClusterSnapshots"
+                                                        "2012-12-01"))
+      common-lisp:nil "BatchDeleteClusterSnapshotsResult" *error-map*)))
+ (common-lisp:export 'batch-delete-cluster-snapshots))
+(common-lisp:progn
+ (common-lisp:defun batch-modify-cluster-snapshots
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key snapshot-identifier-list
+                     manual-snapshot-retention-period force)
+   (common-lisp:declare
+    (common-lisp:ignorable snapshot-identifier-list
+     manual-snapshot-retention-period force))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-batch-modify-cluster-snapshots-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "BatchModifyClusterSnapshots"
+                                                        "2012-12-01"))
+      common-lisp:nil "BatchModifyClusterSnapshotsResult" *error-map*)))
+ (common-lisp:export 'batch-modify-cluster-snapshots))
+(common-lisp:progn
+ (common-lisp:defun cancel-resize
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier)
+   (common-lisp:declare (common-lisp:ignorable cluster-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-cancel-resize-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CancelResize"
+                                                        "2012-12-01"))
+      common-lisp:nil "CancelResizeResult" *error-map*)))
+ (common-lisp:export 'cancel-resize))
+(common-lisp:progn
  (common-lisp:defun copy-cluster-snapshot
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key source-snapshot-identifier
                      source-snapshot-cluster-identifier
-                     target-snapshot-identifier)
+                     target-snapshot-identifier
+                     manual-snapshot-retention-period)
    (common-lisp:declare
     (common-lisp:ignorable source-snapshot-identifier
-     source-snapshot-cluster-identifier target-snapshot-identifier))
+     source-snapshot-cluster-identifier target-snapshot-identifier
+     manual-snapshot-retention-period))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-copy-cluster-snapshot-message
                                          aws-sdk/generator/operation::args)))
@@ -9392,6 +16833,28 @@
       common-lisp:nil "CopyClusterSnapshotResult" *error-map*)))
  (common-lisp:export 'copy-cluster-snapshot))
 (common-lisp:progn
+ (common-lisp:defun create-authentication-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key authentication-profile-name
+                     authentication-profile-content)
+   (common-lisp:declare
+    (common-lisp:ignorable authentication-profile-name
+     authentication-profile-content))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-authentication-profile-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateAuthenticationProfile"
+                                                        "2012-12-01"))
+      common-lisp:nil "CreateAuthenticationProfileResult" *error-map*)))
+ (common-lisp:export 'create-authentication-profile))
+(common-lisp:progn
  (common-lisp:defun create-cluster
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9400,20 +16863,27 @@
                      cluster-security-groups vpc-security-group-ids
                      cluster-subnet-group-name availability-zone
                      preferred-maintenance-window cluster-parameter-group-name
-                     automated-snapshot-retention-period port cluster-version
+                     automated-snapshot-retention-period
+                     manual-snapshot-retention-period port cluster-version
                      allow-version-upgrade number-of-nodes publicly-accessible
                      encrypted hsm-client-certificate-identifier
                      hsm-configuration-identifier elastic-ip tags kms-key-id
-                     enhanced-vpc-routing additional-info iam-roles)
+                     enhanced-vpc-routing additional-info iam-roles
+                     maintenance-track-name snapshot-schedule-identifier
+                     availability-zone-relocation aqua-configuration-status
+                     default-iam-role-arn load-sample-data)
    (common-lisp:declare
     (common-lisp:ignorable dbname cluster-identifier cluster-type node-type
      master-username master-user-password cluster-security-groups
      vpc-security-group-ids cluster-subnet-group-name availability-zone
      preferred-maintenance-window cluster-parameter-group-name
-     automated-snapshot-retention-period port cluster-version
-     allow-version-upgrade number-of-nodes publicly-accessible encrypted
-     hsm-client-certificate-identifier hsm-configuration-identifier elastic-ip
-     tags kms-key-id enhanced-vpc-routing additional-info iam-roles))
+     automated-snapshot-retention-period manual-snapshot-retention-period port
+     cluster-version allow-version-upgrade number-of-nodes publicly-accessible
+     encrypted hsm-client-certificate-identifier hsm-configuration-identifier
+     elastic-ip tags kms-key-id enhanced-vpc-routing additional-info iam-roles
+     maintenance-track-name snapshot-schedule-identifier
+     availability-zone-relocation aqua-configuration-status
+     default-iam-role-arn load-sample-data))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-cluster-message
                                          aws-sdk/generator/operation::args)))
@@ -9474,9 +16944,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key snapshot-identifier cluster-identifier
-                     tags)
+                     manual-snapshot-retention-period tags)
    (common-lisp:declare
-    (common-lisp:ignorable snapshot-identifier cluster-identifier tags))
+    (common-lisp:ignorable snapshot-identifier cluster-identifier
+     manual-snapshot-retention-period tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-cluster-snapshot-message
                                          aws-sdk/generator/operation::args)))
@@ -9511,6 +16982,27 @@
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterSubnetGroupResult" *error-map*)))
  (common-lisp:export 'create-cluster-subnet-group))
+(common-lisp:progn
+ (common-lisp:defun create-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier resource-owner
+                     endpoint-name subnet-group-name vpc-security-group-ids)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier resource-owner endpoint-name
+     subnet-group-name vpc-security-group-ids))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-endpoint-access-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "CreateEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'create-endpoint-access))
 (common-lisp:progn
  (common-lisp:defun create-event-subscription
                     (
@@ -9578,6 +17070,28 @@
       common-lisp:nil "CreateHsmConfigurationResult" *error-map*)))
  (common-lisp:export 'create-hsm-configuration))
 (common-lisp:progn
+ (common-lisp:defun create-scheduled-action
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key scheduled-action-name target-action
+                     schedule iam-role scheduled-action-description start-time
+                     end-time enable)
+   (common-lisp:declare
+    (common-lisp:ignorable scheduled-action-name target-action schedule
+     iam-role scheduled-action-description start-time end-time enable))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-scheduled-action-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateScheduledAction"
+                                                        "2012-12-01"))
+      common-lisp:nil "CreateScheduledActionResult" *error-map*)))
+ (common-lisp:export 'create-scheduled-action))
+(common-lisp:progn
  (common-lisp:defun create-snapshot-copy-grant
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9598,6 +17112,27 @@
       common-lisp:nil "CreateSnapshotCopyGrantResult" *error-map*)))
  (common-lisp:export 'create-snapshot-copy-grant))
 (common-lisp:progn
+ (common-lisp:defun create-snapshot-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key schedule-definitions schedule-identifier
+                     schedule-description tags dry-run next-invocations)
+   (common-lisp:declare
+    (common-lisp:ignorable schedule-definitions schedule-identifier
+     schedule-description tags dry-run next-invocations))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-snapshot-schedule-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateSnapshotSchedule"
+                                                        "2012-12-01"))
+      common-lisp:nil "CreateSnapshotScheduleResult" *error-map*)))
+ (common-lisp:export 'create-snapshot-schedule))
+(common-lisp:progn
  (common-lisp:defun create-tags
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9615,15 +17150,76 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-tags))
 (common-lisp:progn
+ (common-lisp:defun create-usage-limit
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier feature-type
+                     limit-type amount period breach-action tags)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier feature-type limit-type amount
+     period breach-action tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-usage-limit-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateUsageLimit"
+                                                        "2012-12-01"))
+      common-lisp:nil "CreateUsageLimitResult" *error-map*)))
+ (common-lisp:export 'create-usage-limit))
+(common-lisp:progn
+ (common-lisp:defun deauthorize-data-share
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn consumer-identifier)
+   (common-lisp:declare
+    (common-lisp:ignorable data-share-arn consumer-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-deauthorize-data-share-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeauthorizeDataShare"
+                                                        "2012-12-01"))
+      common-lisp:nil "DeauthorizeDataShareResult" *error-map*)))
+ (common-lisp:export 'deauthorize-data-share))
+(common-lisp:progn
+ (common-lisp:defun delete-authentication-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key authentication-profile-name)
+   (common-lisp:declare (common-lisp:ignorable authentication-profile-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-authentication-profile-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteAuthenticationProfile"
+                                                        "2012-12-01"))
+      common-lisp:nil "DeleteAuthenticationProfileResult" *error-map*)))
+ (common-lisp:export 'delete-authentication-profile))
+(common-lisp:progn
  (common-lisp:defun delete-cluster
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier
                      skip-final-cluster-snapshot
-                     final-cluster-snapshot-identifier)
+                     final-cluster-snapshot-identifier
+                     final-cluster-snapshot-retention-period)
    (common-lisp:declare
     (common-lisp:ignorable cluster-identifier skip-final-cluster-snapshot
-     final-cluster-snapshot-identifier))
+     final-cluster-snapshot-identifier
+     final-cluster-snapshot-retention-period))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-delete-cluster-message
                                          aws-sdk/generator/operation::args)))
@@ -9714,6 +17310,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-cluster-subnet-group))
 (common-lisp:progn
+ (common-lisp:defun delete-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key endpoint-name)
+   (common-lisp:declare (common-lisp:ignorable endpoint-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-endpoint-access-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "DeleteEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'delete-endpoint-access))
+(common-lisp:progn
  (common-lisp:defun delete-event-subscription
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9771,6 +17385,46 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-hsm-configuration))
 (common-lisp:progn
+ (common-lisp:defun delete-partner
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key account-id cluster-identifier
+                     database-name partner-name)
+   (common-lisp:declare
+    (common-lisp:ignorable account-id cluster-identifier database-name
+     partner-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-partner-integration-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeletePartner"
+                                                        "2012-12-01"))
+      common-lisp:nil "DeletePartnerResult" *error-map*)))
+ (common-lisp:export 'delete-partner))
+(common-lisp:progn
+ (common-lisp:defun delete-scheduled-action
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key scheduled-action-name)
+   (common-lisp:declare (common-lisp:ignorable scheduled-action-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-scheduled-action-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteScheduledAction"
+                                                        "2012-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-scheduled-action))
+(common-lisp:progn
  (common-lisp:defun delete-snapshot-copy-grant
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9790,6 +17444,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-snapshot-copy-grant))
 (common-lisp:progn
+ (common-lisp:defun delete-snapshot-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key schedule-identifier)
+   (common-lisp:declare (common-lisp:ignorable schedule-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-snapshot-schedule-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteSnapshotSchedule"
+                                                        "2012-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-snapshot-schedule))
+(common-lisp:progn
  (common-lisp:defun delete-tags
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9806,6 +17478,82 @@
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
+(common-lisp:progn
+ (common-lisp:defun delete-usage-limit
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key usage-limit-id)
+   (common-lisp:declare (common-lisp:ignorable usage-limit-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-usage-limit-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteUsageLimit"
+                                                        "2012-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-usage-limit))
+(common-lisp:progn
+ (common-lisp:defun describe-account-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key attribute-names)
+   (common-lisp:declare (common-lisp:ignorable attribute-names))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-account-attributes-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeAccountAttributes"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeAccountAttributesResult" *error-map*)))
+ (common-lisp:export 'describe-account-attributes))
+(common-lisp:progn
+ (common-lisp:defun describe-authentication-profiles
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key authentication-profile-name)
+   (common-lisp:declare (common-lisp:ignorable authentication-profile-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-authentication-profiles-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeAuthenticationProfiles"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeAuthenticationProfilesResult" *error-map*)))
+ (common-lisp:export 'describe-authentication-profiles))
+(common-lisp:progn
+ (common-lisp:defun describe-cluster-db-revisions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-cluster-db-revisions-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeClusterDbRevisions"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeClusterDbRevisionsResult" *error-map*)))
+ (common-lisp:export 'describe-cluster-db-revisions))
 (common-lisp:progn
  (common-lisp:defun describe-cluster-parameter-groups
                     (
@@ -9876,11 +17624,13 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier snapshot-identifier
-                     snapshot-type start-time end-time max-records marker
-                     owner-account tag-keys tag-values)
+                     snapshot-arn snapshot-type start-time end-time max-records
+                     marker owner-account tag-keys tag-values cluster-exists
+                     sorting-entities)
    (common-lisp:declare
-    (common-lisp:ignorable cluster-identifier snapshot-identifier snapshot-type
-     start-time end-time max-records marker owner-account tag-keys tag-values))
+    (common-lisp:ignorable cluster-identifier snapshot-identifier snapshot-arn
+     snapshot-type start-time end-time max-records marker owner-account
+     tag-keys tag-values cluster-exists sorting-entities))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-describe-cluster-snapshots-message
@@ -9916,6 +17666,26 @@
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterSubnetGroupsResult" *error-map*)))
  (common-lisp:export 'describe-cluster-subnet-groups))
+(common-lisp:progn
+ (common-lisp:defun describe-cluster-tracks
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key maintenance-track-name max-records
+                     marker)
+   (common-lisp:declare
+    (common-lisp:ignorable maintenance-track-name max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-cluster-tracks-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeClusterTracks"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeClusterTracksResult" *error-map*)))
+ (common-lisp:export 'describe-cluster-tracks))
 (common-lisp:progn
  (common-lisp:defun describe-cluster-versions
                     (
@@ -9960,6 +17730,65 @@
       common-lisp:nil "DescribeClustersResult" *error-map*)))
  (common-lisp:export 'describe-clusters))
 (common-lisp:progn
+ (common-lisp:defun describe-data-shares
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable data-share-arn max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-data-shares-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeDataShares"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeDataSharesResult" *error-map*)))
+ (common-lisp:export 'describe-data-shares))
+(common-lisp:progn
+ (common-lisp:defun describe-data-shares-for-consumer
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key consumer-arn status max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable consumer-arn status max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-data-shares-for-consumer-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeDataSharesForConsumer"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeDataSharesForConsumerResult" *error-map*)))
+ (common-lisp:export 'describe-data-shares-for-consumer))
+(common-lisp:progn
+ (common-lisp:defun describe-data-shares-for-producer
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key producer-arn status max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable producer-arn status max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-data-shares-for-producer-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeDataSharesForProducer"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeDataSharesForProducerResult" *error-map*)))
+ (common-lisp:export 'describe-data-shares-for-producer))
+(common-lisp:progn
  (common-lisp:defun describe-default-cluster-parameters
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9980,6 +17809,49 @@
                                                         "2012-12-01"))
       common-lisp:nil "DescribeDefaultClusterParametersResult" *error-map*)))
  (common-lisp:export 'describe-default-cluster-parameters))
+(common-lisp:progn
+ (common-lisp:defun describe-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier resource-owner
+                     endpoint-name vpc-id max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier resource-owner endpoint-name
+     vpc-id max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-endpoint-access-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'describe-endpoint-access))
+(common-lisp:progn
+ (common-lisp:defun describe-endpoint-authorization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier account grantee
+                     max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier account grantee max-records
+     marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-endpoint-authorization-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeEndpointAuthorization"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeEndpointAuthorizationResult" *error-map*)))
+ (common-lisp:export 'describe-endpoint-authorization))
 (common-lisp:progn
  (common-lisp:defun describe-event-categories
                     (
@@ -10003,9 +17875,11 @@
  (common-lisp:defun describe-event-subscriptions
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key subscription-name max-records marker)
+                     common-lisp:&key subscription-name max-records marker
+                     tag-keys tag-values)
    (common-lisp:declare
-    (common-lisp:ignorable subscription-name max-records marker))
+    (common-lisp:ignorable subscription-name max-records marker tag-keys
+     tag-values))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-describe-event-subscriptions-message
@@ -10103,6 +17977,29 @@
       common-lisp:nil "DescribeLoggingStatusResult" *error-map*)))
  (common-lisp:export 'describe-logging-status))
 (common-lisp:progn
+ (common-lisp:defun describe-node-configuration-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key action-type cluster-identifier
+                     snapshot-identifier snapshot-arn owner-account filters
+                     marker max-records)
+   (common-lisp:declare
+    (common-lisp:ignorable action-type cluster-identifier snapshot-identifier
+     snapshot-arn owner-account filters marker max-records))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-node-configuration-options-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeNodeConfigurationOptions"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeNodeConfigurationOptionsResult" *error-map*)))
+ (common-lisp:export 'describe-node-configuration-options))
+(common-lisp:progn
  (common-lisp:defun describe-orderable-cluster-options
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10123,6 +18020,49 @@
                                                         "2012-12-01"))
       common-lisp:nil "DescribeOrderableClusterOptionsResult" *error-map*)))
  (common-lisp:export 'describe-orderable-cluster-options))
+(common-lisp:progn
+ (common-lisp:defun describe-partners
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key account-id cluster-identifier
+                     database-name partner-name)
+   (common-lisp:declare
+    (common-lisp:ignorable account-id cluster-identifier database-name
+     partner-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-partners-input-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribePartners"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribePartnersResult" *error-map*)))
+ (common-lisp:export 'describe-partners))
+(common-lisp:progn
+ (common-lisp:defun describe-reserved-node-exchange-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key reserved-node-id
+                     reserved-node-exchange-request-id max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable reserved-node-id reserved-node-exchange-request-id
+     max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-reserved-node-exchange-status-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeReservedNodeExchangeStatus"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeReservedNodeExchangeStatusResult" *error-map*)))
+ (common-lisp:export 'describe-reserved-node-exchange-status))
 (common-lisp:progn
  (common-lisp:defun describe-reserved-node-offerings
                     (
@@ -10182,6 +18122,28 @@
       common-lisp:nil "DescribeResizeResult" *error-map*)))
  (common-lisp:export 'describe-resize))
 (common-lisp:progn
+ (common-lisp:defun describe-scheduled-actions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key scheduled-action-name target-action-type
+                     start-time end-time active filters marker max-records)
+   (common-lisp:declare
+    (common-lisp:ignorable scheduled-action-name target-action-type start-time
+     end-time active filters marker max-records))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-scheduled-actions-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeScheduledActions"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeScheduledActionsResult" *error-map*)))
+ (common-lisp:export 'describe-scheduled-actions))
+(common-lisp:progn
  (common-lisp:defun describe-snapshot-copy-grants
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10203,6 +18165,38 @@
                                                         "2012-12-01"))
       common-lisp:nil "DescribeSnapshotCopyGrantsResult" *error-map*)))
  (common-lisp:export 'describe-snapshot-copy-grants))
+(common-lisp:progn
+ (common-lisp:defun describe-snapshot-schedules
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier schedule-identifier
+                     tag-keys tag-values marker max-records)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier schedule-identifier tag-keys
+     tag-values marker max-records))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-snapshot-schedules-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeSnapshotSchedules"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeSnapshotSchedulesResult" *error-map*)))
+ (common-lisp:export 'describe-snapshot-schedules))
+(common-lisp:progn
+ (common-lisp:defun describe-storage ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'redshift-request :method "POST" :path "/"
+                                :params
+                                `(("Action" ,@"DescribeStorage")
+                                  ("Version" ,@"2012-12-01"))))
+    common-lisp:nil "DescribeStorageResult" *error-map*))
+ (common-lisp:export 'describe-storage))
 (common-lisp:progn
  (common-lisp:defun describe-table-restore-status
                     (
@@ -10247,6 +18241,27 @@
       common-lisp:nil "DescribeTagsResult" *error-map*)))
  (common-lisp:export 'describe-tags))
 (common-lisp:progn
+ (common-lisp:defun describe-usage-limits
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key usage-limit-id cluster-identifier
+                     feature-type max-records marker tag-keys tag-values)
+   (common-lisp:declare
+    (common-lisp:ignorable usage-limit-id cluster-identifier feature-type
+     max-records marker tag-keys tag-values))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-usage-limits-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeUsageLimits"
+                                                        "2012-12-01"))
+      common-lisp:nil "DescribeUsageLimitsResult" *error-map*)))
+ (common-lisp:export 'describe-usage-limits))
+(common-lisp:progn
  (common-lisp:defun disable-logging
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10283,13 +18298,36 @@
       common-lisp:nil "DisableSnapshotCopyResult" *error-map*)))
  (common-lisp:export 'disable-snapshot-copy))
 (common-lisp:progn
+ (common-lisp:defun disassociate-data-share-consumer
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn
+                     disassociate-entire-account consumer-arn consumer-region)
+   (common-lisp:declare
+    (common-lisp:ignorable data-share-arn disassociate-entire-account
+     consumer-arn consumer-region))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-disassociate-data-share-consumer-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DisassociateDataShareConsumer"
+                                                        "2012-12-01"))
+      common-lisp:nil "DisassociateDataShareConsumerResult" *error-map*)))
+ (common-lisp:export 'disassociate-data-share-consumer))
+(common-lisp:progn
  (common-lisp:defun enable-logging
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier bucket-name
-                     s3key-prefix)
+                     s3key-prefix log-destination-type log-exports)
    (common-lisp:declare
-    (common-lisp:ignorable cluster-identifier bucket-name s3key-prefix))
+    (common-lisp:ignorable cluster-identifier bucket-name s3key-prefix
+     log-destination-type log-exports))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-enable-logging-message
                                          aws-sdk/generator/operation::args)))
@@ -10307,10 +18345,12 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier destination-region
-                     retention-period snapshot-copy-grant-name)
+                     retention-period snapshot-copy-grant-name
+                     manual-snapshot-retention-period)
    (common-lisp:declare
     (common-lisp:ignorable cluster-identifier destination-region
-     retention-period snapshot-copy-grant-name))
+     retention-period snapshot-copy-grant-name
+     manual-snapshot-retention-period))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-enable-snapshot-copy-message
                                          aws-sdk/generator/operation::args)))
@@ -10345,6 +18385,112 @@
       common-lisp:nil "GetClusterCredentialsResult" *error-map*)))
  (common-lisp:export 'get-cluster-credentials))
 (common-lisp:progn
+ (common-lisp:defun get-cluster-credentials-with-iam
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key db-name cluster-identifier
+                     duration-seconds)
+   (common-lisp:declare
+    (common-lisp:ignorable db-name cluster-identifier duration-seconds))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-cluster-credentials-with-iammessage
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetClusterCredentialsWithIAM"
+                                                        "2012-12-01"))
+      common-lisp:nil "GetClusterCredentialsWithIAMResult" *error-map*)))
+ (common-lisp:export 'get-cluster-credentials-with-iam))
+(common-lisp:progn
+ (common-lisp:defun get-reserved-node-exchange-configuration-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key action-type cluster-identifier
+                     snapshot-identifier max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable action-type cluster-identifier snapshot-identifier
+     max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-reserved-node-exchange-configuration-options-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetReservedNodeExchangeConfigurationOptions"
+                                                        "2012-12-01"))
+      common-lisp:nil "GetReservedNodeExchangeConfigurationOptionsResult"
+      *error-map*)))
+ (common-lisp:export 'get-reserved-node-exchange-configuration-options))
+(common-lisp:progn
+ (common-lisp:defun get-reserved-node-exchange-offerings
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key reserved-node-id max-records marker)
+   (common-lisp:declare
+    (common-lisp:ignorable reserved-node-id max-records marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-reserved-node-exchange-offerings-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetReservedNodeExchangeOfferings"
+                                                        "2012-12-01"))
+      common-lisp:nil "GetReservedNodeExchangeOfferingsResult" *error-map*)))
+ (common-lisp:export 'get-reserved-node-exchange-offerings))
+(common-lisp:progn
+ (common-lisp:defun modify-aqua-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier
+                     aqua-configuration-status)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier aqua-configuration-status))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-aqua-input-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyAquaConfiguration"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyAquaConfigurationResult" *error-map*)))
+ (common-lisp:export 'modify-aqua-configuration))
+(common-lisp:progn
+ (common-lisp:defun modify-authentication-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key authentication-profile-name
+                     authentication-profile-content)
+   (common-lisp:declare
+    (common-lisp:ignorable authentication-profile-name
+     authentication-profile-content))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-modify-authentication-profile-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyAuthenticationProfile"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyAuthenticationProfileResult" *error-map*)))
+ (common-lisp:export 'modify-authentication-profile))
+(common-lisp:progn
  (common-lisp:defun modify-cluster
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10353,18 +18499,23 @@
                      vpc-security-group-ids master-user-password
                      cluster-parameter-group-name
                      automated-snapshot-retention-period
+                     manual-snapshot-retention-period
                      preferred-maintenance-window cluster-version
                      allow-version-upgrade hsm-client-certificate-identifier
                      hsm-configuration-identifier new-cluster-identifier
-                     publicly-accessible elastic-ip enhanced-vpc-routing)
+                     publicly-accessible elastic-ip enhanced-vpc-routing
+                     maintenance-track-name encrypted kms-key-id
+                     availability-zone-relocation availability-zone port)
    (common-lisp:declare
     (common-lisp:ignorable cluster-identifier cluster-type node-type
      number-of-nodes cluster-security-groups vpc-security-group-ids
      master-user-password cluster-parameter-group-name
-     automated-snapshot-retention-period preferred-maintenance-window
-     cluster-version allow-version-upgrade hsm-client-certificate-identifier
-     hsm-configuration-identifier new-cluster-identifier publicly-accessible
-     elastic-ip enhanced-vpc-routing))
+     automated-snapshot-retention-period manual-snapshot-retention-period
+     preferred-maintenance-window cluster-version allow-version-upgrade
+     hsm-client-certificate-identifier hsm-configuration-identifier
+     new-cluster-identifier publicly-accessible elastic-ip enhanced-vpc-routing
+     maintenance-track-name encrypted kms-key-id availability-zone-relocation
+     availability-zone port))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-modify-cluster-message
                                          aws-sdk/generator/operation::args)))
@@ -10378,13 +18529,34 @@
       common-lisp:nil "ModifyClusterResult" *error-map*)))
  (common-lisp:export 'modify-cluster))
 (common-lisp:progn
+ (common-lisp:defun modify-cluster-db-revision
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier revision-target)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier revision-target))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-modify-cluster-db-revision-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyClusterDbRevision"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyClusterDbRevisionResult" *error-map*)))
+ (common-lisp:export 'modify-cluster-db-revision))
+(common-lisp:progn
  (common-lisp:defun modify-cluster-iam-roles
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier add-iam-roles
-                     remove-iam-roles)
+                     remove-iam-roles default-iam-role-arn)
    (common-lisp:declare
-    (common-lisp:ignorable cluster-identifier add-iam-roles remove-iam-roles))
+    (common-lisp:ignorable cluster-identifier add-iam-roles remove-iam-roles
+     default-iam-role-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-modify-cluster-iam-roles-message
                                          aws-sdk/generator/operation::args)))
@@ -10397,6 +18569,30 @@
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterIamRolesResult" *error-map*)))
  (common-lisp:export 'modify-cluster-iam-roles))
+(common-lisp:progn
+ (common-lisp:defun modify-cluster-maintenance
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier defer-maintenance
+                     defer-maintenance-identifier defer-maintenance-start-time
+                     defer-maintenance-end-time defer-maintenance-duration)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier defer-maintenance
+     defer-maintenance-identifier defer-maintenance-start-time
+     defer-maintenance-end-time defer-maintenance-duration))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-modify-cluster-maintenance-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyClusterMaintenance"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyClusterMaintenanceResult" *error-map*)))
+ (common-lisp:export 'modify-cluster-maintenance))
 (common-lisp:progn
  (common-lisp:defun modify-cluster-parameter-group
                     (
@@ -10418,6 +18614,49 @@
       common-lisp:nil "ModifyClusterParameterGroupResult" *error-map*)))
  (common-lisp:export 'modify-cluster-parameter-group))
 (common-lisp:progn
+ (common-lisp:defun modify-cluster-snapshot
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key snapshot-identifier
+                     manual-snapshot-retention-period force)
+   (common-lisp:declare
+    (common-lisp:ignorable snapshot-identifier manual-snapshot-retention-period
+     force))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-cluster-snapshot-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyClusterSnapshot"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyClusterSnapshotResult" *error-map*)))
+ (common-lisp:export 'modify-cluster-snapshot))
+(common-lisp:progn
+ (common-lisp:defun modify-cluster-snapshot-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier schedule-identifier
+                     disassociate-schedule)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier schedule-identifier
+     disassociate-schedule))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-modify-cluster-snapshot-schedule-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyClusterSnapshotSchedule"
+                                                        "2012-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'modify-cluster-snapshot-schedule))
+(common-lisp:progn
  (common-lisp:defun modify-cluster-subnet-group
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10438,6 +18677,25 @@
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterSubnetGroupResult" *error-map*)))
  (common-lisp:export 'modify-cluster-subnet-group))
+(common-lisp:progn
+ (common-lisp:defun modify-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key endpoint-name vpc-security-group-ids)
+   (common-lisp:declare
+    (common-lisp:ignorable endpoint-name vpc-security-group-ids))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-endpoint-access-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'modify-endpoint-access))
 (common-lisp:progn
  (common-lisp:defun modify-event-subscription
                     (
@@ -10461,12 +18719,35 @@
       common-lisp:nil "ModifyEventSubscriptionResult" *error-map*)))
  (common-lisp:export 'modify-event-subscription))
 (common-lisp:progn
+ (common-lisp:defun modify-scheduled-action
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key scheduled-action-name target-action
+                     schedule iam-role scheduled-action-description start-time
+                     end-time enable)
+   (common-lisp:declare
+    (common-lisp:ignorable scheduled-action-name target-action schedule
+     iam-role scheduled-action-description start-time end-time enable))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-scheduled-action-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyScheduledAction"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyScheduledActionResult" *error-map*)))
+ (common-lisp:export 'modify-scheduled-action))
+(common-lisp:progn
  (common-lisp:defun modify-snapshot-copy-retention-period
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key cluster-identifier retention-period)
+                     common-lisp:&key cluster-identifier retention-period
+                     manual)
    (common-lisp:declare
-    (common-lisp:ignorable cluster-identifier retention-period))
+    (common-lisp:ignorable cluster-identifier retention-period manual))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-modify-snapshot-copy-retention-period-message
@@ -10480,6 +18761,62 @@
                                                         "2012-12-01"))
       common-lisp:nil "ModifySnapshotCopyRetentionPeriodResult" *error-map*)))
  (common-lisp:export 'modify-snapshot-copy-retention-period))
+(common-lisp:progn
+ (common-lisp:defun modify-snapshot-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key schedule-identifier schedule-definitions)
+   (common-lisp:declare
+    (common-lisp:ignorable schedule-identifier schedule-definitions))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-snapshot-schedule-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifySnapshotSchedule"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifySnapshotScheduleResult" *error-map*)))
+ (common-lisp:export 'modify-snapshot-schedule))
+(common-lisp:progn
+ (common-lisp:defun modify-usage-limit
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key usage-limit-id amount breach-action)
+   (common-lisp:declare
+    (common-lisp:ignorable usage-limit-id amount breach-action))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-modify-usage-limit-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ModifyUsageLimit"
+                                                        "2012-12-01"))
+      common-lisp:nil "ModifyUsageLimitResult" *error-map*)))
+ (common-lisp:export 'modify-usage-limit))
+(common-lisp:progn
+ (common-lisp:defun pause-cluster
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier)
+   (common-lisp:declare (common-lisp:ignorable cluster-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-pause-cluster-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "PauseCluster"
+                                                        "2012-12-01"))
+      common-lisp:nil "PauseClusterResult" *error-map*)))
+ (common-lisp:export 'pause-cluster))
 (common-lisp:progn
  (common-lisp:defun purchase-reserved-node-offering
                     (
@@ -10519,6 +18856,24 @@
       common-lisp:nil "RebootClusterResult" *error-map*)))
  (common-lisp:export 'reboot-cluster))
 (common-lisp:progn
+ (common-lisp:defun reject-data-share
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-share-arn)
+   (common-lisp:declare (common-lisp:ignorable data-share-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-reject-data-share-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "RejectDataShare"
+                                                        "2012-12-01"))
+      common-lisp:nil "RejectDataShareResult" *error-map*)))
+ (common-lisp:export 'reject-data-share))
+(common-lisp:progn
  (common-lisp:defun reset-cluster-parameter-group
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -10541,28 +18896,61 @@
       common-lisp:nil "ResetClusterParameterGroupResult" *error-map*)))
  (common-lisp:export 'reset-cluster-parameter-group))
 (common-lisp:progn
+ (common-lisp:defun resize-cluster
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier cluster-type node-type
+                     number-of-nodes classic reserved-node-id
+                     target-reserved-node-offering-id)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier cluster-type node-type
+     number-of-nodes classic reserved-node-id
+     target-reserved-node-offering-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-resize-cluster-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ResizeCluster"
+                                                        "2012-12-01"))
+      common-lisp:nil "ResizeClusterResult" *error-map*)))
+ (common-lisp:export 'resize-cluster))
+(common-lisp:progn
  (common-lisp:defun restore-from-cluster-snapshot
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier snapshot-identifier
-                     snapshot-cluster-identifier port availability-zone
-                     allow-version-upgrade cluster-subnet-group-name
-                     publicly-accessible owner-account
-                     hsm-client-certificate-identifier
+                     snapshot-arn snapshot-cluster-identifier port
+                     availability-zone allow-version-upgrade
+                     cluster-subnet-group-name publicly-accessible
+                     owner-account hsm-client-certificate-identifier
                      hsm-configuration-identifier elastic-ip
                      cluster-parameter-group-name cluster-security-groups
                      vpc-security-group-ids preferred-maintenance-window
-                     automated-snapshot-retention-period kms-key-id node-type
-                     enhanced-vpc-routing additional-info iam-roles)
+                     automated-snapshot-retention-period
+                     manual-snapshot-retention-period kms-key-id node-type
+                     enhanced-vpc-routing additional-info iam-roles
+                     maintenance-track-name snapshot-schedule-identifier
+                     number-of-nodes availability-zone-relocation
+                     aqua-configuration-status default-iam-role-arn
+                     reserved-node-id target-reserved-node-offering-id
+                     encrypted)
    (common-lisp:declare
-    (common-lisp:ignorable cluster-identifier snapshot-identifier
+    (common-lisp:ignorable cluster-identifier snapshot-identifier snapshot-arn
      snapshot-cluster-identifier port availability-zone allow-version-upgrade
      cluster-subnet-group-name publicly-accessible owner-account
      hsm-client-certificate-identifier hsm-configuration-identifier elastic-ip
      cluster-parameter-group-name cluster-security-groups
      vpc-security-group-ids preferred-maintenance-window
-     automated-snapshot-retention-period kms-key-id node-type
-     enhanced-vpc-routing additional-info iam-roles))
+     automated-snapshot-retention-period manual-snapshot-retention-period
+     kms-key-id node-type enhanced-vpc-routing additional-info iam-roles
+     maintenance-track-name snapshot-schedule-identifier number-of-nodes
+     availability-zone-relocation aqua-configuration-status
+     default-iam-role-arn reserved-node-id target-reserved-node-offering-id
+     encrypted))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-restore-from-cluster-snapshot-message
@@ -10582,11 +18970,13 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key cluster-identifier snapshot-identifier
                      source-database-name source-schema-name source-table-name
-                     target-database-name target-schema-name new-table-name)
+                     target-database-name target-schema-name new-table-name
+                     enable-case-sensitive-identifier)
    (common-lisp:declare
     (common-lisp:ignorable cluster-identifier snapshot-identifier
      source-database-name source-schema-name source-table-name
-     target-database-name target-schema-name new-table-name))
+     target-database-name target-schema-name new-table-name
+     enable-case-sensitive-identifier))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-restore-table-from-cluster-snapshot-message
@@ -10600,6 +18990,24 @@
                                                         "2012-12-01"))
       common-lisp:nil "RestoreTableFromClusterSnapshotResult" *error-map*)))
  (common-lisp:export 'restore-table-from-cluster-snapshot))
+(common-lisp:progn
+ (common-lisp:defun resume-cluster
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier)
+   (common-lisp:declare (common-lisp:ignorable cluster-identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-resume-cluster-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ResumeCluster"
+                                                        "2012-12-01"))
+      common-lisp:nil "ResumeClusterResult" *error-map*)))
+ (common-lisp:export 'resume-cluster))
 (common-lisp:progn
  (common-lisp:defun revoke-cluster-security-group-ingress
                     (
@@ -10623,14 +19031,33 @@
       common-lisp:nil "RevokeClusterSecurityGroupIngressResult" *error-map*)))
  (common-lisp:export 'revoke-cluster-security-group-ingress))
 (common-lisp:progn
+ (common-lisp:defun revoke-endpoint-access
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key cluster-identifier account vpc-ids force)
+   (common-lisp:declare
+    (common-lisp:ignorable cluster-identifier account vpc-ids force))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-revoke-endpoint-access-message
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "RevokeEndpointAccess"
+                                                        "2012-12-01"))
+      common-lisp:nil "RevokeEndpointAccessResult" *error-map*)))
+ (common-lisp:export 'revoke-endpoint-access))
+(common-lisp:progn
  (common-lisp:defun revoke-snapshot-access
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key snapshot-identifier
+                     common-lisp:&key snapshot-identifier snapshot-arn
                      snapshot-cluster-identifier account-with-restore-access)
    (common-lisp:declare
-    (common-lisp:ignorable snapshot-identifier snapshot-cluster-identifier
-     account-with-restore-access))
+    (common-lisp:ignorable snapshot-identifier snapshot-arn
+     snapshot-cluster-identifier account-with-restore-access))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-revoke-snapshot-access-message
                                          aws-sdk/generator/operation::args)))
@@ -10661,3 +19088,25 @@
                                                         "2012-12-01"))
       common-lisp:nil "RotateEncryptionKeyResult" *error-map*)))
  (common-lisp:export 'rotate-encryption-key))
+(common-lisp:progn
+ (common-lisp:defun update-partner-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key account-id cluster-identifier
+                     database-name partner-name status status-message)
+   (common-lisp:declare
+    (common-lisp:ignorable account-id cluster-identifier database-name
+     partner-name status status-message))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-partner-status-input-message
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'redshift-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdatePartnerStatus"
+                                                        "2012-12-01"))
+      common-lisp:nil "UpdatePartnerStatusResult" *error-map*)))
+ (common-lisp:export 'update-partner-status))
