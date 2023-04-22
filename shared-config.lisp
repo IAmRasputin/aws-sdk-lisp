@@ -76,7 +76,7 @@
                        (aget source-config-section "role_arn")))
 
          ;; You cannot specify both source_profile and credential_source in the same profile.
-         (credential-source (if source-profile-name
+         (credential-source (if (and (aget base-config-section "credential_source")  source-profile-name)
                                 (error "You cannot specify both source_profile and credential_source in the same profile")
                                 (or (aget base-config-section "credential_source")
                                     (aget source-config-section "credential_source"))))
