@@ -72,20 +72,19 @@
                                               (probe-file credentials-path))
                                      (read-from-file credentials-path
                                                      :profile source-profile-name)))))
-         (role-arn (or (aget base-config-section "role_arn")
-                       (aget source-config-section "role_arn")))
+         (role-arn (aget base-config-section "role_arn"))
 
          ;; You cannot specify both source_profile and credential_source in the same profile.
          (credential-source (if (and (aget base-config-section "credential_source")  source-profile-name)
                                 (error "You cannot specify both source_profile and credential_source in the same profile")
-                                (or (aget base-config-section "credential_source")
-                                    (aget source-config-section "credential_source"))))
+                                (aget base-config-section "credential_source")))
          (access-key-id (or (aget base-creds-section "aws_access_key_id")
                             (aget source-creds-section "aws_access_key_id")))
          (secret-access-key (or (aget base-creds-section "aws_secret_access_key")
                                 (aget source-creds-section "aws_secret_access_key")))
-         (region (or (aget base-config-section "region")
-                     (aget source-config-section "region"))))
+         ;; I'm not sure if this is in the actual standard
+         (region  (or (aget base-config-section "region")
+                      (aget source-config-section "region"))))
 
     (when (and credential-source (not (member credential-source '("Environment" "Ec2InstanceMetadata" "EcsContainer"))))
       (error "Invalid credential_source"))
@@ -96,12 +95,9 @@
             (make-assume-role-config :role-arn role-arn
                                      :source-profile source-profile-name
                                      :credential-source credential-source
-                                     :external-id (or (aget base-config-section "external_id")
-                                                      (aget source-config-section "external_id"))
-                                     :serial-number (or (aget base-config-section "mfa_serial")
-                                                        (aget source-config-section "mfa_serial"))
-                                     :role-session-name (or (aget base-config-section "role_session_name")
-                                                            (aget source-config-section "role_session_name")))))
+                                     :external-id (aget base-config-section "external_id")
+                                     :serial-number (aget base-config-section "mfa_serial")
+                                     :role-session-name (aget base-config-section "role_session_name"))))
     (when (and access-key-id secret-access-key)
       (setf (shared-config-credentials shared-config)
             (make-credentials
