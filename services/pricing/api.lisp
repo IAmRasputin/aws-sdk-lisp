@@ -19,11 +19,19 @@
      common-lisp:nil)
  (common-lisp:export 'pricing-error))
 (common-lisp:defvar *error-map*
-  '(("ExpiredNextTokenException" . expired-next-token-exception)
+  '(("AccessDeniedException" . access-denied-exception)
+    ("ExpiredNextTokenException" . expired-next-token-exception)
     ("InternalErrorException" . internal-error-exception)
     ("InvalidNextTokenException" . invalid-next-token-exception)
     ("InvalidParameterException" . invalid-parameter-exception)
     ("NotFoundException" . not-found-exception)))
+(common-lisp:progn
+ (common-lisp:define-condition access-denied-exception
+     (pricing-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       access-denied-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
  (common-lisp:deftype attribute-name-list ()
    '(trivial-types:proper-list string))
@@ -63,6 +71,7 @@
                            (trivial-types:proper-list attribute-value))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype boxed-integer () 'common-lisp:integer)
+(common-lisp:deftype currency-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-services-request (:copier common-lisp:nil)
@@ -168,6 +177,7 @@
                          (aws-sdk/generator/shape::input
                           describe-services-response))
    common-lisp:nil))
+(common-lisp:deftype effective-date () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition expired-next-token-exception
      (pricing-error)
@@ -176,6 +186,14 @@
  (common-lisp:export
   (common-lisp:list 'expired-next-token-exception
                     'expired-next-token-exception-message)))
+(common-lisp:deftype file-format () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype file-formats () '(trivial-types:proper-list file-format))
+ (common-lisp:defun |make-file-formats|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list file-format))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (filter (:copier common-lisp:nil) (:conc-name "struct-shape-filter-"))
@@ -322,6 +340,76 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-price-list-file-url-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-price-list-file-url-request-"))
+   (price-list-arn (common-lisp:error ":price-list-arn is required") :type
+    (common-lisp:or price-list-arn common-lisp:null))
+   (file-format (common-lisp:error ":file-format is required") :type
+    (common-lisp:or file-format common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-price-list-file-url-request
+                    'make-get-price-list-file-url-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'price-list-arn))
+      (common-lisp:list
+       (common-lisp:cons "PriceListArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'file-format))
+      (common-lisp:list
+       (common-lisp:cons "FileFormat"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-price-list-file-url-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-price-list-file-url-response-"))
+   (url common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-price-list-file-url-response
+                    'make-get-price-list-file-url-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'url))
+      (common-lisp:list
+       (common-lisp:cons "Url"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-price-list-file-url-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-products-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-products-request-"))
    (service-code (common-lisp:error ":service-code is required") :type
@@ -450,12 +538,177 @@
   (common-lisp:list 'invalid-parameter-exception
                     'invalid-parameter-exception-message)))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (list-price-lists-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-price-lists-request-"))
+   (service-code (common-lisp:error ":service-code is required") :type
+    (common-lisp:or service-code common-lisp:null))
+   (effective-date (common-lisp:error ":effective-date is required") :type
+    (common-lisp:or effective-date common-lisp:null))
+   (region-code common-lisp:nil :type
+    (common-lisp:or region-code common-lisp:null))
+   (currency-code (common-lisp:error ":currency-code is required") :type
+    (common-lisp:or currency-code common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-price-lists-request 'make-list-price-lists-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-code))
+      (common-lisp:list
+       (common-lisp:cons "ServiceCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'effective-date))
+      (common-lisp:list
+       (common-lisp:cons "EffectiveDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'region-code))
+      (common-lisp:list
+       (common-lisp:cons "RegionCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'currency-code))
+      (common-lisp:list
+       (common-lisp:cons "CurrencyCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-price-lists-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-price-lists-response-"))
+   (price-lists common-lisp:nil :type
+    (common-lisp:or price-lists common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-price-lists-response
+                    'make-list-price-lists-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'price-lists))
+      (common-lisp:list
+       (common-lisp:cons "PriceLists"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-price-lists-response))
+   common-lisp:nil))
+(common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:progn
  (common-lisp:define-condition not-found-exception
      (pricing-error)
      ((message :initarg :message :initform common-lisp:nil :reader
        not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'not-found-exception 'not-found-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (price-list (:copier common-lisp:nil)
+      (:conc-name "struct-shape-price-list-"))
+   (price-list-arn common-lisp:nil :type
+    (common-lisp:or price-list-arn common-lisp:null))
+   (region-code common-lisp:nil :type
+    (common-lisp:or region-code common-lisp:null))
+   (currency-code common-lisp:nil :type
+    (common-lisp:or currency-code common-lisp:null))
+   (file-formats common-lisp:nil :type
+    (common-lisp:or file-formats common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'price-list 'make-price-list))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input price-list))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input price-list))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'price-list-arn))
+      (common-lisp:list
+       (common-lisp:cons "PriceListArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'region-code))
+      (common-lisp:list
+       (common-lisp:cons "RegionCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'currency-code))
+      (common-lisp:list
+       (common-lisp:cons "CurrencyCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'file-formats))
+      (common-lisp:list
+       (common-lisp:cons "FileFormats"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input price-list))
+   common-lisp:nil))
+(common-lisp:deftype price-list-arn () 'common-lisp:string)
 (common-lisp:deftype price-list-json-item () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype price-list-json-items ()
@@ -465,6 +718,14 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list price-list-json-item))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype price-lists () '(trivial-types:proper-list price-list))
+ (common-lisp:defun |make-price-lists|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list price-list))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype region-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (service (:copier common-lisp:nil) (:conc-name "struct-shape-service-"))
@@ -496,6 +757,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input service))
    common-lisp:nil))
+(common-lisp:deftype service-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype service-list () '(trivial-types:proper-list service))
  (common-lisp:defun |make-service-list|
@@ -546,6 +808,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-attribute-values))
 (common-lisp:progn
+ (common-lisp:defun get-price-list-file-url
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key price-list-arn file-format)
+   (common-lisp:declare (common-lisp:ignorable price-list-arn file-format))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-price-list-file-url-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'pricing-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetPriceListFileUrl"
+                                                        "2017-10-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-price-list-file-url))
+(common-lisp:progn
  (common-lisp:defun get-products
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -566,3 +846,24 @@
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-products))
+(common-lisp:progn
+ (common-lisp:defun list-price-lists
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key service-code effective-date region-code
+                     currency-code next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable service-code effective-date region-code
+     currency-code next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-price-lists-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'pricing-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListPriceLists"
+                                                        "2017-10-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-price-lists))

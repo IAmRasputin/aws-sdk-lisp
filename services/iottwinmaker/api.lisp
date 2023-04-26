@@ -1017,7 +1017,9 @@
     (common-lisp:or description common-lisp:null))
    (capabilities common-lisp:nil :type
     (common-lisp:or scene-capabilities common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
+   (scene-metadata common-lisp:nil :type
+    (common-lisp:or scene-metadata-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-scene-request 'make-create-scene-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1059,6 +1061,13 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scene-metadata))
+      (common-lisp:list
+       (common-lisp:cons "sceneMetadata"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2199,6 +2208,14 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
+ (common-lisp:deftype generated-scene-metadata-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-generated-scene-metadata-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
  (common-lisp:defstruct
      (get-component-type-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-component-type-request-"))
@@ -2959,7 +2976,11 @@
    (description common-lisp:nil :type
     (common-lisp:or description common-lisp:null))
    (capabilities common-lisp:nil :type
-    (common-lisp:or scene-capabilities common-lisp:null)))
+    (common-lisp:or scene-capabilities common-lisp:null))
+   (scene-metadata common-lisp:nil :type
+    (common-lisp:or scene-metadata-map common-lisp:null))
+   (generated-scene-metadata common-lisp:nil :type
+    (common-lisp:or generated-scene-metadata-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-scene-response 'make-get-scene-response))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3022,6 +3043,21 @@
                            aws-sdk/generator/shape::input 'capabilities))
       (common-lisp:list
        (common-lisp:cons "capabilities"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scene-metadata))
+      (common-lisp:list
+       (common-lisp:cons "sceneMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'generated-scene-metadata))
+      (common-lisp:list
+       (common-lisp:cons "generatedSceneMetadata"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5016,6 +5052,15 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype scene-capability () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype scene-metadata-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-scene-metadata-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype scene-metadata-value () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:deftype scene-summaries ()
    '(trivial-types:proper-list scene-summary))
  (common-lisp:defun |make-scene-summaries|
@@ -5941,7 +5986,9 @@
    (description common-lisp:nil :type
     (common-lisp:or description common-lisp:null))
    (capabilities common-lisp:nil :type
-    (common-lisp:or scene-capabilities common-lisp:null)))
+    (common-lisp:or scene-capabilities common-lisp:null))
+   (scene-metadata common-lisp:nil :type
+    (common-lisp:or scene-metadata-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-scene-request 'make-update-scene-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5969,6 +6016,13 @@
                            aws-sdk/generator/shape::input 'capabilities))
       (common-lisp:list
        (common-lisp:cons "capabilities"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scene-metadata))
+      (common-lisp:list
+       (common-lisp:cons "sceneMetadata"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6261,10 +6315,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key workspace-id scene-id content-location
-                     description capabilities tags)
+                     description capabilities tags scene-metadata)
    (common-lisp:declare
     (common-lisp:ignorable workspace-id scene-id content-location description
-     capabilities tags))
+     capabilities tags scene-metadata))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-scene-request
                                          aws-sdk/generator/operation::args)))
@@ -7083,10 +7137,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key workspace-id scene-id content-location
-                     description capabilities)
+                     description capabilities scene-metadata)
    (common-lisp:declare
     (common-lisp:ignorable workspace-id scene-id content-location description
-     capabilities))
+     capabilities scene-metadata))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-scene-request
                                          aws-sdk/generator/operation::args)))

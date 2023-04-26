@@ -336,6 +336,52 @@
 (common-lisp:deftype date-time-iso8601 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-resource-policy-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-resource-policy-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-resource-policy-request
+                    'make-delete-resource-policy-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-resource-policy-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-resource-policy-response-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-resource-policy-response
+                    'make-delete-resource-policy-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-resource-policy-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-change-set-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-change-set-request-"))
    (catalog (common-lisp:error ":catalog is required") :type
@@ -741,6 +787,61 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype filter-name () 'common-lisp:string)
 (common-lisp:deftype filter-value-content () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-resource-policy-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-resource-policy-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-resource-policy-request
+                    'make-get-resource-policy-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-resource-policy-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-resource-policy-response-"))
+   (policy common-lisp:nil :type
+    (common-lisp:or resource-policy-json common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-resource-policy-response
+                    'make-get-resource-policy-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy))
+      (common-lisp:list
+       (common-lisp:cons "Policy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-resource-policy-response))
+   common-lisp:nil))
 (common-lisp:deftype identifier () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition internal-service-exception
@@ -751,6 +852,8 @@
   (common-lisp:list 'internal-service-exception
                     'internal-service-exception-message)))
 (common-lisp:deftype json () 'common-lisp:string)
+(common-lisp:deftype list-change-sets-max-result-integer ()
+  'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-change-sets-request (:copier common-lisp:nil)
@@ -761,7 +864,7 @@
     (common-lisp:or filter-list common-lisp:null))
    (sort common-lisp:nil :type (common-lisp:or sort common-lisp:null))
    (max-results common-lisp:nil :type
-    (common-lisp:or max-result-integer common-lisp:null))
+    (common-lisp:or list-change-sets-max-result-integer common-lisp:null))
    (next-token common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null)))
  (common-lisp:export
@@ -857,6 +960,7 @@
                          (aws-sdk/generator/shape::input
                           list-change-sets-response))
    common-lisp:nil))
+(common-lisp:deftype list-entities-max-result-integer () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-entities-request (:copier common-lisp:nil)
@@ -871,7 +975,9 @@
    (next-token common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null))
    (max-results common-lisp:nil :type
-    (common-lisp:or max-result-integer common-lisp:null)))
+    (common-lisp:or list-entities-max-result-integer common-lisp:null))
+   (ownership-type common-lisp:nil :type
+    (common-lisp:or ownership-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-entities-request 'make-list-entities-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -924,6 +1030,13 @@
                            aws-sdk/generator/shape::input 'max-results))
       (common-lisp:list
        (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ownership-type))
+      (common-lisp:list
+       (common-lisp:cons "OwnershipType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1040,8 +1153,70 @@
                          (aws-sdk/generator/shape::input
                           list-tags-for-resource-response))
    common-lisp:nil))
-(common-lisp:deftype max-result-integer () 'common-lisp:integer)
 (common-lisp:deftype next-token () 'common-lisp:string)
+(common-lisp:deftype ownership-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-resource-policy-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-resource-policy-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (policy (common-lisp:error ":policy is required") :type
+    (common-lisp:or resource-policy-json common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-resource-policy-request
+                    'make-put-resource-policy-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy))
+      (common-lisp:list
+       (common-lisp:cons "Policy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-resource-policy-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-resource-policy-response-")))
+ (common-lisp:export
+  (common-lisp:list 'put-resource-policy-response
+                    'make-put-resource-policy-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-resource-policy-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:deftype requested-change-list ()
    '(trivial-types:proper-list change))
@@ -1084,6 +1259,7 @@
  (common-lisp:export
   (common-lisp:list 'resource-not-supported-exception
                     'resource-not-supported-exception-message)))
+(common-lisp:deftype resource-policy-json () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (marketplace-catalog-error)
@@ -1432,6 +1608,22 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'cancel-change-set))
 (common-lisp:progn
+ (common-lisp:defun delete-resource-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-resource-policy-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'marketplace-catalog-request aws-sdk/generator/operation::input
+        "DELETE" "/DeleteResourcePolicy" "DeleteResourcePolicy" "2018-09-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-resource-policy))
+(common-lisp:progn
  (common-lisp:defun describe-change-set
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -1464,6 +1656,22 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-entity))
 (common-lisp:progn
+ (common-lisp:defun get-resource-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-resource-policy-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'marketplace-catalog-request aws-sdk/generator/operation::input "GET"
+        "/GetResourcePolicy" "GetResourcePolicy" "2018-09-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-resource-policy))
+(common-lisp:progn
  (common-lisp:defun list-change-sets
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -1486,10 +1694,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key catalog entity-type filter-list sort
-                     next-token max-results)
+                     next-token max-results ownership-type)
    (common-lisp:declare
     (common-lisp:ignorable catalog entity-type filter-list sort next-token
-     max-results))
+     max-results ownership-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-entities-request
                                          aws-sdk/generator/operation::args)))
@@ -1516,6 +1724,22 @@
         "/ListTagsForResource" "ListTagsForResource" "2018-09-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
+ (common-lisp:defun put-resource-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn policy)
+   (common-lisp:declare (common-lisp:ignorable resource-arn policy))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-put-resource-policy-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'marketplace-catalog-request aws-sdk/generator/operation::input "POST"
+        "/PutResourcePolicy" "PutResourcePolicy" "2018-09-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'put-resource-policy))
 (common-lisp:progn
  (common-lisp:defun start-change-set
                     (

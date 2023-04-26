@@ -26,9 +26,19 @@
     ("ResourceNotFoundException" . resource-not-found-exception)))
 (common-lisp:deftype awsregion () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype agent-cpu-cores-list ()
+   '(trivial-types:proper-list integer))
+ (common-lisp:defun |make-agent-cpu-cores-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list integer))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (agent-details (:copier common-lisp:nil)
       (:conc-name "struct-shape-agent-details-"))
+   (agent-cpu-cores common-lisp:nil :type
+    (common-lisp:or agent-cpu-cores-list common-lisp:null))
    (agent-version (common-lisp:error ":agentversion is required") :type
     (common-lisp:or version-string common-lisp:null))
    (component-versions (common-lisp:error ":componentversions is required")
@@ -37,8 +47,8 @@
     (common-lisp:or instance-id common-lisp:null))
    (instance-type (common-lisp:error ":instancetype is required") :type
     (common-lisp:or instance-type common-lisp:null))
-   (reserved-cpu-cores (common-lisp:error ":reservedcpucores is required")
-    :type (common-lisp:or reserved-cpu-cores-list common-lisp:null)))
+   (reserved-cpu-cores common-lisp:nil :type
+    (common-lisp:or agent-cpu-cores-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'agent-details 'make-agent-details))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input agent-details))
@@ -46,6 +56,13 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-params
                         ((aws-sdk/generator/shape::input agent-details))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'agent-cpu-cores))
+      (common-lisp:list
+       (common-lisp:cons "agentCpuCores"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'agent-version))
@@ -381,6 +398,17 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list capability-arn))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype capability-health () 'common-lisp:string)
+(common-lisp:deftype capability-health-reason () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype capability-health-reason-list ()
+   '(trivial-types:proper-list capability-health-reason))
+ (common-lisp:defun |make-capability-health-reason-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            capability-health-reason))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (component-status-data (:copier common-lisp:nil)
@@ -391,7 +419,7 @@
    (capability-arn (common-lisp:error ":capabilityarn is required") :type
     (common-lisp:or capability-arn common-lisp:null))
    (component-type (common-lisp:error ":componenttype is required") :type
-    (common-lisp:or component-type common-lisp:null))
+    (common-lisp:or component-type-string common-lisp:null))
    (dataflow-id (common-lisp:error ":dataflowid is required") :type
     (common-lisp:or uuid common-lisp:null))
    (packets-dropped common-lisp:nil :type
@@ -472,13 +500,13 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list component-status-data))
    aws-sdk/generator/shape::members))
-(common-lisp:deftype component-type () 'common-lisp:string)
+(common-lisp:deftype component-type-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (component-version (:copier common-lisp:nil)
       (:conc-name "struct-shape-component-version-"))
    (component-type (common-lisp:error ":componenttype is required") :type
-    (common-lisp:or component-type common-lisp:null))
+    (common-lisp:or component-type-string common-lisp:null))
    (versions (common-lisp:error ":versions is required") :type
     (common-lisp:or version-string-list common-lisp:null)))
  (common-lisp:export
@@ -2096,6 +2124,10 @@
     (common-lisp:or aws-ground-station-agent-endpoint common-lisp:null))
    (endpoint common-lisp:nil :type
     (common-lisp:or dataflow-endpoint common-lisp:null))
+   (health-reasons common-lisp:nil :type
+    (common-lisp:or capability-health-reason-list common-lisp:null))
+   (health-status common-lisp:nil :type
+    (common-lisp:or capability-health common-lisp:null))
    (security-details common-lisp:nil :type
     (common-lisp:or security-details common-lisp:null)))
  (common-lisp:export
@@ -2119,6 +2151,20 @@
                            aws-sdk/generator/shape::input 'endpoint))
       (common-lisp:list
        (common-lisp:cons "endpoint"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'health-reasons))
+      (common-lisp:list
+       (common-lisp:cons "healthReasons"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'health-status))
+      (common-lisp:list
+       (common-lisp:cons "healthStatus"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -4209,14 +4255,6 @@
                          (aws-sdk/generator/shape::input
                           reserve-contact-request))
    common-lisp:nil))
-(common-lisp:progn
- (common-lisp:deftype reserved-cpu-cores-list ()
-   '(trivial-types:proper-list integer))
- (common-lisp:defun |make-reserved-cpu-cores-list|
-                    (common-lisp:&rest aws-sdk/generator/shape::members)
-   (common-lisp:check-type aws-sdk/generator/shape::members
-                           (trivial-types:proper-list integer))
-   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:define-condition resource-limit-exceeded-exception
      (groundstation-error)

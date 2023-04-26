@@ -39,7 +39,7 @@
       (:conc-name "struct-shape-app-integrations-configuration-"))
    (app-integration-arn (common-lisp:error ":appintegrationarn is required")
     :type (common-lisp:or generic-arn common-lisp:null))
-   (object-fields (common-lisp:error ":objectfields is required") :type
+   (object-fields common-lisp:nil :type
     (common-lisp:or object-fields-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'app-integrations-configuration

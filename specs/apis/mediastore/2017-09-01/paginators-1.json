@@ -2,9 +2,8 @@
   "pagination": {
     "ListContainers": {
       "input_token": "NextToken",
-      "limit_key": "MaxResults",
       "output_token": "NextToken",
-      "result_key": "Containers"
+      "limit_key": "MaxResults"
     }
   }
 }

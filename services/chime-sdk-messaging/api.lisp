@@ -374,7 +374,9 @@
    (channel-flow-arn common-lisp:nil :type
     (common-lisp:or chime-arn common-lisp:null))
    (elastic-channel-configuration common-lisp:nil :type
-    (common-lisp:or elastic-channel-configuration common-lisp:null)))
+    (common-lisp:or elastic-channel-configuration common-lisp:null))
+   (expiration-settings common-lisp:nil :type
+    (common-lisp:or expiration-settings common-lisp:null)))
  (common-lisp:export (common-lisp:list 'channel 'make-channel))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input channel))
@@ -460,6 +462,13 @@
                            'elastic-channel-configuration))
       (common-lisp:list
        (common-lisp:cons "ElasticChannelConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration-settings))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationSettings"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1060,7 +1069,9 @@
    (message-attributes common-lisp:nil :type
     (common-lisp:or message-attribute-map common-lisp:null))
    (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or sub-channel-id common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null)))
  (common-lisp:export (common-lisp:list 'channel-message 'make-channel-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input channel-message))
@@ -1167,6 +1178,13 @@
       (common-lisp:list
        (common-lisp:cons "SubChannelId"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input channel-message))
@@ -1185,7 +1203,9 @@
    (message-attributes common-lisp:nil :type
     (common-lisp:or message-attribute-map common-lisp:null))
    (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or sub-channel-id common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'channel-message-callback 'make-channel-message-callback))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1238,6 +1258,13 @@
                            aws-sdk/generator/shape::input 'sub-channel-id))
       (common-lisp:list
        (common-lisp:cons "SubChannelId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1309,7 +1336,9 @@
    (status common-lisp:nil :type
     (common-lisp:or channel-message-status-structure common-lisp:null))
    (message-attributes common-lisp:nil :type
-    (common-lisp:or message-attribute-map common-lisp:null)))
+    (common-lisp:or message-attribute-map common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'channel-message-summary 'make-channel-message-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1399,6 +1428,13 @@
                            aws-sdk/generator/shape::input 'message-attributes))
       (common-lisp:list
        (common-lisp:cons "MessageAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1644,6 +1680,7 @@
   (common-lisp:list 'conflict-exception 'conflict-exception-code
                     'conflict-exception-message)))
 (common-lisp:deftype content () 'common-lisp:string)
+(common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (create-channel-ban-request (:copier common-lisp:nil)
@@ -2032,7 +2069,9 @@
    (moderator-arns common-lisp:nil :type
     (common-lisp:or channel-moderator-arns common-lisp:null))
    (elastic-channel-configuration common-lisp:nil :type
-    (common-lisp:or elastic-channel-configuration common-lisp:null)))
+    (common-lisp:or elastic-channel-configuration common-lisp:null))
+   (expiration-settings common-lisp:nil :type
+    (common-lisp:or expiration-settings common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-channel-request 'make-create-channel-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2126,6 +2165,13 @@
                            'elastic-channel-configuration))
       (common-lisp:list
        (common-lisp:cons "ElasticChannelConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration-settings))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationSettings"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2327,9 +2373,7 @@
    (channel-arn (common-lisp:error ":channel-arn is required") :type
     (common-lisp:or chime-arn common-lisp:null))
    (chime-bearer (common-lisp:error ":chime-bearer is required") :type
-    (common-lisp:or chime-arn common-lisp:null))
-   (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or chime-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'delete-channel-request 'make-delete-channel-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2350,6 +2394,32 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-channel-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-messaging-streaming-configurations-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-messaging-streaming-configurations-request-"))
+   (app-instance-arn (common-lisp:error ":app-instance-arn is required") :type
+    (common-lisp:or chime-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-messaging-streaming-configurations-request
+                    'make-delete-messaging-streaming-configurations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-messaging-streaming-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-messaging-streaming-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-messaging-streaming-configurations-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2883,6 +2953,43 @@
                           elastic-channel-configuration))
    common-lisp:nil))
 (common-lisp:deftype error-code () 'common-lisp:string)
+(common-lisp:deftype expiration-criterion () 'common-lisp:string)
+(common-lisp:deftype expiration-days () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (expiration-settings (:copier common-lisp:nil)
+      (:conc-name "struct-shape-expiration-settings-"))
+   (expiration-days (common-lisp:error ":expiration-days is required") :type
+    (common-lisp:or expiration-days common-lisp:null))
+   (expiration-criterion
+    (common-lisp:error ":expiration-criterion is required") :type
+    (common-lisp:or expiration-criterion common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'expiration-settings 'make-expiration-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input expiration-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input expiration-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration-days))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationDays"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'expiration-criterion))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationCriterion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input expiration-settings))
+   common-lisp:nil))
 (common-lisp:deftype fallback-action () 'common-lisp:string)
 (common-lisp:deftype filter-rule () 'common-lisp:string)
 (common-lisp:progn
@@ -3157,6 +3264,64 @@
                         (
                          (aws-sdk/generator/shape::input
                           get-messaging-session-endpoint-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-messaging-streaming-configurations-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-messaging-streaming-configurations-request-"))
+   (app-instance-arn (common-lisp:error ":app-instance-arn is required") :type
+    (common-lisp:or chime-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-messaging-streaming-configurations-request
+                    'make-get-messaging-streaming-configurations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-messaging-streaming-configurations-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-messaging-streaming-configurations-response-"))
+   (streaming-configurations common-lisp:nil :type
+    (common-lisp:or streaming-configuration-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-messaging-streaming-configurations-response
+                    'make-get-messaging-streaming-configurations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'streaming-configurations))
+      (common-lisp:list
+       (common-lisp:cons "StreamingConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-messaging-streaming-configurations-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4153,6 +4318,7 @@
                           message-attribute-value))
    common-lisp:nil))
 (common-lisp:deftype message-id () 'common-lisp:string)
+(common-lisp:deftype messaging-data-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (messaging-session-endpoint (:copier common-lisp:nil)
@@ -4380,6 +4546,85 @@
 (common-lisp:deftype push-notification-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (put-channel-expiration-settings-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-channel-expiration-settings-request-"))
+   (channel-arn (common-lisp:error ":channel-arn is required") :type
+    (common-lisp:or chime-arn common-lisp:null))
+   (chime-bearer common-lisp:nil :type
+    (common-lisp:or chime-arn common-lisp:null))
+   (expiration-settings common-lisp:nil :type
+    (common-lisp:or expiration-settings common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-channel-expiration-settings-request
+                    'make-put-channel-expiration-settings-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'chime-bearer))
+      (common-lisp:cons "x-amz-chime-bearer" aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration-settings))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-channel-expiration-settings-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-channel-expiration-settings-response-"))
+   (channel-arn common-lisp:nil :type
+    (common-lisp:or chime-arn common-lisp:null))
+   (expiration-settings common-lisp:nil :type
+    (common-lisp:or expiration-settings common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-channel-expiration-settings-response
+                    'make-put-channel-expiration-settings-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'channel-arn))
+      (common-lisp:list
+       (common-lisp:cons "ChannelArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiration-settings))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-channel-expiration-settings-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (put-channel-membership-preferences-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-put-channel-membership-preferences-request-"))
    (channel-arn (common-lisp:error ":channel-arn is required") :type
@@ -4466,6 +4711,75 @@
                         (
                          (aws-sdk/generator/shape::input
                           put-channel-membership-preferences-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-messaging-streaming-configurations-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-put-messaging-streaming-configurations-request-"))
+   (app-instance-arn (common-lisp:error ":app-instance-arn is required") :type
+    (common-lisp:or chime-arn common-lisp:null))
+   (streaming-configurations
+    (common-lisp:error ":streaming-configurations is required") :type
+    (common-lisp:or streaming-configuration-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-messaging-streaming-configurations-request
+                    'make-put-messaging-streaming-configurations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'streaming-configurations))
+      (common-lisp:list
+       (common-lisp:cons "StreamingConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-messaging-streaming-configurations-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-put-messaging-streaming-configurations-response-"))
+   (streaming-configurations common-lisp:nil :type
+    (common-lisp:or streaming-configuration-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-messaging-streaming-configurations-response
+                    'make-put-messaging-streaming-configurations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'streaming-configurations))
+      (common-lisp:list
+       (common-lisp:cons "StreamingConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-messaging-streaming-configurations-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4731,7 +5045,9 @@
    (message-attributes common-lisp:nil :type
     (common-lisp:or message-attribute-map common-lisp:null))
    (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or sub-channel-id common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'send-channel-message-request
                     'make-send-channel-message-request))
@@ -4804,6 +5120,13 @@
                            aws-sdk/generator/shape::input 'sub-channel-id))
       (common-lisp:list
        (common-lisp:cons "SubChannelId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4892,6 +5215,53 @@
                     'service-unavailable-exception-message)))
 (common-lisp:deftype sort-order () 'common-lisp:string)
 (common-lisp:deftype status-detail () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (streaming-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-streaming-configuration-"))
+   (data-type (common-lisp:error ":data-type is required") :type
+    (common-lisp:or messaging-data-type common-lisp:null))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or chime-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'streaming-configuration 'make-streaming-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          streaming-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          streaming-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-type))
+      (common-lisp:list
+       (common-lisp:cons "DataType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          streaming-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype streaming-configuration-list ()
+   '(trivial-types:proper-list streaming-configuration))
+ (common-lisp:defun |make-streaming-configuration-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list streaming-configuration))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype sub-channel-id () 'common-lisp:string)
 (common-lisp:progn
@@ -5159,12 +5529,15 @@
     (common-lisp:or chime-arn common-lisp:null))
    (message-id (common-lisp:error ":message-id is required") :type
     (common-lisp:or message-id common-lisp:null))
-   (content common-lisp:nil :type (common-lisp:or content common-lisp:null))
+   (content (common-lisp:error ":content is required") :type
+    (common-lisp:or non-empty-content common-lisp:null))
    (metadata common-lisp:nil :type (common-lisp:or metadata common-lisp:null))
    (chime-bearer (common-lisp:error ":chime-bearer is required") :type
     (common-lisp:or chime-arn common-lisp:null))
    (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or sub-channel-id common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-channel-message-request
                     'make-update-channel-message-request))
@@ -5201,6 +5574,13 @@
                            aws-sdk/generator/shape::input 'sub-channel-id))
       (common-lisp:list
        (common-lisp:cons "SubChannelId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5273,9 +5653,7 @@
    (channel-arn (common-lisp:error ":channel-arn is required") :type
     (common-lisp:or chime-arn common-lisp:null))
    (chime-bearer (common-lisp:error ":chime-bearer is required") :type
-    (common-lisp:or chime-arn common-lisp:null))
-   (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or chime-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-channel-read-marker-request
                     'make-update-channel-read-marker-request))
@@ -5292,14 +5670,7 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-channel-read-marker-request))
-   (common-lisp:append
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'sub-channel-id))
-      (common-lisp:list
-       (common-lisp:cons "SubChannelId"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))))
+   (common-lisp:append))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
                          (aws-sdk/generator/shape::input
@@ -5310,9 +5681,7 @@
      (update-channel-read-marker-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-channel-read-marker-response-"))
    (channel-arn common-lisp:nil :type
-    (common-lisp:or chime-arn common-lisp:null))
-   (sub-channel-id common-lisp:nil :type
-    (common-lisp:or sub-channel-id common-lisp:null)))
+    (common-lisp:or chime-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-channel-read-marker-response
                     'make-update-channel-read-marker-response))
@@ -5331,13 +5700,6 @@
                            aws-sdk/generator/shape::input 'channel-arn))
       (common-lisp:list
        (common-lisp:cons "ChannelArn"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'sub-channel-id))
-      (common-lisp:list
-       (common-lisp:cons "SubChannelId"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5513,11 +5875,12 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key app-instance-arn name mode privacy
                      metadata client-request-token tags chime-bearer channel-id
-                     member-arns moderator-arns elastic-channel-configuration)
+                     member-arns moderator-arns elastic-channel-configuration
+                     expiration-settings)
    (common-lisp:declare
     (common-lisp:ignorable app-instance-arn name mode privacy metadata
      client-request-token tags chime-bearer channel-id member-arns
-     moderator-arns elastic-channel-configuration))
+     moderator-arns elastic-channel-configuration expiration-settings))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-channel-request
                                          aws-sdk/generator/operation::args)))
@@ -5624,9 +5987,8 @@
  (common-lisp:defun delete-channel
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key channel-arn chime-bearer sub-channel-id)
-   (common-lisp:declare
-    (common-lisp:ignorable channel-arn chime-bearer sub-channel-id))
+                     common-lisp:&key channel-arn chime-bearer)
+   (common-lisp:declare (common-lisp:ignorable channel-arn chime-bearer))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-delete-channel-request
                                          aws-sdk/generator/operation::args)))
@@ -5783,6 +6145,31 @@
         "DeleteChannelModerator" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-channel-moderator))
+(common-lisp:progn
+ (common-lisp:defun delete-messaging-streaming-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key app-instance-arn)
+   (common-lisp:declare (common-lisp:ignorable app-instance-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-messaging-streaming-configurations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-messaging-request aws-sdk/generator/operation::input
+        "DELETE"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/app-instances/~A/streaming-configurations"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'app-instance-arn))))
+        "DeleteMessagingStreamingConfigurations" "2021-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-messaging-streaming-configurations))
 (common-lisp:progn
  (common-lisp:defun describe-channel
                     (
@@ -6092,6 +6479,30 @@
     common-lisp:nil common-lisp:nil *error-map*))
  (common-lisp:export 'get-messaging-session-endpoint))
 (common-lisp:progn
+ (common-lisp:defun get-messaging-streaming-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key app-instance-arn)
+   (common-lisp:declare (common-lisp:ignorable app-instance-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-messaging-streaming-configurations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/app-instances/~A/streaming-configurations"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'app-instance-arn))))
+        "GetMessagingStreamingConfigurations" "2021-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-messaging-streaming-configurations))
+(common-lisp:progn
  (common-lisp:defun list-channel-bans
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6328,6 +6739,32 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
+ (common-lisp:defun put-channel-expiration-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key channel-arn chime-bearer
+                     expiration-settings)
+   (common-lisp:declare
+    (common-lisp:ignorable channel-arn chime-bearer expiration-settings))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-channel-expiration-settings-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/channels/~A/expiration-settings"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'channel-arn))))
+        "PutChannelExpirationSettings" "2021-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'put-channel-expiration-settings))
+(common-lisp:progn
  (common-lisp:defun put-channel-membership-preferences
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6357,6 +6794,32 @@
         "PutChannelMembershipPreferences" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-channel-membership-preferences))
+(common-lisp:progn
+ (common-lisp:defun put-messaging-streaming-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key app-instance-arn
+                     streaming-configurations)
+   (common-lisp:declare
+    (common-lisp:ignorable app-instance-arn streaming-configurations))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-messaging-streaming-configurations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/app-instances/~A/streaming-configurations"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'app-instance-arn))))
+        "PutMessagingStreamingConfigurations" "2021-05-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'put-messaging-streaming-configurations))
 (common-lisp:progn
  (common-lisp:defun redact-channel-message
                     (
@@ -6410,11 +6873,12 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key channel-arn content type persistence
                      metadata client-request-token chime-bearer
-                     push-notification message-attributes sub-channel-id)
+                     push-notification message-attributes sub-channel-id
+                     content-type)
    (common-lisp:declare
     (common-lisp:ignorable channel-arn content type persistence metadata
      client-request-token chime-bearer push-notification message-attributes
-     sub-channel-id))
+     sub-channel-id content-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-send-channel-message-request
                                          aws-sdk/generator/operation::args)))
@@ -6515,10 +6979,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key channel-arn message-id content metadata
-                     chime-bearer sub-channel-id)
+                     chime-bearer sub-channel-id content-type)
    (common-lisp:declare
     (common-lisp:ignorable channel-arn message-id content metadata chime-bearer
-     sub-channel-id))
+     sub-channel-id content-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-channel-message-request
                                          aws-sdk/generator/operation::args)))
@@ -6543,9 +7007,8 @@
  (common-lisp:defun update-channel-read-marker
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key channel-arn chime-bearer sub-channel-id)
-   (common-lisp:declare
-    (common-lisp:ignorable channel-arn chime-bearer sub-channel-id))
+                     common-lisp:&key channel-arn chime-bearer)
+   (common-lisp:declare (common-lisp:ignorable channel-arn chime-bearer))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-update-channel-read-marker-request

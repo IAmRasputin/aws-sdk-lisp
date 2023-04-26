@@ -149,6 +149,7 @@
 (common-lisp:deftype add-gw-metadata () 'common-lisp:boolean)
 (common-lisp:deftype amazon-id () 'common-lisp:string)
 (common-lisp:deftype amazon-resource-name () 'common-lisp:string)
+(common-lisp:deftype ap-id () 'common-lisp:string)
 (common-lisp:deftype app-eui () 'common-lisp:string)
 (common-lisp:deftype app-key () 'common-lisp:string)
 (common-lisp:deftype app-skey () 'common-lisp:string)
@@ -195,6 +196,7 @@
                         ((aws-sdk/generator/shape::input application-config))
    common-lisp:nil))
 (common-lisp:deftype application-config-type () 'common-lisp:string)
+(common-lisp:deftype application-server-public-key () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype applications ()
    '(trivial-types:proper-list application-config))
@@ -1273,7 +1275,9 @@
     (common-lisp:or lo-ra-wandevice-profile common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (client-request-token common-lisp:nil :type
-    (common-lisp:or client-request-token common-lisp:null)))
+    (common-lisp:or client-request-token common-lisp:null))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or sidewalk-create-device-profile common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-device-profile-request
                     'make-create-device-profile-request))
@@ -1314,6 +1318,13 @@
                            'client-request-token))
       (common-lisp:list
        (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1379,7 +1390,13 @@
    (firmware-update-role
     (common-lisp:error ":firmware-update-role is required") :type
     (common-lisp:or firmware-update-role common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (redundancy-percent common-lisp:nil :type
+    (common-lisp:or redundancy-percent common-lisp:null))
+   (fragment-size-bytes common-lisp:nil :type
+    (common-lisp:or fragment-size-bytes common-lisp:null))
+   (fragment-interval-ms common-lisp:nil :type
+    (common-lisp:or fragment-interval-ms common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-fuota-task-request
                     'make-create-fuota-task-request))
@@ -1443,6 +1460,28 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'redundancy-percent))
+      (common-lisp:list
+       (common-lisp:cons "RedundancyPercent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fragment-size-bytes))
+      (common-lisp:list
+       (common-lisp:cons "FragmentSizeBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'fragment-interval-ms))
+      (common-lisp:list
+       (common-lisp:cons "FragmentIntervalMS"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1838,7 +1877,9 @@
     (common-lisp:or lo-ra-wandevice common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (positioning common-lisp:nil :type
-    (common-lisp:or positioning-config-status common-lisp:null)))
+    (common-lisp:or positioning-config-status common-lisp:null))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or sidewalk-create-wireless-device common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-wireless-device-request
                     'make-create-wireless-device-request))
@@ -1907,6 +1948,13 @@
                            aws-sdk/generator/shape::input 'positioning))
       (common-lisp:list
        (common-lisp:cons "Positioning"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2250,6 +2298,83 @@
    common-lisp:nil))
 (common-lisp:deftype created-at () 'common-lisp:string)
 (common-lisp:deftype creation-date () 'common-lisp:string)
+(common-lisp:deftype creation-time () 'common-lisp:string)
+(common-lisp:deftype dak-certificate-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dak-certificate-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-dak-certificate-metadata-"))
+   (certificate-id (common-lisp:error ":certificate-id is required") :type
+    (common-lisp:or dak-certificate-id common-lisp:null))
+   (max-allowed-signature common-lisp:nil :type
+    (common-lisp:or max-allowed-signature common-lisp:null))
+   (factory-support common-lisp:nil :type
+    (common-lisp:or factory-support common-lisp:null))
+   (ap-id common-lisp:nil :type (common-lisp:or ap-id common-lisp:null))
+   (device-type-id common-lisp:nil :type
+    (common-lisp:or device-type-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dak-certificate-metadata 'make-dak-certificate-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          dak-certificate-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          dak-certificate-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'certificate-id))
+      (common-lisp:list
+       (common-lisp:cons "CertificateId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'max-allowed-signature))
+      (common-lisp:list
+       (common-lisp:cons "MaxAllowedSignature"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'factory-support))
+      (common-lisp:list
+       (common-lisp:cons "FactorySupport"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ap-id))
+      (common-lisp:list
+       (common-lisp:cons "ApId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-type-id))
+      (common-lisp:list
+       (common-lisp:cons "DeviceTypeId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          dak-certificate-metadata))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype dak-certificate-metadata-list ()
+   '(trivial-types:proper-list dak-certificate-metadata))
+ (common-lisp:defun |make-dak-certificate-metadata-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            dak-certificate-metadata))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-destination-request (:copier common-lisp:nil)
@@ -2581,6 +2706,53 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-wireless-device-import-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-wireless-device-import-task-request-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or import-task-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-wireless-device-import-task-request
+                    'make-delete-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-wireless-device-import-task-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-wireless-device-import-task-response-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-wireless-device-import-task-response
+                    'make-delete-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-wireless-device-import-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-wireless-device-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-wireless-device-request-"))
    (id (common-lisp:error ":id is required") :type
@@ -2766,6 +2938,54 @@
                          (aws-sdk/generator/shape::input
                           delete-wireless-gateway-task-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deregister-wireless-device-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deregister-wireless-device-request-"))
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or identifier common-lisp:null))
+   (wireless-device-type common-lisp:nil :type
+    (common-lisp:or wireless-device-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deregister-wireless-device-request
+                    'make-deregister-wireless-device-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deregister-wireless-device-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deregister-wireless-device-response-")))
+ (common-lisp:export
+  (common-lisp:list 'deregister-wireless-device-response
+                    'make-deregister-wireless-device-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-wireless-device-response))
+   common-lisp:nil))
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:deftype destination-arn () 'common-lisp:string)
 (common-lisp:progn
@@ -2855,6 +3075,16 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list certificate-list))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype device-creation-file () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype device-creation-file-list ()
+   '(trivial-types:proper-list device-creation-file))
+ (common-lisp:defun |make-device-creation-file-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list device-creation-file))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype device-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (device-profile (:copier common-lisp:nil)
@@ -2907,6 +3137,7 @@
                            (trivial-types:proper-list device-profile))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype device-profile-name () 'common-lisp:string)
+(common-lisp:deftype device-profile-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (device-registration-state-event-configuration (:copier common-lisp:nil)
@@ -2986,6 +3217,7 @@
                           device-registration-state-resource-type-event-configuration))
    common-lisp:nil))
 (common-lisp:deftype device-state () 'common-lisp:string)
+(common-lisp:deftype device-type-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (disassociate-aws-account-from-partner-account-request
@@ -3633,9 +3865,12 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list preset-freq))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype factory-support () 'common-lisp:boolean)
 (common-lisp:deftype fingerprint () 'common-lisp:string)
 (common-lisp:deftype firmware-update-image () 'common-lisp:string)
 (common-lisp:deftype firmware-update-role () 'common-lisp:string)
+(common-lisp:deftype fragment-interval-ms () 'common-lisp:integer)
+(common-lisp:deftype fragment-size-bytes () 'common-lisp:integer)
 (common-lisp:deftype fuota-device-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3731,6 +3966,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input gateway-list-item))
    common-lisp:nil))
+(common-lisp:deftype gateway-max-eirp () 'common-lisp:single-float)
 (common-lisp:deftype gen-app-key () 'common-lisp:string)
 (common-lisp:deftype geo-json-payload ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
@@ -3867,7 +4103,9 @@
    (id common-lisp:nil :type
     (common-lisp:or device-profile-id common-lisp:null))
    (lo-ra-wan common-lisp:nil :type
-    (common-lisp:or lo-ra-wandevice-profile common-lisp:null)))
+    (common-lisp:or lo-ra-wandevice-profile common-lisp:null))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or sidewalk-get-device-profile common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-device-profile-response
                     'make-get-device-profile-response))
@@ -3907,6 +4145,13 @@
                            aws-sdk/generator/shape::input 'lo-ra-wan))
       (common-lisp:list
        (common-lisp:cons "LoRaWAN"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4055,7 +4300,13 @@
    (firmware-update-role common-lisp:nil :type
     (common-lisp:or firmware-update-role common-lisp:null))
    (created-at common-lisp:nil :type
-    (common-lisp:or created-at common-lisp:null)))
+    (common-lisp:or created-at common-lisp:null))
+   (redundancy-percent common-lisp:nil :type
+    (common-lisp:or redundancy-percent common-lisp:null))
+   (fragment-size-bytes common-lisp:nil :type
+    (common-lisp:or fragment-size-bytes common-lisp:null))
+   (fragment-interval-ms common-lisp:nil :type
+    (common-lisp:or fragment-interval-ms common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-fuota-task-response 'make-get-fuota-task-response))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -4131,6 +4382,28 @@
                            aws-sdk/generator/shape::input 'created-at))
       (common-lisp:list
        (common-lisp:cons "CreatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'redundancy-percent))
+      (common-lisp:list
+       (common-lisp:cons "RedundancyPercent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fragment-size-bytes))
+      (common-lisp:list
+       (common-lisp:cons "FragmentSizeBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'fragment-interval-ms))
+      (common-lisp:list
+       (common-lisp:cons "FragmentIntervalMS"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5167,6 +5440,154 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-wireless-device-import-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-wireless-device-import-task-request-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or import-task-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-wireless-device-import-task-request
+                    'make-get-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-wireless-device-import-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-wireless-device-import-task-response-"))
+   (id common-lisp:nil :type (common-lisp:or import-task-id common-lisp:null))
+   (arn common-lisp:nil :type
+    (common-lisp:or import-task-arn common-lisp:null))
+   (destination-name common-lisp:nil :type
+    (common-lisp:or destination-name common-lisp:null))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or sidewalk-get-start-import-info common-lisp:null))
+   (creation-time common-lisp:nil :type
+    (common-lisp:or creation-time common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or import-task-status common-lisp:null))
+   (status-reason common-lisp:nil :type
+    (common-lisp:or status-reason common-lisp:null))
+   (initialized-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (pending-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (onboarded-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (failed-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-wireless-device-import-task-response
+                    'make-get-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-name))
+      (common-lisp:list
+       (common-lisp:cons "DestinationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-time))
+      (common-lisp:list
+       (common-lisp:cons "CreationTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-reason))
+      (common-lisp:list
+       (common-lisp:cons "StatusReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'initialized-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "InitializedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'pending-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "PendingImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'onboarded-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "OnboardedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failed-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "FailedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-wireless-device-import-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-wireless-device-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-wireless-device-request-"))
    (identifier (common-lisp:error ":identifier is required") :type
@@ -6167,6 +6588,108 @@
 (common-lisp:deftype isodate-time-string () 'common-lisp:string)
 (common-lisp:deftype identifier () 'common-lisp:string)
 (common-lisp:deftype identifier-type () 'common-lisp:string)
+(common-lisp:deftype import-task-arn () 'common-lisp:string)
+(common-lisp:deftype import-task-id () 'common-lisp:string)
+(common-lisp:deftype import-task-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (imported-sidewalk-device (:copier common-lisp:nil)
+      (:conc-name "struct-shape-imported-sidewalk-device-"))
+   (sidewalk-manufacturing-sn common-lisp:nil :type
+    (common-lisp:or sidewalk-manufacturing-sn common-lisp:null))
+   (onboarding-status common-lisp:nil :type
+    (common-lisp:or onboard-status common-lisp:null))
+   (onboarding-status-reason common-lisp:nil :type
+    (common-lisp:or onboard-status-reason common-lisp:null))
+   (last-update-time common-lisp:nil :type
+    (common-lisp:or last-update-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'imported-sidewalk-device 'make-imported-sidewalk-device))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-sidewalk-device))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-sidewalk-device))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sidewalk-manufacturing-sn))
+      (common-lisp:list
+       (common-lisp:cons "SidewalkManufacturingSn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'onboarding-status))
+      (common-lisp:list
+       (common-lisp:cons "OnboardingStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'onboarding-status-reason))
+      (common-lisp:list
+       (common-lisp:cons "OnboardingStatusReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-update-time))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-sidewalk-device))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (imported-wireless-device (:copier common-lisp:nil)
+      (:conc-name "struct-shape-imported-wireless-device-"))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or imported-sidewalk-device common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'imported-wireless-device 'make-imported-wireless-device))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-wireless-device))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-wireless-device))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          imported-wireless-device))
+   common-lisp:nil))
+(common-lisp:deftype imported-wireless-device-count () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:deftype imported-wireless-device-list ()
+   '(trivial-types:proper-list imported-wireless-device))
+ (common-lisp:defun |make-imported-wireless-device-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            imported-wireless-device))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
@@ -6289,6 +6812,7 @@
                           join-resource-type-event-configuration))
    common-lisp:nil))
 (common-lisp:deftype lac () 'common-lisp:integer)
+(common-lisp:deftype last-update-time () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-destinations-request (:copier common-lisp:nil)
@@ -6362,7 +6886,9 @@
    (next-token common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null))
    (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+    (common-lisp:or max-results common-lisp:null))
+   (device-profile-type common-lisp:nil :type
+    (common-lisp:or device-profile-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-device-profiles-request
                     'make-list-device-profiles-request))
@@ -6420,6 +6946,90 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-device-profiles-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-devices-for-wireless-device-import-task-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-devices-for-wireless-device-import-task-request-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or import-task-id common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or onboard-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-devices-for-wireless-device-import-task-request
+                    'make-list-devices-for-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-devices-for-wireless-device-import-task-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-devices-for-wireless-device-import-task-response-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (destination-name common-lisp:nil :type
+    (common-lisp:or destination-name common-lisp:null))
+   (imported-wireless-device-list common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-devices-for-wireless-device-import-task-response
+                    'make-list-devices-for-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-name))
+      (common-lisp:list
+       (common-lisp:cons "DestinationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'imported-wireless-device-list))
+      (common-lisp:list
+       (common-lisp:cons "ImportedWirelessDeviceList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-devices-for-wireless-device-import-task-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -7087,6 +7697,73 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-tags-for-resource-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-wireless-device-import-tasks-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-wireless-device-import-tasks-request-"))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-wireless-device-import-tasks-request
+                    'make-list-wireless-device-import-tasks-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-wireless-device-import-tasks-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-wireless-device-import-tasks-response-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (wireless-device-import-task-list common-lisp:nil :type
+    (common-lisp:or wireless-device-import-task-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-wireless-device-import-tasks-response
+                    'make-list-wireless-device-import-tasks-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'wireless-device-import-task-list))
+      (common-lisp:list
+       (common-lisp:cons "WirelessDeviceImportTaskList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-wireless-device-import-tasks-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -7798,7 +8475,9 @@
    (sub-bands common-lisp:nil :type
     (common-lisp:or sub-bands common-lisp:null))
    (beaconing common-lisp:nil :type
-    (common-lisp:or beaconing common-lisp:null)))
+    (common-lisp:or beaconing common-lisp:null))
+   (max-eirp common-lisp:nil :type
+    (common-lisp:or gateway-max-eirp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'lo-ra-wangateway 'make-lo-ra-wangateway))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -7847,6 +8526,13 @@
                            aws-sdk/generator/shape::input 'beaconing))
       (common-lisp:list
        (common-lisp:cons "Beaconing"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-eirp))
+      (common-lisp:list
+       (common-lisp:cons "MaxEirp"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8393,7 +9079,9 @@
    (session-start-time common-lisp:nil :type
     (common-lisp:or session-start-time-timestamp common-lisp:null))
    (session-timeout common-lisp:nil :type
-    (common-lisp:or session-timeout common-lisp:null)))
+    (common-lisp:or session-timeout common-lisp:null))
+   (ping-slot-period common-lisp:nil :type
+    (common-lisp:or ping-slot-period common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'lo-ra-wanmulticast-session
                     'make-lo-ra-wanmulticast-session))
@@ -8433,6 +9121,13 @@
                            aws-sdk/generator/shape::input 'session-timeout))
       (common-lisp:list
        (common-lisp:cons "SessionTimeout"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ping-slot-period))
+      (common-lisp:list
+       (common-lisp:cons "PingSlotPeriod"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8487,7 +9182,11 @@
    (add-gw-metadata common-lisp:nil :type
     (common-lisp:or add-gw-metadata common-lisp:null))
    (dr-min common-lisp:nil :type (common-lisp:or dr-min-box common-lisp:null))
-   (dr-max common-lisp:nil :type (common-lisp:or dr-max-box common-lisp:null)))
+   (dr-max common-lisp:nil :type (common-lisp:or dr-max-box common-lisp:null))
+   (pr-allowed common-lisp:nil :type
+    (common-lisp:or pr-allowed common-lisp:null))
+   (ra-allowed common-lisp:nil :type
+    (common-lisp:or ra-allowed common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'lo-ra-wanservice-profile 'make-lo-ra-wanservice-profile))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -8519,6 +9218,20 @@
                            aws-sdk/generator/shape::input 'dr-max))
       (common-lisp:list
        (common-lisp:cons "DrMax"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pr-allowed))
+      (common-lisp:list
+       (common-lisp:cons "PrAllowed"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ra-allowed))
+      (common-lisp:list
+       (common-lisp:cons "RaAllowed"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8929,6 +9642,7 @@
 (common-lisp:deftype mnc () 'common-lisp:integer)
 (common-lisp:deftype mac-address () 'common-lisp:string)
 (common-lisp:deftype mac-version () 'common-lisp:string)
+(common-lisp:deftype max-allowed-signature () 'common-lisp:integer)
 (common-lisp:deftype max-duty-cycle () 'common-lisp:integer)
 (common-lisp:deftype max-eirp () 'common-lisp:integer)
 (common-lisp:deftype max-results () 'common-lisp:integer)
@@ -9208,6 +9922,8 @@
 (common-lisp:deftype nwk-key () 'common-lisp:string)
 (common-lisp:deftype nwk-senc-key () 'common-lisp:string)
 (common-lisp:deftype nwk-skey () 'common-lisp:string)
+(common-lisp:deftype onboard-status () 'common-lisp:string)
+(common-lisp:deftype onboard-status-reason () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (otaa-v1-0-x (:copier common-lisp:nil)
@@ -9535,6 +10251,14 @@
 (common-lisp:deftype pr-allowed () 'common-lisp:boolean)
 (common-lisp:deftype preset-freq () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:deftype private-keys-list ()
+   '(trivial-types:proper-list certificate-list))
+ (common-lisp:defun |make-private-keys-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list certificate-list))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (proximity-event-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-proximity-event-configuration-"))
@@ -9731,12 +10455,14 @@
                          (aws-sdk/generator/shape::input
                           put-resource-log-level-response))
    common-lisp:nil))
+(common-lisp:deftype qualification-status () 'common-lisp:boolean)
 (common-lisp:deftype query-string () 'common-lisp:string)
 (common-lisp:deftype rscp () 'common-lisp:integer)
 (common-lisp:deftype rsrp () 'common-lisp:integer)
 (common-lisp:deftype rsrq () 'common-lisp:single-float)
 (common-lisp:deftype rss () 'common-lisp:integer)
 (common-lisp:deftype ra-allowed () 'common-lisp:boolean)
+(common-lisp:deftype redundancy-percent () 'common-lisp:integer)
 (common-lisp:deftype reg-params-revision () 'common-lisp:string)
 (common-lisp:deftype registration-zone () 'common-lisp:integer)
 (common-lisp:deftype report-dev-status-battery () 'common-lisp:boolean)
@@ -9852,6 +10578,7 @@
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype result () 'common-lisp:string)
 (common-lisp:deftype rf-region () 'common-lisp:string)
+(common-lisp:deftype role () 'common-lisp:string)
 (common-lisp:deftype role-arn () 'common-lisp:string)
 (common-lisp:deftype rx-data-rate2 () 'common-lisp:integer)
 (common-lisp:deftype rx-delay1 () 'common-lisp:integer)
@@ -10353,6 +11080,59 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (sidewalk-create-device-profile (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-create-device-profile-")))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-create-device-profile
+                    'make-sidewalk-create-device-profile))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-device-profile))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-device-profile))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-device-profile))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sidewalk-create-wireless-device (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-create-wireless-device-"))
+   (device-profile-id common-lisp:nil :type
+    (common-lisp:or device-profile-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-create-wireless-device
+                    'make-sidewalk-create-wireless-device))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-wireless-device))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-wireless-device))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "DeviceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-create-wireless-device))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (sidewalk-device (:copier common-lisp:nil)
       (:conc-name "struct-shape-sidewalk-device-"))
    (amazon-id common-lisp:nil :type
@@ -10362,7 +11142,15 @@
    (sidewalk-manufacturing-sn common-lisp:nil :type
     (common-lisp:or sidewalk-manufacturing-sn common-lisp:null))
    (device-certificates common-lisp:nil :type
-    (common-lisp:or device-certificate-list common-lisp:null)))
+    (common-lisp:or device-certificate-list common-lisp:null))
+   (private-keys common-lisp:nil :type
+    (common-lisp:or private-keys-list common-lisp:null))
+   (device-profile-id common-lisp:nil :type
+    (common-lisp:or device-profile-id common-lisp:null))
+   (certificate-id common-lisp:nil :type
+    (common-lisp:or dak-certificate-id common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or wireless-device-sidewalk-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'sidewalk-device 'make-sidewalk-device))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input sidewalk-device))
@@ -10397,6 +11185,34 @@
                            aws-sdk/generator/shape::input 'device-certificates))
       (common-lisp:list
        (common-lisp:cons "DeviceCertificates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'private-keys))
+      (common-lisp:list
+       (common-lisp:cons "PrivateKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "DeviceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'certificate-id))
+      (common-lisp:list
+       (common-lisp:cons "CertificateId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10489,6 +11305,98 @@
                          (aws-sdk/generator/shape::input
                           sidewalk-event-notification-configurations))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sidewalk-get-device-profile (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-get-device-profile-"))
+   (application-server-public-key common-lisp:nil :type
+    (common-lisp:or application-server-public-key common-lisp:null))
+   (qualification-status common-lisp:nil :type
+    (common-lisp:or qualification-status common-lisp:null))
+   (dak-certificate-metadata common-lisp:nil :type
+    (common-lisp:or dak-certificate-metadata-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-get-device-profile
+                    'make-sidewalk-get-device-profile))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-device-profile))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-device-profile))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'application-server-public-key))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationServerPublicKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'qualification-status))
+      (common-lisp:list
+       (common-lisp:cons "QualificationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'dak-certificate-metadata))
+      (common-lisp:list
+       (common-lisp:cons "DakCertificateMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-device-profile))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sidewalk-get-start-import-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-get-start-import-info-"))
+   (device-creation-file-list common-lisp:nil :type
+    (common-lisp:or device-creation-file-list common-lisp:null))
+   (role common-lisp:nil :type (common-lisp:or role common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-get-start-import-info
+                    'make-sidewalk-get-start-import-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-start-import-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-start-import-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'device-creation-file-list))
+      (common-lisp:list
+       (common-lisp:cons "DeviceCreationFileList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'role))
+      (common-lisp:list
+       (common-lisp:cons "Role"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-get-start-import-info))
+   common-lisp:nil))
 (common-lisp:deftype sidewalk-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -10501,7 +11409,11 @@
    (sidewalk-manufacturing-sn common-lisp:nil :type
     (common-lisp:or sidewalk-manufacturing-sn common-lisp:null))
    (device-certificates common-lisp:nil :type
-    (common-lisp:or device-certificate-list common-lisp:null)))
+    (common-lisp:or device-certificate-list common-lisp:null))
+   (device-profile-id common-lisp:nil :type
+    (common-lisp:or device-profile-id common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or wireless-device-sidewalk-status common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'sidewalk-list-device 'make-sidewalk-list-device))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -10537,6 +11449,20 @@
                            aws-sdk/generator/shape::input 'device-certificates))
       (common-lisp:list
        (common-lisp:cons "DeviceCertificates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "DeviceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10626,6 +11552,78 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (sidewalk-single-start-import-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-single-start-import-info-"))
+   (sidewalk-manufacturing-sn common-lisp:nil :type
+    (common-lisp:or sidewalk-manufacturing-sn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-single-start-import-info
+                    'make-sidewalk-single-start-import-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-single-start-import-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-single-start-import-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sidewalk-manufacturing-sn))
+      (common-lisp:list
+       (common-lisp:cons "SidewalkManufacturingSn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-single-start-import-info))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sidewalk-start-import-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-start-import-info-"))
+   (device-creation-file common-lisp:nil :type
+    (common-lisp:or device-creation-file common-lisp:null))
+   (role common-lisp:nil :type (common-lisp:or role common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-start-import-info
+                    'make-sidewalk-start-import-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-start-import-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-start-import-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'device-creation-file))
+      (common-lisp:list
+       (common-lisp:cons "DeviceCreationFile"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'role))
+      (common-lisp:list
+       (common-lisp:cons "Role"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-start-import-info))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (sidewalk-update-account (:copier common-lisp:nil)
       (:conc-name "struct-shape-sidewalk-update-account-"))
    (app-server-private-key common-lisp:nil :type
@@ -10654,6 +11652,38 @@
                         (
                          (aws-sdk/generator/shape::input
                           sidewalk-update-account))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sidewalk-update-import-info (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sidewalk-update-import-info-"))
+   (device-creation-file common-lisp:nil :type
+    (common-lisp:or device-creation-file common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-update-import-info
+                    'make-sidewalk-update-import-info))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-update-import-info))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-update-import-info))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'device-creation-file))
+      (common-lisp:list
+       (common-lisp:cons "DeviceCreationFile"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sidewalk-update-import-info))
    common-lisp:nil))
 (common-lisp:deftype signing-alg () 'common-lisp:string)
 (common-lisp:progn
@@ -10903,8 +11933,216 @@
                          (aws-sdk/generator/shape::input
                           start-multicast-group-session-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-single-wireless-device-import-task-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-start-single-wireless-device-import-task-request-"))
+   (destination-name (common-lisp:error ":destination-name is required") :type
+    (common-lisp:or destination-name common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null))
+   (device-name common-lisp:nil :type
+    (common-lisp:or device-name common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (sidewalk (common-lisp:error ":sidewalk is required") :type
+    (common-lisp:or sidewalk-single-start-import-info common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-single-wireless-device-import-task-request
+                    'make-start-single-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-name))
+      (common-lisp:list
+       (common-lisp:cons "DestinationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-name))
+      (common-lisp:list
+       (common-lisp:cons "DeviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-single-wireless-device-import-task-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-start-single-wireless-device-import-task-response-"))
+   (id common-lisp:nil :type (common-lisp:or import-task-id common-lisp:null))
+   (arn common-lisp:nil :type
+    (common-lisp:or import-task-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-single-wireless-device-import-task-response
+                    'make-start-single-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-single-wireless-device-import-task-response))
+   common-lisp:nil))
 (common-lisp:deftype start-time () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-wireless-device-import-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-wireless-device-import-task-request-"))
+   (destination-name (common-lisp:error ":destination-name is required") :type
+    (common-lisp:or destination-name common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (sidewalk (common-lisp:error ":sidewalk is required") :type
+    (common-lisp:or sidewalk-start-import-info common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-wireless-device-import-task-request
+                    'make-start-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-name))
+      (common-lisp:list
+       (common-lisp:cons "DestinationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-wireless-device-import-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-wireless-device-import-task-response-"))
+   (id common-lisp:nil :type (common-lisp:or import-task-id common-lisp:null))
+   (arn common-lisp:nil :type
+    (common-lisp:or import-task-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-wireless-device-import-task-response
+                    'make-start-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-wireless-device-import-task-response))
+   common-lisp:nil))
 (common-lisp:deftype station () 'common-lisp:string)
+(common-lisp:deftype status-reason () 'common-lisp:string)
 (common-lisp:deftype sub-band () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype sub-bands () '(trivial-types:proper-list sub-band))
@@ -11650,7 +12888,13 @@
    (firmware-update-image common-lisp:nil :type
     (common-lisp:or firmware-update-image common-lisp:null))
    (firmware-update-role common-lisp:nil :type
-    (common-lisp:or firmware-update-role common-lisp:null)))
+    (common-lisp:or firmware-update-role common-lisp:null))
+   (redundancy-percent common-lisp:nil :type
+    (common-lisp:or redundancy-percent common-lisp:null))
+   (fragment-size-bytes common-lisp:nil :type
+    (common-lisp:or fragment-size-bytes common-lisp:null))
+   (fragment-interval-ms common-lisp:nil :type
+    (common-lisp:or fragment-interval-ms common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-fuota-task-request
                     'make-update-fuota-task-request))
@@ -11699,6 +12943,28 @@
                            'firmware-update-role))
       (common-lisp:list
        (common-lisp:cons "FirmwareUpdateRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'redundancy-percent))
+      (common-lisp:list
+       (common-lisp:cons "RedundancyPercent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fragment-size-bytes))
+      (common-lisp:list
+       (common-lisp:cons "FragmentSizeBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'fragment-interval-ms))
+      (common-lisp:list
+       (common-lisp:cons "FragmentIntervalMS"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -12254,6 +13520,62 @@
 (common-lisp:deftype update-signature () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-wireless-device-import-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-wireless-device-import-task-request-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or import-task-id common-lisp:null))
+   (sidewalk (common-lisp:error ":sidewalk is required") :type
+    (common-lisp:or sidewalk-update-import-info common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-wireless-device-import-task-request
+                    'make-update-wireless-device-import-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-wireless-device-import-task-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-wireless-device-import-task-response-")))
+ (common-lisp:export
+  (common-lisp:list 'update-wireless-device-import-task-response
+                    'make-update-wireless-device-import-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-wireless-device-import-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-wireless-device-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-wireless-device-request-"))
    (id (common-lisp:error ":id is required") :type
@@ -12356,7 +13678,9 @@
    (join-eui-filters common-lisp:nil :type
     (common-lisp:or join-eui-filters common-lisp:null))
    (net-id-filters common-lisp:nil :type
-    (common-lisp:or net-id-filters common-lisp:null)))
+    (common-lisp:or net-id-filters common-lisp:null))
+   (max-eirp common-lisp:nil :type
+    (common-lisp:or gateway-max-eirp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-wireless-gateway-request
                     'make-update-wireless-gateway-request))
@@ -12396,6 +13720,13 @@
                            aws-sdk/generator/shape::input 'net-id-filters))
       (common-lisp:list
        (common-lisp:cons "NetIdFilters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-eirp))
+      (common-lisp:list
+       (common-lisp:cons "MaxEirp"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -12818,6 +14149,139 @@
 (common-lisp:deftype wireless-device-id () 'common-lisp:string)
 (common-lisp:deftype wireless-device-id-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (wireless-device-import-task (:copier common-lisp:nil)
+      (:conc-name "struct-shape-wireless-device-import-task-"))
+   (id common-lisp:nil :type (common-lisp:or import-task-id common-lisp:null))
+   (arn common-lisp:nil :type
+    (common-lisp:or import-task-arn common-lisp:null))
+   (destination-name common-lisp:nil :type
+    (common-lisp:or destination-name common-lisp:null))
+   (sidewalk common-lisp:nil :type
+    (common-lisp:or sidewalk-get-start-import-info common-lisp:null))
+   (creation-time common-lisp:nil :type
+    (common-lisp:or creation-time common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or import-task-status common-lisp:null))
+   (status-reason common-lisp:nil :type
+    (common-lisp:or status-reason common-lisp:null))
+   (initialized-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (pending-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (onboarded-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null))
+   (failed-imported-device-count common-lisp:nil :type
+    (common-lisp:or imported-wireless-device-count common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'wireless-device-import-task
+                    'make-wireless-device-import-task))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          wireless-device-import-task))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          wireless-device-import-task))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-name))
+      (common-lisp:list
+       (common-lisp:cons "DestinationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sidewalk))
+      (common-lisp:list
+       (common-lisp:cons "Sidewalk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-time))
+      (common-lisp:list
+       (common-lisp:cons "CreationTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-reason))
+      (common-lisp:list
+       (common-lisp:cons "StatusReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'initialized-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "InitializedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'pending-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "PendingImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'onboarded-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "OnboardedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failed-imported-device-count))
+      (common-lisp:list
+       (common-lisp:cons "FailedImportedDeviceCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          wireless-device-import-task))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype wireless-device-import-task-list ()
+   '(trivial-types:proper-list wireless-device-import-task))
+ (common-lisp:defun |make-wireless-device-import-task-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            wireless-device-import-task))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype wireless-device-list ()
    '(trivial-types:proper-list wireless-device-id))
  (common-lisp:defun |make-wireless-device-list|
@@ -12884,6 +14348,7 @@
                             wireless-device-log-option))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype wireless-device-name () 'common-lisp:string)
+(common-lisp:deftype wireless-device-sidewalk-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (wireless-device-statistics (:copier common-lisp:nil)
@@ -13523,9 +14988,10 @@
  (common-lisp:defun create-device-profile
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key name lo-ra-wan tags client-request-token)
+                     common-lisp:&key name lo-ra-wan tags client-request-token
+                     sidewalk)
    (common-lisp:declare
-    (common-lisp:ignorable name lo-ra-wan tags client-request-token))
+    (common-lisp:ignorable name lo-ra-wan tags client-request-token sidewalk))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-device-profile-request
                                          aws-sdk/generator/operation::args)))
@@ -13544,10 +15010,13 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key name description client-request-token
-                     lo-ra-wan firmware-update-image firmware-update-role tags)
+                     lo-ra-wan firmware-update-image firmware-update-role tags
+                     redundancy-percent fragment-size-bytes
+                     fragment-interval-ms)
    (common-lisp:declare
     (common-lisp:ignorable name description client-request-token lo-ra-wan
-     firmware-update-image firmware-update-role tags))
+     firmware-update-image firmware-update-role tags redundancy-percent
+     fragment-size-bytes fragment-interval-ms))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-fuota-task-request
                                          aws-sdk/generator/operation::args)))
@@ -13630,10 +15099,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key type name description destination-name
-                     client-request-token lo-ra-wan tags positioning)
+                     client-request-token lo-ra-wan tags positioning sidewalk)
    (common-lisp:declare
     (common-lisp:ignorable type name description destination-name
-     client-request-token lo-ra-wan tags positioning))
+     client-request-token lo-ra-wan tags positioning sidewalk))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-wireless-device-request
                                          aws-sdk/generator/operation::args)))
@@ -13949,6 +15418,35 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-wireless-device))
 (common-lisp:progn
+ (common-lisp:defun delete-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key id)
+   (common-lisp:declare (common-lisp:ignorable id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/wireless_device_import_task/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'id))))
+                                                        "DeleteWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-wireless-device-import-task))
+(common-lisp:progn
  (common-lisp:defun delete-wireless-gateway
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -14034,6 +15532,36 @@
                                                         "2020-11-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-wireless-gateway-task-definition))
+(common-lisp:progn
+ (common-lisp:defun deregister-wireless-device
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifier wireless-device-type)
+   (common-lisp:declare
+    (common-lisp:ignorable identifier wireless-device-type))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-deregister-wireless-device-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PATCH"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/wireless-devices/~A/deregister"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'identifier))))
+                                                        "DeregisterWirelessDevice"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'deregister-wireless-device))
 (common-lisp:progn
  (common-lisp:defun disassociate-aws-account-from-partner-account
                     (
@@ -14716,6 +16244,35 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-wireless-device))
 (common-lisp:progn
+ (common-lisp:defun get-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key id)
+   (common-lisp:declare (common-lisp:ignorable id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/wireless_device_import_task/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'id))))
+                                                        "GetWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-wireless-device-import-task))
+(common-lisp:progn
  (common-lisp:defun get-wireless-device-statistics
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -14939,8 +16496,10 @@
  (common-lisp:defun list-device-profiles
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key next-token max-results)
-   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+                     common-lisp:&key next-token max-results
+                     device-profile-type)
+   (common-lisp:declare
+    (common-lisp:ignorable next-token max-results device-profile-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-device-profiles-request
                                          aws-sdk/generator/operation::args)))
@@ -14954,6 +16513,27 @@
                                                         "2020-11-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-device-profiles))
+(common-lisp:progn
+ (common-lisp:defun list-devices-for-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key id max-results next-token status)
+   (common-lisp:declare
+    (common-lisp:ignorable id max-results next-token status))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-devices-for-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        "/wireless_device_import_task"
+                                                        "ListDevicesForWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-devices-for-wireless-device-import-task))
 (common-lisp:progn
  (common-lisp:defun list-event-configurations
                     (
@@ -15168,6 +16748,26 @@
                                                         "2020-11-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
+ (common-lisp:defun list-wireless-device-import-tasks
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-wireless-device-import-tasks-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        "/wireless_device_import_tasks"
+                                                        "ListWirelessDeviceImportTasks"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-wireless-device-import-tasks))
 (common-lisp:progn
  (common-lisp:defun list-wireless-devices
                     (
@@ -15513,6 +17113,52 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-multicast-group-session))
 (common-lisp:progn
+ (common-lisp:defun start-single-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key destination-name client-request-token
+                     device-name tags sidewalk)
+   (common-lisp:declare
+    (common-lisp:ignorable destination-name client-request-token device-name
+     tags sidewalk))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-start-single-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/wireless_single_device_import_task"
+                                                        "StartSingleWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'start-single-wireless-device-import-task))
+(common-lisp:progn
+ (common-lisp:defun start-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key destination-name client-request-token
+                     tags sidewalk)
+   (common-lisp:declare
+    (common-lisp:ignorable destination-name client-request-token tags
+     sidewalk))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-start-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/wireless_device_import_task"
+                                                        "StartWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'start-wireless-device-import-task))
+(common-lisp:progn
  (common-lisp:defun tag-resource
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -15635,10 +17281,13 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key id name description lo-ra-wan
-                     firmware-update-image firmware-update-role)
+                     firmware-update-image firmware-update-role
+                     redundancy-percent fragment-size-bytes
+                     fragment-interval-ms)
    (common-lisp:declare
     (common-lisp:ignorable id name description lo-ra-wan firmware-update-image
-     firmware-update-role))
+     firmware-update-role redundancy-percent fragment-size-bytes
+     fragment-interval-ms))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-fuota-task-request
                                          aws-sdk/generator/operation::args)))
@@ -15901,14 +17550,43 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-wireless-device))
 (common-lisp:progn
+ (common-lisp:defun update-wireless-device-import-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key id sidewalk)
+   (common-lisp:declare (common-lisp:ignorable id sidewalk))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-wireless-device-import-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'iotwireless-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PATCH"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/wireless_device_import_task/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'id))))
+                                                        "UpdateWirelessDeviceImportTask"
+                                                        "2020-11-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-wireless-device-import-task))
+(common-lisp:progn
  (common-lisp:defun update-wireless-gateway
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key id name description join-eui-filters
-                     net-id-filters)
+                     net-id-filters max-eirp)
    (common-lisp:declare
-    (common-lisp:ignorable id name description join-eui-filters
-     net-id-filters))
+    (common-lisp:ignorable id name description join-eui-filters net-id-filters
+     max-eirp))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-wireless-gateway-request
                                          aws-sdk/generator/operation::args)))

@@ -25,6 +25,7 @@
     ("InternalServerException" . internal-server-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
     ("ServiceQuotaExceededException" . service-quota-exceeded-exception)
+    ("ThrottlingException" . throttling-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -429,7 +430,9 @@
     (common-lisp:or attribute-group-id common-lisp:null))
    (arn common-lisp:nil :type
     (common-lisp:or attribute-group-arn common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null)))
+   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (created-by common-lisp:nil :type
+    (common-lisp:or created-by common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'attribute-group-details 'make-attribute-group-details))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -461,6 +464,13 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "createdBy"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -508,7 +518,9 @@
    (creation-time common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null))
    (last-update-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (created-by common-lisp:nil :type
+    (common-lisp:or created-by common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'attribute-group-summary 'make-attribute-group-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -561,6 +573,13 @@
                            aws-sdk/generator/shape::input 'last-update-time))
       (common-lisp:list
        (common-lisp:cons "lastUpdateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "createdBy"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -762,6 +781,7 @@
                          (aws-sdk/generator/shape::input
                           create-attribute-group-response))
    common-lisp:nil))
+(common-lisp:deftype created-by () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-application-request (:copier common-lisp:nil)
@@ -1228,7 +1248,9 @@
     (common-lisp:or timestamp common-lisp:null))
    (last-update-time common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null))
+   (created-by common-lisp:nil :type
+    (common-lisp:or created-by common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-attribute-group-response
                     'make-get-attribute-group-response))
@@ -1296,6 +1318,13 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "createdBy"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2178,6 +2207,16 @@
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:define-condition throttling-exception
+     (servicecatalog-appregistry-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       throttling-exception-message)
+      (service-code :initarg :service-code :initform common-lisp:nil :reader
+       throttling-exception-service-code)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'throttling-exception-message
+                    'throttling-exception-service-code)))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct

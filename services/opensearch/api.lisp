@@ -30,6 +30,7 @@
     ("LimitExceededException" . limit-exceeded-exception)
     ("ResourceAlreadyExistsException" . resource-already-exists-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
+    ("SlotNotAvailableException" . slot-not-available-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype awsaccount () 'common-lisp:string)
@@ -178,6 +179,9 @@
                          (aws-sdk/generator/shape::input
                           access-policies-status))
    common-lisp:nil))
+(common-lisp:deftype action-severity () 'common-lisp:string)
+(common-lisp:deftype action-status () 'common-lisp:string)
+(common-lisp:deftype action-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (add-tags-request (:copier common-lisp:nil)
@@ -772,7 +776,9 @@
    (rollback-on-disable common-lisp:nil :type
     (common-lisp:or rollback-on-disable common-lisp:null))
    (maintenance-schedules common-lisp:nil :type
-    (common-lisp:or auto-tune-maintenance-schedule-list common-lisp:null)))
+    (common-lisp:or auto-tune-maintenance-schedule-list common-lisp:null))
+   (use-off-peak-window common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-tune-options 'make-auto-tune-options))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -802,6 +808,13 @@
       (common-lisp:list
        (common-lisp:cons "MaintenanceSchedules"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'use-off-peak-window))
+      (common-lisp:list
+       (common-lisp:cons "UseOffPeakWindow"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input auto-tune-options))
@@ -813,7 +826,9 @@
    (desired-state common-lisp:nil :type
     (common-lisp:or auto-tune-desired-state common-lisp:null))
    (maintenance-schedules common-lisp:nil :type
-    (common-lisp:or auto-tune-maintenance-schedule-list common-lisp:null)))
+    (common-lisp:or auto-tune-maintenance-schedule-list common-lisp:null))
+   (use-off-peak-window common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-tune-options-input 'make-auto-tune-options-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -840,6 +855,13 @@
       (common-lisp:list
        (common-lisp:cons "MaintenanceSchedules"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'use-off-peak-window))
+      (common-lisp:list
+       (common-lisp:cons "UseOffPeakWindow"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -853,7 +875,9 @@
    (state common-lisp:nil :type
     (common-lisp:or auto-tune-state common-lisp:null))
    (error-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (use-off-peak-window common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-tune-options-output 'make-auto-tune-options-output))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -878,6 +902,13 @@
                            aws-sdk/generator/shape::input 'error-message))
       (common-lisp:list
        (common-lisp:cons "ErrorMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'use-off-peak-window))
+      (common-lisp:list
+       (common-lisp:cons "UseOffPeakWindow"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1649,7 +1680,11 @@
     (common-lisp:or advanced-security-options-input common-lisp:null))
    (tag-list common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (auto-tune-options common-lisp:nil :type
-    (common-lisp:or auto-tune-options-input common-lisp:null)))
+    (common-lisp:or auto-tune-options-input common-lisp:null))
+   (off-peak-window-options common-lisp:nil :type
+    (common-lisp:or off-peak-window-options common-lisp:null))
+   (software-update-options common-lisp:nil :type
+    (common-lisp:or software-update-options common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-domain-request 'make-create-domain-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1777,6 +1812,22 @@
                            aws-sdk/generator/shape::input 'auto-tune-options))
       (common-lisp:list
        (common-lisp:cons "AutoTuneOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'off-peak-window-options))
+      (common-lisp:list
+       (common-lisp:cons "OffPeakWindowOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'software-update-options))
+      (common-lisp:list
+       (common-lisp:cons "SoftwareUpdateOptions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3480,7 +3531,11 @@
    (auto-tune-options common-lisp:nil :type
     (common-lisp:or auto-tune-options-status common-lisp:null))
    (change-progress-details common-lisp:nil :type
-    (common-lisp:or change-progress-details common-lisp:null)))
+    (common-lisp:or change-progress-details common-lisp:null))
+   (off-peak-window-options common-lisp:nil :type
+    (common-lisp:or off-peak-window-options-status common-lisp:null))
+   (software-update-options common-lisp:nil :type
+    (common-lisp:or software-update-options-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'domain-config 'make-domain-config))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-config))
@@ -3597,6 +3652,22 @@
                            'change-progress-details))
       (common-lisp:list
        (common-lisp:cons "ChangeProgressDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'off-peak-window-options))
+      (common-lisp:list
+       (common-lisp:cons "OffPeakWindowOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'software-update-options))
+      (common-lisp:list
+       (common-lisp:cons "SoftwareUpdateOptions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3955,7 +4026,11 @@
    (auto-tune-options common-lisp:nil :type
     (common-lisp:or auto-tune-options-output common-lisp:null))
    (change-progress-details common-lisp:nil :type
-    (common-lisp:or change-progress-details common-lisp:null)))
+    (common-lisp:or change-progress-details common-lisp:null))
+   (off-peak-window-options common-lisp:nil :type
+    (common-lisp:or off-peak-window-options common-lisp:null))
+   (software-update-options common-lisp:nil :type
+    (common-lisp:or software-update-options common-lisp:null)))
  (common-lisp:export (common-lisp:list 'domain-status 'make-domain-status))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-status))
@@ -4143,6 +4218,22 @@
                            'change-progress-details))
       (common-lisp:list
        (common-lisp:cons "ChangeProgressDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'off-peak-window-options))
+      (common-lisp:list
+       (common-lisp:cons "OffPeakWindowOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'software-update-options))
+      (common-lisp:list
+       (common-lisp:cons "SoftwareUpdateOptions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5441,6 +5532,74 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-scheduled-actions-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-scheduled-actions-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-scheduled-actions-request
+                    'make-list-scheduled-actions-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-scheduled-actions-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-scheduled-actions-response-"))
+   (scheduled-actions common-lisp:nil :type
+    (common-lisp:or scheduled-actions-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-scheduled-actions-response
+                    'make-list-scheduled-actions-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scheduled-actions))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledActions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-scheduled-actions-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-tags-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-tags-request-"))
    (arn (common-lisp:error ":arn is required") :type
@@ -5953,6 +6112,107 @@
                           node-to-node-encryption-options-status))
    common-lisp:nil))
 (common-lisp:deftype non-empty-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (off-peak-window (:copier common-lisp:nil)
+      (:conc-name "struct-shape-off-peak-window-"))
+   (window-start-time common-lisp:nil :type
+    (common-lisp:or window-start-time common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'off-peak-window 'make-off-peak-window))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input off-peak-window))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input off-peak-window))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'window-start-time))
+      (common-lisp:list
+       (common-lisp:cons "WindowStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input off-peak-window))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (off-peak-window-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-off-peak-window-options-"))
+   (enabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (off-peak-window common-lisp:nil :type
+    (common-lisp:or off-peak-window common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'off-peak-window-options 'make-off-peak-window-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'off-peak-window))
+      (common-lisp:list
+       (common-lisp:cons "OffPeakWindow"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (off-peak-window-options-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-off-peak-window-options-status-"))
+   (options common-lisp:nil :type
+    (common-lisp:or off-peak-window-options common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or option-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'off-peak-window-options-status
+                    'make-off-peak-window-options-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          off-peak-window-options-status))
+   common-lisp:nil))
 (common-lisp:deftype open-search-partition-instance-type () 'common-lisp:string)
 (common-lisp:deftype open-search-warm-partition-instance-type ()
   'common-lisp:string)
@@ -7057,6 +7317,109 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input samloptions-output))
    common-lisp:nil))
+(common-lisp:deftype schedule-at () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-action (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-action-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (type (common-lisp:error ":type is required") :type
+    (common-lisp:or action-type common-lisp:null))
+   (severity (common-lisp:error ":severity is required") :type
+    (common-lisp:or action-severity common-lisp:null))
+   (scheduled-time (common-lisp:error ":scheduled-time is required") :type
+    (common-lisp:or long common-lisp:null))
+   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (scheduled-by common-lisp:nil :type
+    (common-lisp:or scheduled-by common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or action-status common-lisp:null))
+   (mandatory common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (cancellable common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-action 'make-scheduled-action))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'severity))
+      (common-lisp:list
+       (common-lisp:cons "Severity"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scheduled-time))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scheduled-by))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'mandatory))
+      (common-lisp:list
+       (common-lisp:cons "Mandatory"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cancellable))
+      (common-lisp:list
+       (common-lisp:cons "Cancellable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input scheduled-action))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype scheduled-actions-list ()
+   '(trivial-types:proper-list scheduled-action))
+ (common-lisp:defun |make-scheduled-actions-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list scheduled-action))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype scheduled-auto-tune-action-type () 'common-lisp:string)
 (common-lisp:deftype scheduled-auto-tune-description () 'common-lisp:string)
 (common-lisp:progn
@@ -7118,6 +7481,7 @@
                           scheduled-auto-tune-details))
    common-lisp:nil))
 (common-lisp:deftype scheduled-auto-tune-severity-type () 'common-lisp:string)
+(common-lisp:deftype scheduled-by () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (service-software-options (:copier common-lisp:nil)
@@ -7212,6 +7576,21 @@
    common-lisp:nil))
 (common-lisp:deftype service-url () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype slot-list () '(trivial-types:proper-list long))
+ (common-lisp:defun |make-slot-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list long))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition slot-not-available-exception
+     (opensearch-error)
+     ((slot-suggestions :initarg :slot-suggestions :initform common-lisp:nil
+       :reader slot-not-available-exception-slot-suggestions)))
+ (common-lisp:export
+  (common-lisp:list 'slot-not-available-exception
+                    'slot-not-available-exception-slot-suggestions)))
+(common-lisp:progn
  (common-lisp:defstruct
      (snapshot-options (:copier common-lisp:nil)
       (:conc-name "struct-shape-snapshot-options-"))
@@ -7275,13 +7654,88 @@
                          (aws-sdk/generator/shape::input
                           snapshot-options-status))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (software-update-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-software-update-options-"))
+   (auto-software-update-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'software-update-options 'make-software-update-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-software-update-enabled))
+      (common-lisp:list
+       (common-lisp:cons "AutoSoftwareUpdateEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (software-update-options-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-software-update-options-status-"))
+   (options common-lisp:nil :type
+    (common-lisp:or software-update-options common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or option-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'software-update-options-status
+                    'make-software-update-options-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          software-update-options-status))
+   common-lisp:nil))
 (common-lisp:deftype start-at () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (start-service-software-update-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-start-service-software-update-request-"))
    (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null)))
+    (common-lisp:or domain-name common-lisp:null))
+   (schedule-at common-lisp:nil :type
+    (common-lisp:or schedule-at common-lisp:null))
+   (desired-start-time common-lisp:nil :type
+    (common-lisp:or long common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-service-software-update-request
                     'make-start-service-software-update-request))
@@ -7300,6 +7754,20 @@
                            aws-sdk/generator/shape::input 'domain-name))
       (common-lisp:list
        (common-lisp:cons "DomainName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-at))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'desired-start-time))
+      (common-lisp:list
+       (common-lisp:cons "DesiredStartTime"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7339,6 +7807,8 @@
                          (aws-sdk/generator/shape::input
                           start-service-software-update-response))
    common-lisp:nil))
+(common-lisp:deftype start-time-hours () 'common-lisp:integer)
+(common-lisp:deftype start-time-minutes () 'common-lisp:integer)
 (common-lisp:deftype start-timestamp () 'common-lisp:string)
 (common-lisp:deftype storage-sub-type-name () 'common-lisp:string)
 (common-lisp:progn
@@ -7519,7 +7989,11 @@
     (common-lisp:or auto-tune-options common-lisp:null))
    (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null))
    (dry-run-mode common-lisp:nil :type
-    (common-lisp:or dry-run-mode common-lisp:null)))
+    (common-lisp:or dry-run-mode common-lisp:null))
+   (off-peak-window-options common-lisp:nil :type
+    (common-lisp:or off-peak-window-options common-lisp:null))
+   (software-update-options common-lisp:nil :type
+    (common-lisp:or software-update-options common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-domain-config-request
                     'make-update-domain-config-request))
@@ -7641,6 +8115,22 @@
                            aws-sdk/generator/shape::input 'dry-run-mode))
       (common-lisp:list
        (common-lisp:cons "DryRunMode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'off-peak-window-options))
+      (common-lisp:list
+       (common-lisp:cons "OffPeakWindowOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'software-update-options))
+      (common-lisp:list
+       (common-lisp:cons "SoftwareUpdateOptions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7784,6 +8274,97 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-package-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-scheduled-action-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-scheduled-action-request-"))
+   (domain-name (common-lisp:error ":domain-name is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (action-id (common-lisp:error ":action-id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (action-type (common-lisp:error ":action-type is required") :type
+    (common-lisp:or action-type common-lisp:null))
+   (schedule-at (common-lisp:error ":schedule-at is required") :type
+    (common-lisp:or schedule-at common-lisp:null))
+   (desired-start-time common-lisp:nil :type
+    (common-lisp:or long common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-scheduled-action-request
+                    'make-update-scheduled-action-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'action-id))
+      (common-lisp:list
+       (common-lisp:cons "ActionID"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'action-type))
+      (common-lisp:list
+       (common-lisp:cons "ActionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-at))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'desired-start-time))
+      (common-lisp:list
+       (common-lisp:cons "DesiredStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-scheduled-action-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-scheduled-action-response-"))
+   (scheduled-action common-lisp:nil :type
+    (common-lisp:or scheduled-action common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-scheduled-action-response
+                    'make-update-scheduled-action-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scheduled-action))
+      (common-lisp:list
+       (common-lisp:cons "ScheduledAction"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-scheduled-action-response))
    common-lisp:nil))
 (common-lisp:deftype update-timestamp () 'common-lisp:string)
 (common-lisp:progn
@@ -8521,6 +9102,39 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (window-start-time (:copier common-lisp:nil)
+      (:conc-name "struct-shape-window-start-time-"))
+   (hours (common-lisp:error ":hours is required") :type
+    (common-lisp:or start-time-hours common-lisp:null))
+   (minutes (common-lisp:error ":minutes is required") :type
+    (common-lisp:or start-time-minutes common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'window-start-time 'make-window-start-time))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input window-start-time))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input window-start-time))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'hours))
+      (common-lisp:list
+       (common-lisp:cons "Hours"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'minutes))
+      (common-lisp:list
+       (common-lisp:cons "Minutes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input window-start-time))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (zone-awareness-config (:copier common-lisp:nil)
       (:conc-name "struct-shape-zone-awareness-config-"))
    (availability-zone-count common-lisp:nil :type
@@ -8688,13 +9302,15 @@
                      cognito-options encryption-at-rest-options
                      node-to-node-encryption-options advanced-options
                      log-publishing-options domain-endpoint-options
-                     advanced-security-options tag-list auto-tune-options)
+                     advanced-security-options tag-list auto-tune-options
+                     off-peak-window-options software-update-options)
    (common-lisp:declare
     (common-lisp:ignorable domain-name engine-version cluster-config ebsoptions
      access-policies snapshot-options vpcoptions cognito-options
      encryption-at-rest-options node-to-node-encryption-options
      advanced-options log-publishing-options domain-endpoint-options
-     advanced-security-options tag-list auto-tune-options))
+     advanced-security-options tag-list auto-tune-options
+     off-peak-window-options software-update-options))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-domain-request
                                          aws-sdk/generator/operation::args)))
@@ -9484,6 +10100,35 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-packages-for-domain))
 (common-lisp:progn
+ (common-lisp:defun list-scheduled-actions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-name max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-scheduled-actions-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/2021-01-01/opensearch/domain/~A/scheduledActions"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'domain-name))))
+                                                        "ListScheduledActions"
+                                                        "2021-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-scheduled-actions))
+(common-lisp:progn
  (common-lisp:defun list-tags
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -9701,8 +10346,10 @@
  (common-lisp:defun start-service-software-update
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key domain-name)
-   (common-lisp:declare (common-lisp:ignorable domain-name))
+                     common-lisp:&key domain-name schedule-at
+                     desired-start-time)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-name schedule-at desired-start-time))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-start-service-software-update-request
@@ -9726,13 +10373,15 @@
                      advanced-options access-policies log-publishing-options
                      encryption-at-rest-options domain-endpoint-options
                      node-to-node-encryption-options advanced-security-options
-                     auto-tune-options dry-run dry-run-mode)
+                     auto-tune-options dry-run dry-run-mode
+                     off-peak-window-options software-update-options)
    (common-lisp:declare
     (common-lisp:ignorable domain-name cluster-config ebsoptions
      snapshot-options vpcoptions cognito-options advanced-options
      access-policies log-publishing-options encryption-at-rest-options
      domain-endpoint-options node-to-node-encryption-options
-     advanced-security-options auto-tune-options dry-run dry-run-mode))
+     advanced-security-options auto-tune-options dry-run dry-run-mode
+     off-peak-window-options software-update-options))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-domain-config-request
                                          aws-sdk/generator/operation::args)))
@@ -9777,6 +10426,37 @@
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-package))
+(common-lisp:progn
+ (common-lisp:defun update-scheduled-action
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-name action-id action-type
+                     schedule-at desired-start-time)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-name action-id action-type schedule-at
+     desired-start-time))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-scheduled-action-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/2021-01-01/opensearch/domain/~A/scheduledAction/update"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'domain-name))))
+                                                        "UpdateScheduledAction"
+                                                        "2021-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-scheduled-action))
 (common-lisp:progn
  (common-lisp:defun update-vpc-endpoint
                     (

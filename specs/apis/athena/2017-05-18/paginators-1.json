@@ -1,26 +1,19 @@
 {
   "pagination": {
-    "ListNamedQueries": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "NamedQueryIds"
-    },
-    "ListQueryExecutions": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "QueryExecutionIds"
-    },
     "GetQueryResults": {
       "input_token": "NextToken",
-      "output_token": "NextToken",
       "limit_key": "MaxResults",
-      "result_key": "ResultSet.Rows",
-      "non_aggregate_keys": [
-        "ResultSet.ResultSetMetadata",
-        "UpdateCount"
-      ]
+      "output_token": "NextToken"
+    },
+    "ListApplicationDPUSizes": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListCalculationExecutions": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
     },
     "ListDataCatalogs": {
       "input_token": "NextToken",
@@ -34,6 +27,36 @@
       "output_token": "NextToken",
       "result_key": "DatabaseList"
     },
+    "ListEngineVersions": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListExecutors": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListNamedQueries": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListPreparedStatements": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListQueryExecutions": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
+    "ListSessions": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
+    },
     "ListTableMetadata": {
       "input_token": "NextToken",
       "limit_key": "MaxResults",
@@ -45,6 +68,11 @@
       "limit_key": "MaxResults",
       "output_token": "NextToken",
       "result_key": "Tags"
+    },
+    "ListWorkGroups": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
     }
   }
 }

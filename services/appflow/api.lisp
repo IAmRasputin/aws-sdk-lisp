@@ -436,6 +436,7 @@
 (common-lisp:deftype client-id () 'common-lisp:string)
 (common-lisp:deftype client-number () 'common-lisp:string)
 (common-lisp:deftype client-secret () 'common-lisp:string)
+(common-lisp:deftype client-token () 'common-lisp:string)
 (common-lisp:deftype cluster-identifier () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
@@ -2205,7 +2206,9 @@
     (common-lisp:or connection-mode common-lisp:null))
    (connector-profile-config
     (common-lisp:error ":connectorprofileconfig is required") :type
-    (common-lisp:or connector-profile-config common-lisp:null)))
+    (common-lisp:or connector-profile-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-connector-profile-request
                     'make-create-connector-profile-request))
@@ -2261,6 +2264,13 @@
                            'connector-profile-config))
       (common-lisp:list
        (common-lisp:cons "connectorProfileConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2320,7 +2330,9 @@
     (common-lisp:or tasks common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
    (metadata-catalog-config common-lisp:nil :type
-    (common-lisp:or metadata-catalog-config common-lisp:null)))
+    (common-lisp:or metadata-catalog-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-flow-request 'make-create-flow-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2392,6 +2404,13 @@
                            'metadata-catalog-config))
       (common-lisp:list
        (common-lisp:cons "metadataCatalogConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6831,7 +6850,9 @@
    (connector-provisioning-type common-lisp:nil :type
     (common-lisp:or connector-provisioning-type common-lisp:null))
    (connector-provisioning-config common-lisp:nil :type
-    (common-lisp:or connector-provisioning-config common-lisp:null)))
+    (common-lisp:or connector-provisioning-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'register-connector-request
                     'make-register-connector-request))
@@ -6873,6 +6894,13 @@
                            'connector-provisioning-config))
       (common-lisp:list
        (common-lisp:cons "connectorProvisioningConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7470,6 +7498,8 @@
    (instance-url common-lisp:nil :type
     (common-lisp:or instance-url common-lisp:null))
    (is-sandbox-environment common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (use-private-link-for-metadata-and-authorization common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'salesforce-connector-profile-properties
@@ -7497,6 +7527,14 @@
                            'is-sandbox-environment))
       (common-lisp:list
        (common-lisp:cons "isSandboxEnvironment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'use-private-link-for-metadata-and-authorization))
+      (common-lisp:list
+       (common-lisp:cons "usePrivateLinkForMetadataAndAuthorization"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -8663,7 +8701,9 @@
      (start-flow-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-start-flow-request-"))
    (flow-name (common-lisp:error ":flowname is required") :type
-    (common-lisp:or flow-name common-lisp:null)))
+    (common-lisp:or flow-name common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-flow-request 'make-start-flow-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -8677,6 +8717,13 @@
                            aws-sdk/generator/shape::input 'flow-name))
       (common-lisp:list
        (common-lisp:cons "flowName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9337,7 +9384,9 @@
     (common-lisp:or connection-mode common-lisp:null))
    (connector-profile-config
     (common-lisp:error ":connectorprofileconfig is required") :type
-    (common-lisp:or connector-profile-config common-lisp:null)))
+    (common-lisp:or connector-profile-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-connector-profile-request
                     'make-update-connector-profile-request))
@@ -9372,6 +9421,13 @@
                            'connector-profile-config))
       (common-lisp:list
        (common-lisp:cons "connectorProfileConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9420,7 +9476,9 @@
    (description common-lisp:nil :type
     (common-lisp:or description common-lisp:null))
    (connector-provisioning-config common-lisp:nil :type
-    (common-lisp:or connector-provisioning-config common-lisp:null)))
+    (common-lisp:or connector-provisioning-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-connector-registration-request
                     'make-update-connector-registration-request))
@@ -9454,6 +9512,13 @@
                            'connector-provisioning-config))
       (common-lisp:list
        (common-lisp:cons "connectorProvisioningConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9509,7 +9574,9 @@
    (tasks (common-lisp:error ":tasks is required") :type
     (common-lisp:or tasks common-lisp:null))
    (metadata-catalog-config common-lisp:nil :type
-    (common-lisp:or metadata-catalog-config common-lisp:null)))
+    (common-lisp:or metadata-catalog-config common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-flow-request 'make-update-flow-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -9567,6 +9634,13 @@
                            'metadata-catalog-config))
       (common-lisp:list
        (common-lisp:cons "metadataCatalogConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10090,10 +10164,10 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key connector-profile-name kms-arn
                      connector-type connector-label connection-mode
-                     connector-profile-config)
+                     connector-profile-config client-token)
    (common-lisp:declare
     (common-lisp:ignorable connector-profile-name kms-arn connector-type
-     connector-label connection-mode connector-profile-config))
+     connector-label connection-mode connector-profile-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-connector-profile-request
                                          aws-sdk/generator/operation::args)))
@@ -10114,11 +10188,11 @@
                      common-lisp:&key flow-name description kms-arn
                      trigger-config source-flow-config
                      destination-flow-config-list tasks tags
-                     metadata-catalog-config)
+                     metadata-catalog-config client-token)
    (common-lisp:declare
     (common-lisp:ignorable flow-name description kms-arn trigger-config
      source-flow-config destination-flow-config-list tasks tags
-     metadata-catalog-config))
+     metadata-catalog-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-flow-request
                                          aws-sdk/generator/operation::args)))
@@ -10385,10 +10459,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key connector-label description
-                     connector-provisioning-type connector-provisioning-config)
+                     connector-provisioning-type connector-provisioning-config
+                     client-token)
    (common-lisp:declare
     (common-lisp:ignorable connector-label description
-     connector-provisioning-type connector-provisioning-config))
+     connector-provisioning-type connector-provisioning-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-register-connector-request
                                          aws-sdk/generator/operation::args)))
@@ -10406,8 +10481,8 @@
  (common-lisp:defun start-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key flow-name)
-   (common-lisp:declare (common-lisp:ignorable flow-name))
+                     common-lisp:&key flow-name client-token)
+   (common-lisp:declare (common-lisp:ignorable flow-name client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-start-flow-request
                                          aws-sdk/generator/operation::args)))
@@ -10518,10 +10593,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key connector-profile-name connection-mode
-                     connector-profile-config)
+                     connector-profile-config client-token)
    (common-lisp:declare
     (common-lisp:ignorable connector-profile-name connection-mode
-     connector-profile-config))
+     connector-profile-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-connector-profile-request
                                          aws-sdk/generator/operation::args)))
@@ -10540,10 +10615,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key connector-label description
-                     connector-provisioning-config)
+                     connector-provisioning-config client-token)
    (common-lisp:declare
     (common-lisp:ignorable connector-label description
-     connector-provisioning-config))
+     connector-provisioning-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-update-connector-registration-request
@@ -10564,11 +10639,11 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key flow-name description trigger-config
                      source-flow-config destination-flow-config-list tasks
-                     metadata-catalog-config)
+                     metadata-catalog-config client-token)
    (common-lisp:declare
     (common-lisp:ignorable flow-name description trigger-config
      source-flow-config destination-flow-config-list tasks
-     metadata-catalog-config))
+     metadata-catalog-config client-token))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-flow-request
                                          aws-sdk/generator/operation::args)))

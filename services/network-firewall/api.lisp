@@ -453,6 +453,14 @@
                          (aws-sdk/generator/shape::input
                           capacity-usage-summary))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype certificates ()
+   '(trivial-types:proper-list tls-certificate-data))
+ (common-lisp:defun |make-certificates|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tls-certificate-data))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype collection-member-string () 'common-lisp:string)
 (common-lisp:deftype configuration-sync-state () 'common-lisp:string)
 (common-lisp:progn
@@ -877,6 +885,120 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-tlsinspection-configuration-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-tlsinspection-configuration-request-"))
+   (tlsinspection-configuration-name
+    (common-lisp:error ":tlsinspection-configuration-name is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (tlsinspection-configuration
+    (common-lisp:error ":tlsinspection-configuration is required") :type
+    (common-lisp:or tlsinspection-configuration common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or description common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (encryption-configuration common-lisp:nil :type
+    (common-lisp:or encryption-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-tlsinspection-configuration-request
+                    'make-create-tlsinspection-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "EncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-tlsinspection-configuration-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-tlsinspection-configuration-response-"))
+   (update-token (common-lisp:error ":update-token is required") :type
+    (common-lisp:or update-token common-lisp:null))
+   (tlsinspection-configuration-response
+    (common-lisp:error ":tlsinspection-configuration-response is required")
+    :type
+    (common-lisp:or tlsinspection-configuration-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-tlsinspection-configuration-response
+                    'make-create-tlsinspection-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-token))
+      (common-lisp:list
+       (common-lisp:cons "UpdateToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-response))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-tlsinspection-configuration-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (custom-action (:copier common-lisp:nil)
       (:conc-name "struct-shape-custom-action-"))
    (action-name (common-lisp:error ":action-name is required") :type
@@ -1198,6 +1320,82 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-rule-group-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-tlsinspection-configuration-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-tlsinspection-configuration-request-"))
+   (tlsinspection-configuration-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (tlsinspection-configuration-name common-lisp:nil :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-tlsinspection-configuration-request
+                    'make-delete-tlsinspection-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-tlsinspection-configuration-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-tlsinspection-configuration-response-"))
+   (tlsinspection-configuration-response
+    (common-lisp:error ":tlsinspection-configuration-response is required")
+    :type
+    (common-lisp:or tlsinspection-configuration-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-tlsinspection-configuration-response
+                    'make-delete-tlsinspection-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-response))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-tlsinspection-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1755,6 +1953,103 @@
                          (aws-sdk/generator/shape::input
                           describe-rule-group-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-tlsinspection-configuration-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-tlsinspection-configuration-request-"))
+   (tlsinspection-configuration-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (tlsinspection-configuration-name common-lisp:nil :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-tlsinspection-configuration-request
+                    'make-describe-tlsinspection-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-tlsinspection-configuration-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-tlsinspection-configuration-response-"))
+   (update-token (common-lisp:error ":update-token is required") :type
+    (common-lisp:or update-token common-lisp:null))
+   (tlsinspection-configuration common-lisp:nil :type
+    (common-lisp:or tlsinspection-configuration common-lisp:null))
+   (tlsinspection-configuration-response
+    (common-lisp:error ":tlsinspection-configuration-response is required")
+    :type
+    (common-lisp:or tlsinspection-configuration-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-tlsinspection-configuration-response
+                    'make-describe-tlsinspection-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-token))
+      (common-lisp:list
+       (common-lisp:cons "UpdateToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-response))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-tlsinspection-configuration-response))
+   common-lisp:nil))
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:deftype destination () 'common-lisp:string)
 (common-lisp:progn
@@ -2129,7 +2424,9 @@
    (stateful-default-actions common-lisp:nil :type
     (common-lisp:or stateful-actions common-lisp:null))
    (stateful-engine-options common-lisp:nil :type
-    (common-lisp:or stateful-engine-options common-lisp:null)))
+    (common-lisp:or stateful-engine-options common-lisp:null))
+   (tlsinspection-configuration-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null)))
  (common-lisp:export (common-lisp:list 'firewall-policy 'make-firewall-policy))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input firewall-policy))
@@ -2191,6 +2488,14 @@
                            'stateful-engine-options))
       (common-lisp:list
        (common-lisp:cons "StatefulEngineOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2920,6 +3225,87 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-rule-groups-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tlsinspection-configurations-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tlsinspection-configurations-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or pagination-max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tlsinspection-configurations-request
+                    'make-list-tlsinspection-configurations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tlsinspection-configurations-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tlsinspection-configurations-response-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (tlsinspection-configurations common-lisp:nil :type
+    (common-lisp:or tlsinspection-configurations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tlsinspection-configurations-response
+                    'make-list-tlsinspection-configurations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configurations))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tlsinspection-configurations-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3882,6 +4268,161 @@
                         ((aws-sdk/generator/shape::input rules-source-list))
    common-lisp:nil))
 (common-lisp:deftype rules-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (server-certificate (:copier common-lisp:nil)
+      (:conc-name "struct-shape-server-certificate-"))
+   (resource-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'server-certificate 'make-server-certificate))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input server-certificate))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input server-certificate))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input server-certificate))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (server-certificate-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-server-certificate-configuration-"))
+   (server-certificates common-lisp:nil :type
+    (common-lisp:or server-certificates common-lisp:null))
+   (scopes common-lisp:nil :type
+    (common-lisp:or server-certificate-scopes common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'server-certificate-configuration
+                    'make-server-certificate-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'server-certificates))
+      (common-lisp:list
+       (common-lisp:cons "ServerCertificates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scopes))
+      (common-lisp:list
+       (common-lisp:cons "Scopes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype server-certificate-configurations ()
+   '(trivial-types:proper-list server-certificate-configuration))
+ (common-lisp:defun |make-server-certificate-configurations|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            server-certificate-configuration))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (server-certificate-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-server-certificate-scope-"))
+   (sources common-lisp:nil :type (common-lisp:or addresses common-lisp:null))
+   (destinations common-lisp:nil :type
+    (common-lisp:or addresses common-lisp:null))
+   (source-ports common-lisp:nil :type
+    (common-lisp:or port-ranges common-lisp:null))
+   (destination-ports common-lisp:nil :type
+    (common-lisp:or port-ranges common-lisp:null))
+   (protocols common-lisp:nil :type
+    (common-lisp:or protocol-numbers common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'server-certificate-scope 'make-server-certificate-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sources))
+      (common-lisp:list
+       (common-lisp:cons "Sources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destinations))
+      (common-lisp:list
+       (common-lisp:cons "Destinations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source-ports))
+      (common-lisp:list
+       (common-lisp:cons "SourcePorts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination-ports))
+      (common-lisp:list
+       (common-lisp:cons "DestinationPorts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocols))
+      (common-lisp:list
+       (common-lisp:cons "Protocols"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-certificate-scope))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype server-certificate-scopes ()
+   '(trivial-types:proper-list server-certificate-scope))
+ (common-lisp:defun |make-server-certificate-scopes|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            server-certificate-scope))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype server-certificates ()
+   '(trivial-types:proper-list server-certificate))
+ (common-lisp:defun |make-server-certificates|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list server-certificate))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype setting () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype settings () '(trivial-types:proper-list setting))
@@ -4281,6 +4822,7 @@
                           stateless-rules-and-custom-actions))
    common-lisp:nil))
 (common-lisp:deftype status-message () 'common-lisp:string)
+(common-lisp:deftype status-reason () 'common-lisp:string)
 (common-lisp:deftype stream-exception-policy () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4410,6 +4952,205 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (tlsinspection-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tlsinspection-configuration-"))
+   (server-certificate-configurations common-lisp:nil :type
+    (common-lisp:or server-certificate-configurations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tlsinspection-configuration
+                    'make-tlsinspection-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'server-certificate-configurations))
+      (common-lisp:list
+       (common-lisp:cons "ServerCertificateConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tlsinspection-configuration-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tlsinspection-configuration-metadata-"))
+   (name common-lisp:nil :type (common-lisp:or resource-name common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tlsinspection-configuration-metadata
+                    'make-tlsinspection-configuration-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-metadata))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tlsinspection-configuration-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tlsinspection-configuration-response-"))
+   (tlsinspection-configuration-arn
+    (common-lisp:error ":tlsinspection-configuration-arn is required") :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (tlsinspection-configuration-name
+    (common-lisp:error ":tlsinspection-configuration-name is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (tlsinspection-configuration-id
+    (common-lisp:error ":tlsinspection-configuration-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (tlsinspection-configuration-status common-lisp:nil :type
+    (common-lisp:or resource-status common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or description common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (last-modified-time common-lisp:nil :type
+    (common-lisp:or last-update-time common-lisp:null))
+   (number-of-associations common-lisp:nil :type
+    (common-lisp:or number-of-associations common-lisp:null))
+   (encryption-configuration common-lisp:nil :type
+    (common-lisp:or encryption-configuration common-lisp:null))
+   (certificates common-lisp:nil :type
+    (common-lisp:or certificates common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tlsinspection-configuration-response
+                    'make-tlsinspection-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-id))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-status))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'number-of-associations))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfAssociations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "EncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'certificates))
+      (common-lisp:list
+       (common-lisp:cons "Certificates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          tlsinspection-configuration-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype tlsinspection-configurations ()
+   '(trivial-types:proper-list tlsinspection-configuration-metadata))
+ (common-lisp:defun |make-tlsinspection-configurations|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            tlsinspection-configuration-metadata))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
    (key (common-lisp:error ":key is required") :type
     (common-lisp:or tag-key common-lisp:null))
@@ -4525,6 +5266,57 @@
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tls-certificate-data (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tls-certificate-data-"))
+   (certificate-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (certificate-serial common-lisp:nil :type
+    (common-lisp:or collection-member-string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or collection-member-string common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or status-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tls-certificate-data 'make-tls-certificate-data))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tls-certificate-data))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tls-certificate-data))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'certificate-arn))
+      (common-lisp:list
+       (common-lisp:cons "CertificateArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'certificate-serial))
+      (common-lisp:list
+       (common-lisp:cons "CertificateSerial"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "StatusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tls-certificate-data))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition unsupported-operation-exception
      (network-firewall-error)
@@ -5568,6 +6360,130 @@
                          (aws-sdk/generator/shape::input
                           update-subnet-change-protection-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-tlsinspection-configuration-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-tlsinspection-configuration-request-"))
+   (tlsinspection-configuration-arn common-lisp:nil :type
+    (common-lisp:or resource-arn common-lisp:null))
+   (tlsinspection-configuration-name common-lisp:nil :type
+    (common-lisp:or resource-name common-lisp:null))
+   (tlsinspection-configuration
+    (common-lisp:error ":tlsinspection-configuration is required") :type
+    (common-lisp:or tlsinspection-configuration common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or description common-lisp:null))
+   (encryption-configuration common-lisp:nil :type
+    (common-lisp:or encryption-configuration common-lisp:null))
+   (update-token (common-lisp:error ":update-token is required") :type
+    (common-lisp:or update-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-tlsinspection-configuration-request
+                    'make-update-tlsinspection-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "EncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-token))
+      (common-lisp:list
+       (common-lisp:cons "UpdateToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-tlsinspection-configuration-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-tlsinspection-configuration-response-"))
+   (update-token (common-lisp:error ":update-token is required") :type
+    (common-lisp:or update-token common-lisp:null))
+   (tlsinspection-configuration-response
+    (common-lisp:error ":tlsinspection-configuration-response is required")
+    :type
+    (common-lisp:or tlsinspection-configuration-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-tlsinspection-configuration-response
+                    'make-update-tlsinspection-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-token))
+      (common-lisp:list
+       (common-lisp:cons "UpdateToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tlsinspection-configuration-response))
+      (common-lisp:list
+       (common-lisp:cons "TLSInspectionConfigurationResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-tlsinspection-configuration-response))
+   common-lisp:nil))
 (common-lisp:deftype update-token () 'common-lisp:string)
 (common-lisp:deftype variable-definition () 'common-lisp:string)
 (common-lisp:progn
@@ -5688,6 +6604,27 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-rule-group))
 (common-lisp:progn
+ (common-lisp:defun create-tlsinspection-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key tlsinspection-configuration-name
+                     tlsinspection-configuration description tags
+                     encryption-configuration)
+   (common-lisp:declare
+    (common-lisp:ignorable tlsinspection-configuration-name
+     tlsinspection-configuration description tags encryption-configuration))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-tlsinspection-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'network-firewall-request aws-sdk/generator/operation::input "POST" "/"
+        "CreateTLSInspectionConfiguration" "2020-11-12"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-tlsinspection-configuration))
+(common-lisp:progn
  (common-lisp:defun delete-firewall
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5753,6 +6690,26 @@
         "DeleteRuleGroup" "2020-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-rule-group))
+(common-lisp:progn
+ (common-lisp:defun delete-tlsinspection-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key tlsinspection-configuration-arn
+                     tlsinspection-configuration-name)
+   (common-lisp:declare
+    (common-lisp:ignorable tlsinspection-configuration-arn
+     tlsinspection-configuration-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-tlsinspection-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'network-firewall-request aws-sdk/generator/operation::input "POST" "/"
+        "DeleteTLSInspectionConfiguration" "2020-11-12"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-tlsinspection-configuration))
 (common-lisp:progn
  (common-lisp:defun describe-firewall
                     (
@@ -5855,6 +6812,26 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-rule-group-metadata))
 (common-lisp:progn
+ (common-lisp:defun describe-tlsinspection-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key tlsinspection-configuration-arn
+                     tlsinspection-configuration-name)
+   (common-lisp:declare
+    (common-lisp:ignorable tlsinspection-configuration-arn
+     tlsinspection-configuration-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-tlsinspection-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'network-firewall-request aws-sdk/generator/operation::input "POST" "/"
+        "DescribeTLSInspectionConfiguration" "2020-11-12"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-tlsinspection-configuration))
+(common-lisp:progn
  (common-lisp:defun disassociate-subnets
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5922,6 +6899,23 @@
         "ListRuleGroups" "2020-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-rule-groups))
+(common-lisp:progn
+ (common-lisp:defun list-tlsinspection-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-tlsinspection-configurations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'network-firewall-request aws-sdk/generator/operation::input "POST" "/"
+        "ListTLSInspectionConfigurations" "2020-11-12"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-tlsinspection-configurations))
 (common-lisp:progn
  (common-lisp:defun list-tags-for-resource
                     (
@@ -6148,3 +7142,26 @@
         "UpdateSubnetChangeProtection" "2020-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-subnet-change-protection))
+(common-lisp:progn
+ (common-lisp:defun update-tlsinspection-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key tlsinspection-configuration-arn
+                     tlsinspection-configuration-name
+                     tlsinspection-configuration description
+                     encryption-configuration update-token)
+   (common-lisp:declare
+    (common-lisp:ignorable tlsinspection-configuration-arn
+     tlsinspection-configuration-name tlsinspection-configuration description
+     encryption-configuration update-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-tlsinspection-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'network-firewall-request aws-sdk/generator/operation::input "POST" "/"
+        "UpdateTLSInspectionConfiguration" "2020-11-12"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-tlsinspection-configuration))

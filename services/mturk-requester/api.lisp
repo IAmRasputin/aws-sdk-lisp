@@ -382,7 +382,7 @@
    (worker-id common-lisp:nil :type
     (common-lisp:or customer-id common-lisp:null))
    (bonus-amount common-lisp:nil :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (assignment-id common-lisp:nil :type
     (common-lisp:or entity-id common-lisp:null))
    (reason common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -451,7 +451,8 @@
        "struct-shape-create-additional-assignments-for-hitrequest-"))
    (hitid (common-lisp:error ":hitid is required") :type
     (common-lisp:or entity-id common-lisp:null))
-   (number-of-additional-assignments common-lisp:nil :type
+   (number-of-additional-assignments
+    (common-lisp:error ":number-of-additional-assignments is required") :type
     (common-lisp:or integer common-lisp:null))
    (unique-request-token common-lisp:nil :type
     (common-lisp:or idempotency-token common-lisp:null)))
@@ -533,7 +534,7 @@
     (common-lisp:error ":assignment-duration-in-seconds is required") :type
     (common-lisp:or long common-lisp:null))
    (reward (common-lisp:error ":reward is required") :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (title (common-lisp:error ":title is required") :type
     (common-lisp:or string common-lisp:null))
    (keywords common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -717,7 +718,7 @@
     (common-lisp:error ":assignment-duration-in-seconds is required") :type
     (common-lisp:or long common-lisp:null))
    (reward (common-lisp:error ":reward is required") :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (title (common-lisp:error ":title is required") :type
     (common-lisp:or string common-lisp:null))
    (keywords common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -1175,6 +1176,7 @@
                          (aws-sdk/generator/shape::input
                           create-worker-block-response))
    common-lisp:nil))
+(common-lisp:deftype currency-amount () 'common-lisp:string)
 (common-lisp:deftype customer-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype customer-id-list ()
@@ -1451,9 +1453,9 @@
      (get-account-balance-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-account-balance-response-"))
    (available-balance common-lisp:nil :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (on-hold-balance common-lisp:nil :type
-    (common-lisp:or numeric-value common-lisp:null)))
+    (common-lisp:or currency-amount common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-account-balance-response
                     'make-get-account-balance-response))
@@ -1828,7 +1830,7 @@
    (max-assignments common-lisp:nil :type
     (common-lisp:or integer common-lisp:null))
    (reward common-lisp:nil :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (auto-approval-delay-in-seconds common-lisp:nil :type
     (common-lisp:or long common-lisp:null))
    (expiration common-lisp:nil :type
@@ -2011,12 +2013,15 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input hit))
    common-lisp:nil))
+(common-lisp:deftype hitaccess-actions () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (hitlayout-parameter (:copier common-lisp:nil)
       (:conc-name "struct-shape-hitlayout-parameter-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (value (common-lisp:error ":value is required") :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'hitlayout-parameter 'make-hitlayout-parameter))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3176,8 +3181,9 @@
     (common-lisp:or string common-lisp:null))
    (transport (common-lisp:error ":transport is required") :type
     (common-lisp:or notification-transport common-lisp:null))
-   (version common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (event-types common-lisp:nil :type
+   (version (common-lisp:error ":version is required") :type
+    (common-lisp:or string common-lisp:null))
+   (event-types (common-lisp:error ":event-types is required") :type
     (common-lisp:or event-type-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'notification-specification
@@ -3366,7 +3372,6 @@
                          (aws-sdk/generator/shape::input
                           notify-workers-response))
    common-lisp:nil))
-(common-lisp:deftype numeric-value () 'common-lisp:string)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3630,7 +3635,9 @@
    (locale-values common-lisp:nil :type
     (common-lisp:or locale-list common-lisp:null))
    (required-to-preview common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null))
+   (actions-guarded common-lisp:nil :type
+    (common-lisp:or hitaccess-actions common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'qualification-requirement
                     'make-qualification-requirement))
@@ -3678,6 +3685,13 @@
                            aws-sdk/generator/shape::input 'required-to-preview))
       (common-lisp:list
        (common-lisp:cons "RequiredToPreview"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'actions-guarded))
+      (common-lisp:list
+       (common-lisp:cons "ActionsGuarded"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3841,8 +3855,8 @@
       (:conc-name "struct-shape-reject-assignment-request-"))
    (assignment-id (common-lisp:error ":assignment-id is required") :type
     (common-lisp:or entity-id common-lisp:null))
-   (requester-feedback common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+   (requester-feedback (common-lisp:error ":requester-feedback is required")
+    :type (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'reject-assignment-request
                     'make-reject-assignment-request))
@@ -4067,7 +4081,8 @@
  (common-lisp:defstruct
      (review-policy (:copier common-lisp:nil)
       (:conc-name "struct-shape-review-policy-"))
-   (policy-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (policy-name (common-lisp:error ":policy-name is required") :type
+    (common-lisp:or string common-lisp:null))
    (parameters common-lisp:nil :type
     (common-lisp:or policy-parameter-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'review-policy 'make-review-policy))
@@ -4218,10 +4233,11 @@
    (worker-id (common-lisp:error ":worker-id is required") :type
     (common-lisp:or customer-id common-lisp:null))
    (bonus-amount (common-lisp:error ":bonus-amount is required") :type
-    (common-lisp:or numeric-value common-lisp:null))
+    (common-lisp:or currency-amount common-lisp:null))
    (assignment-id (common-lisp:error ":assignment-id is required") :type
     (common-lisp:or entity-id common-lisp:null))
-   (reason common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (reason (common-lisp:error ":reason is required") :type
+    (common-lisp:or string common-lisp:null))
    (unique-request-token common-lisp:nil :type
     (common-lisp:or idempotency-token common-lisp:null)))
  (common-lisp:export
@@ -4374,7 +4390,7 @@
       (:conc-name "struct-shape-update-expiration-for-hitrequest-"))
    (hitid (common-lisp:error ":hitid is required") :type
     (common-lisp:or entity-id common-lisp:null))
-   (expire-at common-lisp:nil :type
+   (expire-at (common-lisp:error ":expire-at is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-expiration-for-hitrequest

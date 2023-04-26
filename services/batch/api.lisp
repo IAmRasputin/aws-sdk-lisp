@@ -922,7 +922,9 @@
    (network-configuration common-lisp:nil :type
     (common-lisp:or network-configuration common-lisp:null))
    (fargate-platform-configuration common-lisp:nil :type
-    (common-lisp:or fargate-platform-configuration common-lisp:null)))
+    (common-lisp:or fargate-platform-configuration common-lisp:null))
+   (ephemeral-storage common-lisp:nil :type
+    (common-lisp:or ephemeral-storage common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'container-detail 'make-container-detail))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1117,6 +1119,13 @@
       (common-lisp:list
        (common-lisp:cons "fargatePlatformConfiguration"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ephemeral-storage))
+      (common-lisp:list
+       (common-lisp:cons "ephemeralStorage"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input container-detail))
@@ -1225,7 +1234,9 @@
    (network-configuration common-lisp:nil :type
     (common-lisp:or network-configuration common-lisp:null))
    (fargate-platform-configuration common-lisp:nil :type
-    (common-lisp:or fargate-platform-configuration common-lisp:null)))
+    (common-lisp:or fargate-platform-configuration common-lisp:null))
+   (ephemeral-storage common-lisp:nil :type
+    (common-lisp:or ephemeral-storage common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'container-properties 'make-container-properties))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1376,6 +1387,13 @@
                            'fargate-platform-configuration))
       (common-lisp:list
        (common-lisp:cons "fargatePlatformConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ephemeral-storage))
+      (common-lisp:list
+       (common-lisp:cons "ephemeralStorage"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3290,12 +3308,42 @@
                         ((aws-sdk/generator/shape::input eks-host-path))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:deftype eks-labels-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-eks-labels-map| (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
  (common-lisp:deftype eks-limits () 'common-lisp:hash-table)
  (common-lisp:defun |make-eks-limits| (aws-sdk/generator/shape::key-values)
    (common-lisp:etypecase aws-sdk/generator/shape::key-values
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (eks-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-eks-metadata-"))
+   (labels common-lisp:nil :type
+    (common-lisp:or eks-labels-map common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'eks-metadata 'make-eks-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input eks-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input eks-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'labels))
+      (common-lisp:list
+       (common-lisp:cons "labels"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input eks-metadata))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (eks-pod-properties (:copier common-lisp:nil)
@@ -3308,7 +3356,9 @@
    (containers common-lisp:nil :type
     (common-lisp:or eks-containers common-lisp:null))
    (volumes common-lisp:nil :type
-    (common-lisp:or eks-volumes common-lisp:null)))
+    (common-lisp:or eks-volumes common-lisp:null))
+   (metadata common-lisp:nil :type
+    (common-lisp:or eks-metadata common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'eks-pod-properties 'make-eks-pod-properties))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3352,6 +3402,13 @@
       (common-lisp:list
        (common-lisp:cons "volumes"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metadata))
+      (common-lisp:list
+       (common-lisp:cons "metadata"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input eks-pod-properties))
@@ -3370,7 +3427,9 @@
    (volumes common-lisp:nil :type
     (common-lisp:or eks-volumes common-lisp:null))
    (pod-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (node-name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (node-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (metadata common-lisp:nil :type
+    (common-lisp:or eks-metadata common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'eks-pod-properties-detail
                     'make-eks-pod-properties-detail))
@@ -3433,6 +3492,13 @@
       (common-lisp:list
        (common-lisp:cons "nodeName"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metadata))
+      (common-lisp:list
+       (common-lisp:cons "metadata"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -3444,7 +3510,9 @@
      (eks-pod-properties-override (:copier common-lisp:nil)
       (:conc-name "struct-shape-eks-pod-properties-override-"))
    (containers common-lisp:nil :type
-    (common-lisp:or eks-container-override-list common-lisp:null)))
+    (common-lisp:or eks-container-override-list common-lisp:null))
+   (metadata common-lisp:nil :type
+    (common-lisp:or eks-metadata common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'eks-pod-properties-override
                     'make-eks-pod-properties-override))
@@ -3463,6 +3531,13 @@
                            aws-sdk/generator/shape::input 'containers))
       (common-lisp:list
        (common-lisp:cons "containers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metadata))
+      (common-lisp:list
+       (common-lisp:cons "metadata"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3655,6 +3730,30 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list key-value-pair))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (ephemeral-storage (:copier common-lisp:nil)
+      (:conc-name "struct-shape-ephemeral-storage-"))
+   (size-in-gi-b (common-lisp:error ":sizeingib is required") :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'ephemeral-storage 'make-ephemeral-storage))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input ephemeral-storage))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input ephemeral-storage))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'size-in-gi-b))
+      (common-lisp:list
+       (common-lisp:cons "sizeInGiB"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input ephemeral-storage))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (evaluate-on-exit (:copier common-lisp:nil)

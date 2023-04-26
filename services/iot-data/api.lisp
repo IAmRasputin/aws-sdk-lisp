@@ -128,7 +128,9 @@
    (payload common-lisp:nil :type (common-lisp:or payload common-lisp:null))
    (qos common-lisp:nil :type (common-lisp:or qos common-lisp:null))
    (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (user-properties common-lisp:nil :type
+    (common-lisp:or user-properties-blob common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-retained-message-response
                     'make-get-retained-message-response))
@@ -168,6 +170,13 @@
                            aws-sdk/generator/shape::input 'last-modified-time))
       (common-lisp:list
        (common-lisp:cons "lastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'user-properties))
+      (common-lisp:list
+       (common-lisp:cons "userProperties"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -654,6 +663,8 @@
                           update-thing-shadow-response))
    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
 (common-lisp:deftype user-properties () 'common-lisp:string)
+(common-lisp:deftype user-properties-blob ()
+  '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:deftype |errorMessage| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun delete-thing-shadow

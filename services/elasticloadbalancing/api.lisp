@@ -37,6 +37,7 @@
     ("ListenerNotFoundException" . listener-not-found-exception)
     ("LoadBalancerAttributeNotFoundException"
      . load-balancer-attribute-not-found-exception)
+    ("OperationNotPermittedException" . operation-not-permitted-exception)
     ("PolicyNotFoundException" . policy-not-found-exception)
     ("PolicyTypeNotFoundException" . policy-type-not-found-exception)
     ("SubnetNotFoundException" . subnet-not-found-exception)
@@ -2643,6 +2644,11 @@
                           modify-load-balancer-attributes-output))
    common-lisp:nil))
 (common-lisp:deftype name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition operation-not-permitted-exception
+     (elasticloadbalancing-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'operation-not-permitted-exception)))
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct

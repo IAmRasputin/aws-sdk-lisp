@@ -115,6 +115,7 @@
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
+(common-lisp:deftype activation-override-behavior () 'common-lisp:string)
 (common-lisp:deftype allowed-operation () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype allowed-operation-list ()
@@ -862,7 +863,8 @@
    (status-reason common-lisp:nil :type
     (common-lisp:or status-reason-message common-lisp:null))
    (source-version common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (options common-lisp:nil :type (common-lisp:or options common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-grant-version-request
                     'make-create-grant-version-request))
@@ -923,6 +925,13 @@
                            aws-sdk/generator/shape::input 'source-version))
       (common-lisp:list
        (common-lisp:cons "SourceVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3257,7 +3266,8 @@
    (version (common-lisp:error ":version is required") :type
     (common-lisp:or string common-lisp:null))
    (granted-operations (common-lisp:error ":granted-operations is required")
-    :type (common-lisp:or allowed-operation-list common-lisp:null)))
+    :type (common-lisp:or allowed-operation-list common-lisp:null))
+   (options common-lisp:nil :type (common-lisp:or options common-lisp:null)))
  (common-lisp:export (common-lisp:list 'grant 'make-grant))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input grant))
@@ -3334,6 +3344,13 @@
                            aws-sdk/generator/shape::input 'granted-operations))
       (common-lisp:list
        (common-lisp:cons "GrantedOperations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6099,6 +6116,29 @@
                     'no-entitlements-allowed-exception-message)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (options (:copier common-lisp:nil) (:conc-name "struct-shape-options-"))
+   (activation-override-behavior common-lisp:nil :type
+    (common-lisp:or activation-override-behavior common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'options 'make-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'activation-override-behavior))
+      (common-lisp:list
+       (common-lisp:cons "ActivationOverrideBehavior"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (organization-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-organization-configuration-"))
    (enable-integration (common-lisp:error ":enable-integration is required")
@@ -7510,10 +7550,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key client-token grant-arn grant-name
-                     allowed-operations status status-reason source-version)
+                     allowed-operations status status-reason source-version
+                     options)
    (common-lisp:declare
     (common-lisp:ignorable client-token grant-arn grant-name allowed-operations
-     status status-reason source-version))
+     status status-reason source-version options))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-grant-version-request
                                          aws-sdk/generator/operation::args)))

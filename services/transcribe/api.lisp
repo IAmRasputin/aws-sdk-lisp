@@ -934,7 +934,9 @@
    (words common-lisp:nil :type (common-lisp:or words common-lisp:null))
    (vocabulary-filter-file-uri common-lisp:nil :type
     (common-lisp:or uri common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (data-access-role-arn common-lisp:nil :type
+    (common-lisp:or data-access-role-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-vocabulary-filter-request
                     'make-create-vocabulary-filter-request))
@@ -983,6 +985,14 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataAccessRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1051,7 +1061,9 @@
    (phrases common-lisp:nil :type (common-lisp:or phrases common-lisp:null))
    (vocabulary-file-uri common-lisp:nil :type
     (common-lisp:or uri common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (data-access-role-arn common-lisp:nil :type
+    (common-lisp:or data-access-role-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-vocabulary-request
                     'make-create-vocabulary-request))
@@ -1098,6 +1110,14 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataAccessRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5642,7 +5662,9 @@
     (common-lisp:or vocabulary-filter-name common-lisp:null))
    (words common-lisp:nil :type (common-lisp:or words common-lisp:null))
    (vocabulary-filter-file-uri common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null)))
+    (common-lisp:or uri common-lisp:null))
+   (data-access-role-arn common-lisp:nil :type
+    (common-lisp:or data-access-role-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-vocabulary-filter-request
                     'make-update-vocabulary-filter-request))
@@ -5677,6 +5699,14 @@
                            'vocabulary-filter-file-uri))
       (common-lisp:list
        (common-lisp:cons "VocabularyFilterFileUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataAccessRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5744,7 +5774,9 @@
     (common-lisp:or language-code common-lisp:null))
    (phrases common-lisp:nil :type (common-lisp:or phrases common-lisp:null))
    (vocabulary-file-uri common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null)))
+    (common-lisp:or uri common-lisp:null))
+   (data-access-role-arn common-lisp:nil :type
+    (common-lisp:or data-access-role-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-vocabulary-request
                     'make-update-vocabulary-request))
@@ -5784,6 +5816,14 @@
                            aws-sdk/generator/shape::input 'vocabulary-file-uri))
       (common-lisp:list
        (common-lisp:cons "VocabularyFileUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataAccessRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6044,10 +6084,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key vocabulary-name language-code phrases
-                     vocabulary-file-uri tags)
+                     vocabulary-file-uri tags data-access-role-arn)
    (common-lisp:declare
     (common-lisp:ignorable vocabulary-name language-code phrases
-     vocabulary-file-uri tags))
+     vocabulary-file-uri tags data-access-role-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-vocabulary-request
                                          aws-sdk/generator/operation::args)))
@@ -6065,10 +6105,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key vocabulary-filter-name language-code
-                     words vocabulary-filter-file-uri tags)
+                     words vocabulary-filter-file-uri tags
+                     data-access-role-arn)
    (common-lisp:declare
     (common-lisp:ignorable vocabulary-filter-name language-code words
-     vocabulary-filter-file-uri tags))
+     vocabulary-filter-file-uri tags data-access-role-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-vocabulary-filter-request
                                          aws-sdk/generator/operation::args)))
@@ -6714,10 +6755,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key vocabulary-name language-code phrases
-                     vocabulary-file-uri)
+                     vocabulary-file-uri data-access-role-arn)
    (common-lisp:declare
     (common-lisp:ignorable vocabulary-name language-code phrases
-     vocabulary-file-uri))
+     vocabulary-file-uri data-access-role-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-vocabulary-request
                                          aws-sdk/generator/operation::args)))
@@ -6735,10 +6776,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key vocabulary-filter-name words
-                     vocabulary-filter-file-uri)
+                     vocabulary-filter-file-uri data-access-role-arn)
    (common-lisp:declare
     (common-lisp:ignorable vocabulary-filter-name words
-     vocabulary-filter-file-uri))
+     vocabulary-filter-file-uri data-access-role-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-vocabulary-filter-request
                                          aws-sdk/generator/operation::args)))

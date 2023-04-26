@@ -496,6 +496,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (authorization common-lisp:nil :type
     (common-lisp:or authorization common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (domain-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -526,6 +528,13 @@
                            aws-sdk/generator/shape::input 'authorization))
       (common-lisp:list
        (common-lisp:cons "Authorization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -819,6 +828,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (hls-package common-lisp:nil :type
@@ -854,6 +865,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -967,6 +985,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (authorization common-lisp:nil :type
     (common-lisp:or authorization common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (domain-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -998,6 +1018,13 @@
                            aws-sdk/generator/shape::input 'authorization))
       (common-lisp:list
        (common-lisp:cons "Authorization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1488,6 +1515,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (hls-package common-lisp:nil :type
@@ -1523,6 +1552,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1605,6 +1641,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (authorization common-lisp:nil :type
     (common-lisp:or authorization common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (domain-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -1644,6 +1682,13 @@
                            aws-sdk/generator/shape::input 'authorization))
       (common-lisp:list
        (common-lisp:cons "Authorization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2330,6 +2375,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (hls-package common-lisp:nil :type
@@ -2364,6 +2411,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2547,6 +2601,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (authorization common-lisp:nil :type
     (common-lisp:or authorization common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (domain-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -2580,6 +2636,13 @@
                            aws-sdk/generator/shape::input 'authorization))
       (common-lisp:list
        (common-lisp:cons "Authorization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2983,6 +3046,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (authorization common-lisp:nil :type
     (common-lisp:or authorization common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (domain-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -3022,6 +3087,13 @@
                            aws-sdk/generator/shape::input 'authorization))
       (common-lisp:list
        (common-lisp:cons "Authorization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value

@@ -556,6 +556,7 @@
                           batch-get-schema-output))
    common-lisp:nil))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:deftype cleanrooms-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (collaboration (:copier common-lisp:nil)
@@ -1476,7 +1477,8 @@
    (data-encryption-metadata common-lisp:nil :type
     (common-lisp:or data-encryption-metadata common-lisp:null))
    (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or collaboration-query-log-status common-lisp:null)))
+    (common-lisp:or collaboration-query-log-status common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-collaboration-input
                     'make-create-collaboration-input))
@@ -1540,6 +1542,13 @@
                            aws-sdk/generator/shape::input 'query-log-status))
       (common-lisp:list
        (common-lisp:cons "queryLogStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1671,7 +1680,8 @@
     (common-lisp:error ":configuredtableidentifier is required") :type
     (common-lisp:or configured-table-identifier common-lisp:null))
    (role-arn (common-lisp:error ":rolearn is required") :type
-    (common-lisp:or role-arn common-lisp:null)))
+    (common-lisp:or role-arn common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-association-input
                     'make-create-configured-table-association-input))
@@ -1712,6 +1722,13 @@
                            aws-sdk/generator/shape::input 'role-arn))
       (common-lisp:list
        (common-lisp:cons "roleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1765,7 +1782,8 @@
    (allowed-columns (common-lisp:error ":allowedcolumns is required") :type
     (common-lisp:or allowed-column-list common-lisp:null))
    (analysis-method (common-lisp:error ":analysismethod is required") :type
-    (common-lisp:or analysis-method common-lisp:null)))
+    (common-lisp:or analysis-method common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-input
                     'make-create-configured-table-input))
@@ -1813,6 +1831,13 @@
       (common-lisp:list
        (common-lisp:cons "analysisMethod"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1858,7 +1883,8 @@
     (common-lisp:error ":collaborationidentifier is required") :type
     (common-lisp:or collaboration-identifier common-lisp:null))
    (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or membership-query-log-status common-lisp:null)))
+    (common-lisp:or membership-query-log-status common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-membership-input 'make-create-membership-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1884,6 +1910,13 @@
                            aws-sdk/generator/shape::input 'query-log-status))
       (common-lisp:list
        (common-lisp:cons "queryLogStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3204,6 +3237,61 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input list-schemas-output))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or cleanrooms-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-input
+                    'make-list-tags-for-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-output-"))
+   (tags (common-lisp:error ":tags is required") :type
+    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-output
+                    'make-list-tags-for-resource-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-output))
+   common-lisp:nil))
 (common-lisp:deftype long () 'common-lisp:integer)
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
@@ -4501,6 +4589,63 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input table-reference))
    common-lisp:nil))
+(common-lisp:deftype tag-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype tag-keys () '(trivial-types:proper-list tag-key))
+ (common-lisp:defun |make-tag-keys|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tag-key))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype tag-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-tag-map| (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tag-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or cleanrooms-arn common-lisp:null))
+   (tags (common-lisp:error ":tags is required") :type
+    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-input 'make-tag-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tag-resource-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag-resource-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tag-resource-output-")))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-output 'make-tag-resource-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tag-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tag-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tag-resource-output))
+   common-lisp:nil))
+(common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype target-protected-query-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
@@ -4511,6 +4656,46 @@
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype uuid () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (untag-resource-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-untag-resource-input-"))
+   (resource-arn (common-lisp:error ":resourcearn is required") :type
+    (common-lisp:or cleanrooms-arn common-lisp:null))
+   (tag-keys (common-lisp:error ":tagkeys is required") :type
+    (common-lisp:or tag-keys common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-input 'make-untag-resource-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input untag-resource-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (untag-resource-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-untag-resource-output-")))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-output 'make-untag-resource-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-output))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-collaboration-input (:copier common-lisp:nil)
@@ -5036,10 +5221,10 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key members name description
                      creator-member-abilities creator-display-name
-                     data-encryption-metadata query-log-status)
+                     data-encryption-metadata query-log-status tags)
    (common-lisp:declare
     (common-lisp:ignorable members name description creator-member-abilities
-     creator-display-name data-encryption-metadata query-log-status))
+     creator-display-name data-encryption-metadata query-log-status tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-collaboration-input
                                          aws-sdk/generator/operation::args)))
@@ -5058,10 +5243,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key name description table-reference
-                     allowed-columns analysis-method)
+                     allowed-columns analysis-method tags)
    (common-lisp:declare
     (common-lisp:ignorable name description table-reference allowed-columns
-     analysis-method))
+     analysis-method tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-configured-table-input
                                          aws-sdk/generator/operation::args)))
@@ -5112,10 +5297,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key name description membership-identifier
-                     configured-table-identifier role-arn)
+                     configured-table-identifier role-arn tags)
    (common-lisp:declare
     (common-lisp:ignorable name description membership-identifier
-     configured-table-identifier role-arn))
+     configured-table-identifier role-arn tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-create-configured-table-association-input
@@ -5143,10 +5328,10 @@
  (common-lisp:defun create-membership
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key collaboration-identifier
-                     query-log-status)
+                     common-lisp:&key collaboration-identifier query-log-status
+                     tags)
    (common-lisp:declare
-    (common-lisp:ignorable collaboration-identifier query-log-status))
+    (common-lisp:ignorable collaboration-identifier query-log-status tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-membership-input
                                          aws-sdk/generator/operation::args)))
@@ -5785,6 +5970,34 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-schemas))
 (common-lisp:progn
+ (common-lisp:defun list-tags-for-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-tags-for-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cleanrooms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/tags/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'resource-arn))))
+                                                        "ListTagsForResource"
+                                                        "2022-02-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
  (common-lisp:defun start-protected-query
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5815,6 +6028,62 @@
                                                         "2022-02-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-protected-query))
+(common-lisp:progn
+ (common-lisp:defun tag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tags)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-tag-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cleanrooms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/tags/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'resource-arn))))
+                                                        "TagResource"
+                                                        "2022-02-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'tag-resource))
+(common-lisp:progn
+ (common-lisp:defun untag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tag-keys)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tag-keys))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-untag-resource-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'cleanrooms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/tags/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'resource-arn))))
+                                                        "UntagResource"
+                                                        "2022-02-17"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'untag-resource))
 (common-lisp:progn
  (common-lisp:defun update-collaboration
                     (

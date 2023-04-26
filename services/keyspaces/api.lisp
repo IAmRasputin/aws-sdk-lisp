@@ -146,6 +146,37 @@
 (common-lisp:deftype capacity-units () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
+     (client-side-timestamps (:copier common-lisp:nil)
+      (:conc-name "struct-shape-client-side-timestamps-"))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or client-side-timestamps-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'client-side-timestamps 'make-client-side-timestamps))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          client-side-timestamps))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          client-side-timestamps))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          client-side-timestamps))
+   common-lisp:nil))
+(common-lisp:deftype client-side-timestamps-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
      (clustering-key (:copier common-lisp:nil)
       (:conc-name "struct-shape-clustering-key-"))
    (name (common-lisp:error ":name is required") :type
@@ -342,7 +373,9 @@
    (ttl common-lisp:nil :type (common-lisp:or time-to-live common-lisp:null))
    (default-time-to-live common-lisp:nil :type
     (common-lisp:or default-time-to-live common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (client-side-timestamps common-lisp:nil :type
+    (common-lisp:or client-side-timestamps common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-table-request 'make-create-table-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -423,6 +456,14 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-side-timestamps))
+      (common-lisp:list
+       (common-lisp:cons "clientSideTimestamps"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -726,7 +767,9 @@
    (ttl common-lisp:nil :type (common-lisp:or time-to-live common-lisp:null))
    (default-time-to-live common-lisp:nil :type
     (common-lisp:or default-time-to-live common-lisp:null))
-   (comment common-lisp:nil :type (common-lisp:or comment common-lisp:null)))
+   (comment common-lisp:nil :type (common-lisp:or comment common-lisp:null))
+   (client-side-timestamps common-lisp:nil :type
+    (common-lisp:or client-side-timestamps common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-table-response 'make-get-table-response))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -821,6 +864,14 @@
                            aws-sdk/generator/shape::input 'comment))
       (common-lisp:list
        (common-lisp:cons "comment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-side-timestamps))
+      (common-lisp:list
+       (common-lisp:cons "clientSideTimestamps"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1711,7 +1762,9 @@
     (common-lisp:or point-in-time-recovery common-lisp:null))
    (ttl common-lisp:nil :type (common-lisp:or time-to-live common-lisp:null))
    (default-time-to-live common-lisp:nil :type
-    (common-lisp:or default-time-to-live common-lisp:null)))
+    (common-lisp:or default-time-to-live common-lisp:null))
+   (client-side-timestamps common-lisp:nil :type
+    (common-lisp:or client-side-timestamps common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-table-request 'make-update-table-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1778,6 +1831,14 @@
                            'default-time-to-live))
       (common-lisp:list
        (common-lisp:cons "defaultTimeToLive"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-side-timestamps))
+      (common-lisp:list
+       (common-lisp:cons "clientSideTimestamps"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1846,11 +1907,11 @@
                      common-lisp:&key keyspace-name table-name
                      schema-definition comment capacity-specification
                      encryption-specification point-in-time-recovery ttl
-                     default-time-to-live tags)
+                     default-time-to-live tags client-side-timestamps)
    (common-lisp:declare
     (common-lisp:ignorable keyspace-name table-name schema-definition comment
      capacity-specification encryption-specification point-in-time-recovery ttl
-     default-time-to-live tags))
+     default-time-to-live tags client-side-timestamps))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-table-request
                                          aws-sdk/generator/operation::args)))
@@ -2057,11 +2118,12 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key keyspace-name table-name add-columns
                      capacity-specification encryption-specification
-                     point-in-time-recovery ttl default-time-to-live)
+                     point-in-time-recovery ttl default-time-to-live
+                     client-side-timestamps)
    (common-lisp:declare
     (common-lisp:ignorable keyspace-name table-name add-columns
      capacity-specification encryption-specification point-in-time-recovery ttl
-     default-time-to-live))
+     default-time-to-live client-side-timestamps))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-table-request
                                          aws-sdk/generator/operation::args)))

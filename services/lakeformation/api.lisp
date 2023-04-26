@@ -965,7 +965,9 @@
    (column-names common-lisp:nil :type
     (common-lisp:or column-names common-lisp:null))
    (column-wildcard common-lisp:nil :type
-    (common-lisp:or column-wildcard common-lisp:null)))
+    (common-lisp:or column-wildcard common-lisp:null))
+   (version-id common-lisp:nil :type
+    (common-lisp:or version-string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'data-cells-filter 'make-data-cells-filter))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1021,6 +1023,13 @@
                            aws-sdk/generator/shape::input 'column-wildcard))
       (common-lisp:list
        (common-lisp:cons "ColumnWildcard"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'version-id))
+      (common-lisp:list
+       (common-lisp:cons "VersionId"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1970,6 +1979,95 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list filter-condition))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-data-cells-filter-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-data-cells-filter-request-"))
+   (table-catalog-id (common-lisp:error ":table-catalog-id is required") :type
+    (common-lisp:or catalog-id-string common-lisp:null))
+   (database-name (common-lisp:error ":database-name is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (table-name (common-lisp:error ":table-name is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or name-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-data-cells-filter-request
+                    'make-get-data-cells-filter-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'table-catalog-id))
+      (common-lisp:list
+       (common-lisp:cons "TableCatalogId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-name))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'table-name))
+      (common-lisp:list
+       (common-lisp:cons "TableName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-data-cells-filter-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-data-cells-filter-response-"))
+   (data-cells-filter common-lisp:nil :type
+    (common-lisp:or data-cells-filter common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-data-cells-filter-response
+                    'make-get-data-cells-filter-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-cells-filter))
+      (common-lisp:list
+       (common-lisp:cons "DataCellsFilter"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-data-cells-filter-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-data-lake-settings-request (:copier common-lisp:nil)
@@ -4417,7 +4515,9 @@
    (use-service-linked-role common-lisp:nil :type
     (common-lisp:or nullable-boolean common-lisp:null))
    (role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null)))
+    (common-lisp:or iamrole-arn common-lisp:null))
+   (with-federation common-lisp:nil :type
+    (common-lisp:or nullable-boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'register-resource-request
                     'make-register-resource-request))
@@ -4451,6 +4551,13 @@
                            aws-sdk/generator/shape::input 'role-arn))
       (common-lisp:list
        (common-lisp:cons "RoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'with-federation))
+      (common-lisp:list
+       (common-lisp:cons "WithFederation"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4655,7 +4762,9 @@
    (role-arn common-lisp:nil :type
     (common-lisp:or iamrole-arn common-lisp:null))
    (last-modified common-lisp:nil :type
-    (common-lisp:or last-modified-timestamp common-lisp:null)))
+    (common-lisp:or last-modified-timestamp common-lisp:null))
+   (with-federation common-lisp:nil :type
+    (common-lisp:or nullable-boolean common-lisp:null)))
  (common-lisp:export (common-lisp:list 'resource-info 'make-resource-info))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-info))
@@ -4682,6 +4791,13 @@
                            aws-sdk/generator/shape::input 'last-modified))
       (common-lisp:list
        (common-lisp:cons "LastModified"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'with-federation))
+      (common-lisp:list
+       (common-lisp:cons "WithFederation"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5679,6 +5795,59 @@
 (common-lisp:deftype uri () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-data-cells-filter-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-data-cells-filter-request-"))
+   (table-data (common-lisp:error ":table-data is required") :type
+    (common-lisp:or data-cells-filter common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-data-cells-filter-request
+                    'make-update-data-cells-filter-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'table-data))
+      (common-lisp:list
+       (common-lisp:cons "TableData"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-data-cells-filter-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-data-cells-filter-response-")))
+ (common-lisp:export
+  (common-lisp:list 'update-data-cells-filter-response
+                    'make-update-data-cells-filter-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-data-cells-filter-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-lftag-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-lftag-request-"))
    (catalog-id common-lisp:nil :type
@@ -5757,7 +5926,9 @@
    (role-arn (common-lisp:error ":role-arn is required") :type
     (common-lisp:or iamrole-arn common-lisp:null))
    (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn-string common-lisp:null)))
+    (common-lisp:or resource-arn-string common-lisp:null))
+   (with-federation common-lisp:nil :type
+    (common-lisp:or nullable-boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-resource-request 'make-update-resource-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5782,6 +5953,13 @@
                            aws-sdk/generator/shape::input 'resource-arn))
       (common-lisp:list
        (common-lisp:cons "ResourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'with-federation))
+      (common-lisp:list
+       (common-lisp:cons "WithFederation"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5998,6 +6176,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list value-string))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype version-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (virtual-object (:copier common-lisp:nil)
@@ -6429,6 +6608,27 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'extend-transaction))
 (common-lisp:progn
+ (common-lisp:defun get-data-cells-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key table-catalog-id database-name table-name
+                     name)
+   (common-lisp:declare
+    (common-lisp:ignorable table-catalog-id database-name table-name name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-data-cells-filter-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/GetDataCellsFilter"
+                                                        "GetDataCellsFilter"
+                                                        "2017-03-31"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-data-cells-filter))
+(common-lisp:progn
  (common-lisp:defun get-data-lake-settings
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6824,9 +7024,10 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key resource-arn use-service-linked-role
-                     role-arn)
+                     role-arn with-federation)
    (common-lisp:declare
-    (common-lisp:ignorable resource-arn use-service-linked-role role-arn))
+    (common-lisp:ignorable resource-arn use-service-linked-role role-arn
+     with-federation))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-register-resource-request
                                          aws-sdk/generator/operation::args)))
@@ -6965,6 +7166,25 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-transaction))
 (common-lisp:progn
+ (common-lisp:defun update-data-cells-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key table-data)
+   (common-lisp:declare (common-lisp:ignorable table-data))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-data-cells-filter-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/UpdateDataCellsFilter"
+                                                        "UpdateDataCellsFilter"
+                                                        "2017-03-31"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-data-cells-filter))
+(common-lisp:progn
  (common-lisp:defun update-lftag
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6989,8 +7209,9 @@
  (common-lisp:defun update-resource
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key role-arn resource-arn)
-   (common-lisp:declare (common-lisp:ignorable role-arn resource-arn))
+                     common-lisp:&key role-arn resource-arn with-federation)
+   (common-lisp:declare
+    (common-lisp:ignorable role-arn resource-arn with-federation))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-resource-request
                                          aws-sdk/generator/operation::args)))

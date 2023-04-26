@@ -3495,6 +3495,31 @@
    common-lisp:nil))
 (common-lisp:deftype job-error-limit-name () 'common-lisp:string)
 (common-lisp:deftype job-error-resource-types () 'common-lisp:string)
+(common-lisp:deftype kms-key-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (kms-key-to-grant (:copier common-lisp:nil)
+      (:conc-name "struct-shape-kms-key-to-grant-"))
+   (kms-key-arn (common-lisp:error ":kms-key-arn is required") :type
+    (common-lisp:or kms-key-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'kms-key-to-grant 'make-kms-key-to-grant))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input kms-key-to-grant))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input kms-key-to-grant))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-key-arn))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeyArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input kms-key-to-grant))
+   common-lisp:nil))
 (common-lisp:deftype lfpermission () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4020,6 +4045,14 @@
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list job-error))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype list-of-kms-keys-to-grant ()
+   '(trivial-types:proper-list kms-key-to-grant))
+ (common-lisp:defun |make-list-of-kms-keys-to-grant|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list kms-key-to-grant))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype list-of-lfpermissions ()
@@ -4894,7 +4927,9 @@
    (s3access-point-alias common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (s3access-point-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null))
+   (kms-keys-to-grant common-lisp:nil :type
+    (common-lisp:or list-of-kms-keys-to-grant common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 's3data-access-asset 'make-s3data-access-asset))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -4938,6 +4973,13 @@
       (common-lisp:list
        (common-lisp:cons "S3AccessPointArn"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-keys-to-grant))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeysToGrant"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input s3data-access-asset))
@@ -4951,7 +4993,9 @@
    (key-prefixes common-lisp:nil :type
     (common-lisp:or list-of-string common-lisp:null))
    (keys common-lisp:nil :type
-    (common-lisp:or list-of-string common-lisp:null)))
+    (common-lisp:or list-of-string common-lisp:null))
+   (kms-keys-to-grant common-lisp:nil :type
+    (common-lisp:or list-of-kms-keys-to-grant common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 's3data-access-asset-source-entry
                     'make-s3data-access-asset-source-entry))
@@ -4984,6 +5028,13 @@
                            aws-sdk/generator/shape::input 'keys))
       (common-lisp:list
        (common-lisp:cons "Keys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-keys-to-grant))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeysToGrant"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

@@ -6992,7 +6992,7 @@
  (common-lisp:defstruct
      (engine-transcribe-settings (:copier common-lisp:nil)
       (:conc-name "struct-shape-engine-transcribe-settings-"))
-   (language-code (common-lisp:error ":language-code is required") :type
+   (language-code common-lisp:nil :type
     (common-lisp:or transcribe-language-code common-lisp:null))
    (vocabulary-filter-method common-lisp:nil :type
     (common-lisp:or transcribe-vocabulary-filter-method common-lisp:null))
@@ -7013,7 +7013,19 @@
    (pii-entity-types common-lisp:nil :type
     (common-lisp:or transcribe-pii-entity-types common-lisp:null))
    (language-model-name common-lisp:nil :type
-    (common-lisp:or transcribe-language-model-name common-lisp:null)))
+    (common-lisp:or transcribe-language-model-name common-lisp:null))
+   (identify-language common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (language-options common-lisp:nil :type
+    (common-lisp:or transcribe-language-options common-lisp:null))
+   (preferred-language common-lisp:nil :type
+    (common-lisp:or transcribe-language-code common-lisp:null))
+   (vocabulary-names common-lisp:nil :type
+    (common-lisp:or transcribe-vocabulary-names-or-filter-names-string
+                    common-lisp:null))
+   (vocabulary-filter-names common-lisp:nil :type
+    (common-lisp:or transcribe-vocabulary-names-or-filter-names-string
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'engine-transcribe-settings
                     'make-engine-transcribe-settings))
@@ -7108,6 +7120,42 @@
                            aws-sdk/generator/shape::input 'language-model-name))
       (common-lisp:list
        (common-lisp:cons "LanguageModelName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'identify-language))
+      (common-lisp:list
+       (common-lisp:cons "IdentifyLanguage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-options))
+      (common-lisp:list
+       (common-lisp:cons "LanguageOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'preferred-language))
+      (common-lisp:list
+       (common-lisp:cons "PreferredLanguage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vocabulary-names))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyNames"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vocabulary-filter-names))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyFilterNames"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -15132,6 +15180,7 @@
 (common-lisp:deftype transcribe-content-redaction-type () 'common-lisp:string)
 (common-lisp:deftype transcribe-language-code () 'common-lisp:string)
 (common-lisp:deftype transcribe-language-model-name () 'common-lisp:string)
+(common-lisp:deftype transcribe-language-options () 'common-lisp:string)
 (common-lisp:deftype transcribe-medical-content-identification-type ()
   'common-lisp:string)
 (common-lisp:deftype transcribe-medical-language-code () 'common-lisp:string)
@@ -15143,6 +15192,8 @@
 (common-lisp:deftype transcribe-pii-entity-types () 'common-lisp:string)
 (common-lisp:deftype transcribe-region () 'common-lisp:string)
 (common-lisp:deftype transcribe-vocabulary-filter-method () 'common-lisp:string)
+(common-lisp:deftype transcribe-vocabulary-names-or-filter-names-string ()
+  'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (transcription-configuration (:copier common-lisp:nil)

@@ -25,12 +25,18 @@
     ("InvalidMaxResultsException" . invalid-max-results-exception)
     ("InvalidNextTokenException" . invalid-next-token-exception)
     ("InvalidParameterException" . invalid-parameter-exception)
+    ("InvalidPolicyException" . invalid-policy-exception)
     ("InvalidResourceTypeException" . invalid-resource-type-exception)
     ("InvalidStateTransitionException" . invalid-state-transition-exception)
     ("MalformedArnException" . malformed-arn-exception)
+    ("MalformedPolicyTemplateException" . malformed-policy-template-exception)
     ("MissingRequiredParameterException"
      . missing-required-parameter-exception)
     ("OperationNotPermittedException" . operation-not-permitted-exception)
+    ("PermissionAlreadyExistsException" . permission-already-exists-exception)
+    ("PermissionLimitExceededException" . permission-limit-exceeded-exception)
+    ("PermissionVersionsLimitExceededException"
+     . permission-versions-limit-exceeded-exception)
     ("ResourceArnNotFoundException" . resource-arn-not-found-exception)
     ("ResourceShareInvitationAlreadyAcceptedException"
      . resource-share-invitation-already-accepted-exception)
@@ -47,7 +53,9 @@
     ("TagLimitExceededException" . tag-limit-exceeded-exception)
     ("TagPolicyViolationException" . tag-policy-violation-exception)
     ("ThrottlingException" . throttling-exception)
-    ("UnknownResourceException" . unknown-resource-exception)))
+    ("UnknownResourceException" . unknown-resource-exception)
+    ("UnmatchedPolicyPermissionException"
+     . unmatched-policy-permission-exception)))
 (common-lisp:progn
  (common-lisp:defstruct
      (accept-resource-share-invitation-request (:copier common-lisp:nil)
@@ -337,7 +345,301 @@
                          (aws-sdk/generator/shape::input
                           associate-resource-share-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associated-permission (:copier common-lisp:nil)
+      (:conc-name "struct-shape-associated-permission-"))
+   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (permission-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (default-version common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (resource-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (feature-set common-lisp:nil :type
+    (common-lisp:or permission-feature-set common-lisp:null))
+   (last-updated-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (resource-share-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associated-permission 'make-associated-permission))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associated-permission))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associated-permission))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-version))
+      (common-lisp:list
+       (common-lisp:cons "permissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-version))
+      (common-lisp:list
+       (common-lisp:cons "defaultVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-type))
+      (common-lisp:list
+       (common-lisp:cons "resourceType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-set))
+      (common-lisp:list
+       (common-lisp:cons "featureSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-time))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associated-permission))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype associated-permission-list ()
+   '(trivial-types:proper-list associated-permission))
+ (common-lisp:defun |make-associated-permission-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list associated-permission))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-permission-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-permission-request-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or permission-name common-lisp:null))
+   (resource-type (common-lisp:error ":resourcetype is required") :type
+    (common-lisp:or string common-lisp:null))
+   (policy-template (common-lisp:error ":policytemplate is required") :type
+    (common-lisp:or policy common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-permission-request
+                    'make-create-permission-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-type))
+      (common-lisp:list
+       (common-lisp:cons "resourceType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-template))
+      (common-lisp:list
+       (common-lisp:cons "policyTemplate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-permission-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-permission-response-"))
+   (permission common-lisp:nil :type
+    (common-lisp:or resource-share-permission-summary common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-permission-response
+                    'make-create-permission-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission))
+      (common-lisp:list
+       (common-lisp:cons "permission"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-permission-version-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-permission-version-request-"))
+   (permission-arn (common-lisp:error ":permissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (policy-template (common-lisp:error ":policytemplate is required") :type
+    (common-lisp:or policy common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-permission-version-request
+                    'make-create-permission-version-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "permissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-template))
+      (common-lisp:list
+       (common-lisp:cons "policyTemplate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-permission-version-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-permission-version-response-"))
+   (permission common-lisp:nil :type
+    (common-lisp:or resource-share-permission-detail common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-permission-version-response
+                    'make-create-permission-version-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission))
+      (common-lisp:list
+       (common-lisp:cons "permission"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-permission-version-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-resource-share-request (:copier common-lisp:nil)
@@ -464,6 +766,158 @@
                           create-resource-share-response))
    common-lisp:nil))
 (common-lisp:deftype date-time () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-permission-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-permission-request-"))
+   (permission-arn (common-lisp:error ":permissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-permission-request
+                    'make-delete-permission-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-permission-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-permission-response-"))
+   (return-value common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (permission-status common-lisp:nil :type
+    (common-lisp:or permission-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-permission-response
+                    'make-delete-permission-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-value))
+      (common-lisp:list
+       (common-lisp:cons "returnValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-status))
+      (common-lisp:list
+       (common-lisp:cons "permissionStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-permission-version-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-permission-version-request-"))
+   (permission-arn (common-lisp:error ":permissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (permission-version (common-lisp:error ":permissionversion is required")
+    :type (common-lisp:or integer common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-permission-version-request
+                    'make-delete-permission-version-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-permission-version-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-permission-version-response-"))
+   (return-value common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (permission-status common-lisp:nil :type
+    (common-lisp:or permission-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-permission-version-response
+                    'make-delete-permission-version-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-value))
+      (common-lisp:list
+       (common-lisp:cons "returnValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-status))
+      (common-lisp:list
+       (common-lisp:cons "permissionStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-permission-version-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-resource-share-request (:copier common-lisp:nil)
@@ -1177,7 +1631,9 @@
    (max-results common-lisp:nil :type
     (common-lisp:or max-results common-lisp:null))
    (permission-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (permission-version common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-resource-shares-request
                     'make-get-resource-shares-request))
@@ -1246,6 +1702,13 @@
                            aws-sdk/generator/shape::input 'permission-arn))
       (common-lisp:list
        (common-lisp:cons "permissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-version))
+      (common-lisp:list
+       (common-lisp:cons "permissionVersion"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1333,6 +1796,14 @@
  (common-lisp:export
   (common-lisp:list 'invalid-parameter-exception
                     'invalid-parameter-exception-message)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-policy-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       invalid-policy-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-policy-exception
+                    'invalid-policy-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-resource-type-exception
      (ram-error)
@@ -1450,6 +1921,138 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-permission-associations-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-permission-associations-request-"))
+   (permission-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (permission-version common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (association-status common-lisp:nil :type
+    (common-lisp:or resource-share-association-status common-lisp:null))
+   (resource-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (feature-set common-lisp:nil :type
+    (common-lisp:or permission-feature-set common-lisp:null))
+   (default-version common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-permission-associations-request
+                    'make-list-permission-associations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "permissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-version))
+      (common-lisp:list
+       (common-lisp:cons "permissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'association-status))
+      (common-lisp:list
+       (common-lisp:cons "associationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-type))
+      (common-lisp:list
+       (common-lisp:cons "resourceType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-set))
+      (common-lisp:list
+       (common-lisp:cons "featureSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-version))
+      (common-lisp:list
+       (common-lisp:cons "defaultVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-permission-associations-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-permission-associations-response-"))
+   (permissions common-lisp:nil :type
+    (common-lisp:or associated-permission-list common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-permission-associations-response
+                    'make-list-permission-associations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permissions))
+      (common-lisp:list
+       (common-lisp:cons "permissions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-permission-associations-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-permission-versions-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-permission-versions-request-"))
    (permission-arn (common-lisp:error ":permissionarn is required") :type
@@ -1543,7 +2146,9 @@
     (common-lisp:or string common-lisp:null))
    (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+    (common-lisp:or max-results common-lisp:null))
+   (permission-type common-lisp:nil :type
+    (common-lisp:or permission-type-filter common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-permissions-request 'make-list-permissions-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1575,6 +2180,13 @@
                            aws-sdk/generator/shape::input 'max-results))
       (common-lisp:list
        (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-type))
+      (common-lisp:list
+       (common-lisp:cons "permissionType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1741,6 +2353,110 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-principals-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-replace-permission-associations-work-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-replace-permission-associations-work-request-"))
+   (work-ids common-lisp:nil :type
+    (common-lisp:or replace-permission-associations-work-id-list
+                    common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or replace-permission-associations-work-status
+                    common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-replace-permission-associations-work-request
+                    'make-list-replace-permission-associations-work-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'work-ids))
+      (common-lisp:list
+       (common-lisp:cons "workIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "maxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-replace-permission-associations-work-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-replace-permission-associations-work-response-"))
+   (replace-permission-associations-works common-lisp:nil :type
+    (common-lisp:or replace-permission-associations-work-list
+                    common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-replace-permission-associations-work-response
+                    'make-list-replace-permission-associations-work-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'replace-permission-associations-works))
+      (common-lisp:list
+       (common-lisp:cons "replacePermissionAssociationsWorks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "nextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-replace-permission-associations-work-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2054,6 +2770,14 @@
        malformed-arn-exception-message)))
  (common-lisp:export
   (common-lisp:list 'malformed-arn-exception 'malformed-arn-exception-message)))
+(common-lisp:progn
+ (common-lisp:define-condition malformed-policy-template-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       malformed-policy-template-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'malformed-policy-template-exception
+                    'malformed-policy-template-exception-message)))
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition missing-required-parameter-exception
@@ -2072,6 +2796,14 @@
   (common-lisp:list 'operation-not-permitted-exception
                     'operation-not-permitted-exception-message)))
 (common-lisp:progn
+ (common-lisp:define-condition permission-already-exists-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       permission-already-exists-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'permission-already-exists-exception
+                    'permission-already-exists-exception-message)))
+(common-lisp:progn
  (common-lisp:deftype permission-arn-list ()
    '(trivial-types:proper-list string))
  (common-lisp:defun |make-permission-arn-list|
@@ -2079,6 +2811,27 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype permission-feature-set () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition permission-limit-exceeded-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       permission-limit-exceeded-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'permission-limit-exceeded-exception
+                    'permission-limit-exceeded-exception-message)))
+(common-lisp:deftype permission-name () 'common-lisp:string)
+(common-lisp:deftype permission-status () 'common-lisp:string)
+(common-lisp:deftype permission-type () 'common-lisp:string)
+(common-lisp:deftype permission-type-filter () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition permission-versions-limit-exceeded-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       permission-versions-limit-exceeded-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'permission-versions-limit-exceeded-exception
+                    'permission-versions-limit-exceeded-exception-message)))
 (common-lisp:deftype policy () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype policy-list () '(trivial-types:proper-list policy))
@@ -2159,6 +2912,97 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list principal))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (promote-permission-created-from-policy-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-promote-permission-created-from-policy-request-"))
+   (permission-arn (common-lisp:error ":permissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'promote-permission-created-from-policy-request
+                    'make-promote-permission-created-from-policy-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "permissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (promote-permission-created-from-policy-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-promote-permission-created-from-policy-response-"))
+   (permission common-lisp:nil :type
+    (common-lisp:or resource-share-permission-summary common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'promote-permission-created-from-policy-response
+                    'make-promote-permission-created-from-policy-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission))
+      (common-lisp:list
+       (common-lisp:cons "permission"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          promote-permission-created-from-policy-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (promote-resource-share-created-from-policy-request
@@ -2301,6 +3145,230 @@
                          (aws-sdk/generator/shape::input
                           reject-resource-share-invitation-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replace-permission-associations-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-replace-permission-associations-request-"))
+   (from-permission-arn (common-lisp:error ":frompermissionarn is required")
+    :type (common-lisp:or string common-lisp:null))
+   (from-permission-version common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (to-permission-arn (common-lisp:error ":topermissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'replace-permission-associations-request
+                    'make-replace-permission-associations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "fromPermissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'from-permission-version))
+      (common-lisp:list
+       (common-lisp:cons "fromPermissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'to-permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "toPermissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replace-permission-associations-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-replace-permission-associations-response-"))
+   (replace-permission-associations-work common-lisp:nil :type
+    (common-lisp:or replace-permission-associations-work common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'replace-permission-associations-response
+                    'make-replace-permission-associations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'replace-permission-associations-work))
+      (common-lisp:list
+       (common-lisp:cons "replacePermissionAssociationsWork"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replace-permission-associations-work (:copier common-lisp:nil)
+      (:conc-name "struct-shape-replace-permission-associations-work-"))
+   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (from-permission-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (from-permission-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (to-permission-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (to-permission-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or replace-permission-associations-work-status
+                    common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (creation-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (last-updated-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'replace-permission-associations-work
+                    'make-replace-permission-associations-work))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-work))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-work))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "fromPermissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'from-permission-version))
+      (common-lisp:list
+       (common-lisp:cons "fromPermissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'to-permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "toPermissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'to-permission-version))
+      (common-lisp:list
+       (common-lisp:cons "toPermissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "statusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-time))
+      (common-lisp:list
+       (common-lisp:cons "creationTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-updated-time))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          replace-permission-associations-work))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype replace-permission-associations-work-id-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-replace-permission-associations-work-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype replace-permission-associations-work-list ()
+   '(trivial-types:proper-list replace-permission-associations-work))
+ (common-lisp:defun |make-replace-permission-associations-work-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            replace-permission-associations-work))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype replace-permission-associations-work-status ()
+  'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (resource (:copier common-lisp:nil) (:conc-name "struct-shape-resource-"))
@@ -2833,7 +3901,14 @@
    (last-updated-time common-lisp:nil :type
     (common-lisp:or date-time common-lisp:null))
    (is-resource-type-default common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null))
+   (permission-type common-lisp:nil :type
+    (common-lisp:or permission-type common-lisp:null))
+   (feature-set common-lisp:nil :type
+    (common-lisp:or permission-feature-set common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or permission-status common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resource-share-permission-detail
                     'make-resource-share-permission-detail))
@@ -2910,6 +3985,34 @@
       (common-lisp:list
        (common-lisp:cons "isResourceTypeDefault"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-type))
+      (common-lisp:list
+       (common-lisp:cons "permissionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-set))
+      (common-lisp:list
+       (common-lisp:cons "featureSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -2942,7 +4045,12 @@
    (last-updated-time common-lisp:nil :type
     (common-lisp:or date-time common-lisp:null))
    (is-resource-type-default common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null))
+   (permission-type common-lisp:nil :type
+    (common-lisp:or permission-type common-lisp:null))
+   (feature-set common-lisp:nil :type
+    (common-lisp:or permission-feature-set common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resource-share-permission-summary
                     'make-resource-share-permission-summary))
@@ -3018,6 +4126,27 @@
                            'is-resource-type-default))
       (common-lisp:list
        (common-lisp:cons "isResourceTypeDefault"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-type))
+      (common-lisp:list
+       (common-lisp:cons "permissionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feature-set))
+      (common-lisp:list
+       (common-lisp:cons "featureSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3102,6 +4231,95 @@
  (common-lisp:export
   (common-lisp:list 'service-unavailable-exception
                     'service-unavailable-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (set-default-permission-version-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-set-default-permission-version-request-"))
+   (permission-arn (common-lisp:error ":permissionarn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (permission-version (common-lisp:error ":permissionversion is required")
+    :type (common-lisp:or integer common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'set-default-permission-version-request
+                    'make-set-default-permission-version-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-arn))
+      (common-lisp:list
+       (common-lisp:cons "permissionArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'permission-version))
+      (common-lisp:list
+       (common-lisp:cons "permissionVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (set-default-permission-version-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-set-default-permission-version-response-"))
+   (return-value common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'set-default-permission-version-response
+                    'make-set-default-permission-version-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-value))
+      (common-lisp:list
+       (common-lisp:cons "returnValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-default-permission-version-response))
+   common-lisp:nil))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3205,10 +4423,12 @@
  (common-lisp:defstruct
      (tag-resource-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-share-arn (common-lisp:error ":resourcesharearn is required")
-    :type (common-lisp:or string common-lisp:null))
+   (resource-share-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+    (common-lisp:or tag-list common-lisp:null))
+   (resource-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3229,6 +4449,13 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3279,13 +4506,23 @@
   (common-lisp:list 'unknown-resource-exception
                     'unknown-resource-exception-message)))
 (common-lisp:progn
+ (common-lisp:define-condition unmatched-policy-permission-exception
+     (ram-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       unmatched-policy-permission-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'unmatched-policy-permission-exception
+                    'unmatched-policy-permission-exception-message)))
+(common-lisp:progn
  (common-lisp:defstruct
      (untag-resource-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-share-arn (common-lisp:error ":resourcesharearn is required")
-    :type (common-lisp:or string common-lisp:null))
+   (resource-share-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+    (common-lisp:or tag-key-list common-lisp:null))
+   (resource-arn common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3310,6 +4547,13 @@
                            aws-sdk/generator/shape::input 'tag-keys))
       (common-lisp:list
        (common-lisp:cons "tagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3504,6 +4748,50 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-resource-share-permission))
 (common-lisp:progn
+ (common-lisp:defun create-permission
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key name resource-type policy-template
+                     client-token tags)
+   (common-lisp:declare
+    (common-lisp:ignorable name resource-type policy-template client-token
+     tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-permission-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/createpermission"
+                                                        "CreatePermission"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-permission))
+(common-lisp:progn
+ (common-lisp:defun create-permission-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn policy-template
+                     client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable permission-arn policy-template client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-permission-version-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/createpermissionversion"
+                                                        "CreatePermissionVersion"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-permission-version))
+(common-lisp:progn
  (common-lisp:defun create-resource-share
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3525,6 +4813,47 @@
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-resource-share))
+(common-lisp:progn
+ (common-lisp:defun delete-permission
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn client-token)
+   (common-lisp:declare (common-lisp:ignorable permission-arn client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-permission-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        "/deletepermission"
+                                                        "DeletePermission"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-permission))
+(common-lisp:progn
+ (common-lisp:defun delete-permission-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn permission-version
+                     client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable permission-arn permission-version client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-permission-version-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        "/deletepermissionversion"
+                                                        "DeletePermissionVersion"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-permission-version))
 (common-lisp:progn
  (common-lisp:defun delete-resource-share
                     (
@@ -3694,10 +5023,11 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key resource-share-arns resource-share-status
                      resource-owner name tag-filters next-token max-results
-                     permission-arn)
+                     permission-arn permission-version)
    (common-lisp:declare
     (common-lisp:ignorable resource-share-arns resource-share-status
-     resource-owner name tag-filters next-token max-results permission-arn))
+     resource-owner name tag-filters next-token max-results permission-arn
+     permission-version))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-get-resource-shares-request
                                          aws-sdk/generator/operation::args)))
@@ -3735,6 +5065,30 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pending-invitation-resources))
 (common-lisp:progn
+ (common-lisp:defun list-permission-associations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn permission-version
+                     association-status resource-type feature-set
+                     default-version next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable permission-arn permission-version association-status
+     resource-type feature-set default-version next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-permission-associations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/listpermissionassociations"
+                                                        "ListPermissionAssociations"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-permission-associations))
+(common-lisp:progn
  (common-lisp:defun list-permission-versions
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3758,9 +5112,11 @@
  (common-lisp:defun list-permissions
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key resource-type next-token max-results)
+                     common-lisp:&key resource-type next-token max-results
+                     permission-type)
    (common-lisp:declare
-    (common-lisp:ignorable resource-type next-token max-results))
+    (common-lisp:ignorable resource-type next-token max-results
+     permission-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-list-permissions-request
                                          aws-sdk/generator/operation::args)))
@@ -3796,6 +5152,27 @@
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-principals))
+(common-lisp:progn
+ (common-lisp:defun list-replace-permission-associations-work
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key work-ids status next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable work-ids status next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-replace-permission-associations-work-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/listreplacepermissionassociationswork"
+                                                        "ListReplacePermissionAssociationsWork"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-replace-permission-associations-work))
 (common-lisp:progn
  (common-lisp:defun list-resource-share-permissions
                     (
@@ -3862,6 +5239,27 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resources))
 (common-lisp:progn
+ (common-lisp:defun promote-permission-created-from-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn name client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable permission-arn name client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-promote-permission-created-from-policy-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/promotepermissioncreatedfrompolicy"
+                                                        "PromotePermissionCreatedFromPolicy"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'promote-permission-created-from-policy))
+(common-lisp:progn
  (common-lisp:defun promote-resource-share-created-from-policy
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3904,11 +5302,57 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'reject-resource-share-invitation))
 (common-lisp:progn
+ (common-lisp:defun replace-permission-associations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key from-permission-arn
+                     from-permission-version to-permission-arn client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable from-permission-arn from-permission-version
+     to-permission-arn client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-replace-permission-associations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/replacepermissionassociations"
+                                                        "ReplacePermissionAssociations"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'replace-permission-associations))
+(common-lisp:progn
+ (common-lisp:defun set-default-permission-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key permission-arn permission-version
+                     client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable permission-arn permission-version client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-set-default-permission-version-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ram-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/setdefaultpermissionversion"
+                                                        "SetDefaultPermissionVersion"
+                                                        "2018-01-04"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'set-default-permission-version))
+(common-lisp:progn
  (common-lisp:defun tag-resource
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key resource-share-arn tags)
-   (common-lisp:declare (common-lisp:ignorable resource-share-arn tags))
+                     common-lisp:&key resource-share-arn tags resource-arn)
+   (common-lisp:declare
+    (common-lisp:ignorable resource-share-arn tags resource-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-tag-resource-request
                                          aws-sdk/generator/operation::args)))
@@ -3925,8 +5369,9 @@
  (common-lisp:defun untag-resource
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key resource-share-arn tag-keys)
-   (common-lisp:declare (common-lisp:ignorable resource-share-arn tag-keys))
+                     common-lisp:&key resource-share-arn tag-keys resource-arn)
+   (common-lisp:declare
+    (common-lisp:ignorable resource-share-arn tag-keys resource-arn))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-untag-resource-request
                                          aws-sdk/generator/operation::args)))

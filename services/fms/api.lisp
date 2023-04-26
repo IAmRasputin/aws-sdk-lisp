@@ -34,7 +34,66 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list awsaccount-id))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype awsregion () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype awsregion-list () '(trivial-types:proper-list awsregion))
+ (common-lisp:defun |make-awsregion-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list awsregion))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype account-id-list ()
+   '(trivial-types:proper-list awsaccount-id))
+ (common-lisp:defun |make-account-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list awsaccount-id))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype account-role-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (account-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-account-scope-"))
+   (accounts common-lisp:nil :type
+    (common-lisp:or account-id-list common-lisp:null))
+   (all-accounts-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (exclude-specified-accounts common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'account-scope 'make-account-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input account-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input account-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'accounts))
+      (common-lisp:list
+       (common-lisp:cons "Accounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'all-accounts-enabled))
+      (common-lisp:list
+       (common-lisp:cons "AllAccountsEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'exclude-specified-accounts))
+      (common-lisp:list
+       (common-lisp:cons "ExcludeSpecifiedAccounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input account-scope))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (action-target (:copier common-lisp:nil)
@@ -66,6 +125,113 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input action-target))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (admin-account-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-admin-account-summary-"))
+   (admin-account common-lisp:nil :type
+    (common-lisp:or awsaccount-id common-lisp:null))
+   (default-admin common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or organization-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'admin-account-summary 'make-admin-account-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          admin-account-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          admin-account-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-account))
+      (common-lisp:list
+       (common-lisp:cons "AdminAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-admin))
+      (common-lisp:list
+       (common-lisp:cons "DefaultAdmin"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          admin-account-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype admin-account-summary-list ()
+   '(trivial-types:proper-list admin-account-summary))
+ (common-lisp:defun |make-admin-account-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list admin-account-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (admin-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-admin-scope-"))
+   (account-scope common-lisp:nil :type
+    (common-lisp:or account-scope common-lisp:null))
+   (organizational-unit-scope common-lisp:nil :type
+    (common-lisp:or organizational-unit-scope common-lisp:null))
+   (region-scope common-lisp:nil :type
+    (common-lisp:or region-scope common-lisp:null))
+   (policy-type-scope common-lisp:nil :type
+    (common-lisp:or policy-type-scope common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'admin-scope 'make-admin-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input admin-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input admin-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-scope))
+      (common-lisp:list
+       (common-lisp:cons "AccountScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'organizational-unit-scope))
+      (common-lisp:list
+       (common-lisp:cons "OrganizationalUnitScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'region-scope))
+      (common-lisp:list
+       (common-lisp:cons "RegionScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-type-scope))
+      (common-lisp:list
+       (common-lisp:cons "PolicyTypeScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input admin-scope))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -759,6 +925,7 @@
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype customer-policy-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-apps-list-request (:copier common-lisp:nil)
@@ -2068,6 +2235,75 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-admin-scope-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-admin-scope-request-"))
+   (admin-account (common-lisp:error ":admin-account is required") :type
+    (common-lisp:or awsaccount-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-admin-scope-request 'make-get-admin-scope-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-account))
+      (common-lisp:list
+       (common-lisp:cons "AdminAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-admin-scope-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-admin-scope-response-"))
+   (admin-scope common-lisp:nil :type
+    (common-lisp:or admin-scope common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or organization-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-admin-scope-response 'make-get-admin-scope-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-scope))
+      (common-lisp:list
+       (common-lisp:cons "AdminScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-admin-scope-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-apps-list-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-apps-list-request-"))
    (list-id (common-lisp:error ":list-id is required") :type
@@ -2851,6 +3087,168 @@
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-admin-accounts-for-organization-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-admin-accounts-for-organization-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or pagination-max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-admin-accounts-for-organization-request
+                    'make-list-admin-accounts-for-organization-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-admin-accounts-for-organization-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-admin-accounts-for-organization-response-"))
+   (admin-accounts common-lisp:nil :type
+    (common-lisp:or admin-account-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-admin-accounts-for-organization-response
+                    'make-list-admin-accounts-for-organization-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-accounts))
+      (common-lisp:list
+       (common-lisp:cons "AdminAccounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admin-accounts-for-organization-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-admins-managing-account-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-admins-managing-account-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or pagination-max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-admins-managing-account-request
+                    'make-list-admins-managing-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-admins-managing-account-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-admins-managing-account-response-"))
+   (admin-accounts common-lisp:nil :type
+    (common-lisp:or account-id-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-admins-managing-account-response
+                    'make-list-admins-managing-account-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-accounts))
+      (common-lisp:list
+       (common-lisp:cons "AdminAccounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-admins-managing-account-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-apps-lists-request (:copier common-lisp:nil)
@@ -4708,6 +5106,68 @@
                            (trivial-types:proper-list
                             remediation-action-with-order))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype organization-status () 'common-lisp:string)
+(common-lisp:deftype organizational-unit-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype organizational-unit-id-list ()
+   '(trivial-types:proper-list organizational-unit-id))
+ (common-lisp:defun |make-organizational-unit-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list organizational-unit-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organizational-unit-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-organizational-unit-scope-"))
+   (organizational-units common-lisp:nil :type
+    (common-lisp:or organizational-unit-id-list common-lisp:null))
+   (all-organizational-units-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (exclude-specified-organizational-units common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organizational-unit-scope
+                    'make-organizational-unit-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          organizational-unit-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          organizational-unit-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'organizational-units))
+      (common-lisp:list
+       (common-lisp:cons "OrganizationalUnits"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'all-organizational-units-enabled))
+      (common-lisp:list
+       (common-lisp:cons "AllOrganizationalUnitsEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'exclude-specified-organizational-units))
+      (common-lisp:list
+       (common-lisp:cons "ExcludeSpecifiedOrganizationalUnits"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          organizational-unit-scope))
+   common-lisp:nil))
 (common-lisp:deftype pagination-max-results () 'common-lisp:integer)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:progn
@@ -4783,7 +5243,9 @@
    (resource-set-ids common-lisp:nil :type
     (common-lisp:or resource-set-ids common-lisp:null))
    (policy-description common-lisp:nil :type
-    (common-lisp:or resource-description common-lisp:null)))
+    (common-lisp:or resource-description common-lisp:null))
+   (policy-status common-lisp:nil :type
+    (common-lisp:or customer-policy-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'policy 'make-policy))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input policy))
@@ -4890,6 +5352,13 @@
                            aws-sdk/generator/shape::input 'policy-description))
       (common-lisp:list
        (common-lisp:cons "PolicyDescription"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-status))
+      (common-lisp:list
+       (common-lisp:cons "PolicyStatus"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5126,7 +5595,9 @@
    (remediation-enabled common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
    (delete-unused-fmmanaged-resources common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null))
+   (policy-status common-lisp:nil :type
+    (common-lisp:or customer-policy-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'policy-summary 'make-policy-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input policy-summary))
@@ -5184,6 +5655,13 @@
       (common-lisp:list
        (common-lisp:cons "DeleteUnusedFMManagedResources"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-status))
+      (common-lisp:list
+       (common-lisp:cons "PolicyStatus"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input policy-summary))
@@ -5196,6 +5674,40 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list policy-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (policy-type-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-policy-type-scope-"))
+   (policy-types common-lisp:nil :type
+    (common-lisp:or security-service-type-list common-lisp:null))
+   (all-policy-types-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'policy-type-scope 'make-policy-type-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input policy-type-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input policy-type-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'policy-types))
+      (common-lisp:list
+       (common-lisp:cons "PolicyTypes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'all-policy-types-enabled))
+      (common-lisp:list
+       (common-lisp:cons "AllPolicyTypesEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input policy-type-scope))
+   common-lisp:nil))
 (common-lisp:deftype policy-update-token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -5468,6 +5980,46 @@
                            (trivial-types:proper-list
                             protocols-list-data-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-admin-account-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-admin-account-request-"))
+   (admin-account (common-lisp:error ":admin-account is required") :type
+    (common-lisp:or awsaccount-id common-lisp:null))
+   (admin-scope common-lisp:nil :type
+    (common-lisp:or admin-scope common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-admin-account-request
+                    'make-put-admin-account-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-admin-account-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-admin-account-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-account))
+      (common-lisp:list
+       (common-lisp:cons "AdminAccount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'admin-scope))
+      (common-lisp:list
+       (common-lisp:cons "AdminScope"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-admin-account-request))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (put-apps-list-request (:copier common-lisp:nil)
@@ -5809,6 +6361,38 @@
 (common-lisp:deftype reference-rule () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (region-scope (:copier common-lisp:nil)
+      (:conc-name "struct-shape-region-scope-"))
+   (regions common-lisp:nil :type
+    (common-lisp:or awsregion-list common-lisp:null))
+   (all-regions-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'region-scope 'make-region-scope))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input region-scope))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input region-scope))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'regions))
+      (common-lisp:list
+       (common-lisp:cons "Regions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'all-regions-enabled))
+      (common-lisp:list
+       (common-lisp:cons "AllRegionsEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input region-scope))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (remediation-action (:copier common-lisp:nil)
       (:conc-name "struct-shape-remediation-action-"))
    (description common-lisp:nil :type
@@ -6028,7 +6612,9 @@
    (resource-type-list (common-lisp:error ":resource-type-list is required")
     :type (common-lisp:or resource-type-list common-lisp:null))
    (last-update-time common-lisp:nil :type
-    (common-lisp:or time-stamp common-lisp:null)))
+    (common-lisp:or time-stamp common-lisp:null))
+   (resource-set-status common-lisp:nil :type
+    (common-lisp:or resource-set-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'resource-set 'make-resource-set))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-set))
@@ -6077,6 +6663,13 @@
       (common-lisp:list
        (common-lisp:cons "LastUpdateTime"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-set-status))
+      (common-lisp:list
+       (common-lisp:cons "ResourceSetStatus"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input resource-set))
@@ -6089,6 +6682,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list base62id))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype resource-set-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (resource-set-summary (:copier common-lisp:nil)
@@ -6098,7 +6692,9 @@
    (description common-lisp:nil :type
     (common-lisp:or description common-lisp:null))
    (last-update-time common-lisp:nil :type
-    (common-lisp:or time-stamp common-lisp:null)))
+    (common-lisp:or time-stamp common-lisp:null))
+   (resource-set-status common-lisp:nil :type
+    (common-lisp:or resource-set-status common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resource-set-summary 'make-resource-set-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -6133,6 +6729,13 @@
                            aws-sdk/generator/shape::input 'last-update-time))
       (common-lisp:list
        (common-lisp:cons "LastUpdateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-set-status))
+      (common-lisp:list
+       (common-lisp:cons "ResourceSetStatus"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6855,6 +7458,14 @@
                           security-service-policy-data))
    common-lisp:nil))
 (common-lisp:deftype security-service-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype security-service-type-list ()
+   '(trivial-types:proper-list security-service-type))
+ (common-lisp:defun |make-security-service-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list security-service-type))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (stateful-engine-options (:copier common-lisp:nil)
@@ -7717,6 +8328,24 @@
     common-lisp:nil common-lisp:nil *error-map*))
  (common-lisp:export 'get-admin-account))
 (common-lisp:progn
+ (common-lisp:defun get-admin-scope
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key admin-account)
+   (common-lisp:declare (common-lisp:ignorable admin-account))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-admin-scope-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'fms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetAdminScope"
+                                                        "2018-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-admin-scope))
+(common-lisp:progn
  (common-lisp:defun get-apps-list
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -7874,6 +8503,44 @@
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-violation-details))
+(common-lisp:progn
+ (common-lisp:defun list-admin-accounts-for-organization
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-admin-accounts-for-organization-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'fms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListAdminAccountsForOrganization"
+                                                        "2018-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-admin-accounts-for-organization))
+(common-lisp:progn
+ (common-lisp:defun list-admins-managing-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-admins-managing-account-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'fms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListAdminsManagingAccount"
+                                                        "2018-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-admins-managing-account))
 (common-lisp:progn
  (common-lisp:defun list-apps-lists
                     (
@@ -8066,6 +8733,24 @@
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-third-party-firewall-firewall-policies))
+(common-lisp:progn
+ (common-lisp:defun put-admin-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key admin-account admin-scope)
+   (common-lisp:declare (common-lisp:ignorable admin-account admin-scope))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-put-admin-account-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'fms-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "PutAdminAccount"
+                                                        "2018-01-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'put-admin-account))
 (common-lisp:progn
  (common-lisp:defun put-apps-list
                     (

@@ -186,7 +186,7 @@
      (batch-delete-image-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-batch-delete-image-request-"))
    (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
+    (common-lisp:or registry-id-or-alias common-lisp:null))
    (repository-name (common-lisp:error ":repositoryname is required") :type
     (common-lisp:or repository-name common-lisp:null))
    (image-ids (common-lisp:error ":imageids is required") :type

@@ -6456,7 +6456,9 @@
     (common-lisp:or timestamp common-lisp:null))
    (time-series-last-update-date
     (common-lisp:error ":timeserieslastupdatedate is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (time-series-arn (common-lisp:error ":timeseriesarn is required") :type
+    (common-lisp:or arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-time-series-response
                     'make-describe-time-series-response))
@@ -6526,6 +6528,13 @@
                            'time-series-last-update-date))
       (common-lisp:list
        (common-lisp:cons "timeSeriesLastUpdateDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-series-arn))
+      (common-lisp:list
+       (common-lisp:cons "timeSeriesArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10047,7 +10056,9 @@
     (common-lisp:or timestamp common-lisp:null))
    (time-series-last-update-date
     (common-lisp:error ":timeserieslastupdatedate is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (time-series-arn (common-lisp:error ":timeseriesarn is required") :type
+    (common-lisp:or arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'time-series-summary 'make-time-series-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -10112,6 +10123,13 @@
                            'time-series-last-update-date))
       (common-lisp:list
        (common-lisp:cons "timeSeriesLastUpdateDate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-series-arn))
+      (common-lisp:list
+       (common-lisp:cons "timeSeriesArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

@@ -1191,7 +1191,11 @@
    (network-configuration common-lisp:nil :type
     (common-lisp:or network-configuration common-lisp:null))
    (total-execution-duration-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null)))
+    (common-lisp:or integer common-lisp:null))
+   (execution-timeout-minutes common-lisp:nil :type
+    (common-lisp:or duration common-lisp:null))
+   (billed-resource-utilization common-lisp:nil :type
+    (common-lisp:or resource-utilization common-lisp:null)))
  (common-lisp:export (common-lisp:list 'job-run 'make-job-run))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input job-run))
@@ -1320,6 +1324,22 @@
                            'total-execution-duration-seconds))
       (common-lisp:list
        (common-lisp:cons "totalExecutionDurationSeconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'execution-timeout-minutes))
+      (common-lisp:list
+       (common-lisp:cons "executionTimeoutMinutes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'billed-resource-utilization))
+      (common-lisp:list
+       (common-lisp:cons "billedResourceUtilization"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1846,6 +1866,47 @@
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-utilization (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resource-utilization-"))
+   (v-cpuhour common-lisp:nil :type (common-lisp:or double common-lisp:null))
+   (memory-gbhour common-lisp:nil :type
+    (common-lisp:or double common-lisp:null))
+   (storage-gbhour common-lisp:nil :type
+    (common-lisp:or double common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-utilization 'make-resource-utilization))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input resource-utilization))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input resource-utilization))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'v-cpuhour))
+      (common-lisp:list
+       (common-lisp:cons "vCPUHour"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'memory-gbhour))
+      (common-lisp:list
+       (common-lisp:cons "memoryGBHour"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'storage-gbhour))
+      (common-lisp:list
+       (common-lisp:cons "storageGBHour"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input resource-utilization))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (s3monitoring-configuration (:copier common-lisp:nil)

@@ -3665,8 +3665,8 @@
    (auto-scaling-group-name
     (common-lisp:error ":auto-scaling-group-name is required") :type
     (common-lisp:or xml-string-max-len255 common-lisp:null))
-   (traffic-source-type (common-lisp:error ":traffic-source-type is required")
-    :type (common-lisp:or xml-string-max-len255 common-lisp:null))
+   (traffic-source-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null))
    (next-token common-lisp:nil :type
     (common-lisp:or xml-string common-lisp:null))
    (max-records common-lisp:nil :type
@@ -9859,7 +9859,9 @@
  (common-lisp:defstruct
      (traffic-source-identifier (:copier common-lisp:nil)
       (:conc-name "struct-shape-traffic-source-identifier-"))
-   (identifier common-lisp:nil :type
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or xml-string-max-len511 common-lisp:null))
+   (type common-lisp:nil :type
     (common-lisp:or xml-string-max-len511 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'traffic-source-identifier
@@ -9880,6 +9882,13 @@
       (common-lisp:list
        (common-lisp:cons "Identifier"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -9893,7 +9902,11 @@
    (traffic-source common-lisp:nil :type
     (common-lisp:or xml-string-max-len511 common-lisp:null))
    (state common-lisp:nil :type
-    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+    (common-lisp:or xml-string-max-len255 common-lisp:null))
+   (identifier common-lisp:nil :type
+    (common-lisp:or xml-string-max-len511 common-lisp:null))
+   (type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len511 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'traffic-source-state 'make-traffic-source-state))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -9914,6 +9927,20 @@
                            aws-sdk/generator/shape::input 'state))
       (common-lisp:list
        (common-lisp:cons "State"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'identifier))
+      (common-lisp:list
+       (common-lisp:cons "Identifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

@@ -12,6 +12,12 @@
       "limit_key": "MaxResults",
       "result_key": "DataSets"
     },
+    "ListEventActions": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "EventActions"
+    },
     "ListJobs": {
       "input_token": "NextToken",
       "output_token": "NextToken",
@@ -23,12 +29,6 @@
       "output_token": "NextToken",
       "limit_key": "MaxResults",
       "result_key": "Assets"
-    },
-    "ListEventActions": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "EventActions"
     }
   }
 }

@@ -7628,6 +7628,7 @@
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype schema-item-key-string () 'common-lisp:string)
 (common-lisp:deftype schema-value-type () 'common-lisp:string)
 (common-lisp:deftype separator () 'common-lisp:string)
 (common-lisp:progn
@@ -9653,7 +9654,9 @@
    (job-status (common-lisp:error ":jobstatus is required") :type
     (common-lisp:or job-status common-lisp:null))
    (source (common-lisp:error ":source is required") :type
-    (common-lisp:or s3uri common-lisp:null)))
+    (common-lisp:or s3uri common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or job-status-msg common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'variant-import-item-detail
                     'make-variant-import-item-detail))
@@ -9679,6 +9682,13 @@
                            aws-sdk/generator/shape::input 'source))
       (common-lisp:list
        (common-lisp:cons "source"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "statusMessage"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

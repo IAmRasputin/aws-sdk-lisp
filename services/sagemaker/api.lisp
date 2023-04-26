@@ -1507,7 +1507,9 @@
    (success-topic common-lisp:nil :type
     (common-lisp:or sns-topic-arn common-lisp:null))
    (error-topic common-lisp:nil :type
-    (common-lisp:or sns-topic-arn common-lisp:null)))
+    (common-lisp:or sns-topic-arn common-lisp:null))
+   (include-inference-response-in common-lisp:nil :type
+    (common-lisp:or async-notification-topic-type-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'async-inference-notification-config
                     'make-async-inference-notification-config))
@@ -1534,6 +1536,14 @@
       (common-lisp:list
        (common-lisp:cons "ErrorTopic"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'include-inference-response-in))
+      (common-lisp:list
+       (common-lisp:cons "IncludeInferenceResponseIn"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1546,10 +1556,12 @@
       (:conc-name "struct-shape-async-inference-output-config-"))
    (kms-key-id common-lisp:nil :type
     (common-lisp:or kms-key-id common-lisp:null))
-   (s3output-path (common-lisp:error ":s3output-path is required") :type
+   (s3output-path common-lisp:nil :type
     (common-lisp:or destination-s3uri common-lisp:null))
    (notification-config common-lisp:nil :type
-    (common-lisp:or async-inference-notification-config common-lisp:null)))
+    (common-lisp:or async-inference-notification-config common-lisp:null))
+   (s3failure-path common-lisp:nil :type
+    (common-lisp:or destination-s3uri common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'async-inference-output-config
                     'make-async-inference-output-config))
@@ -1583,12 +1595,29 @@
       (common-lisp:list
        (common-lisp:cons "NotificationConfig"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 's3failure-path))
+      (common-lisp:list
+       (common-lisp:cons "S3FailurePath"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
                          (aws-sdk/generator/shape::input
                           async-inference-output-config))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype async-notification-topic-type-list ()
+   '(trivial-types:proper-list async-notification-topic-types))
+ (common-lisp:defun |make-async-notification-topic-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            async-notification-topic-types))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype async-notification-topic-types () 'common-lisp:string)
 (common-lisp:deftype athena-catalog () 'common-lisp:string)
 (common-lisp:deftype athena-database () 'common-lisp:string)
 (common-lisp:progn
@@ -1771,7 +1800,9 @@
    (failure-reason common-lisp:nil :type
     (common-lisp:or auto-mlfailure-reason common-lisp:null))
    (candidate-properties common-lisp:nil :type
-    (common-lisp:or candidate-properties common-lisp:null)))
+    (common-lisp:or candidate-properties common-lisp:null))
+   (inference-container-definitions common-lisp:nil :type
+    (common-lisp:or auto-mlinference-container-definitions common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-mlcandidate 'make-auto-mlcandidate))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1858,6 +1889,14 @@
                            'candidate-properties))
       (common-lisp:list
        (common-lisp:cons "CandidateProperties"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'inference-container-definitions))
+      (common-lisp:list
+       (common-lisp:cons "InferenceContainerDefinitions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2136,6 +2175,15 @@
    common-lisp:nil))
 (common-lisp:deftype auto-mlfailure-reason () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype auto-mlinference-container-definitions ()
+   'common-lisp:hash-table)
+ (common-lisp:defun |make-auto-mlinference-container-definitions|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
  (common-lisp:deftype auto-mlinput-data-config ()
    '(trivial-types:proper-list auto-mlchannel))
  (common-lisp:defun |make-auto-mlinput-data-config|
@@ -2178,6 +2226,57 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input auto-mljob-artifacts))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (auto-mljob-channel (:copier common-lisp:nil)
+      (:conc-name "struct-shape-auto-mljob-channel-"))
+   (channel-type common-lisp:nil :type
+    (common-lisp:or auto-mlchannel-type common-lisp:null))
+   (content-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (compression-type common-lisp:nil :type
+    (common-lisp:or compression-type common-lisp:null))
+   (data-source common-lisp:nil :type
+    (common-lisp:or auto-mldata-source common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'auto-mljob-channel 'make-auto-mljob-channel))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input auto-mljob-channel))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input auto-mljob-channel))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'channel-type))
+      (common-lisp:list
+       (common-lisp:cons "ChannelType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'compression-type))
+      (common-lisp:list
+       (common-lisp:cons "CompressionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-source))
+      (common-lisp:list
+       (common-lisp:cons "DataSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input auto-mljob-channel))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2290,6 +2389,14 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input auto-mljob-config))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype auto-mljob-input-data-config ()
+   '(trivial-types:proper-list auto-mljob-channel))
+ (common-lisp:defun |make-auto-mljob-input-data-config|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list auto-mljob-channel))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype auto-mljob-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2540,6 +2647,49 @@
                            (trivial-types:proper-list
                             auto-mlpartial-failure-reason))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (auto-mlproblem-type-config (:copier common-lisp:nil)
+      (:conc-name "struct-shape-auto-mlproblem-type-config-"))
+   (image-classification-job-config common-lisp:nil :type
+    (common-lisp:or image-classification-job-config common-lisp:null))
+   (text-classification-job-config common-lisp:nil :type
+    (common-lisp:or text-classification-job-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'auto-mlproblem-type-config
+                    'make-auto-mlproblem-type-config))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          auto-mlproblem-type-config))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          auto-mlproblem-type-config))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'image-classification-job-config))
+      (common-lisp:list
+       (common-lisp:cons "ImageClassificationJobConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'text-classification-job-config))
+      (common-lisp:list
+       (common-lisp:cons "TextClassificationJobConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          auto-mlproblem-type-config))
+   common-lisp:nil))
+(common-lisp:deftype auto-mlprocessing-unit () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (auto-mls3data-source (:copier common-lisp:nil)
@@ -3354,7 +3504,9 @@
      (canvas-app-settings (:copier common-lisp:nil)
       (:conc-name "struct-shape-canvas-app-settings-"))
    (time-series-forecasting-settings common-lisp:nil :type
-    (common-lisp:or time-series-forecasting-settings common-lisp:null)))
+    (common-lisp:or time-series-forecasting-settings common-lisp:null))
+   (model-register-settings common-lisp:nil :type
+    (common-lisp:or model-register-settings common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'canvas-app-settings 'make-canvas-app-settings))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3369,6 +3521,14 @@
                            'time-series-forecasting-settings))
       (common-lisp:list
        (common-lisp:cons "TimeSeriesForecastingSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'model-register-settings))
+      (common-lisp:list
+       (common-lisp:cons "ModelRegisterSettings"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4860,6 +5020,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list content-classifier))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype content-column () 'common-lisp:string)
 (common-lisp:deftype content-digest () 'common-lisp:string)
 (common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:progn
@@ -5791,6 +5952,153 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-auto-mljob-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-auto-mljob-v2request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-auto-mljob-v2request-"))
+   (auto-mljob-name (common-lisp:error ":auto-mljob-name is required") :type
+    (common-lisp:or auto-mljob-name common-lisp:null))
+   (auto-mljob-input-data-config
+    (common-lisp:error ":auto-mljob-input-data-config is required") :type
+    (common-lisp:or auto-mljob-input-data-config common-lisp:null))
+   (output-data-config (common-lisp:error ":output-data-config is required")
+    :type (common-lisp:or auto-mloutput-data-config common-lisp:null))
+   (auto-mlproblem-type-config
+    (common-lisp:error ":auto-mlproblem-type-config is required") :type
+    (common-lisp:or auto-mlproblem-type-config common-lisp:null))
+   (role-arn (common-lisp:error ":role-arn is required") :type
+    (common-lisp:or role-arn common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (security-config common-lisp:nil :type
+    (common-lisp:or auto-mlsecurity-config common-lisp:null))
+   (auto-mljob-objective common-lisp:nil :type
+    (common-lisp:or auto-mljob-objective common-lisp:null))
+   (model-deploy-config common-lisp:nil :type
+    (common-lisp:or model-deploy-config common-lisp:null))
+   (data-split-config common-lisp:nil :type
+    (common-lisp:or auto-mldata-split-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-auto-mljob-v2request
+                    'make-create-auto-mljob-v2request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-name))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mljob-input-data-config))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobInputDataConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-data-config))
+      (common-lisp:list
+       (common-lisp:cons "OutputDataConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mlproblem-type-config))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLProblemTypeConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'role-arn))
+      (common-lisp:list
+       (common-lisp:cons "RoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'security-config))
+      (common-lisp:list
+       (common-lisp:cons "SecurityConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mljob-objective))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobObjective"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'model-deploy-config))
+      (common-lisp:list
+       (common-lisp:cons "ModelDeployConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-split-config))
+      (common-lisp:list
+       (common-lisp:cons "DataSplitConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-auto-mljob-v2response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-auto-mljob-v2response-"))
+   (auto-mljob-arn (common-lisp:error ":auto-mljob-arn is required") :type
+    (common-lisp:or auto-mljob-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-auto-mljob-v2response
+                    'make-create-auto-mljob-v2response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-arn))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-auto-mljob-v2response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -15487,6 +15795,236 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-auto-mljob-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-auto-mljob-v2request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-auto-mljob-v2request-"))
+   (auto-mljob-name (common-lisp:error ":auto-mljob-name is required") :type
+    (common-lisp:or auto-mljob-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-auto-mljob-v2request
+                    'make-describe-auto-mljob-v2request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-name))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-auto-mljob-v2response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-auto-mljob-v2response-"))
+   (auto-mljob-name (common-lisp:error ":auto-mljob-name is required") :type
+    (common-lisp:or auto-mljob-name common-lisp:null))
+   (auto-mljob-arn (common-lisp:error ":auto-mljob-arn is required") :type
+    (common-lisp:or auto-mljob-arn common-lisp:null))
+   (auto-mljob-input-data-config
+    (common-lisp:error ":auto-mljob-input-data-config is required") :type
+    (common-lisp:or auto-mljob-input-data-config common-lisp:null))
+   (output-data-config (common-lisp:error ":output-data-config is required")
+    :type (common-lisp:or auto-mloutput-data-config common-lisp:null))
+   (role-arn (common-lisp:error ":role-arn is required") :type
+    (common-lisp:or role-arn common-lisp:null))
+   (auto-mljob-objective common-lisp:nil :type
+    (common-lisp:or auto-mljob-objective common-lisp:null))
+   (auto-mlproblem-type-config common-lisp:nil :type
+    (common-lisp:or auto-mlproblem-type-config common-lisp:null))
+   (creation-time (common-lisp:error ":creation-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or timestamp common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null))
+   (failure-reason common-lisp:nil :type
+    (common-lisp:or auto-mlfailure-reason common-lisp:null))
+   (partial-failure-reasons common-lisp:nil :type
+    (common-lisp:or auto-mlpartial-failure-reasons common-lisp:null))
+   (best-candidate common-lisp:nil :type
+    (common-lisp:or auto-mlcandidate common-lisp:null))
+   (auto-mljob-status (common-lisp:error ":auto-mljob-status is required")
+    :type (common-lisp:or auto-mljob-status common-lisp:null))
+   (auto-mljob-secondary-status
+    (common-lisp:error ":auto-mljob-secondary-status is required") :type
+    (common-lisp:or auto-mljob-secondary-status common-lisp:null))
+   (model-deploy-config common-lisp:nil :type
+    (common-lisp:or model-deploy-config common-lisp:null))
+   (model-deploy-result common-lisp:nil :type
+    (common-lisp:or model-deploy-result common-lisp:null))
+   (data-split-config common-lisp:nil :type
+    (common-lisp:or auto-mldata-split-config common-lisp:null))
+   (security-config common-lisp:nil :type
+    (common-lisp:or auto-mlsecurity-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-auto-mljob-v2response
+                    'make-describe-auto-mljob-v2response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-name))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-arn))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mljob-input-data-config))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobInputDataConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-data-config))
+      (common-lisp:list
+       (common-lisp:cons "OutputDataConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'role-arn))
+      (common-lisp:list
+       (common-lisp:cons "RoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mljob-objective))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobObjective"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mlproblem-type-config))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLProblemTypeConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-time))
+      (common-lisp:list
+       (common-lisp:cons "CreationTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'partial-failure-reasons))
+      (common-lisp:list
+       (common-lisp:cons "PartialFailureReasons"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'best-candidate))
+      (common-lisp:list
+       (common-lisp:cons "BestCandidate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'auto-mljob-status))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'auto-mljob-secondary-status))
+      (common-lisp:list
+       (common-lisp:cons "AutoMLJobSecondaryStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'model-deploy-config))
+      (common-lisp:list
+       (common-lisp:cons "ModelDeployConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'model-deploy-result))
+      (common-lisp:list
+       (common-lisp:cons "ModelDeployResult"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-split-config))
+      (common-lisp:list
+       (common-lisp:cons "DataSplitConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'security-config))
+      (common-lisp:list
+       (common-lisp:cons "SecurityConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-auto-mljob-v2response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -30480,6 +31018,46 @@
    common-lisp:nil))
 (common-lisp:deftype hyperband-strategy-max-resource () 'common-lisp:integer)
 (common-lisp:deftype hyperband-strategy-min-resource () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (iam-identity (:copier common-lisp:nil)
+      (:conc-name "struct-shape-iam-identity-"))
+   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (principal-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (source-identity common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'iam-identity 'make-iam-identity))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input iam-identity))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input iam-identity))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'principal-id))
+      (common-lisp:list
+       (common-lisp:cons "PrincipalId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source-identity))
+      (common-lisp:list
+       (common-lisp:cons "SourceIdentity"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input iam-identity))
+   common-lisp:nil))
 (common-lisp:deftype idempotency-token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -30568,6 +31146,37 @@
    common-lisp:nil))
 (common-lisp:deftype image-arn () 'common-lisp:string)
 (common-lisp:deftype image-base-image () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (image-classification-job-config (:copier common-lisp:nil)
+      (:conc-name "struct-shape-image-classification-job-config-"))
+   (completion-criteria common-lisp:nil :type
+    (common-lisp:or auto-mljob-completion-criteria common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'image-classification-job-config
+                    'make-image-classification-job-config))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          image-classification-job-config))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          image-classification-job-config))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'completion-criteria))
+      (common-lisp:list
+       (common-lisp:cons "CompletionCriteria"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          image-classification-job-config))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (image-config (:copier common-lisp:nil)
@@ -45586,6 +46195,46 @@
                          (aws-sdk/generator/shape::input
                           model-quality-job-input))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (model-register-settings (:copier common-lisp:nil)
+      (:conc-name "struct-shape-model-register-settings-"))
+   (status common-lisp:nil :type
+    (common-lisp:or feature-status common-lisp:null))
+   (cross-account-model-register-role-arn common-lisp:nil :type
+    (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'model-register-settings 'make-model-register-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          model-register-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          model-register-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cross-account-model-register-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "CrossAccountModelRegisterRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          model-register-settings))
+   common-lisp:nil))
 (common-lisp:deftype model-sort-key () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -50456,7 +51105,9 @@
    (container-startup-health-check-timeout-in-seconds common-lisp:nil :type
     (common-lisp:or
      production-variant-container-startup-health-check-timeout-in-seconds
-     common-lisp:null)))
+     common-lisp:null))
+   (enable-ssmaccess common-lisp:nil :type
+    (common-lisp:or production-variant-ssmaccess common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'production-variant 'make-production-variant))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -50545,6 +51196,13 @@
       (common-lisp:list
        (common-lisp:cons "ContainerStartupHealthCheckTimeoutInSeconds"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enable-ssmaccess))
+      (common-lisp:list
+       (common-lisp:cons "EnableSSMAccess"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input production-variant))
@@ -50605,6 +51263,7 @@
 (common-lisp:deftype production-variant-model-data-download-timeout-in-seconds
                      ()
   'common-lisp:integer)
+(common-lisp:deftype production-variant-ssmaccess () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
      (production-variant-serverless-config (:copier common-lisp:nil)
@@ -52300,7 +52959,9 @@
    (model-configuration (common-lisp:error ":model-configuration is required")
     :type (common-lisp:or model-configuration common-lisp:null))
    (failure-reason common-lisp:nil :type
-    (common-lisp:or recommendation-failure-reason common-lisp:null)))
+    (common-lisp:or recommendation-failure-reason common-lisp:null))
+   (endpoint-metrics common-lisp:nil :type
+    (common-lisp:or inference-metrics common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'recommendation-job-inference-benchmark
                     'make-recommendation-job-inference-benchmark))
@@ -52341,6 +53002,13 @@
                            aws-sdk/generator/shape::input 'failure-reason))
       (common-lisp:list
        (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'endpoint-metrics))
+      (common-lisp:list
+       (common-lisp:cons "EndpointMetrics"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -55972,6 +56640,7 @@
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype target-attribute-name () 'common-lisp:string)
 (common-lisp:deftype target-device () 'common-lisp:string)
+(common-lisp:deftype target-label-column () 'common-lisp:string)
 (common-lisp:deftype target-objective-metric-value () 'common-lisp:single-float)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -56110,6 +56779,55 @@
    common-lisp:nil))
 (common-lisp:deftype tenth-fractions-of-acent () 'common-lisp:integer)
 (common-lisp:deftype termination-wait-in-seconds () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (text-classification-job-config (:copier common-lisp:nil)
+      (:conc-name "struct-shape-text-classification-job-config-"))
+   (completion-criteria common-lisp:nil :type
+    (common-lisp:or auto-mljob-completion-criteria common-lisp:null))
+   (content-column common-lisp:nil :type
+    (common-lisp:or content-column common-lisp:null))
+   (target-label-column common-lisp:nil :type
+    (common-lisp:or target-label-column common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'text-classification-job-config
+                    'make-text-classification-job-config))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          text-classification-job-config))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          text-classification-job-config))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'completion-criteria))
+      (common-lisp:list
+       (common-lisp:cons "CompletionCriteria"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-column))
+      (common-lisp:list
+       (common-lisp:cons "ContentColumn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'target-label-column))
+      (common-lisp:list
+       (common-lisp:cons "TargetLabelColumn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          text-classification-job-config))
+   common-lisp:nil))
 (common-lisp:deftype thing-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -61981,7 +62699,9 @@
     (common-lisp:or string common-lisp:null))
    (user-profile-name common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
-   (domain-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (domain-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (iam-identity common-lisp:nil :type
+    (common-lisp:or iam-identity common-lisp:null)))
  (common-lisp:export (common-lisp:list 'user-context 'make-user-context))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user-context))
@@ -62008,6 +62728,13 @@
                            aws-sdk/generator/shape::input 'domain-id))
       (common-lisp:list
        (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'iam-identity))
+      (common-lisp:list
+       (common-lisp:cons "IamIdentity"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -62934,6 +63661,32 @@
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-auto-mljob))
+(common-lisp:progn
+ (common-lisp:defun create-auto-mljob-v2
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key auto-mljob-name
+                     auto-mljob-input-data-config output-data-config
+                     auto-mlproblem-type-config role-arn tags security-config
+                     auto-mljob-objective model-deploy-config
+                     data-split-config)
+   (common-lisp:declare
+    (common-lisp:ignorable auto-mljob-name auto-mljob-input-data-config
+     output-data-config auto-mlproblem-type-config role-arn tags
+     security-config auto-mljob-objective model-deploy-config
+     data-split-config))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-auto-mljob-v2request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateAutoMLJobV2"
+                                                        "2017-07-24"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-auto-mljob-v2))
 (common-lisp:progn
  (common-lisp:defun create-code-repository
                     (
@@ -64984,6 +65737,24 @@
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-auto-mljob))
+(common-lisp:progn
+ (common-lisp:defun describe-auto-mljob-v2
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key auto-mljob-name)
+   (common-lisp:declare (common-lisp:ignorable auto-mljob-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-auto-mljob-v2request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeAutoMLJobV2"
+                                                        "2017-07-24"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-auto-mljob-v2))
 (common-lisp:progn
  (common-lisp:defun describe-code-repository
                     (

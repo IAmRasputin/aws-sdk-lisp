@@ -2,15 +2,13 @@
   "pagination": {
     "ListMemberAccounts": {
       "input_token": "nextToken",
-      "limit_key": "maxResults",
       "output_token": "nextToken",
-      "result_key": "memberAccounts"
+      "limit_key": "maxResults"
     },
     "ListS3Resources": {
       "input_token": "nextToken",
-      "limit_key": "maxResults",
       "output_token": "nextToken",
-      "result_key": "s3Resources"
+      "limit_key": "maxResults"
     }
   }
 }

@@ -5756,7 +5756,8 @@
    (type common-lisp:nil :type
     (common-lisp:or input-device-type common-lisp:null))
    (uhd-device-settings common-lisp:nil :type
-    (common-lisp:or input-device-uhd-settings common-lisp:null)))
+    (common-lisp:or input-device-uhd-settings common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-input-device-response
                     'make-describe-input-device-response))
@@ -5854,6 +5855,13 @@
                            aws-sdk/generator/shape::input 'uhd-device-settings))
       (common-lisp:list
        (common-lisp:cons "UhdDeviceSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10027,8 +10035,8 @@
      (hls-id3segment-tagging-schedule-action-settings (:copier common-lisp:nil)
       (:conc-name
        "struct-shape-hls-id3segment-tagging-schedule-action-settings-"))
-   (tag (common-lisp:error ":tag is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+   (tag common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (id3 common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'hls-id3segment-tagging-schedule-action-settings
                     'make-hls-id3segment-tagging-schedule-action-settings))
@@ -10047,6 +10055,13 @@
                            aws-sdk/generator/shape::input 'tag))
       (common-lisp:list
        (common-lisp:cons "Tag"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id3))
+      (common-lisp:list
+       (common-lisp:cons "Id3"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10900,7 +10915,8 @@
    (type common-lisp:nil :type
     (common-lisp:or input-device-type common-lisp:null))
    (uhd-device-settings common-lisp:nil :type
-    (common-lisp:or input-device-uhd-settings common-lisp:null)))
+    (common-lisp:or input-device-uhd-settings common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
  (common-lisp:export (common-lisp:list 'input-device 'make-input-device))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input-device))
@@ -10992,6 +11008,13 @@
                            aws-sdk/generator/shape::input 'uhd-device-settings))
       (common-lisp:list
        (common-lisp:cons "UhdDeviceSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -11333,7 +11356,8 @@
    (type common-lisp:nil :type
     (common-lisp:or input-device-type common-lisp:null))
    (uhd-device-settings common-lisp:nil :type
-    (common-lisp:or input-device-uhd-settings common-lisp:null)))
+    (common-lisp:or input-device-uhd-settings common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'input-device-summary 'make-input-device-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -11426,6 +11450,13 @@
                            aws-sdk/generator/shape::input 'uhd-device-settings))
       (common-lisp:list
        (common-lisp:cons "UhdDeviceSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -13459,6 +13490,8 @@
     (common-lisp:or m2ts-scte35control common-lisp:null))
    (scte35pid common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
+   (scte35preroll-pullup-milliseconds common-lisp:nil :type
+    (common-lisp:or |__doubleMin0Max5000| common-lisp:null))
    (segmentation-markers common-lisp:nil :type
     (common-lisp:or m2ts-segmentation-markers common-lisp:null))
    (segmentation-style common-lisp:nil :type
@@ -13472,9 +13505,7 @@
    (transport-stream-id common-lisp:nil :type
     (common-lisp:or |__integerMin0Max65535| common-lisp:null))
    (video-pid common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (scte35preroll-pullup-milliseconds common-lisp:nil :type
-    (common-lisp:or |__doubleMin0Max5000| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'm2ts-settings 'make-m2ts-settings))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input m2ts-settings))
@@ -13768,6 +13799,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'scte35preroll-pullup-milliseconds))
+      (common-lisp:list
+       (common-lisp:cons "Scte35PrerollPullupMilliseconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'segmentation-markers))
       (common-lisp:list
        (common-lisp:cons "SegmentationMarkers"
@@ -13814,14 +13853,6 @@
                            aws-sdk/generator/shape::input 'video-pid))
       (common-lisp:list
        (common-lisp:cons "VideoPid"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'scte35preroll-pullup-milliseconds))
-      (common-lisp:list
-       (common-lisp:cons "Scte35PrerollPullupMilliseconds"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -16007,7 +16038,9 @@
    (check-digit-string (common-lisp:error ":check-digit-string is required")
     :type (common-lisp:or |__stringMin2Max2| common-lisp:null))
    (sid (common-lisp:error ":sid is required") :type
-    (common-lisp:or |__doubleMin1Max65535| common-lisp:null)))
+    (common-lisp:or |__doubleMin1Max65535| common-lisp:null))
+   (timezone common-lisp:nil :type
+    (common-lisp:or nielsen-watermark-timezones common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'nielsen-naes-ii-nw 'make-nielsen-naes-ii-nw))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -16029,11 +16062,19 @@
       (common-lisp:list
        (common-lisp:cons "Sid"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'timezone))
+      (common-lisp:list
+       (common-lisp:cons "Timezone"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input nielsen-naes-ii-nw))
    common-lisp:nil))
 (common-lisp:deftype nielsen-pcm-to-id3tagging-state () 'common-lisp:string)
+(common-lisp:deftype nielsen-watermark-timezones () 'common-lisp:string)
 (common-lisp:deftype nielsen-watermarks-cbet-stepaside () 'common-lisp:string)
 (common-lisp:deftype nielsen-watermarks-distribution-types ()
   'common-lisp:string)
@@ -20291,14 +20332,14 @@
 (common-lisp:progn
  (common-lisp:define-condition unprocessable-entity-exception
      (medialive-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
-       unprocessable-entity-exception-message)
-      (validation-errors :initarg :validation-errors :initform common-lisp:nil
-       :reader unprocessable-entity-exception-validation-errors)))
+     ((element-path :initarg :element-path :initform common-lisp:nil :reader
+       unprocessable-entity-exception-element-path)
+      (error-message :initarg :error-message :initform common-lisp:nil :reader
+       unprocessable-entity-exception-error-message)))
  (common-lisp:export
   (common-lisp:list 'unprocessable-entity-exception
-                    'unprocessable-entity-exception-message
-                    'unprocessable-entity-exception-validation-errors)))
+                    'unprocessable-entity-exception-element-path
+                    'unprocessable-entity-exception-error-message)))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-channel (:copier common-lisp:nil)
@@ -20854,7 +20895,8 @@
    (type common-lisp:nil :type
     (common-lisp:or input-device-type common-lisp:null))
    (uhd-device-settings common-lisp:nil :type
-    (common-lisp:or input-device-uhd-settings common-lisp:null)))
+    (common-lisp:or input-device-uhd-settings common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-input-device-response
                     'make-update-input-device-response))
@@ -20952,6 +20994,13 @@
                            aws-sdk/generator/shape::input 'uhd-device-settings))
       (common-lisp:list
        (common-lisp:cons "UhdDeviceSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

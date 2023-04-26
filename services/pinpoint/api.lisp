@@ -1626,7 +1626,9 @@
    (total-endpoint-count common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (treatment-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null))
+   (execution-metrics common-lisp:nil :type
+    (common-lisp:or map-of-string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'activity-response 'make-activity-response))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1728,6 +1730,13 @@
                            aws-sdk/generator/shape::input 'treatment-id))
       (common-lisp:list
        (common-lisp:cons "TreatmentId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'execution-metrics))
+      (common-lisp:list
+       (common-lisp:cons "ExecutionMetrics"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10579,6 +10588,210 @@
    (common-lisp:slot-value aws-sdk/generator/shape::input 'journey-response)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-journey-run-execution-activity-metrics-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-journey-run-execution-activity-metrics-request-"))
+   (application-id (common-lisp:error ":application-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (journey-activity-id (common-lisp:error ":journey-activity-id is required")
+    :type (common-lisp:or |__string| common-lisp:null))
+   (journey-id (common-lisp:error ":journey-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (page-size common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (run-id (common-lisp:error ":run-id is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-run-execution-activity-metrics-request
+                    'make-get-journey-run-execution-activity-metrics-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-journey-run-execution-activity-metrics-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-journey-run-execution-activity-metrics-response-"))
+   (journey-run-execution-activity-metrics-response
+    (common-lisp:error
+     ":journey-run-execution-activity-metrics-response is required")
+    :type
+    (common-lisp:or journey-run-execution-activity-metrics-response
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-run-execution-activity-metrics-response
+                    'make-get-journey-run-execution-activity-metrics-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'journey-run-execution-activity-metrics-response))
+      (common-lisp:list
+       (common-lisp:cons "JourneyRunExecutionActivityMetricsResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-activity-metrics-response))
+   (common-lisp:slot-value aws-sdk/generator/shape::input
+                           'journey-run-execution-activity-metrics-response)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-journey-run-execution-metrics-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-journey-run-execution-metrics-request-"))
+   (application-id (common-lisp:error ":application-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (journey-id (common-lisp:error ":journey-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (page-size common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (run-id (common-lisp:error ":run-id is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-run-execution-metrics-request
+                    'make-get-journey-run-execution-metrics-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-journey-run-execution-metrics-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-journey-run-execution-metrics-response-"))
+   (journey-run-execution-metrics-response
+    (common-lisp:error ":journey-run-execution-metrics-response is required")
+    :type
+    (common-lisp:or journey-run-execution-metrics-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-run-execution-metrics-response
+                    'make-get-journey-run-execution-metrics-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'journey-run-execution-metrics-response))
+      (common-lisp:list
+       (common-lisp:cons "JourneyRunExecutionMetricsResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-run-execution-metrics-response))
+   (common-lisp:slot-value aws-sdk/generator/shape::input
+                           'journey-run-execution-metrics-response)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-journey-runs-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-journey-runs-request-"))
+   (application-id (common-lisp:error ":application-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (journey-id (common-lisp:error ":journey-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (page-size common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (token common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-runs-request 'make-get-journey-runs-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-journey-runs-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-journey-runs-response-"))
+   (journey-runs-response
+    (common-lisp:error ":journey-runs-response is required") :type
+    (common-lisp:or journey-runs-response common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-journey-runs-response
+                    'make-get-journey-runs-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'journey-runs-response))
+      (common-lisp:list
+       (common-lisp:cons "JourneyRunsResponse"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-journey-runs-response))
+   (common-lisp:slot-value aws-sdk/generator/shape::input
+                           'journey-runs-response)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-push-template-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-push-template-request-"))
    (template-name (common-lisp:error ":template-name is required") :type
@@ -13026,6 +13239,250 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input journey-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (journey-run-execution-activity-metrics-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-journey-run-execution-activity-metrics-response-"))
+   (activity-type (common-lisp:error ":activity-type is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (application-id (common-lisp:error ":application-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (journey-activity-id (common-lisp:error ":journey-activity-id is required")
+    :type (common-lisp:or |__string| common-lisp:null))
+   (journey-id (common-lisp:error ":journey-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (last-evaluated-time (common-lisp:error ":last-evaluated-time is required")
+    :type (common-lisp:or |__string| common-lisp:null))
+   (metrics (common-lisp:error ":metrics is required") :type
+    (common-lisp:or map-of-string common-lisp:null))
+   (run-id (common-lisp:error ":run-id is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'journey-run-execution-activity-metrics-response
+                    'make-journey-run-execution-activity-metrics-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-activity-metrics-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-activity-metrics-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'activity-type))
+      (common-lisp:list
+       (common-lisp:cons "ActivityType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'application-id))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'journey-activity-id))
+      (common-lisp:list
+       (common-lisp:cons "JourneyActivityId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'journey-id))
+      (common-lisp:list
+       (common-lisp:cons "JourneyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-evaluated-time))
+      (common-lisp:list
+       (common-lisp:cons "LastEvaluatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metrics))
+      (common-lisp:list
+       (common-lisp:cons "Metrics"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'run-id))
+      (common-lisp:list
+       (common-lisp:cons "RunId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-activity-metrics-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (journey-run-execution-metrics-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-journey-run-execution-metrics-response-"))
+   (application-id (common-lisp:error ":application-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (journey-id (common-lisp:error ":journey-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (last-evaluated-time (common-lisp:error ":last-evaluated-time is required")
+    :type (common-lisp:or |__string| common-lisp:null))
+   (metrics (common-lisp:error ":metrics is required") :type
+    (common-lisp:or map-of-string common-lisp:null))
+   (run-id (common-lisp:error ":run-id is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'journey-run-execution-metrics-response
+                    'make-journey-run-execution-metrics-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-metrics-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-metrics-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'application-id))
+      (common-lisp:list
+       (common-lisp:cons "ApplicationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'journey-id))
+      (common-lisp:list
+       (common-lisp:cons "JourneyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-evaluated-time))
+      (common-lisp:list
+       (common-lisp:cons "LastEvaluatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metrics))
+      (common-lisp:list
+       (common-lisp:cons "Metrics"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'run-id))
+      (common-lisp:list
+       (common-lisp:cons "RunId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-run-execution-metrics-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (journey-run-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-journey-run-response-"))
+   (creation-time (common-lisp:error ":creation-time is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (last-update-time (common-lisp:error ":last-update-time is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (run-id (common-lisp:error ":run-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or journey-run-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'journey-run-response 'make-journey-run-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input journey-run-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input journey-run-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-time))
+      (common-lisp:list
+       (common-lisp:cons "CreationTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-update-time))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'run-id))
+      (common-lisp:list
+       (common-lisp:cons "RunId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input journey-run-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (journey-runs-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-journey-runs-response-"))
+   (item (common-lisp:error ":item is required") :type
+    (common-lisp:or list-of-journey-run-response common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'journey-runs-response 'make-journey-runs-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-runs-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-runs-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'item))
+      (common-lisp:list
+       (common-lisp:cons "Item"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          journey-runs-response))
+   common-lisp:nil))
+(common-lisp:deftype journey-run-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (journey-smsmessage (:copier common-lisp:nil)
@@ -20173,8 +20630,6 @@
     (common-lisp:or campaign-hook common-lisp:null))
    (cloud-watch-metrics-enabled common-lisp:nil :type
     (common-lisp:or |__boolean| common-lisp:null))
-   (event-tagging-enabled common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
    (limits common-lisp:nil :type
     (common-lisp:or campaign-limits common-lisp:null))
    (quiet-time common-lisp:nil :type
@@ -20205,14 +20660,6 @@
                            'cloud-watch-metrics-enabled))
       (common-lisp:list
        (common-lisp:cons "CloudWatchMetricsEnabled"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'event-tagging-enabled))
-      (common-lisp:list
-       (common-lisp:cons "EventTaggingEnabled"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -20856,6 +21303,14 @@
                            (trivial-types:proper-list journey-response))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype list-of-journey-run-response ()
+   '(trivial-types:proper-list journey-run-response))
+ (common-lisp:defun |make-list-of-journey-run-response|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list journey-run-response))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype list-of-multi-conditional-branch ()
    '(trivial-types:proper-list multi-conditional-branch))
  (common-lisp:defun |make-list-of-multi-conditional-branch|
@@ -21129,6 +21584,14 @@
 (common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:deftype day-of-week () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype list-of-open-hours-rules ()
+   '(trivial-types:proper-list open-hours-rule))
+ (common-lisp:defun |make-list-of-open-hours-rules|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list open-hours-rule))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (open-hours-rule (:copier common-lisp:nil)
       (:conc-name "struct-shape-open-hours-rule-"))
@@ -21160,14 +21623,6 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input open-hours-rule))
    common-lisp:nil))
-(common-lisp:progn
- (common-lisp:deftype list-of-open-hours-rules ()
-   '(trivial-types:proper-list open-hours-rule))
- (common-lisp:defun |make-list-of-open-hours-rules|
-                    (common-lisp:&rest aws-sdk/generator/shape::members)
-   (common-lisp:check-type aws-sdk/generator/shape::members
-                           (trivial-types:proper-list open-hours-rule))
-   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype map-of-list-of-open-hours-rules ()
    'common-lisp:hash-table)
@@ -23323,6 +23778,124 @@
                                                         "2016-12-01"))
       "structure" common-lisp:nil *error-map*)))
  (common-lisp:export 'get-journey-execution-metrics))
+(common-lisp:progn
+ (common-lisp:defun get-journey-run-execution-activity-metrics
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key application-id journey-activity-id
+                     journey-id next-token page-size run-id)
+   (common-lisp:declare
+    (common-lisp:ignorable application-id journey-activity-id journey-id
+     next-token page-size run-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-journey-run-execution-activity-metrics-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'pinpoint-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/apps/~A/journeys/~A/runs/~A/activities/~A/execution-metrics"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'application-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'journey-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'run-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'journey-activity-id))))
+                                                        "GetJourneyRunExecutionActivityMetrics"
+                                                        "2016-12-01"))
+      "structure" common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-journey-run-execution-activity-metrics))
+(common-lisp:progn
+ (common-lisp:defun get-journey-run-execution-metrics
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key application-id journey-id next-token
+                     page-size run-id)
+   (common-lisp:declare
+    (common-lisp:ignorable application-id journey-id next-token page-size
+     run-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-journey-run-execution-metrics-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'pinpoint-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/apps/~A/journeys/~A/runs/~A/execution-metrics"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'application-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'journey-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'run-id))))
+                                                        "GetJourneyRunExecutionMetrics"
+                                                        "2016-12-01"))
+      "structure" common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-journey-run-execution-metrics))
+(common-lisp:progn
+ (common-lisp:defun get-journey-runs
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key application-id journey-id page-size
+                     token)
+   (common-lisp:declare
+    (common-lisp:ignorable application-id journey-id page-size token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-journey-runs-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'pinpoint-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/apps/~A/journeys/~A/runs"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'application-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'journey-id))))
+                                                        "GetJourneyRuns"
+                                                        "2016-12-01"))
+      "structure" common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-journey-runs))
 (common-lisp:progn
  (common-lisp:defun get-push-template
                     (

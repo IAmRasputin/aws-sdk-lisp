@@ -277,6 +277,49 @@
                           acceleration-settings))
    common-lisp:nil))
 (common-lisp:deftype acceleration-status () 'common-lisp:string)
+(common-lisp:deftype advanced-input-filter () 'common-lisp:string)
+(common-lisp:deftype advanced-input-filter-add-texture () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (advanced-input-filter-settings (:copier common-lisp:nil)
+      (:conc-name "struct-shape-advanced-input-filter-settings-"))
+   (add-texture common-lisp:nil :type
+    (common-lisp:or advanced-input-filter-add-texture common-lisp:null))
+   (sharpening common-lisp:nil :type
+    (common-lisp:or advanced-input-filter-sharpen common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'advanced-input-filter-settings
+                    'make-advanced-input-filter-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          advanced-input-filter-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          advanced-input-filter-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'add-texture))
+      (common-lisp:list
+       (common-lisp:cons "AddTexture"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sharpening))
+      (common-lisp:list
+       (common-lisp:cons "Sharpening"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          advanced-input-filter-settings))
+   common-lisp:nil))
+(common-lisp:deftype advanced-input-filter-sharpen () 'common-lisp:string)
 (common-lisp:deftype afd-signaling () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -765,7 +808,7 @@
    (target-lkfs common-lisp:nil :type
     (common-lisp:or |__doubleMinNegative59Max0| common-lisp:null))
    (true-peak-limiter-threshold common-lisp:nil :type
-    (common-lisp:or |__doubleMinNegative20Max0| common-lisp:null)))
+    (common-lisp:or |__doubleMinNegative8Max0| common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'audio-normalization-settings
                     'make-audio-normalization-settings))
@@ -846,9 +889,7 @@
    (default-selection common-lisp:nil :type
     (common-lisp:or audio-default-selection common-lisp:null))
    (external-audio-file-input common-lisp:nil :type
-    (common-lisp:or
-     |__stringPatternS3MM2PPWWEEBBMMMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCFFLLAAAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8LLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMAAAACCAAIIFFFFMMPP2AACC3EECC3DDTTSSEEAATTMMOOSSOOGGGGaAHttpsMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8LLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMAAAACCAAIIFFFFMMPP2AACC3EECC3DDTTSSEEAATTMMOOSSOOGGGGaA|
-     common-lisp:null))
+    (common-lisp:or |__stringPatternS3Https| common-lisp:null))
    (hls-rendition-group-settings common-lisp:nil :type
     (common-lisp:or hls-rendition-group-settings common-lisp:null))
    (language-code common-lisp:nil :type
@@ -1498,6 +1539,49 @@
        bad-request-exception-message)))
  (common-lisp:export
   (common-lisp:list 'bad-request-exception 'bad-request-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bandwidth-reduction-filter (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bandwidth-reduction-filter-"))
+   (sharpening common-lisp:nil :type
+    (common-lisp:or bandwidth-reduction-filter-sharpening common-lisp:null))
+   (strength common-lisp:nil :type
+    (common-lisp:or bandwidth-reduction-filter-strength common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bandwidth-reduction-filter
+                    'make-bandwidth-reduction-filter))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          bandwidth-reduction-filter))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          bandwidth-reduction-filter))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sharpening))
+      (common-lisp:list
+       (common-lisp:cons "Sharpening"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'strength))
+      (common-lisp:list
+       (common-lisp:cons "Strength"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          bandwidth-reduction-filter))
+   common-lisp:nil))
+(common-lisp:deftype bandwidth-reduction-filter-sharpening ()
+  'common-lisp:string)
+(common-lisp:deftype bandwidth-reduction-filter-strength () 'common-lisp:string)
 (common-lisp:deftype billing-tags-source () 'common-lisp:string)
 (common-lisp:deftype burn-in-subtitle-style-passthrough () 'common-lisp:string)
 (common-lisp:progn
@@ -2043,6 +2127,8 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input caption-selector))
    common-lisp:nil))
+(common-lisp:deftype caption-source-convert-paint-on-to-pop-on ()
+  'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (caption-source-framerate (:copier common-lisp:nil)
@@ -2920,6 +3006,8 @@
     (common-lisp:or |__integerMin1Max100| common-lisp:null))
    (hdr10metadata common-lisp:nil :type
     (common-lisp:or hdr10metadata common-lisp:null))
+   (hdr-to-sdr-tone-mapper common-lisp:nil :type
+    (common-lisp:or hdrto-sdrtone-mapper common-lisp:null))
    (hue common-lisp:nil :type
     (common-lisp:or |__integerMinNegative180Max180| common-lisp:null))
    (sample-range-conversion common-lisp:nil :type
@@ -2969,6 +3057,14 @@
                            aws-sdk/generator/shape::input 'hdr10metadata))
       (common-lisp:list
        (common-lisp:cons "Hdr10Metadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'hdr-to-sdr-tone-mapper))
+      (common-lisp:list
+       (common-lisp:cons "HdrToSdrToneMapper"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -5677,6 +5773,9 @@
       (:conc-name "struct-shape-file-source-settings-"))
    (convert608to708 common-lisp:nil :type
     (common-lisp:or file-source-convert608to708 common-lisp:null))
+   (convert-paint-to-pop common-lisp:nil :type
+    (common-lisp:or caption-source-convert-paint-on-to-pop-on
+                    common-lisp:null))
    (framerate common-lisp:nil :type
     (common-lisp:or caption-source-framerate common-lisp:null))
    (source-file common-lisp:nil :type
@@ -5701,6 +5800,14 @@
                            aws-sdk/generator/shape::input 'convert608to708))
       (common-lisp:list
        (common-lisp:cons "Convert608To708"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'convert-paint-to-pop))
+      (common-lisp:list
+       (common-lisp:cons "ConvertPaintToPop"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -6119,6 +6226,8 @@
       (:conc-name "struct-shape-h264settings-"))
    (adaptive-quantization common-lisp:nil :type
     (common-lisp:or h264adaptive-quantization common-lisp:null))
+   (bandwidth-reduction-filter common-lisp:nil :type
+    (common-lisp:or bandwidth-reduction-filter common-lisp:null))
    (bitrate common-lisp:nil :type
     (common-lisp:or |__integerMin1000Max1152000000| common-lisp:null))
    (codec-level common-lisp:nil :type
@@ -6211,6 +6320,14 @@
                            'adaptive-quantization))
       (common-lisp:list
        (common-lisp:cons "AdaptiveQuantization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'bandwidth-reduction-filter))
+      (common-lisp:list
+       (common-lisp:cons "BandwidthReductionFilter"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -6981,6 +7098,7 @@
 (common-lisp:deftype h265tiles () 'common-lisp:string)
 (common-lisp:deftype h265unregistered-sei-timecode () 'common-lisp:string)
 (common-lisp:deftype h265write-mp4packaging-type () 'common-lisp:string)
+(common-lisp:deftype hdrto-sdrtone-mapper () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (hdr10metadata (:copier common-lisp:nil)
@@ -8024,6 +8142,10 @@
 (common-lisp:progn
  (common-lisp:defstruct
      (input (:copier common-lisp:nil) (:conc-name "struct-shape-input-"))
+   (advanced-input-filter common-lisp:nil :type
+    (common-lisp:or advanced-input-filter common-lisp:null))
+   (advanced-input-filter-settings common-lisp:nil :type
+    (common-lisp:or advanced-input-filter-settings common-lisp:null))
    (audio-selector-groups common-lisp:nil :type
     (common-lisp:or |__mapOfAudioSelectorGroup| common-lisp:null))
    (audio-selectors common-lisp:nil :type
@@ -8041,9 +8163,7 @@
     (common-lisp:or |__stringMin14PatternS3XmlXMLHttpsXmlXML|
                     common-lisp:null))
    (file-input common-lisp:nil :type
-    (common-lisp:or
-     |__stringPatternS3MM2PPMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCFFLLAAAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8WWEEBBMMLLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMXXMMLLOOGGGGaAAATTMMOOSSHttpsMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8WWEEBBMMLLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMXXMMLLOOGGGGaAAATTMMOOSS|
-     common-lisp:null))
+    (common-lisp:or |__stringPatternS3Https| common-lisp:null))
    (filter-enable common-lisp:nil :type
     (common-lisp:or input-filter-enable common-lisp:null))
    (filter-strength common-lisp:nil :type
@@ -8076,6 +8196,22 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-params
                         ((aws-sdk/generator/shape::input input))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'advanced-input-filter))
+      (common-lisp:list
+       (common-lisp:cons "AdvancedInputFilter"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'advanced-input-filter-settings))
+      (common-lisp:list
+       (common-lisp:cons "AdvancedInputFilterSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
@@ -8342,6 +8478,10 @@
  (common-lisp:defstruct
      (input-template (:copier common-lisp:nil)
       (:conc-name "struct-shape-input-template-"))
+   (advanced-input-filter common-lisp:nil :type
+    (common-lisp:or advanced-input-filter common-lisp:null))
+   (advanced-input-filter-settings common-lisp:nil :type
+    (common-lisp:or advanced-input-filter-settings common-lisp:null))
    (audio-selector-groups common-lisp:nil :type
     (common-lisp:or |__mapOfAudioSelectorGroup| common-lisp:null))
    (audio-selectors common-lisp:nil :type
@@ -8384,6 +8524,22 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-params
                         ((aws-sdk/generator/shape::input input-template))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'advanced-input-filter))
+      (common-lisp:list
+       (common-lisp:cons "AdvancedInputFilter"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'advanced-input-filter-settings))
+      (common-lisp:list
+       (common-lisp:cons "AdvancedInputFilterSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
@@ -8681,6 +8837,8 @@
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
    (billing-tags-source common-lisp:nil :type
     (common-lisp:or billing-tags-source common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (created-at common-lisp:nil :type
     (common-lisp:or |__timestampUnix| common-lisp:null))
    (current-phase common-lisp:nil :type
@@ -8718,7 +8876,9 @@
     (common-lisp:or status-update-interval common-lisp:null))
    (timing common-lisp:nil :type (common-lisp:or timing common-lisp:null))
    (user-metadata common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (warnings common-lisp:nil :type
+    (common-lisp:or |__listOfWarningGroup| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'job 'make-job))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input job))
@@ -8753,6 +8913,14 @@
                            aws-sdk/generator/shape::input 'billing-tags-source))
       (common-lisp:list
        (common-lisp:cons "BillingTagsSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -8904,6 +9072,13 @@
                            aws-sdk/generator/shape::input 'user-metadata))
       (common-lisp:list
        (common-lisp:cons "UserMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'warnings))
+      (common-lisp:list
+       (common-lisp:cons "Warnings"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9348,7 +9523,7 @@
    (kantar-license-id common-lisp:nil :type
     (common-lisp:or |__integerMin0Max2147483647| common-lisp:null))
    (kantar-server-url common-lisp:nil :type
-    (common-lisp:or |__stringPatternHttpsKantarmediaCom| common-lisp:null))
+    (common-lisp:or |__stringPatternHttpsKantarmediaComFr| common-lisp:null))
    (log-destination common-lisp:nil :type
     (common-lisp:or |__stringPatternS3| common-lisp:null))
    (metadata3 common-lisp:nil :type
@@ -15173,6 +15348,38 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input vp9settings))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (warning-group (:copier common-lisp:nil)
+      (:conc-name "struct-shape-warning-group-"))
+   (code (common-lisp:error ":code is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (count (common-lisp:error ":count is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'warning-group 'make-warning-group))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input warning-group))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input warning-group))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'code))
+      (common-lisp:list
+       (common-lisp:cons "Code"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'count))
+      (common-lisp:list
+       (common-lisp:cons "Count"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input warning-group))
+   common-lisp:nil))
 (common-lisp:deftype watermarking-strength () 'common-lisp:string)
 (common-lisp:deftype wav-format () 'common-lisp:string)
 (common-lisp:progn
@@ -15802,13 +16009,13 @@
 (common-lisp:deftype |__doubleMin0| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMin0Max1| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMin0Max2147483647| () 'common-lisp:double-float)
-(common-lisp:deftype |__doubleMinNegative20Max0| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMinNegative59Max0| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMinNegative60Max3| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMinNegative60Max6| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMinNegative60MaxNegative1| ()
   'common-lisp:double-float)
 (common-lisp:deftype |__doubleMinNegative6Max3| () 'common-lisp:double-float)
+(common-lisp:deftype |__doubleMinNegative8Max0| () 'common-lisp:double-float)
 (common-lisp:deftype |__integer| () 'common-lisp:integer)
 (common-lisp:deftype |__integerMin0Max0| () 'common-lisp:integer)
 (common-lisp:deftype |__integerMin0Max1| () 'common-lisp:integer)
@@ -16151,6 +16358,14 @@
                            (trivial-types:proper-list teletext-page-type))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype |__listOfWarningGroup| ()
+   '(trivial-types:proper-list warning-group))
+ (common-lisp:defun |make-__listofwarninggroup|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list warning-group))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype |__listOf__doubleMinNegative60Max6| ()
    '(trivial-types:proper-list |__doubleMinNegative60Max6|))
  (common-lisp:defun |make-__listof__doubleminnegative60max6|
@@ -16321,18 +16536,13 @@
   'common-lisp:string)
 (common-lisp:deftype |__stringPatternDD| () 'common-lisp:string)
 (common-lisp:deftype |__stringPatternHttps| () 'common-lisp:string)
-(common-lisp:deftype |__stringPatternHttpsKantarmediaCom| ()
+(common-lisp:deftype |__stringPatternHttpsKantarmediaComFr| ()
   'common-lisp:string)
 (common-lisp:deftype |__stringPatternIdentityAZaZ26AZaZ09163| ()
   'common-lisp:string)
 (common-lisp:deftype |__stringPatternS3| () 'common-lisp:string)
 (common-lisp:deftype |__stringPatternS3ASSETMAPXml| () 'common-lisp:string)
-(common-lisp:deftype |__stringPatternS3MM2PPMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCFFLLAAAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8WWEEBBMMLLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMXXMMLLOOGGGGaAAATTMMOOSSHttpsMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8WWEEBBMMLLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMXXMMLLOOGGGGaAAATTMMOOSS|
-                     ()
-  'common-lisp:string)
-(common-lisp:deftype |__stringPatternS3MM2PPWWEEBBMMMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCFFLLAAAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8LLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMAAAACCAAIIFFFFMMPP2AACC3EECC3DDTTSSEEAATTMMOOSSOOGGGGaAHttpsMM2VVMMPPEEGGMMPP3AAVVIIMMPP4FFLLVVMMPPTTMMPPGGMM4VVTTRRPPFF4VVMM2TTSSTTSS264HH264MMKKVVMMKKAAMMOOVVMMTTSSMM2TTWWMMVVaAFFLLAACCAASSFFVVOOBB3GGPP3GGPPPPMMXXFFDDIIVVXXXXVVIIDDRRAAWWDDVVGGXXFFMM1VV3GG2VVMMFFMM3UU8LLCCHHGGXXFFMMPPEEGG2MMXXFFMMPPEEGG2MMXXFFHHDDWWAAVVYY4MMAAAACCAAIIFFFFMMPP2AACC3EECC3DDTTSSEEAATTMMOOSSOOGGGGaA|
-                     ()
-  'common-lisp:string)
+(common-lisp:deftype |__stringPatternS3Https| () 'common-lisp:string)
 (common-lisp:deftype |__stringPatternSNManifestConfirmConditionNotificationNS|
                      ()
   'common-lisp:string)

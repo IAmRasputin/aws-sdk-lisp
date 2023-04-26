@@ -19,32 +19,62 @@
      common-lisp:nil)
  (common-lisp:export 'email-error))
 (common-lisp:defvar *error-map*
-  '(("AlreadyExistsException" . already-exists-exception)
+  '(("AccountSendingPausedException" . account-sending-paused-exception)
+    ("AlreadyExistsException" . already-exists-exception)
     ("CannotDeleteException" . cannot-delete-exception)
     ("ConfigurationSetAlreadyExistsException"
      . configuration-set-already-exists-exception)
     ("ConfigurationSetDoesNotExistException"
      . configuration-set-does-not-exist-exception)
+    ("ConfigurationSetSendingPausedException"
+     . configuration-set-sending-paused-exception)
+    ("CustomVerificationEmailInvalidContentException"
+     . custom-verification-email-invalid-content-exception)
+    ("CustomVerificationEmailTemplateAlreadyExistsException"
+     . custom-verification-email-template-already-exists-exception)
+    ("CustomVerificationEmailTemplateDoesNotExistException"
+     . custom-verification-email-template-does-not-exist-exception)
     ("EventDestinationAlreadyExistsException"
      . event-destination-already-exists-exception)
     ("EventDestinationDoesNotExistException"
      . event-destination-does-not-exist-exception)
+    ("FromEmailAddressNotVerifiedException"
+     . from-email-address-not-verified-exception)
     ("InvalidCloudWatchDestinationException"
      . invalid-cloud-watch-destination-exception)
     ("InvalidConfigurationSetException" . invalid-configuration-set-exception)
+    ("InvalidDeliveryOptionsException" . invalid-delivery-options-exception)
     ("InvalidFirehoseDestinationException"
      . invalid-firehose-destination-exception)
     ("InvalidLambdaFunctionException" . invalid-lambda-function-exception)
     ("InvalidPolicyException" . invalid-policy-exception)
+    ("InvalidRenderingParameterException"
+     . invalid-rendering-parameter-exception)
     ("InvalidS3ConfigurationException" . invalid-s3configuration-exception)
     ("InvalidSNSDestinationException" . invalid-snsdestination-exception)
     ("InvalidSnsTopicException" . invalid-sns-topic-exception)
+    ("InvalidTemplateException" . invalid-template-exception)
+    ("InvalidTrackingOptionsException" . invalid-tracking-options-exception)
     ("LimitExceededException" . limit-exceeded-exception)
     ("MailFromDomainNotVerifiedException"
      . mail-from-domain-not-verified-exception)
     ("MessageRejected" . message-rejected)
+    ("MissingRenderingAttributeException"
+     . missing-rendering-attribute-exception)
+    ("ProductionAccessNotGrantedException"
+     . production-access-not-granted-exception)
     ("RuleDoesNotExistException" . rule-does-not-exist-exception)
-    ("RuleSetDoesNotExistException" . rule-set-does-not-exist-exception)))
+    ("RuleSetDoesNotExistException" . rule-set-does-not-exist-exception)
+    ("TemplateDoesNotExistException" . template-does-not-exist-exception)
+    ("TrackingOptionsAlreadyExistsException"
+     . tracking-options-already-exists-exception)
+    ("TrackingOptionsDoesNotExistException"
+     . tracking-options-does-not-exist-exception)))
+(common-lisp:progn
+ (common-lisp:define-condition account-sending-paused-exception
+     (email-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'account-sending-paused-exception)))
 (common-lisp:progn
  (common-lisp:defstruct
      (add-header-action (:copier common-lisp:nil)
@@ -254,6 +284,121 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list bounced-recipient-info))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bulk-email-destination (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bulk-email-destination-"))
+   (destination (common-lisp:error ":destination is required") :type
+    (common-lisp:or destination common-lisp:null))
+   (replacement-tags common-lisp:nil :type
+    (common-lisp:or message-tag-list common-lisp:null))
+   (replacement-template-data common-lisp:nil :type
+    (common-lisp:or template-data common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bulk-email-destination 'make-bulk-email-destination))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination))
+      (common-lisp:list
+       (common-lisp:cons "Destination"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'replacement-tags))
+      (common-lisp:list
+       (common-lisp:cons "ReplacementTags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'replacement-template-data))
+      (common-lisp:list
+       (common-lisp:cons "ReplacementTemplateData"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype bulk-email-destination-list ()
+   '(trivial-types:proper-list bulk-email-destination))
+ (common-lisp:defun |make-bulk-email-destination-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list bulk-email-destination))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bulk-email-destination-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bulk-email-destination-status-"))
+   (status common-lisp:nil :type
+    (common-lisp:or bulk-email-status common-lisp:null))
+   (error common-lisp:nil :type (common-lisp:or error common-lisp:null))
+   (message-id common-lisp:nil :type
+    (common-lisp:or message-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bulk-email-destination-status
+                    'make-bulk-email-destination-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error))
+      (common-lisp:list
+       (common-lisp:cons "Error"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message-id))
+      (common-lisp:list
+       (common-lisp:cons "MessageId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          bulk-email-destination-status))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype bulk-email-destination-status-list ()
+   '(trivial-types:proper-list bulk-email-destination-status))
+ (common-lisp:defun |make-bulk-email-destination-status-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            bulk-email-destination-status))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype bulk-email-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition cannot-delete-exception
      (email-error)
@@ -475,6 +620,15 @@
                     'configuration-set-does-not-exist-exception-configuration-set-name)))
 (common-lisp:deftype configuration-set-name () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:define-condition configuration-set-sending-paused-exception
+     (email-error)
+     ((configuration-set-name :initarg :configuration-set-name :initform
+       common-lisp:nil :reader
+       configuration-set-sending-paused-exception-configuration-set-name)))
+ (common-lisp:export
+  (common-lisp:list 'configuration-set-sending-paused-exception
+                    'configuration-set-sending-paused-exception-configuration-set-name)))
+(common-lisp:progn
  (common-lisp:deftype configuration-sets ()
    '(trivial-types:proper-list configuration-set))
  (common-lisp:defun |make-configuration-sets|
@@ -633,6 +787,156 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-configuration-set-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-configuration-set-tracking-options-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-configuration-set-tracking-options-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (tracking-options (common-lisp:error ":tracking-options is required") :type
+    (common-lisp:or tracking-options common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-configuration-set-tracking-options-request
+                    'make-create-configuration-set-tracking-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tracking-options))
+      (common-lisp:list
+       (common-lisp:cons "TrackingOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-configuration-set-tracking-options-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-configuration-set-tracking-options-response-")))
+ (common-lisp:export
+  (common-lisp:list 'create-configuration-set-tracking-options-response
+                    'make-create-configuration-set-tracking-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-configuration-set-tracking-options-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-custom-verification-email-template-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-custom-verification-email-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (from-email-address (common-lisp:error ":from-email-address is required")
+    :type (common-lisp:or from-address common-lisp:null))
+   (template-subject (common-lisp:error ":template-subject is required") :type
+    (common-lisp:or subject common-lisp:null))
+   (template-content (common-lisp:error ":template-content is required") :type
+    (common-lisp:or template-content common-lisp:null))
+   (success-redirection-url
+    (common-lisp:error ":success-redirection-url is required") :type
+    (common-lisp:or success-redirection-url common-lisp:null))
+   (failure-redirection-url
+    (common-lisp:error ":failure-redirection-url is required") :type
+    (common-lisp:or failure-redirection-url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-custom-verification-email-template-request
+                    'make-create-custom-verification-email-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-custom-verification-email-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-custom-verification-email-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-email-address))
+      (common-lisp:list
+       (common-lisp:cons "FromEmailAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-subject))
+      (common-lisp:list
+       (common-lisp:cons "TemplateSubject"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-content))
+      (common-lisp:list
+       (common-lisp:cons "TemplateContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'success-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "SuccessRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failure-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "FailureRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-custom-verification-email-template-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -811,7 +1115,165 @@
                          (aws-sdk/generator/shape::input
                           create-receipt-rule-set-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-template-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-template-request-"))
+   (template (common-lisp:error ":template is required") :type
+    (common-lisp:or template common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-template-request 'make-create-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template))
+      (common-lisp:list
+       (common-lisp:cons "Template"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-template-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-template-response-")))
+ (common-lisp:export
+  (common-lisp:list 'create-template-response 'make-create-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-template-response))
+   common-lisp:nil))
 (common-lisp:deftype custom-mail-from-status () 'common-lisp:string)
+(common-lisp:deftype custom-redirect-domain () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition custom-verification-email-invalid-content-exception
+     (email-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'custom-verification-email-invalid-content-exception)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (custom-verification-email-template (:copier common-lisp:nil)
+      (:conc-name "struct-shape-custom-verification-email-template-"))
+   (template-name common-lisp:nil :type
+    (common-lisp:or template-name common-lisp:null))
+   (from-email-address common-lisp:nil :type
+    (common-lisp:or from-address common-lisp:null))
+   (template-subject common-lisp:nil :type
+    (common-lisp:or subject common-lisp:null))
+   (success-redirection-url common-lisp:nil :type
+    (common-lisp:or success-redirection-url common-lisp:null))
+   (failure-redirection-url common-lisp:nil :type
+    (common-lisp:or failure-redirection-url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'custom-verification-email-template
+                    'make-custom-verification-email-template))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          custom-verification-email-template))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          custom-verification-email-template))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-email-address))
+      (common-lisp:list
+       (common-lisp:cons "FromEmailAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-subject))
+      (common-lisp:list
+       (common-lisp:cons "TemplateSubject"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'success-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "SuccessRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failure-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "FailureRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          custom-verification-email-template))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition custom-verification-email-template-already-exists-exception
+     (email-error)
+     ((custom-verification-email-template-name :initarg
+       :custom-verification-email-template-name :initform common-lisp:nil
+       :reader
+       custom-verification-email-template-already-exists-exception-custom-verification-email-template-name)))
+ (common-lisp:export
+  (common-lisp:list
+   'custom-verification-email-template-already-exists-exception
+   'custom-verification-email-template-already-exists-exception-custom-verification-email-template-name)))
+(common-lisp:progn
+ (common-lisp:define-condition custom-verification-email-template-does-not-exist-exception
+     (email-error)
+     ((custom-verification-email-template-name :initarg
+       :custom-verification-email-template-name :initform common-lisp:nil
+       :reader
+       custom-verification-email-template-does-not-exist-exception-custom-verification-email-template-name)))
+ (common-lisp:export
+  (common-lisp:list
+   'custom-verification-email-template-does-not-exist-exception
+   'custom-verification-email-template-does-not-exist-exception-custom-verification-email-template-name)))
+(common-lisp:progn
+ (common-lisp:deftype custom-verification-email-templates ()
+   '(trivial-types:proper-list custom-verification-email-template))
+ (common-lisp:defun |make-custom-verification-email-templates|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            custom-verification-email-template))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype default-dimension-value () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -937,6 +1399,98 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-configuration-set-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-configuration-set-tracking-options-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-configuration-set-tracking-options-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-configuration-set-tracking-options-request
+                    'make-delete-configuration-set-tracking-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-configuration-set-tracking-options-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-configuration-set-tracking-options-response-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-configuration-set-tracking-options-response
+                    'make-delete-configuration-set-tracking-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-configuration-set-tracking-options-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-custom-verification-email-template-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-custom-verification-email-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-custom-verification-email-template-request
+                    'make-delete-custom-verification-email-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-custom-verification-email-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-custom-verification-email-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-custom-verification-email-template-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1221,6 +1775,57 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-template-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-template-request 'make-delete-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-template-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-template-response-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-template-response 'make-delete-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-template-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-verified-email-address-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-verified-email-address-request-"))
    (email-address (common-lisp:error ":email-address is required") :type
@@ -1249,6 +1854,30 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-verified-email-address-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delivery-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delivery-options-"))
+   (tls-policy common-lisp:nil :type
+    (common-lisp:or tls-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delivery-options 'make-delivery-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input delivery-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input delivery-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tls-policy))
+      (common-lisp:list
+       (common-lisp:cons "TlsPolicy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input delivery-options))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1362,7 +1991,13 @@
    (configuration-set common-lisp:nil :type
     (common-lisp:or configuration-set common-lisp:null))
    (event-destinations common-lisp:nil :type
-    (common-lisp:or event-destinations common-lisp:null)))
+    (common-lisp:or event-destinations common-lisp:null))
+   (tracking-options common-lisp:nil :type
+    (common-lisp:or tracking-options common-lisp:null))
+   (delivery-options common-lisp:nil :type
+    (common-lisp:or delivery-options common-lisp:null))
+   (reputation-options common-lisp:nil :type
+    (common-lisp:or reputation-options common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-set-response
                     'make-describe-configuration-set-response))
@@ -1388,6 +2023,27 @@
                            aws-sdk/generator/shape::input 'event-destinations))
       (common-lisp:list
        (common-lisp:cons "EventDestinations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tracking-options))
+      (common-lisp:list
+       (common-lisp:cons "TrackingOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'delivery-options))
+      (common-lisp:list
+       (common-lisp:cons "DeliveryOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reputation-options))
+      (common-lisp:list
+       (common-lisp:cons "ReputationOptions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1592,6 +2248,7 @@
 (common-lisp:deftype dsn-action () 'common-lisp:string)
 (common-lisp:deftype dsn-status () 'common-lisp:string)
 (common-lisp:deftype enabled () 'common-lisp:boolean)
+(common-lisp:deftype error () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (event-destination (:copier common-lisp:nil)
@@ -1750,6 +2407,158 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype extension-field-name () 'common-lisp:string)
 (common-lisp:deftype extension-field-value () 'common-lisp:string)
+(common-lisp:deftype failure-redirection-url () 'common-lisp:string)
+(common-lisp:deftype from-address () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition from-email-address-not-verified-exception
+     (email-error)
+     ((from-email-address :initarg :from-email-address :initform
+       common-lisp:nil :reader
+       from-email-address-not-verified-exception-from-email-address)))
+ (common-lisp:export
+  (common-lisp:list 'from-email-address-not-verified-exception
+                    'from-email-address-not-verified-exception-from-email-address)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-account-sending-enabled-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-account-sending-enabled-response-"))
+   (enabled common-lisp:nil :type (common-lisp:or enabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-account-sending-enabled-response
+                    'make-get-account-sending-enabled-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-account-sending-enabled-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-account-sending-enabled-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-account-sending-enabled-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-custom-verification-email-template-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-custom-verification-email-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-custom-verification-email-template-request
+                    'make-get-custom-verification-email-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-custom-verification-email-template-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-custom-verification-email-template-response-"))
+   (template-name common-lisp:nil :type
+    (common-lisp:or template-name common-lisp:null))
+   (from-email-address common-lisp:nil :type
+    (common-lisp:or from-address common-lisp:null))
+   (template-subject common-lisp:nil :type
+    (common-lisp:or subject common-lisp:null))
+   (template-content common-lisp:nil :type
+    (common-lisp:or template-content common-lisp:null))
+   (success-redirection-url common-lisp:nil :type
+    (common-lisp:or success-redirection-url common-lisp:null))
+   (failure-redirection-url common-lisp:nil :type
+    (common-lisp:or failure-redirection-url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-custom-verification-email-template-response
+                    'make-get-custom-verification-email-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-email-address))
+      (common-lisp:list
+       (common-lisp:cons "FromEmailAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-subject))
+      (common-lisp:list
+       (common-lisp:cons "TemplateSubject"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-content))
+      (common-lisp:list
+       (common-lisp:cons "TemplateContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'success-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "SuccessRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failure-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "FailureRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-custom-verification-email-template-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-identity-dkim-attributes-request (:copier common-lisp:nil)
@@ -2162,8 +2971,62 @@
                          (aws-sdk/generator/shape::input
                           get-send-statistics-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-template-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-template-request 'make-get-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input get-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input get-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input get-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-template-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-template-response-"))
+   (template common-lisp:nil :type (common-lisp:or template common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-template-response 'make-get-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-template-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template))
+      (common-lisp:list
+       (common-lisp:cons "Template"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-template-response))
+   common-lisp:nil))
 (common-lisp:deftype header-name () 'common-lisp:string)
 (common-lisp:deftype header-value () 'common-lisp:string)
+(common-lisp:deftype html-part () 'common-lisp:string)
 (common-lisp:deftype identity () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2423,6 +3286,11 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-configuration-set-exception)))
 (common-lisp:progn
+ (common-lisp:define-condition invalid-delivery-options-exception
+     (email-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-delivery-options-exception)))
+(common-lisp:progn
  (common-lisp:define-condition invalid-firehose-destination-exception
      (email-error)
      ((configuration-set-name :initarg :configuration-set-name :initform
@@ -2448,6 +3316,14 @@
      (email-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-policy-exception)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-rendering-parameter-exception
+     (email-error)
+     ((template-name :initarg :template-name :initform common-lisp:nil :reader
+       invalid-rendering-parameter-exception-template-name)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-rendering-parameter-exception
+                    'invalid-rendering-parameter-exception-template-name)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-s3configuration-exception
      (email-error)
@@ -2477,6 +3353,19 @@
  (common-lisp:export
   (common-lisp:list 'invalid-sns-topic-exception
                     'invalid-sns-topic-exception-topic)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-template-exception
+     (email-error)
+     ((template-name :initarg :template-name :initform common-lisp:nil :reader
+       invalid-template-exception-template-name)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-template-exception
+                    'invalid-template-exception-template-name)))
+(common-lisp:progn
+ (common-lisp:define-condition invalid-tracking-options-exception
+     (email-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'invalid-tracking-options-exception)))
 (common-lisp:deftype invocation-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2560,6 +3449,7 @@
                         ((aws-sdk/generator/shape::input lambda-action))
    common-lisp:nil))
 (common-lisp:deftype last-attempt-date () 'common-lisp:string)
+(common-lisp:deftype last-fresh-start () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (email-error)
@@ -2644,6 +3534,91 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-configuration-sets-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-custom-verification-email-templates-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-custom-verification-email-templates-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-custom-verification-email-templates-request
+                    'make-list-custom-verification-email-templates-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-custom-verification-email-templates-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-custom-verification-email-templates-response-"))
+   (custom-verification-email-templates common-lisp:nil :type
+    (common-lisp:or custom-verification-email-templates common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-custom-verification-email-templates-response
+                    'make-list-custom-verification-email-templates-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'custom-verification-email-templates))
+      (common-lisp:list
+       (common-lisp:cons "CustomVerificationEmailTemplates"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-custom-verification-email-templates-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2920,6 +3895,84 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-templates-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-templates-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-items common-lisp:nil :type
+    (common-lisp:or max-items common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-templates-request 'make-list-templates-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-items))
+      (common-lisp:list
+       (common-lisp:cons "MaxItems"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-templates-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-templates-response-"))
+   (templates-metadata common-lisp:nil :type
+    (common-lisp:or template-metadata-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-templates-response 'make-list-templates-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'templates-metadata))
+      (common-lisp:list
+       (common-lisp:cons "TemplatesMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-templates-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-verified-email-addresses-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-verified-email-addresses-response-"))
    (verified-email-addresses common-lisp:nil :type
@@ -2967,6 +4020,7 @@
   (common-lisp:list 'mail-from-domain-not-verified-exception)))
 (common-lisp:deftype max24hour-send () 'common-lisp:double-float)
 (common-lisp:deftype max-items () 'common-lisp:integer)
+(common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype max-send-rate () 'common-lisp:double-float)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3089,6 +4143,14 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype message-tag-name () 'common-lisp:string)
 (common-lisp:deftype message-tag-value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition missing-rendering-attribute-exception
+     (email-error)
+     ((template-name :initarg :template-name :initform common-lisp:nil :reader
+       missing-rendering-attribute-exception-template-name)))
+ (common-lisp:export
+  (common-lisp:list 'missing-rendering-attribute-exception
+                    'missing-rendering-attribute-exception-template-name)))
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype notification-attributes () 'common-lisp:hash-table)
@@ -3117,6 +4179,78 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list policy-name))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition production-access-not-granted-exception
+     (email-error)
+     common-lisp:nil)
+ (common-lisp:export
+  (common-lisp:list 'production-access-not-granted-exception)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-configuration-set-delivery-options-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-put-configuration-set-delivery-options-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (delivery-options common-lisp:nil :type
+    (common-lisp:or delivery-options common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-configuration-set-delivery-options-request
+                    'make-put-configuration-set-delivery-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'delivery-options))
+      (common-lisp:list
+       (common-lisp:cons "DeliveryOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-configuration-set-delivery-options-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-put-configuration-set-delivery-options-response-")))
+ (common-lisp:export
+  (common-lisp:list 'put-configuration-set-delivery-options-response
+                    'make-put-configuration-set-delivery-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-configuration-set-delivery-options-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (put-identity-policy-request (:copier common-lisp:nil)
@@ -3594,6 +4728,7 @@
                            (trivial-types:proper-list recipient))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype remote-mta () 'common-lisp:string)
+(common-lisp:deftype rendered-template () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (reorder-receipt-rule-set-request (:copier common-lisp:nil)
@@ -3657,6 +4792,49 @@
                           reorder-receipt-rule-set-response))
    common-lisp:nil))
 (common-lisp:deftype reporting-mta () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reputation-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-reputation-options-"))
+   (sending-enabled common-lisp:nil :type
+    (common-lisp:or enabled common-lisp:null))
+   (reputation-metrics-enabled common-lisp:nil :type
+    (common-lisp:or enabled common-lisp:null))
+   (last-fresh-start common-lisp:nil :type
+    (common-lisp:or last-fresh-start common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reputation-options 'make-reputation-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input reputation-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input reputation-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sending-enabled))
+      (common-lisp:list
+       (common-lisp:cons "SendingEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'reputation-metrics-enabled))
+      (common-lisp:list
+       (common-lisp:cons "ReputationMetricsEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-fresh-start))
+      (common-lisp:list
+       (common-lisp:cons "LastFreshStart"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input reputation-options))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition rule-does-not-exist-exception
      (email-error)
@@ -3875,6 +5053,241 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input send-bounce-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-bulk-templated-email-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-bulk-templated-email-request-"))
+   (source (common-lisp:error ":source is required") :type
+    (common-lisp:or address common-lisp:null))
+   (source-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (reply-to-addresses common-lisp:nil :type
+    (common-lisp:or address-list common-lisp:null))
+   (return-path common-lisp:nil :type
+    (common-lisp:or address common-lisp:null))
+   (return-path-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (configuration-set-name common-lisp:nil :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (default-tags common-lisp:nil :type
+    (common-lisp:or message-tag-list common-lisp:null))
+   (template (common-lisp:error ":template is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (template-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (default-template-data common-lisp:nil :type
+    (common-lisp:or template-data common-lisp:null))
+   (destinations (common-lisp:error ":destinations is required") :type
+    (common-lisp:or bulk-email-destination-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-bulk-templated-email-request
+                    'make-send-bulk-templated-email-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source))
+      (common-lisp:list
+       (common-lisp:cons "Source"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source-arn))
+      (common-lisp:list
+       (common-lisp:cons "SourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reply-to-addresses))
+      (common-lisp:list
+       (common-lisp:cons "ReplyToAddresses"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-path))
+      (common-lisp:list
+       (common-lisp:cons "ReturnPath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-path-arn))
+      (common-lisp:list
+       (common-lisp:cons "ReturnPathArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-tags))
+      (common-lisp:list
+       (common-lisp:cons "DefaultTags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template))
+      (common-lisp:list
+       (common-lisp:cons "Template"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-arn))
+      (common-lisp:list
+       (common-lisp:cons "TemplateArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-template-data))
+      (common-lisp:list
+       (common-lisp:cons "DefaultTemplateData"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destinations))
+      (common-lisp:list
+       (common-lisp:cons "Destinations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-bulk-templated-email-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-bulk-templated-email-response-"))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or bulk-email-destination-status-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-bulk-templated-email-response
+                    'make-send-bulk-templated-email-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-bulk-templated-email-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-custom-verification-email-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-custom-verification-email-request-"))
+   (email-address (common-lisp:error ":email-address is required") :type
+    (common-lisp:or address common-lisp:null))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (configuration-set-name common-lisp:nil :type
+    (common-lisp:or configuration-set-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-custom-verification-email-request
+                    'make-send-custom-verification-email-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'email-address))
+      (common-lisp:list
+       (common-lisp:cons "EmailAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-custom-verification-email-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-custom-verification-email-response-"))
+   (message-id common-lisp:nil :type
+    (common-lisp:or message-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-custom-verification-email-response
+                    'make-send-custom-verification-email-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message-id))
+      (common-lisp:list
+       (common-lisp:cons "MessageId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-custom-verification-email-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4183,6 +5596,159 @@
                         (
                          (aws-sdk/generator/shape::input
                           send-raw-email-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-templated-email-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-templated-email-request-"))
+   (source (common-lisp:error ":source is required") :type
+    (common-lisp:or address common-lisp:null))
+   (destination (common-lisp:error ":destination is required") :type
+    (common-lisp:or destination common-lisp:null))
+   (reply-to-addresses common-lisp:nil :type
+    (common-lisp:or address-list common-lisp:null))
+   (return-path common-lisp:nil :type
+    (common-lisp:or address common-lisp:null))
+   (source-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (return-path-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (tags common-lisp:nil :type
+    (common-lisp:or message-tag-list common-lisp:null))
+   (configuration-set-name common-lisp:nil :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (template (common-lisp:error ":template is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (template-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (template-data (common-lisp:error ":template-data is required") :type
+    (common-lisp:or template-data common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-templated-email-request
+                    'make-send-templated-email-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source))
+      (common-lisp:list
+       (common-lisp:cons "Source"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination))
+      (common-lisp:list
+       (common-lisp:cons "Destination"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reply-to-addresses))
+      (common-lisp:list
+       (common-lisp:cons "ReplyToAddresses"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-path))
+      (common-lisp:list
+       (common-lisp:cons "ReturnPath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source-arn))
+      (common-lisp:list
+       (common-lisp:cons "SourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'return-path-arn))
+      (common-lisp:list
+       (common-lisp:cons "ReturnPathArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template))
+      (common-lisp:list
+       (common-lisp:cons "Template"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-arn))
+      (common-lisp:list
+       (common-lisp:cons "TemplateArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-data))
+      (common-lisp:list
+       (common-lisp:cons "TemplateData"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-templated-email-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-send-templated-email-response-"))
+   (message-id (common-lisp:error ":message-id is required") :type
+    (common-lisp:or message-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-templated-email-response
+                    'make-send-templated-email-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message-id))
+      (common-lisp:list
+       (common-lisp:cons "MessageId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          send-templated-email-response))
    common-lisp:nil))
 (common-lisp:deftype sent-last24hours () 'common-lisp:double-float)
 (common-lisp:progn
@@ -4688,8 +6254,256 @@
                         ((aws-sdk/generator/shape::input stop-action))
    common-lisp:nil))
 (common-lisp:deftype stop-scope () 'common-lisp:string)
+(common-lisp:deftype subject () 'common-lisp:string)
+(common-lisp:deftype subject-part () 'common-lisp:string)
+(common-lisp:deftype success-redirection-url () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (template (:copier common-lisp:nil) (:conc-name "struct-shape-template-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (subject-part common-lisp:nil :type
+    (common-lisp:or subject-part common-lisp:null))
+   (text-part common-lisp:nil :type
+    (common-lisp:or text-part common-lisp:null))
+   (html-part common-lisp:nil :type
+    (common-lisp:or html-part common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'template 'make-template))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input template))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input template))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'subject-part))
+      (common-lisp:list
+       (common-lisp:cons "SubjectPart"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'text-part))
+      (common-lisp:list
+       (common-lisp:cons "TextPart"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'html-part))
+      (common-lisp:list
+       (common-lisp:cons "HtmlPart"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input template))
+   common-lisp:nil))
+(common-lisp:deftype template-content () 'common-lisp:string)
+(common-lisp:deftype template-data () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition template-does-not-exist-exception
+     (email-error)
+     ((template-name :initarg :template-name :initform common-lisp:nil :reader
+       template-does-not-exist-exception-template-name)))
+ (common-lisp:export
+  (common-lisp:list 'template-does-not-exist-exception
+                    'template-does-not-exist-exception-template-name)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (template-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-template-metadata-"))
+   (name common-lisp:nil :type (common-lisp:or template-name common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'template-metadata 'make-template-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input template-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input template-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input template-metadata))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype template-metadata-list ()
+   '(trivial-types:proper-list template-metadata))
+ (common-lisp:defun |make-template-metadata-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list template-metadata))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype template-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (test-render-template-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-test-render-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (template-data (common-lisp:error ":template-data is required") :type
+    (common-lisp:or template-data common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'test-render-template-request
+                    'make-test-render-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-data))
+      (common-lisp:list
+       (common-lisp:cons "TemplateData"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (test-render-template-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-test-render-template-response-"))
+   (rendered-template common-lisp:nil :type
+    (common-lisp:or rendered-template common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'test-render-template-response
+                    'make-test-render-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rendered-template))
+      (common-lisp:list
+       (common-lisp:cons "RenderedTemplate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          test-render-template-response))
+   common-lisp:nil))
+(common-lisp:deftype text-part () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype tls-policy () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tracking-options (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tracking-options-"))
+   (custom-redirect-domain common-lisp:nil :type
+    (common-lisp:or custom-redirect-domain common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tracking-options 'make-tracking-options))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tracking-options))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tracking-options))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'custom-redirect-domain))
+      (common-lisp:list
+       (common-lisp:cons "CustomRedirectDomain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tracking-options))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition tracking-options-already-exists-exception
+     (email-error)
+     ((configuration-set-name :initarg :configuration-set-name :initform
+       common-lisp:nil :reader
+       tracking-options-already-exists-exception-configuration-set-name)))
+ (common-lisp:export
+  (common-lisp:list 'tracking-options-already-exists-exception
+                    'tracking-options-already-exists-exception-configuration-set-name)))
+(common-lisp:progn
+ (common-lisp:define-condition tracking-options-does-not-exist-exception
+     (email-error)
+     ((configuration-set-name :initarg :configuration-set-name :initform
+       common-lisp:nil :reader
+       tracking-options-does-not-exist-exception-configuration-set-name)))
+ (common-lisp:export
+  (common-lisp:list 'tracking-options-does-not-exist-exception
+                    'tracking-options-does-not-exist-exception-configuration-set-name)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-account-sending-enabled-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-account-sending-enabled-request-"))
+   (enabled common-lisp:nil :type (common-lisp:or enabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-account-sending-enabled-request
+                    'make-update-account-sending-enabled-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-account-sending-enabled-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-account-sending-enabled-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-account-sending-enabled-request))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-configuration-set-event-destination-request
@@ -4760,6 +6574,243 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-configuration-set-reputation-metrics-enabled-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-configuration-set-reputation-metrics-enabled-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (enabled (common-lisp:error ":enabled is required") :type
+    (common-lisp:or enabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'update-configuration-set-reputation-metrics-enabled-request
+   'make-update-configuration-set-reputation-metrics-enabled-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-reputation-metrics-enabled-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-reputation-metrics-enabled-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-reputation-metrics-enabled-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-configuration-set-sending-enabled-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-configuration-set-sending-enabled-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (enabled (common-lisp:error ":enabled is required") :type
+    (common-lisp:or enabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-configuration-set-sending-enabled-request
+                    'make-update-configuration-set-sending-enabled-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-sending-enabled-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-sending-enabled-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-sending-enabled-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-configuration-set-tracking-options-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-configuration-set-tracking-options-request-"))
+   (configuration-set-name
+    (common-lisp:error ":configuration-set-name is required") :type
+    (common-lisp:or configuration-set-name common-lisp:null))
+   (tracking-options (common-lisp:error ":tracking-options is required") :type
+    (common-lisp:or tracking-options common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-configuration-set-tracking-options-request
+                    'make-update-configuration-set-tracking-options-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'configuration-set-name))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tracking-options))
+      (common-lisp:list
+       (common-lisp:cons "TrackingOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-configuration-set-tracking-options-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-configuration-set-tracking-options-response-")))
+ (common-lisp:export
+  (common-lisp:list 'update-configuration-set-tracking-options-response
+                    'make-update-configuration-set-tracking-options-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-configuration-set-tracking-options-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-custom-verification-email-template-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-custom-verification-email-template-request-"))
+   (template-name (common-lisp:error ":template-name is required") :type
+    (common-lisp:or template-name common-lisp:null))
+   (from-email-address common-lisp:nil :type
+    (common-lisp:or from-address common-lisp:null))
+   (template-subject common-lisp:nil :type
+    (common-lisp:or subject common-lisp:null))
+   (template-content common-lisp:nil :type
+    (common-lisp:or template-content common-lisp:null))
+   (success-redirection-url common-lisp:nil :type
+    (common-lisp:or success-redirection-url common-lisp:null))
+   (failure-redirection-url common-lisp:nil :type
+    (common-lisp:or failure-redirection-url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-custom-verification-email-template-request
+                    'make-update-custom-verification-email-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-custom-verification-email-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-custom-verification-email-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-name))
+      (common-lisp:list
+       (common-lisp:cons "TemplateName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'from-email-address))
+      (common-lisp:list
+       (common-lisp:cons "FromEmailAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-subject))
+      (common-lisp:list
+       (common-lisp:cons "TemplateSubject"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template-content))
+      (common-lisp:list
+       (common-lisp:cons "TemplateContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'success-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "SuccessRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'failure-redirection-url))
+      (common-lisp:list
+       (common-lisp:cons "FailureRedirectionURL"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-custom-verification-email-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-receipt-rule-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-receipt-rule-request-"))
    (rule-set-name (common-lisp:error ":rule-set-name is required") :type
@@ -4819,6 +6870,57 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-receipt-rule-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-template-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-template-request-"))
+   (template (common-lisp:error ":template is required") :type
+    (common-lisp:or template common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-template-request 'make-update-template-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'template))
+      (common-lisp:list
+       (common-lisp:cons "Template"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-template-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-template-response-")))
+ (common-lisp:export
+  (common-lisp:list 'update-template-response 'make-update-template-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-template-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:deftype verification-attributes () 'common-lisp:hash-table)
@@ -5137,6 +7239,50 @@
       *error-map*)))
  (common-lisp:export 'create-configuration-set-event-destination))
 (common-lisp:progn
+ (common-lisp:defun create-configuration-set-tracking-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name tracking-options)
+   (common-lisp:declare
+    (common-lisp:ignorable configuration-set-name tracking-options))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-configuration-set-tracking-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateConfigurationSetTrackingOptions"
+                                                        "2010-12-01"))
+      common-lisp:nil "CreateConfigurationSetTrackingOptionsResult"
+      *error-map*)))
+ (common-lisp:export 'create-configuration-set-tracking-options))
+(common-lisp:progn
+ (common-lisp:defun create-custom-verification-email-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name from-email-address
+                     template-subject template-content success-redirection-url
+                     failure-redirection-url)
+   (common-lisp:declare
+    (common-lisp:ignorable template-name from-email-address template-subject
+     template-content success-redirection-url failure-redirection-url))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-custom-verification-email-template-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateCustomVerificationEmailTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-custom-verification-email-template))
+(common-lisp:progn
  (common-lisp:defun create-receipt-filter
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5191,6 +7337,24 @@
       common-lisp:nil "CreateReceiptRuleSetResult" *error-map*)))
  (common-lisp:export 'create-receipt-rule-set))
 (common-lisp:progn
+ (common-lisp:defun create-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template)
+   (common-lisp:declare (common-lisp:ignorable template))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-template-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "CreateTemplateResult" *error-map*)))
+ (common-lisp:export 'create-template))
+(common-lisp:progn
  (common-lisp:defun delete-configuration-set
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5230,6 +7394,45 @@
       common-lisp:nil "DeleteConfigurationSetEventDestinationResult"
       *error-map*)))
  (common-lisp:export 'delete-configuration-set-event-destination))
+(common-lisp:progn
+ (common-lisp:defun delete-configuration-set-tracking-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name)
+   (common-lisp:declare (common-lisp:ignorable configuration-set-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-configuration-set-tracking-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteConfigurationSetTrackingOptions"
+                                                        "2010-12-01"))
+      common-lisp:nil "DeleteConfigurationSetTrackingOptionsResult"
+      *error-map*)))
+ (common-lisp:export 'delete-configuration-set-tracking-options))
+(common-lisp:progn
+ (common-lisp:defun delete-custom-verification-email-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name)
+   (common-lisp:declare (common-lisp:ignorable template-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-custom-verification-email-template-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteCustomVerificationEmailTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-custom-verification-email-template))
 (common-lisp:progn
  (common-lisp:defun delete-identity
                     (
@@ -5321,6 +7524,24 @@
       common-lisp:nil "DeleteReceiptRuleSetResult" *error-map*)))
  (common-lisp:export 'delete-receipt-rule-set))
 (common-lisp:progn
+ (common-lisp:defun delete-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name)
+   (common-lisp:declare (common-lisp:ignorable template-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-template-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "DeleteTemplateResult" *error-map*)))
+ (common-lisp:export 'delete-template))
+(common-lisp:progn
  (common-lisp:defun delete-verified-email-address
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5407,6 +7628,34 @@
                                                         "2010-12-01"))
       common-lisp:nil "DescribeReceiptRuleSetResult" *error-map*)))
  (common-lisp:export 'describe-receipt-rule-set))
+(common-lisp:progn
+ (common-lisp:defun get-account-sending-enabled ()
+   (aws-sdk/generator/operation::parse-response
+    (aws-sdk/api:aws-request
+     (common-lisp:make-instance 'email-request :method "POST" :path "/" :params
+                                `(("Action" ,@"GetAccountSendingEnabled")
+                                  ("Version" ,@"2010-12-01"))))
+    common-lisp:nil "GetAccountSendingEnabledResult" *error-map*))
+ (common-lisp:export 'get-account-sending-enabled))
+(common-lisp:progn
+ (common-lisp:defun get-custom-verification-email-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name)
+   (common-lisp:declare (common-lisp:ignorable template-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-custom-verification-email-template-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetCustomVerificationEmailTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "GetCustomVerificationEmailTemplateResult" *error-map*)))
+ (common-lisp:export 'get-custom-verification-email-template))
 (common-lisp:progn
  (common-lisp:defun get-identity-dkim-attributes
                     (
@@ -5521,6 +7770,24 @@
     common-lisp:nil "GetSendStatisticsResult" *error-map*))
  (common-lisp:export 'get-send-statistics))
 (common-lisp:progn
+ (common-lisp:defun get-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name)
+   (common-lisp:declare (common-lisp:ignorable template-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-template-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "GetTemplateResult" *error-map*)))
+ (common-lisp:export 'get-template))
+(common-lisp:progn
  (common-lisp:defun list-configuration-sets
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5538,6 +7805,26 @@
                                                         "2010-12-01"))
       common-lisp:nil "ListConfigurationSetsResult" *error-map*)))
  (common-lisp:export 'list-configuration-sets))
+(common-lisp:progn
+ (common-lisp:defun list-custom-verification-email-templates
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-custom-verification-email-templates-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListCustomVerificationEmailTemplates"
+                                                        "2010-12-01"))
+      common-lisp:nil "ListCustomVerificationEmailTemplatesResult"
+      *error-map*)))
+ (common-lisp:export 'list-custom-verification-email-templates))
 (common-lisp:progn
  (common-lisp:defun list-identities
                     (
@@ -5603,6 +7890,24 @@
       common-lisp:nil "ListReceiptRuleSetsResult" *error-map*)))
  (common-lisp:export 'list-receipt-rule-sets))
 (common-lisp:progn
+ (common-lisp:defun list-templates
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-items)
+   (common-lisp:declare (common-lisp:ignorable next-token max-items))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-templates-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListTemplates"
+                                                        "2010-12-01"))
+      common-lisp:nil "ListTemplatesResult" *error-map*)))
+ (common-lisp:export 'list-templates))
+(common-lisp:progn
  (common-lisp:defun list-verified-email-addresses ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
@@ -5611,6 +7916,26 @@
                                   ("Version" ,@"2010-12-01"))))
     common-lisp:nil "ListVerifiedEmailAddressesResult" *error-map*))
  (common-lisp:export 'list-verified-email-addresses))
+(common-lisp:progn
+ (common-lisp:defun put-configuration-set-delivery-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name delivery-options)
+   (common-lisp:declare
+    (common-lisp:ignorable configuration-set-name delivery-options))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-configuration-set-delivery-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "PutConfigurationSetDeliveryOptions"
+                                                        "2010-12-01"))
+      common-lisp:nil "PutConfigurationSetDeliveryOptionsResult" *error-map*)))
+ (common-lisp:export 'put-configuration-set-delivery-options))
 (common-lisp:progn
  (common-lisp:defun put-identity-policy
                     (
@@ -5669,6 +7994,52 @@
       common-lisp:nil "SendBounceResult" *error-map*)))
  (common-lisp:export 'send-bounce))
 (common-lisp:progn
+ (common-lisp:defun send-bulk-templated-email
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key source source-arn reply-to-addresses
+                     return-path return-path-arn configuration-set-name
+                     default-tags template template-arn default-template-data
+                     destinations)
+   (common-lisp:declare
+    (common-lisp:ignorable source source-arn reply-to-addresses return-path
+     return-path-arn configuration-set-name default-tags template template-arn
+     default-template-data destinations))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-send-bulk-templated-email-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "SendBulkTemplatedEmail"
+                                                        "2010-12-01"))
+      common-lisp:nil "SendBulkTemplatedEmailResult" *error-map*)))
+ (common-lisp:export 'send-bulk-templated-email))
+(common-lisp:progn
+ (common-lisp:defun send-custom-verification-email
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key email-address template-name
+                     configuration-set-name)
+   (common-lisp:declare
+    (common-lisp:ignorable email-address template-name configuration-set-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-send-custom-verification-email-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "SendCustomVerificationEmail"
+                                                        "2010-12-01"))
+      common-lisp:nil "SendCustomVerificationEmailResult" *error-map*)))
+ (common-lisp:export 'send-custom-verification-email))
+(common-lisp:progn
  (common-lisp:defun send-email
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5710,6 +8081,30 @@
                                                         "2010-12-01"))
       common-lisp:nil "SendRawEmailResult" *error-map*)))
  (common-lisp:export 'send-raw-email))
+(common-lisp:progn
+ (common-lisp:defun send-templated-email
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key source destination reply-to-addresses
+                     return-path source-arn return-path-arn tags
+                     configuration-set-name template template-arn
+                     template-data)
+   (common-lisp:declare
+    (common-lisp:ignorable source destination reply-to-addresses return-path
+     source-arn return-path-arn tags configuration-set-name template
+     template-arn template-data))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-send-templated-email-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "SendTemplatedEmail"
+                                                        "2010-12-01"))
+      common-lisp:nil "SendTemplatedEmailResult" *error-map*)))
+ (common-lisp:export 'send-templated-email))
 (common-lisp:progn
  (common-lisp:defun set-active-receipt-rule-set
                     (
@@ -5850,6 +8245,43 @@
       common-lisp:nil "SetReceiptRulePositionResult" *error-map*)))
  (common-lisp:export 'set-receipt-rule-position))
 (common-lisp:progn
+ (common-lisp:defun test-render-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name template-data)
+   (common-lisp:declare (common-lisp:ignorable template-name template-data))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-test-render-template-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "TestRenderTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "TestRenderTemplateResult" *error-map*)))
+ (common-lisp:export 'test-render-template))
+(common-lisp:progn
+ (common-lisp:defun update-account-sending-enabled
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key enabled)
+   (common-lisp:declare (common-lisp:ignorable enabled))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-account-sending-enabled-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateAccountSendingEnabled"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-account-sending-enabled))
+(common-lisp:progn
  (common-lisp:defun update-configuration-set-event-destination
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5871,6 +8303,88 @@
       *error-map*)))
  (common-lisp:export 'update-configuration-set-event-destination))
 (common-lisp:progn
+ (common-lisp:defun update-configuration-set-reputation-metrics-enabled
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name enabled)
+   (common-lisp:declare (common-lisp:ignorable configuration-set-name enabled))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-configuration-set-reputation-metrics-enabled-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateConfigurationSetReputationMetricsEnabled"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-configuration-set-reputation-metrics-enabled))
+(common-lisp:progn
+ (common-lisp:defun update-configuration-set-sending-enabled
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name enabled)
+   (common-lisp:declare (common-lisp:ignorable configuration-set-name enabled))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-configuration-set-sending-enabled-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateConfigurationSetSendingEnabled"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-configuration-set-sending-enabled))
+(common-lisp:progn
+ (common-lisp:defun update-configuration-set-tracking-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key configuration-set-name tracking-options)
+   (common-lisp:declare
+    (common-lisp:ignorable configuration-set-name tracking-options))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-configuration-set-tracking-options-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateConfigurationSetTrackingOptions"
+                                                        "2010-12-01"))
+      common-lisp:nil "UpdateConfigurationSetTrackingOptionsResult"
+      *error-map*)))
+ (common-lisp:export 'update-configuration-set-tracking-options))
+(common-lisp:progn
+ (common-lisp:defun update-custom-verification-email-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template-name from-email-address
+                     template-subject template-content success-redirection-url
+                     failure-redirection-url)
+   (common-lisp:declare
+    (common-lisp:ignorable template-name from-email-address template-subject
+     template-content success-redirection-url failure-redirection-url))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-custom-verification-email-template-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateCustomVerificationEmailTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-custom-verification-email-template))
+(common-lisp:progn
  (common-lisp:defun update-receipt-rule
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5888,6 +8402,24 @@
                                                         "2010-12-01"))
       common-lisp:nil "UpdateReceiptRuleResult" *error-map*)))
  (common-lisp:export 'update-receipt-rule))
+(common-lisp:progn
+ (common-lisp:defun update-template
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key template)
+   (common-lisp:declare (common-lisp:ignorable template))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-template-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'email-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateTemplate"
+                                                        "2010-12-01"))
+      common-lisp:nil "UpdateTemplateResult" *error-map*)))
+ (common-lisp:export 'update-template))
 (common-lisp:progn
  (common-lisp:defun verify-domain-dkim
                     (

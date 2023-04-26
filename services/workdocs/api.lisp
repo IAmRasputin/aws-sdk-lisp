@@ -318,6 +318,16 @@
                          (aws-sdk/generator/shape::input
                           add-resource-permissions-response))
    common-lisp:nil))
+(common-lisp:deftype additional-response-field-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype additional-response-fields-list ()
+   '(trivial-types:proper-list additional-response-field-type))
+ (common-lisp:defun |make-additional-response-fields-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            additional-response-field-type))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype authentication-header-type () 'common-lisp:string)
 (common-lisp:deftype boolean-enum-type () 'common-lisp:string)
 (common-lisp:deftype boolean-type () 'common-lisp:boolean)
@@ -434,6 +444,8 @@
    (comment-status common-lisp:nil :type
     (common-lisp:or comment-status-type common-lisp:null))
    (recipient-id common-lisp:nil :type
+    (common-lisp:or id-type common-lisp:null))
+   (contributor-id common-lisp:nil :type
     (common-lisp:or id-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'comment-metadata 'make-comment-metadata))
@@ -477,6 +489,13 @@
       (common-lisp:list
        (common-lisp:cons "RecipientId"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contributor-id))
+      (common-lisp:list
+       (common-lisp:cons "ContributorId"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input comment-metadata))
@@ -500,6 +519,7 @@
  (common-lisp:export
   (common-lisp:list 'conflicting-operation-exception
                     'conflicting-operation-exception-message)))
+(common-lisp:deftype content-category-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (create-comment-request (:copier common-lisp:nil)
@@ -1033,6 +1053,38 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype custom-metadata-value-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (date-range-type (:copier common-lisp:nil)
+      (:conc-name "struct-shape-date-range-type-"))
+   (start-value common-lisp:nil :type
+    (common-lisp:or timestamp-type common-lisp:null))
+   (end-value common-lisp:nil :type
+    (common-lisp:or timestamp-type common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'date-range-type 'make-date-range-type))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input date-range-type))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input date-range-type))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-value))
+      (common-lisp:list
+       (common-lisp:cons "StartValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-value))
+      (common-lisp:list
+       (common-lisp:cons "EndValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input date-range-type))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (deactivate-user-request (:copier common-lisp:nil)
@@ -2425,6 +2477,110 @@
   (common-lisp:list 'failed-dependency-exception
                     'failed-dependency-exception-message)))
 (common-lisp:deftype field-names-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (filters (:copier common-lisp:nil) (:conc-name "struct-shape-filters-"))
+   (text-locales common-lisp:nil :type
+    (common-lisp:or text-locale-type-list common-lisp:null))
+   (content-categories common-lisp:nil :type
+    (common-lisp:or search-content-category-type-list common-lisp:null))
+   (resource-types common-lisp:nil :type
+    (common-lisp:or search-resource-type-list common-lisp:null))
+   (labels common-lisp:nil :type
+    (common-lisp:or search-label-list common-lisp:null))
+   (principals common-lisp:nil :type
+    (common-lisp:or search-principal-type-list common-lisp:null))
+   (ancestor-ids common-lisp:nil :type
+    (common-lisp:or search-ancestor-id-list common-lisp:null))
+   (search-collection-types common-lisp:nil :type
+    (common-lisp:or search-collection-type-list common-lisp:null))
+   (size-range common-lisp:nil :type
+    (common-lisp:or long-range-type common-lisp:null))
+   (created-range common-lisp:nil :type
+    (common-lisp:or date-range-type common-lisp:null))
+   (modified-range common-lisp:nil :type
+    (common-lisp:or date-range-type common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'filters 'make-filters))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input filters))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input filters))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'text-locales))
+      (common-lisp:list
+       (common-lisp:cons "TextLocales"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'content-categories))
+      (common-lisp:list
+       (common-lisp:cons "ContentCategories"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-types))
+      (common-lisp:list
+       (common-lisp:cons "ResourceTypes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'labels))
+      (common-lisp:list
+       (common-lisp:cons "Labels"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'principals))
+      (common-lisp:list
+       (common-lisp:cons "Principals"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ancestor-ids))
+      (common-lisp:list
+       (common-lisp:cons "AncestorIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'search-collection-types))
+      (common-lisp:list
+       (common-lisp:cons "SearchCollectionTypes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'size-range))
+      (common-lisp:list
+       (common-lisp:cons "SizeRange"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-range))
+      (common-lisp:list
+       (common-lisp:cons "CreatedRange"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'modified-range))
+      (common-lisp:list
+       (common-lisp:cons "ModifiedRange"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input filters))
+   common-lisp:nil))
 (common-lisp:deftype folder-content-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3238,6 +3394,7 @@
  (common-lisp:export
   (common-lisp:list 'invalid-password-exception
                     'invalid-password-exception-message)))
+(common-lisp:deftype language-code-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (workdocs-error)
@@ -3248,8 +3405,42 @@
                     'limit-exceeded-exception-message)))
 (common-lisp:deftype limit-type () 'common-lisp:integer)
 (common-lisp:deftype locale-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (long-range-type (:copier common-lisp:nil)
+      (:conc-name "struct-shape-long-range-type-"))
+   (start-value common-lisp:nil :type
+    (common-lisp:or long-type common-lisp:null))
+   (end-value common-lisp:nil :type
+    (common-lisp:or long-type common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'long-range-type 'make-long-range-type))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input long-range-type))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input long-range-type))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-value))
+      (common-lisp:list
+       (common-lisp:cons "StartValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-value))
+      (common-lisp:list
+       (common-lisp:cons "EndValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input long-range-type))
+   common-lisp:nil))
+(common-lisp:deftype long-type () 'common-lisp:integer)
 (common-lisp:deftype marker-type () 'common-lisp:string)
 (common-lisp:deftype message-type () 'common-lisp:string)
+(common-lisp:deftype next-marker-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (notification-options (:copier common-lisp:nil)
@@ -3283,6 +3474,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input notification-options))
    common-lisp:nil))
+(common-lisp:deftype order-by-field-type () 'common-lisp:string)
 (common-lisp:deftype order-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype organization-user-list ()
@@ -3414,6 +3606,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list principal))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype principal-role-type () 'common-lisp:string)
 (common-lisp:deftype principal-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition prohibited-state-exception
@@ -3659,6 +3852,85 @@
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (response-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-response-item-"))
+   (resource-type common-lisp:nil :type
+    (common-lisp:or response-item-type common-lisp:null))
+   (web-url common-lisp:nil :type
+    (common-lisp:or response-item-web-url common-lisp:null))
+   (document-metadata common-lisp:nil :type
+    (common-lisp:or document-metadata common-lisp:null))
+   (folder-metadata common-lisp:nil :type
+    (common-lisp:or folder-metadata common-lisp:null))
+   (comment-metadata common-lisp:nil :type
+    (common-lisp:or comment-metadata common-lisp:null))
+   (document-version-metadata common-lisp:nil :type
+    (common-lisp:or document-version-metadata common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'response-item 'make-response-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input response-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input response-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-type))
+      (common-lisp:list
+       (common-lisp:cons "ResourceType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'web-url))
+      (common-lisp:list
+       (common-lisp:cons "WebUrl"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-metadata))
+      (common-lisp:list
+       (common-lisp:cons "DocumentMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'folder-metadata))
+      (common-lisp:list
+       (common-lisp:cons "FolderMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'comment-metadata))
+      (common-lisp:list
+       (common-lisp:cons "CommentMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'document-version-metadata))
+      (common-lisp:list
+       (common-lisp:cons "DocumentVersionMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input response-item))
+   common-lisp:nil))
+(common-lisp:deftype response-item-type () 'common-lisp:string)
+(common-lisp:deftype response-item-web-url () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype response-items-list ()
+   '(trivial-types:proper-list response-item))
+ (common-lisp:defun |make-response-items-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list response-item))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (restore-document-versions-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-restore-document-versions-request-"))
    (authentication-token common-lisp:nil :type
@@ -3690,8 +3962,297 @@
    common-lisp:nil))
 (common-lisp:deftype role-permission-type () 'common-lisp:string)
 (common-lisp:deftype role-type () 'common-lisp:string)
+(common-lisp:deftype search-ancestor-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-ancestor-id-list ()
+   '(trivial-types:proper-list search-ancestor-id))
+ (common-lisp:defun |make-search-ancestor-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-ancestor-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype search-collection-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-collection-type-list ()
+   '(trivial-types:proper-list search-collection-type))
+ (common-lisp:defun |make-search-collection-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-collection-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype search-content-category-type-list ()
+   '(trivial-types:proper-list content-category-type))
+ (common-lisp:defun |make-search-content-category-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list content-category-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype search-label () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-label-list ()
+   '(trivial-types:proper-list search-label))
+ (common-lisp:defun |make-search-label-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-label))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype search-marker-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-principal-role-list ()
+   '(trivial-types:proper-list principal-role-type))
+ (common-lisp:defun |make-search-principal-role-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list principal-role-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (search-principal-type (:copier common-lisp:nil)
+      (:conc-name "struct-shape-search-principal-type-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or id-type common-lisp:null))
+   (roles common-lisp:nil :type
+    (common-lisp:or search-principal-role-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'search-principal-type 'make-search-principal-type))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-principal-type))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-principal-type))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'roles))
+      (common-lisp:list
+       (common-lisp:cons "Roles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-principal-type))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype search-principal-type-list ()
+   '(trivial-types:proper-list search-principal-type))
+ (common-lisp:defun |make-search-principal-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-principal-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype search-query-scope-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-query-scope-type-list ()
+   '(trivial-types:proper-list search-query-scope-type))
+ (common-lisp:defun |make-search-query-scope-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-query-scope-type))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype search-query-type () 'common-lisp:string)
+(common-lisp:deftype search-resource-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype search-resource-type-list ()
+   '(trivial-types:proper-list search-resource-type))
+ (common-lisp:defun |make-search-resource-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-resource-type))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (search-resources-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-search-resources-request-"))
+   (authentication-token common-lisp:nil :type
+    (common-lisp:or authentication-header-type common-lisp:null))
+   (query-text common-lisp:nil :type
+    (common-lisp:or search-query-type common-lisp:null))
+   (query-scopes common-lisp:nil :type
+    (common-lisp:or search-query-scope-type-list common-lisp:null))
+   (organization-id common-lisp:nil :type
+    (common-lisp:or id-type common-lisp:null))
+   (additional-response-fields common-lisp:nil :type
+    (common-lisp:or additional-response-fields-list common-lisp:null))
+   (filters common-lisp:nil :type (common-lisp:or filters common-lisp:null))
+   (order-by common-lisp:nil :type
+    (common-lisp:or search-result-sort-list common-lisp:null))
+   (limit common-lisp:nil :type
+    (common-lisp:or search-results-limit-type common-lisp:null))
+   (marker common-lisp:nil :type
+    (common-lisp:or next-marker-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'search-resources-request 'make-search-resources-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'authentication-token))
+      (common-lisp:cons "Authentication" aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-text))
+      (common-lisp:list
+       (common-lisp:cons "QueryText"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-scopes))
+      (common-lisp:list
+       (common-lisp:cons "QueryScopes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'organization-id))
+      (common-lisp:list
+       (common-lisp:cons "OrganizationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'additional-response-fields))
+      (common-lisp:list
+       (common-lisp:cons "AdditionalResponseFields"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filters))
+      (common-lisp:list
+       (common-lisp:cons "Filters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'order-by))
+      (common-lisp:list
+       (common-lisp:cons "OrderBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'limit))
+      (common-lisp:list
+       (common-lisp:cons "Limit"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (search-resources-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-search-resources-response-"))
+   (items common-lisp:nil :type
+    (common-lisp:or response-items-list common-lisp:null))
+   (marker common-lisp:nil :type
+    (common-lisp:or next-marker-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'search-resources-response
+                    'make-search-resources-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'marker))
+      (common-lisp:list
+       (common-lisp:cons "Marker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          search-resources-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype search-result-sort-list ()
+   '(trivial-types:proper-list search-sort-result))
+ (common-lisp:defun |make-search-result-sort-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list search-sort-result))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype search-results-limit-type () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (search-sort-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-search-sort-result-"))
+   (field common-lisp:nil :type
+    (common-lisp:or order-by-field-type common-lisp:null))
+   (order common-lisp:nil :type (common-lisp:or sort-order common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'search-sort-result 'make-search-sort-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input search-sort-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input search-sort-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'field))
+      (common-lisp:list
+       (common-lisp:cons "Field"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'order))
+      (common-lisp:list
+       (common-lisp:cons "Order"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input search-sort-result))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition service-unavailable-exception
      (workdocs-error)
@@ -3844,6 +4405,7 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype size-type () 'common-lisp:integer)
+(common-lisp:deftype sort-order () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition storage-limit-exceeded-exception
      (workdocs-error)
@@ -3947,6 +4509,14 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype subscription-protocol-type () 'common-lisp:string)
 (common-lisp:deftype subscription-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype text-locale-type-list ()
+   '(trivial-types:proper-list language-code-type))
+ (common-lisp:defun |make-text-locale-type-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list language-code-type))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype time-zone-id-type () 'common-lisp:string)
 (common-lisp:deftype timestamp-type () 'common-lisp:string)
 (common-lisp:progn
@@ -5680,6 +6250,28 @@
                                                         "2016-05-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'restore-document-versions))
+(common-lisp:progn
+ (common-lisp:defun search-resources
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key authentication-token query-text
+                     query-scopes organization-id additional-response-fields
+                     filters order-by limit marker)
+   (common-lisp:declare
+    (common-lisp:ignorable authentication-token query-text query-scopes
+     organization-id additional-response-fields filters order-by limit marker))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-search-resources-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'workdocs-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/api/v1/search"
+                                                        "SearchResources"
+                                                        "2016-05-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'search-resources))
 (common-lisp:progn
  (common-lisp:defun update-document
                     (

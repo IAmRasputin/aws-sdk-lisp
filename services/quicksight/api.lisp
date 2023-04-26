@@ -6842,6 +6842,88 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-refresh-schedule-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-refresh-schedule-request-"))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (schedule (common-lisp:error ":schedule is required") :type
+    (common-lisp:or refresh-schedule common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-refresh-schedule-request
+                    'make-create-refresh-schedule-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule))
+      (common-lisp:list
+       (common-lisp:cons "Schedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-refresh-schedule-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-refresh-schedule-response-"))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (schedule-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-refresh-schedule-response
+                    'make-create-refresh-schedule-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-id))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-refresh-schedule-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-template-alias-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-template-alias-request-"))
    (aws-account-id (common-lisp:error ":aws-account-id is required") :type
@@ -9735,6 +9817,39 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (data-set-refresh-properties (:copier common-lisp:nil)
+      (:conc-name "struct-shape-data-set-refresh-properties-"))
+   (refresh-configuration
+    (common-lisp:error ":refresh-configuration is required") :type
+    (common-lisp:or refresh-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'data-set-refresh-properties
+                    'make-data-set-refresh-properties))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-set-refresh-properties))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-set-refresh-properties))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'refresh-configuration))
+      (common-lisp:list
+       (common-lisp:cons "RefreshConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          data-set-refresh-properties))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (data-set-schema (:copier common-lisp:nil)
       (:conc-name "struct-shape-data-set-schema-"))
    (column-schema-list common-lisp:nil :type
@@ -11077,6 +11192,8 @@
                          (aws-sdk/generator/shape::input
                           date-time-value-when-unset-configuration))
    common-lisp:nil))
+(common-lisp:deftype day-of-month () 'common-lisp:string)
+(common-lisp:deftype day-of-week () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype decimal-default-value-list ()
    '(trivial-types:proper-list sensitive-double-object))
@@ -11793,6 +11910,64 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-data-set-refresh-properties-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-data-set-refresh-properties-request-"))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-data-set-refresh-properties-request
+                    'make-delete-data-set-refresh-properties-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-data-set-refresh-properties-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-data-set-refresh-properties-response-"))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or status-code common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-data-set-refresh-properties-response
+                    'make-delete-data-set-refresh-properties-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-data-set-refresh-properties-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-data-set-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-data-set-request-"))
    (aws-account-id (common-lisp:error ":aws-account-id is required") :type
@@ -12318,6 +12493,81 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-namespace-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-refresh-schedule-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-refresh-schedule-request-"))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (schedule-id (common-lisp:error ":schedule-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-refresh-schedule-request
+                    'make-delete-refresh-schedule-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-refresh-schedule-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-refresh-schedule-response-"))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (schedule-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-refresh-schedule-response
+                    'make-delete-refresh-schedule-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-id))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-refresh-schedule-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -13594,6 +13844,75 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-data-set-refresh-properties-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-data-set-refresh-properties-request-"))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-set-refresh-properties-request
+                    'make-describe-data-set-refresh-properties-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-data-set-refresh-properties-response (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-describe-data-set-refresh-properties-response-"))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (data-set-refresh-properties common-lisp:nil :type
+    (common-lisp:or data-set-refresh-properties common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-data-set-refresh-properties-response
+                    'make-describe-data-set-refresh-properties-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-set-refresh-properties))
+      (common-lisp:list
+       (common-lisp:cons "DataSetRefreshProperties"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-data-set-refresh-properties-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-data-set-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-data-set-request-"))
    (aws-account-id (common-lisp:error ":aws-account-id is required") :type
@@ -14467,6 +14786,82 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-namespace-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-refresh-schedule-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-refresh-schedule-request-"))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (schedule-id (common-lisp:error ":schedule-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-refresh-schedule-request
+                    'make-describe-refresh-schedule-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-refresh-schedule-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-refresh-schedule-response-"))
+   (refresh-schedule common-lisp:nil :type
+    (common-lisp:or refresh-schedule common-lisp:null))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-refresh-schedule-response
+                    'make-describe-refresh-schedule-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'refresh-schedule))
+      (common-lisp:list
+       (common-lisp:cons "RefreshSchedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-refresh-schedule-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -21348,6 +21743,30 @@
                     'identity-type-not-supported-exception-request-id)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (incremental-refresh (:copier common-lisp:nil)
+      (:conc-name "struct-shape-incremental-refresh-"))
+   (lookback-window (common-lisp:error ":lookback-window is required") :type
+    (common-lisp:or lookback-window common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'incremental-refresh 'make-incremental-refresh))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input incremental-refresh))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input incremental-refresh))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'lookback-window))
+      (common-lisp:list
+       (common-lisp:cons "LookbackWindow"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input incremental-refresh))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (ingestion (:copier common-lisp:nil)
       (:conc-name "struct-shape-ingestion-"))
    (arn (common-lisp:error ":arn is required") :type
@@ -24445,6 +24864,72 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-refresh-schedules-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-refresh-schedules-request-"))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-refresh-schedules-request
+                    'make-list-refresh-schedules-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-refresh-schedules-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-refresh-schedules-response-"))
+   (refresh-schedules common-lisp:nil :type
+    (common-lisp:or refresh-schedules common-lisp:null))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-refresh-schedules-response
+                    'make-list-refresh-schedules-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'refresh-schedules))
+      (common-lisp:list
+       (common-lisp:cons "RefreshSchedules"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-refresh-schedules-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-tags-for-resource-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-tags-for-resource-request-"))
    (resource-arn (common-lisp:error ":resource-arn is required") :type
@@ -25280,6 +25765,48 @@
 (common-lisp:deftype long-plain-text () 'common-lisp:string)
 (common-lisp:deftype long-rich-text () 'common-lisp:string)
 (common-lisp:deftype longitude () 'common-lisp:double-float)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (lookback-window (:copier common-lisp:nil)
+      (:conc-name "struct-shape-lookback-window-"))
+   (column-name (common-lisp:error ":column-name is required") :type
+    (common-lisp:or string common-lisp:null))
+   (size (common-lisp:error ":size is required") :type
+    (common-lisp:or positive-long common-lisp:null))
+   (size-unit (common-lisp:error ":size-unit is required") :type
+    (common-lisp:or lookback-window-size-unit common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'lookback-window 'make-lookback-window))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input lookback-window))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input lookback-window))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'column-name))
+      (common-lisp:list
+       (common-lisp:cons "ColumnName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'size))
+      (common-lisp:list
+       (common-lisp:cons "Size"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'size-unit))
+      (common-lisp:list
+       (common-lisp:cons "SizeUnit"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input lookback-window))
+   common-lisp:nil))
+(common-lisp:deftype lookback-window-size-unit () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (manifest-file-location (:copier common-lisp:nil)
@@ -28833,7 +29360,9 @@
    (row-field-names-style common-lisp:nil :type
     (common-lisp:or table-cell-style common-lisp:null))
    (row-alternate-color-options common-lisp:nil :type
-    (common-lisp:or row-alternate-color-options common-lisp:null)))
+    (common-lisp:or row-alternate-color-options common-lisp:null))
+   (collapsed-row-dimensions-visibility common-lisp:nil :type
+    (common-lisp:or visibility common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'pivot-table-options 'make-pivot-table-options))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -28908,6 +29437,14 @@
                            'row-alternate-color-options))
       (common-lisp:list
        (common-lisp:cons "RowAlternateColorOptions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'collapsed-row-dimensions-visibility))
+      (common-lisp:list
+       (common-lisp:cons "CollapsedRowDimensionsVisibility"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -29240,6 +29777,7 @@
 (common-lisp:deftype pixel-length () 'common-lisp:string)
 (common-lisp:deftype port () 'common-lisp:integer)
 (common-lisp:deftype positive-integer () 'common-lisp:integer)
+(common-lisp:deftype positive-long () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (postgre-sql-parameters (:copier common-lisp:nil)
@@ -29458,6 +29996,75 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-data-set-refresh-properties-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-data-set-refresh-properties-request-"))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (data-set-refresh-properties
+    (common-lisp:error ":data-set-refresh-properties is required") :type
+    (common-lisp:or data-set-refresh-properties common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-data-set-refresh-properties-request
+                    'make-put-data-set-refresh-properties-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-set-refresh-properties))
+      (common-lisp:list
+       (common-lisp:cons "DataSetRefreshProperties"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-data-set-refresh-properties-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-put-data-set-refresh-properties-response-"))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or status-code common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-data-set-refresh-properties-response
+                    'make-put-data-set-refresh-properties-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          put-data-set-refresh-properties-response))
+   common-lisp:nil))
 (common-lisp:deftype query () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -30457,6 +31064,155 @@
   'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (refresh-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-refresh-configuration-"))
+   (incremental-refresh (common-lisp:error ":incremental-refresh is required")
+    :type (common-lisp:or incremental-refresh common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'refresh-configuration 'make-refresh-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          refresh-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          refresh-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'incremental-refresh))
+      (common-lisp:list
+       (common-lisp:cons "IncrementalRefresh"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          refresh-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (refresh-frequency (:copier common-lisp:nil)
+      (:conc-name "struct-shape-refresh-frequency-"))
+   (interval (common-lisp:error ":interval is required") :type
+    (common-lisp:or refresh-interval common-lisp:null))
+   (refresh-on-day common-lisp:nil :type
+    (common-lisp:or schedule-refresh-on-entity common-lisp:null))
+   (timezone common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (time-of-the-day common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'refresh-frequency 'make-refresh-frequency))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input refresh-frequency))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input refresh-frequency))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'interval))
+      (common-lisp:list
+       (common-lisp:cons "Interval"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'refresh-on-day))
+      (common-lisp:list
+       (common-lisp:cons "RefreshOnDay"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'timezone))
+      (common-lisp:list
+       (common-lisp:cons "Timezone"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-of-the-day))
+      (common-lisp:list
+       (common-lisp:cons "TimeOfTheDay"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input refresh-frequency))
+   common-lisp:nil))
+(common-lisp:deftype refresh-interval () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (refresh-schedule (:copier common-lisp:nil)
+      (:conc-name "struct-shape-refresh-schedule-"))
+   (schedule-id (common-lisp:error ":schedule-id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (schedule-frequency (common-lisp:error ":schedule-frequency is required")
+    :type (common-lisp:or refresh-frequency common-lisp:null))
+   (start-after-date-time common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (refresh-type (common-lisp:error ":refresh-type is required") :type
+    (common-lisp:or ingestion-type common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'refresh-schedule 'make-refresh-schedule))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input refresh-schedule))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input refresh-schedule))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-id))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-frequency))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleFrequency"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'start-after-date-time))
+      (common-lisp:list
+       (common-lisp:cons "StartAfterDateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'refresh-type))
+      (common-lisp:list
+       (common-lisp:cons "RefreshType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input refresh-schedule))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype refresh-schedules ()
+   '(trivial-types:proper-list refresh-schedule))
+ (common-lisp:defun |make-refresh-schedules|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list refresh-schedule))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (register-user-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-register-user-request-"))
    (identity-type (common-lisp:error ":identity-type is required") :type
@@ -30622,13 +31378,48 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (registered-user-console-feature-configurations (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-registered-user-console-feature-configurations-"))
+   (state-persistence common-lisp:nil :type
+    (common-lisp:or state-persistence-configurations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'registered-user-console-feature-configurations
+                    'make-registered-user-console-feature-configurations))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-console-feature-configurations))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-console-feature-configurations))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'state-persistence))
+      (common-lisp:list
+       (common-lisp:cons "StatePersistence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-console-feature-configurations))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (registered-user-dashboard-embedding-configuration
       (:copier common-lisp:nil)
       (:conc-name
        "struct-shape-registered-user-dashboard-embedding-configuration-"))
    (initial-dashboard-id
     (common-lisp:error ":initial-dashboard-id is required") :type
-    (common-lisp:or short-restrictive-resource-id common-lisp:null)))
+    (common-lisp:or short-restrictive-resource-id common-lisp:null))
+   (feature-configurations common-lisp:nil :type
+    (common-lisp:or registered-user-dashboard-feature-configurations
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'registered-user-dashboard-embedding-configuration
                     'make-registered-user-dashboard-embedding-configuration))
@@ -30649,11 +31440,52 @@
       (common-lisp:list
        (common-lisp:cons "InitialDashboardId"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'feature-configurations))
+      (common-lisp:list
+       (common-lisp:cons "FeatureConfigurations"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
                          (aws-sdk/generator/shape::input
                           registered-user-dashboard-embedding-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (registered-user-dashboard-feature-configurations
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-registered-user-dashboard-feature-configurations-"))
+   (state-persistence common-lisp:nil :type
+    (common-lisp:or state-persistence-configurations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'registered-user-dashboard-feature-configurations
+                    'make-registered-user-dashboard-feature-configurations))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-dashboard-feature-configurations))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-dashboard-feature-configurations))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'state-persistence))
+      (common-lisp:list
+       (common-lisp:cons "StatePersistence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          registered-user-dashboard-feature-configurations))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -30794,7 +31626,10 @@
       (:conc-name
        "struct-shape-registered-user-quick-sight-console-embedding-configuration-"))
    (initial-path common-lisp:nil :type
-    (common-lisp:or entry-path common-lisp:null)))
+    (common-lisp:or entry-path common-lisp:null))
+   (feature-configurations common-lisp:nil :type
+    (common-lisp:or registered-user-console-feature-configurations
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list
    'registered-user-quick-sight-console-embedding-configuration
@@ -30814,6 +31649,14 @@
                            aws-sdk/generator/shape::input 'initial-path))
       (common-lisp:list
        (common-lisp:cons "InitialPath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'feature-configurations))
+      (common-lisp:list
+       (common-lisp:cons "FeatureConfigurations"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -31445,7 +32288,10 @@
       (:conc-name "struct-shape-row-level-permission-tag-configuration-"))
    (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
    (tag-rules (common-lisp:error ":tag-rules is required") :type
-    (common-lisp:or row-level-permission-tag-rule-list common-lisp:null)))
+    (common-lisp:or row-level-permission-tag-rule-list common-lisp:null))
+   (tag-rule-configurations common-lisp:nil :type
+    (common-lisp:or row-level-permission-tag-rule-configuration-list
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'row-level-permission-tag-configuration
                     'make-row-level-permission-tag-configuration))
@@ -31471,6 +32317,14 @@
                            aws-sdk/generator/shape::input 'tag-rules))
       (common-lisp:list
        (common-lisp:cons "TagRules"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'tag-rule-configurations))
+      (common-lisp:list
+       (common-lisp:cons "TagRuleConfigurations"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -31539,6 +32393,23 @@
                           row-level-permission-tag-rule))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:deftype row-level-permission-tag-rule-configuration ()
+   '(trivial-types:proper-list session-tag-key))
+ (common-lisp:defun |make-row-level-permission-tag-rule-configuration|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list session-tag-key))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype row-level-permission-tag-rule-configuration-list ()
+   '(trivial-types:proper-list row-level-permission-tag-rule-configuration))
+ (common-lisp:defun |make-row-level-permission-tag-rule-configuration-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            row-level-permission-tag-rule-configuration))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype row-level-permission-tag-rule-list ()
    '(trivial-types:proper-list row-level-permission-tag-rule))
  (common-lisp:defun |make-row-level-permission-tag-rule-list|
@@ -31563,7 +32434,8 @@
       (:conc-name "struct-shape-s3parameters-"))
    (manifest-file-location
     (common-lisp:error ":manifest-file-location is required") :type
-    (common-lisp:or manifest-file-location common-lisp:null)))
+    (common-lisp:or manifest-file-location common-lisp:null))
+   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
  (common-lisp:export (common-lisp:list 's3parameters 'make-s3parameters))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3parameters))
@@ -31577,6 +32449,13 @@
                            'manifest-file-location))
       (common-lisp:list
        (common-lisp:cons "ManifestFileLocation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'role-arn))
+      (common-lisp:list
+       (common-lisp:cons "RoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -32233,6 +33112,46 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input scatter-plot-visual))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (schedule-refresh-on-entity (:copier common-lisp:nil)
+      (:conc-name "struct-shape-schedule-refresh-on-entity-"))
+   (day-of-week common-lisp:nil :type
+    (common-lisp:or day-of-week common-lisp:null))
+   (day-of-month common-lisp:nil :type
+    (common-lisp:or day-of-month common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'schedule-refresh-on-entity
+                    'make-schedule-refresh-on-entity))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          schedule-refresh-on-entity))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          schedule-refresh-on-entity))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'day-of-week))
+      (common-lisp:list
+       (common-lisp:cons "DayOfWeek"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'day-of-month))
+      (common-lisp:list
+       (common-lisp:cons "DayOfMonth"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          schedule-refresh-on-entity))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -34327,6 +35246,37 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input ssl-properties))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (state-persistence-configurations (:copier common-lisp:nil)
+      (:conc-name "struct-shape-state-persistence-configurations-"))
+   (enabled (common-lisp:error ":enabled is required") :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'state-persistence-configurations
+                    'make-state-persistence-configurations))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          state-persistence-configurations))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          state-persistence-configurations))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'enabled))
+      (common-lisp:list
+       (common-lisp:cons "Enabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          state-persistence-configurations))
    common-lisp:nil))
 (common-lisp:deftype status () 'common-lisp:string)
 (common-lisp:deftype status-code () 'common-lisp:integer)
@@ -40776,6 +41726,88 @@
                           update-public-sharing-settings-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (update-refresh-schedule-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-refresh-schedule-request-"))
+   (data-set-id (common-lisp:error ":data-set-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (schedule (common-lisp:error ":schedule is required") :type
+    (common-lisp:or refresh-schedule common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-refresh-schedule-request
+                    'make-update-refresh-schedule-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule))
+      (common-lisp:list
+       (common-lisp:cons "Schedule"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-refresh-schedule-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-refresh-schedule-response-"))
+   (status common-lisp:nil :type (common-lisp:or status-code common-lisp:null))
+   (request-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (schedule-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-refresh-schedule-response
+                    'make-update-refresh-schedule-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'request-id))
+      (common-lisp:list
+       (common-lisp:cons "RequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'schedule-id))
+      (common-lisp:list
+       (common-lisp:cons "ScheduleId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-refresh-schedule-response))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:deftype update-resource-permission-list ()
    '(trivial-types:proper-list resource-permission))
  (common-lisp:defun |make-update-resource-permission-list|
@@ -43562,6 +44594,39 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-namespace))
 (common-lisp:progn
+ (common-lisp:defun create-refresh-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-set-id aws-account-id schedule)
+   (common-lisp:declare
+    (common-lisp:ignorable data-set-id aws-account-id schedule))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-refresh-schedule-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-schedules"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "CreateRefreshSchedule"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-refresh-schedule))
+(common-lisp:progn
  (common-lisp:defun create-template
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -43871,6 +44936,39 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-data-set))
 (common-lisp:progn
+ (common-lisp:defun delete-data-set-refresh-properties
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key aws-account-id data-set-id)
+   (common-lisp:declare (common-lisp:ignorable aws-account-id data-set-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-data-set-refresh-properties-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-properties"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "DeleteDataSetRefreshProperties"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-data-set-refresh-properties))
+(common-lisp:progn
  (common-lisp:defun delete-data-source
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -44125,6 +45223,43 @@ common-lisp:nil
                                                         "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-namespace))
+(common-lisp:progn
+ (common-lisp:defun delete-refresh-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-set-id aws-account-id schedule-id)
+   (common-lisp:declare
+    (common-lisp:ignorable data-set-id aws-account-id schedule-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-refresh-schedule-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-schedules/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'schedule-id))))
+                                                        "DeleteRefreshSchedule"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-refresh-schedule))
 (common-lisp:progn
  (common-lisp:defun delete-template
                     (
@@ -44697,6 +45832,39 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-data-set-permissions))
 (common-lisp:progn
+ (common-lisp:defun describe-data-set-refresh-properties
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key aws-account-id data-set-id)
+   (common-lisp:declare (common-lisp:ignorable aws-account-id data-set-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-data-set-refresh-properties-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-properties"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "DescribeDataSetRefreshProperties"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-data-set-refresh-properties))
+(common-lisp:progn
  (common-lisp:defun describe-data-source
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -45074,6 +46242,44 @@ common-lisp:nil
                                                         "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-namespace))
+(common-lisp:progn
+ (common-lisp:defun describe-refresh-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key aws-account-id data-set-id schedule-id)
+   (common-lisp:declare
+    (common-lisp:ignorable aws-account-id data-set-id schedule-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-refresh-schedule-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-schedules/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'schedule-id))))
+                                                        "DescribeRefreshSchedule"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-refresh-schedule))
 (common-lisp:progn
  (common-lisp:defun describe-template
                     (
@@ -45919,6 +47125,38 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-namespaces))
 (common-lisp:progn
+ (common-lisp:defun list-refresh-schedules
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key aws-account-id data-set-id)
+   (common-lisp:declare (common-lisp:ignorable aws-account-id data-set-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-refresh-schedules-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-schedules"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "ListRefreshSchedules"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-refresh-schedules))
+(common-lisp:progn
  (common-lisp:defun list-tags-for-resource
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -46214,6 +47452,42 @@ common-lisp:nil
                                                         "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-users))
+(common-lisp:progn
+ (common-lisp:defun put-data-set-refresh-properties
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key aws-account-id data-set-id
+                     data-set-refresh-properties)
+   (common-lisp:declare
+    (common-lisp:ignorable aws-account-id data-set-id
+     data-set-refresh-properties))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-data-set-refresh-properties-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-properties"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "PutDataSetRefreshProperties"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'put-data-set-refresh-properties))
 (common-lisp:progn
  (common-lisp:defun register-user
                     (
@@ -47129,6 +48403,39 @@ common-lisp:nil
                                                         "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-public-sharing-settings))
+(common-lisp:progn
+ (common-lisp:defun update-refresh-schedule
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key data-set-id aws-account-id schedule)
+   (common-lisp:declare
+    (common-lisp:ignorable data-set-id aws-account-id schedule))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-refresh-schedule-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'quicksight-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/accounts/~A/data-sets/~A/refresh-schedules"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'aws-account-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'data-set-id))))
+                                                        "UpdateRefreshSchedule"
+                                                        "2018-04-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-refresh-schedule))
 (common-lisp:progn
  (common-lisp:defun update-template
                     (

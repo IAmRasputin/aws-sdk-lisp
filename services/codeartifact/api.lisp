@@ -3195,6 +3195,147 @@
 (common-lisp:deftype policy-revision () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (publish-package-version-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-publish-package-version-request-"))
+   (domain (common-lisp:error ":domain is required") :type
+    (common-lisp:or domain-name common-lisp:null))
+   (domain-owner common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (repository (common-lisp:error ":repository is required") :type
+    (common-lisp:or repository-name common-lisp:null))
+   (format (common-lisp:error ":format is required") :type
+    (common-lisp:or package-format common-lisp:null))
+   (namespace common-lisp:nil :type
+    (common-lisp:or package-namespace common-lisp:null))
+   (package (common-lisp:error ":package is required") :type
+    (common-lisp:or package-name common-lisp:null))
+   (package-version (common-lisp:error ":packageversion is required") :type
+    (common-lisp:or package-version common-lisp:null))
+   (asset-content (common-lisp:error ":assetcontent is required") :type
+    (common-lisp:or asset common-lisp:null))
+   (asset-name (common-lisp:error ":assetname is required") :type
+    (common-lisp:or asset-name common-lisp:null))
+   (asset-sha256 (common-lisp:error ":assetsha256 is required") :type
+    (common-lisp:or sha256 common-lisp:null))
+   (unfinished common-lisp:nil :type
+    (common-lisp:or boolean-optional common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'publish-package-version-request
+                    'make-publish-package-version-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'asset-sha256))
+      (common-lisp:cons "x-amz-content-sha256"
+                        aws-sdk/generator/shape::value))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'asset-content))
+      (common-lisp:list
+       (common-lisp:cons "assetContent"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-request))
+   (common-lisp:slot-value aws-sdk/generator/shape::input 'asset-content)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (publish-package-version-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-publish-package-version-result-"))
+   (format common-lisp:nil :type
+    (common-lisp:or package-format common-lisp:null))
+   (namespace common-lisp:nil :type
+    (common-lisp:or package-namespace common-lisp:null))
+   (package common-lisp:nil :type
+    (common-lisp:or package-name common-lisp:null))
+   (version common-lisp:nil :type
+    (common-lisp:or package-version common-lisp:null))
+   (version-revision common-lisp:nil :type
+    (common-lisp:or package-version-revision common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or package-version-status common-lisp:null))
+   (asset common-lisp:nil :type
+    (common-lisp:or asset-summary common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'publish-package-version-result
+                    'make-publish-package-version-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'format))
+      (common-lisp:list
+       (common-lisp:cons "format"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'namespace))
+      (common-lisp:list
+       (common-lisp:cons "namespace"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'package))
+      (common-lisp:list
+       (common-lisp:cons "package"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'version))
+      (common-lisp:list
+       (common-lisp:cons "version"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'version-revision))
+      (common-lisp:list
+       (common-lisp:cons "versionRevision"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'asset))
+      (common-lisp:list
+       (common-lisp:cons "asset"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          publish-package-version-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (put-domain-permissions-policy-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-put-domain-permissions-policy-request-"))
    (domain (common-lisp:error ":domain is required") :type
@@ -3452,8 +3593,9 @@
    (upstreams common-lisp:nil :type
     (common-lisp:or upstream-repository-info-list common-lisp:null))
    (external-connections common-lisp:nil :type
-    (common-lisp:or repository-external-connection-info-list
-                    common-lisp:null)))
+    (common-lisp:or repository-external-connection-info-list common-lisp:null))
+   (created-time common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'repository-description 'make-repository-description))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3522,6 +3664,13 @@
                            'external-connections))
       (common-lisp:list
        (common-lisp:cons "externalConnections"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "createdTime"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3603,7 +3752,9 @@
     (common-lisp:or account-id common-lisp:null))
    (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
    (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null)))
+    (common-lisp:or description common-lisp:null))
+   (created-time common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'repository-summary 'make-repository-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3653,6 +3804,13 @@
                            aws-sdk/generator/shape::input 'description))
       (common-lisp:list
        (common-lisp:cons "description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "createdTime"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3722,6 +3880,7 @@
    common-lisp:nil))
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype retry-after-seconds () 'common-lisp:integer)
+(common-lisp:deftype sha256 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (codeartifact-error)
@@ -4836,6 +4995,29 @@
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
+ (common-lisp:defun publish-package-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain domain-owner repository format
+                     namespace package package-version asset-content asset-name
+                     asset-sha256 unfinished)
+   (common-lisp:declare
+    (common-lisp:ignorable domain domain-owner repository format namespace
+     package package-version asset-content asset-name asset-sha256 unfinished))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-publish-package-version-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/v1/package/version/publish"
+                                                        "PublishPackageVersion"
+                                                        "2018-09-22"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'publish-package-version))
 (common-lisp:progn
  (common-lisp:defun put-domain-permissions-policy
                     (

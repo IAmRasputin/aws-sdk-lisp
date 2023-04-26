@@ -4646,6 +4646,40 @@
                          (aws-sdk/generator/shape::input
                           enable-awsorganizations-access-output))
    common-lisp:nil))
+(common-lisp:deftype engine-workflow-failure-reason () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (engine-workflow-resource-identifier (:copier common-lisp:nil)
+      (:conc-name "struct-shape-engine-workflow-resource-identifier-"))
+   (unique-tag common-lisp:nil :type
+    (common-lisp:or unique-tag-resource-identifier common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'engine-workflow-resource-identifier
+                    'make-engine-workflow-resource-identifier))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          engine-workflow-resource-identifier))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          engine-workflow-resource-identifier))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'unique-tag))
+      (common-lisp:list
+       (common-lisp:cons "UniqueTag"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          engine-workflow-resource-identifier))
+   common-lisp:nil))
+(common-lisp:deftype engine-workflow-status () 'common-lisp:string)
+(common-lisp:deftype engine-workflow-token () 'common-lisp:string)
 (common-lisp:deftype error () 'common-lisp:string)
 (common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:deftype error-description () 'common-lisp:string)
@@ -7345,6 +7379,316 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list notification-arn))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-provision-product-engine-workflow-result-input
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-provision-product-engine-workflow-result-input-"))
+   (workflow-token (common-lisp:error ":workflow-token is required") :type
+    (common-lisp:or engine-workflow-token common-lisp:null))
+   (record-id (common-lisp:error ":record-id is required") :type
+    (common-lisp:or id common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or engine-workflow-status common-lisp:null))
+   (failure-reason common-lisp:nil :type
+    (common-lisp:or engine-workflow-failure-reason common-lisp:null))
+   (resource-identifier common-lisp:nil :type
+    (common-lisp:or engine-workflow-resource-identifier common-lisp:null))
+   (outputs common-lisp:nil :type
+    (common-lisp:or record-outputs common-lisp:null))
+   (idempotency-token (common-lisp:error ":idempotency-token is required")
+    :type (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'notify-provision-product-engine-workflow-result-input
+                    'make-notify-provision-product-engine-workflow-result-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workflow-token))
+      (common-lisp:list
+       (common-lisp:cons "WorkflowToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'record-id))
+      (common-lisp:list
+       (common-lisp:cons "RecordId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ResourceIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'idempotency-token))
+      (common-lisp:list
+       (common-lisp:cons "IdempotencyToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-provision-product-engine-workflow-result-output
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-provision-product-engine-workflow-result-output-")))
+ (common-lisp:export
+  (common-lisp:list 'notify-provision-product-engine-workflow-result-output
+                    'make-notify-provision-product-engine-workflow-result-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-provision-product-engine-workflow-result-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-terminate-provisioned-product-engine-workflow-result-input
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-terminate-provisioned-product-engine-workflow-result-input-"))
+   (workflow-token (common-lisp:error ":workflow-token is required") :type
+    (common-lisp:or engine-workflow-token common-lisp:null))
+   (record-id (common-lisp:error ":record-id is required") :type
+    (common-lisp:or id common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or engine-workflow-status common-lisp:null))
+   (failure-reason common-lisp:nil :type
+    (common-lisp:or engine-workflow-failure-reason common-lisp:null))
+   (idempotency-token (common-lisp:error ":idempotency-token is required")
+    :type (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'notify-terminate-provisioned-product-engine-workflow-result-input
+   'make-notify-terminate-provisioned-product-engine-workflow-result-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workflow-token))
+      (common-lisp:list
+       (common-lisp:cons "WorkflowToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'record-id))
+      (common-lisp:list
+       (common-lisp:cons "RecordId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'idempotency-token))
+      (common-lisp:list
+       (common-lisp:cons "IdempotencyToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-terminate-provisioned-product-engine-workflow-result-output
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-terminate-provisioned-product-engine-workflow-result-output-")))
+ (common-lisp:export
+  (common-lisp:list
+   'notify-terminate-provisioned-product-engine-workflow-result-output
+   'make-notify-terminate-provisioned-product-engine-workflow-result-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-terminate-provisioned-product-engine-workflow-result-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-update-provisioned-product-engine-workflow-result-input
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-update-provisioned-product-engine-workflow-result-input-"))
+   (workflow-token (common-lisp:error ":workflow-token is required") :type
+    (common-lisp:or engine-workflow-token common-lisp:null))
+   (record-id (common-lisp:error ":record-id is required") :type
+    (common-lisp:or id common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or engine-workflow-status common-lisp:null))
+   (failure-reason common-lisp:nil :type
+    (common-lisp:or engine-workflow-failure-reason common-lisp:null))
+   (outputs common-lisp:nil :type
+    (common-lisp:or record-outputs common-lisp:null))
+   (idempotency-token (common-lisp:error ":idempotency-token is required")
+    :type (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'notify-update-provisioned-product-engine-workflow-result-input
+   'make-notify-update-provisioned-product-engine-workflow-result-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workflow-token))
+      (common-lisp:list
+       (common-lisp:cons "WorkflowToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'record-id))
+      (common-lisp:list
+       (common-lisp:cons "RecordId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failure-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailureReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'idempotency-token))
+      (common-lisp:list
+       (common-lisp:cons "IdempotencyToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (notify-update-provisioned-product-engine-workflow-result-output
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-notify-update-provisioned-product-engine-workflow-result-output-")))
+ (common-lisp:export
+  (common-lisp:list
+   'notify-update-provisioned-product-engine-workflow-result-output
+   'make-notify-update-provisioned-product-engine-workflow-result-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          notify-update-provisioned-product-engine-workflow-result-output))
+   common-lisp:nil))
 (common-lisp:deftype nullable-boolean () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:define-condition operation-not-supported-exception
@@ -11363,6 +11707,47 @@
                           terminate-provisioned-product-output))
    common-lisp:nil))
 (common-lisp:deftype total-results-count () 'common-lisp:integer)
+(common-lisp:deftype unique-tag-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (unique-tag-resource-identifier (:copier common-lisp:nil)
+      (:conc-name "struct-shape-unique-tag-resource-identifier-"))
+   (key common-lisp:nil :type (common-lisp:or unique-tag-key common-lisp:null))
+   (value common-lisp:nil :type
+    (common-lisp:or unique-tag-value common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unique-tag-resource-identifier
+                    'make-unique-tag-resource-identifier))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          unique-tag-resource-identifier))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          unique-tag-resource-identifier))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'key))
+      (common-lisp:list
+       (common-lisp:cons "Key"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          unique-tag-resource-identifier))
+   common-lisp:nil))
+(common-lisp:deftype unique-tag-value () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (update-constraint-input (:copier common-lisp:nil)
@@ -14093,6 +14478,74 @@
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tag-options))
+(common-lisp:progn
+ (common-lisp:defun notify-provision-product-engine-workflow-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key workflow-token record-id status
+                     failure-reason resource-identifier outputs
+                     idempotency-token)
+   (common-lisp:declare
+    (common-lisp:ignorable workflow-token record-id status failure-reason
+     resource-identifier outputs idempotency-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-notify-provision-product-engine-workflow-result-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "NotifyProvisionProductEngineWorkflowResult"
+                                                        "2015-12-10"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'notify-provision-product-engine-workflow-result))
+(common-lisp:progn
+ (common-lisp:defun notify-terminate-provisioned-product-engine-workflow-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key workflow-token record-id status
+                     failure-reason idempotency-token)
+   (common-lisp:declare
+    (common-lisp:ignorable workflow-token record-id status failure-reason
+     idempotency-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-notify-terminate-provisioned-product-engine-workflow-result-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "NotifyTerminateProvisionedProductEngineWorkflowResult"
+                                                        "2015-12-10"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export
+  'notify-terminate-provisioned-product-engine-workflow-result))
+(common-lisp:progn
+ (common-lisp:defun notify-update-provisioned-product-engine-workflow-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key workflow-token record-id status
+                     failure-reason outputs idempotency-token)
+   (common-lisp:declare
+    (common-lisp:ignorable workflow-token record-id status failure-reason
+     outputs idempotency-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-notify-update-provisioned-product-engine-workflow-result-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "NotifyUpdateProvisionedProductEngineWorkflowResult"
+                                                        "2015-12-10"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'notify-update-provisioned-product-engine-workflow-result))
 (common-lisp:progn
  (common-lisp:defun provision-product
                     (

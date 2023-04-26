@@ -592,7 +592,7 @@
       (:conc-name "struct-shape-create-cluster-request-"))
    (job-type (common-lisp:error ":job-type is required") :type
     (common-lisp:or job-type common-lisp:null))
-   (resources (common-lisp:error ":resources is required") :type
+   (resources common-lisp:nil :type
     (common-lisp:or job-resource common-lisp:null))
    (on-device-service-configuration common-lisp:nil :type
     (common-lisp:or on-device-service-configuration common-lisp:null))
@@ -601,8 +601,7 @@
     (common-lisp:or address-id common-lisp:null))
    (kms-key-arn common-lisp:nil :type
     (common-lisp:or kms-key-arn common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or role-arn common-lisp:null))
+   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
    (snowball-type (common-lisp:error ":snowball-type is required") :type
     (common-lisp:or snowball-type common-lisp:null))
    (shipping-option (common-lisp:error ":shipping-option is required") :type
@@ -614,7 +613,15 @@
    (tax-documents common-lisp:nil :type
     (common-lisp:or tax-documents common-lisp:null))
    (remote-management common-lisp:nil :type
-    (common-lisp:or remote-management common-lisp:null)))
+    (common-lisp:or remote-management common-lisp:null))
+   (initial-cluster-size common-lisp:nil :type
+    (common-lisp:or initial-cluster-size common-lisp:null))
+   (force-create-jobs common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (long-term-pricing-ids common-lisp:nil :type
+    (common-lisp:or long-term-pricing-id-list common-lisp:null))
+   (snowball-capacity-preference common-lisp:nil :type
+    (common-lisp:or snowball-capacity common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-cluster-request 'make-create-cluster-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -719,6 +726,37 @@
       (common-lisp:list
        (common-lisp:cons "RemoteManagement"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'initial-cluster-size))
+      (common-lisp:list
+       (common-lisp:cons "InitialClusterSize"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'force-create-jobs))
+      (common-lisp:list
+       (common-lisp:cons "ForceCreateJobs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'long-term-pricing-ids))
+      (common-lisp:list
+       (common-lisp:cons "LongTermPricingIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'snowball-capacity-preference))
+      (common-lisp:list
+       (common-lisp:cons "SnowballCapacityPreference"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -730,7 +768,9 @@
      (create-cluster-result (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-cluster-result-"))
    (cluster-id common-lisp:nil :type
-    (common-lisp:or cluster-id common-lisp:null)))
+    (common-lisp:or cluster-id common-lisp:null))
+   (job-list-entries common-lisp:nil :type
+    (common-lisp:or job-list-entry-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-cluster-result 'make-create-cluster-result))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -748,6 +788,13 @@
                            aws-sdk/generator/shape::input 'cluster-id))
       (common-lisp:list
        (common-lisp:cons "ClusterId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'job-list-entries))
+      (common-lisp:list
+       (common-lisp:cons "JobListEntries"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1951,6 +1998,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input indtax-documents))
    common-lisp:nil))
+(common-lisp:deftype initial-cluster-size () 'common-lisp:integer)
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition invalid-address-exception
@@ -2984,6 +3032,14 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype long-term-pricing-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype long-term-pricing-id-list ()
+   '(trivial-types:proper-list long-term-pricing-id))
+ (common-lisp:defun |make-long-term-pricing-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list long-term-pricing-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (long-term-pricing-list-entry (:copier common-lisp:nil)
       (:conc-name "struct-shape-long-term-pricing-list-entry-"))
@@ -3143,6 +3199,7 @@
                          (aws-sdk/generator/shape::input
                           nfson-device-service-configuration))
    common-lisp:nil))
+(common-lisp:deftype node-fault-tolerance () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (notification (:copier common-lisp:nil)
@@ -3194,7 +3251,9 @@
    (tgwon-device-service common-lisp:nil :type
     (common-lisp:or tgwon-device-service-configuration common-lisp:null))
    (ekson-device-service common-lisp:nil :type
-    (common-lisp:or ekson-device-service-configuration common-lisp:null)))
+    (common-lisp:or ekson-device-service-configuration common-lisp:null))
+   (s3on-device-service common-lisp:nil :type
+    (common-lisp:or s3on-device-service-configuration common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'on-device-service-configuration
                     'make-on-device-service-configuration))
@@ -3231,6 +3290,13 @@
       (common-lisp:list
        (common-lisp:cons "EKSOnDeviceService"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 's3on-device-service))
+      (common-lisp:list
+       (common-lisp:cons "S3OnDeviceService"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -3248,6 +3314,64 @@
   (common-lisp:list 'return-shipping-label-already-exists-exception
                     'return-shipping-label-already-exists-exception-message)))
 (common-lisp:deftype role-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (s3on-device-service-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-s3on-device-service-configuration-"))
+   (storage-limit common-lisp:nil :type
+    (common-lisp:or s3storage-limit common-lisp:null))
+   (storage-unit common-lisp:nil :type
+    (common-lisp:or storage-unit common-lisp:null))
+   (service-size common-lisp:nil :type
+    (common-lisp:or service-size common-lisp:null))
+   (fault-tolerance common-lisp:nil :type
+    (common-lisp:or node-fault-tolerance common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 's3on-device-service-configuration
+                    'make-s3on-device-service-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3on-device-service-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3on-device-service-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'storage-limit))
+      (common-lisp:list
+       (common-lisp:cons "StorageLimit"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'storage-unit))
+      (common-lisp:list
+       (common-lisp:cons "StorageUnit"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-size))
+      (common-lisp:list
+       (common-lisp:cons "ServiceSize"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fault-tolerance))
+      (common-lisp:list
+       (common-lisp:cons "FaultTolerance"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3on-device-service-configuration))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (s3resource (:copier common-lisp:nil)
@@ -3298,7 +3422,9 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list s3resource))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype s3storage-limit () 'common-lisp:double-float)
 (common-lisp:deftype service-name () 'common-lisp:string)
+(common-lisp:deftype service-size () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (service-version (:copier common-lisp:nil)
@@ -4027,11 +4153,14 @@
                      on-device-service-configuration description address-id
                      kms-key-arn role-arn snowball-type shipping-option
                      notification forwarding-address-id tax-documents
-                     remote-management)
+                     remote-management initial-cluster-size force-create-jobs
+                     long-term-pricing-ids snowball-capacity-preference)
    (common-lisp:declare
     (common-lisp:ignorable job-type resources on-device-service-configuration
      description address-id kms-key-arn role-arn snowball-type shipping-option
-     notification forwarding-address-id tax-documents remote-management))
+     notification forwarding-address-id tax-documents remote-management
+     initial-cluster-size force-create-jobs long-term-pricing-ids
+     snowball-capacity-preference))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-cluster-request
                                          aws-sdk/generator/operation::args)))

@@ -40,6 +40,7 @@
     ("ResourceNotFoundException" . resource-not-found-exception)
     ("ResourceNotReadyException" . resource-not-ready-exception)
     ("ServiceQuotaExceededException" . service-quota-exceeded-exception)
+    ("SessionNotFoundException" . session-not-found-exception)
     ("ThrottlingException" . throttling-exception)
     ("VideoTooLargeException" . video-too-large-exception)))
 (common-lisp:progn
@@ -171,6 +172,54 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list audio-metadata))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (audit-image (:copier common-lisp:nil)
+      (:conc-name "struct-shape-audit-image-"))
+   (bytes common-lisp:nil :type
+    (common-lisp:or liveness-image-blob common-lisp:null))
+   (s3object common-lisp:nil :type (common-lisp:or s3object common-lisp:null))
+   (bounding-box common-lisp:nil :type
+    (common-lisp:or bounding-box common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'audit-image 'make-audit-image))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input audit-image))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input audit-image))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bytes))
+      (common-lisp:list
+       (common-lisp:cons "Bytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 's3object))
+      (common-lisp:list
+       (common-lisp:cons "S3Object"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bounding-box))
+      (common-lisp:list
+       (common-lisp:cons "BoundingBox"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input audit-image))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype audit-images () '(trivial-types:proper-list audit-image))
+ (common-lisp:defun |make-audit-images|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list audit-image))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype audit-images-limit () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (beard (:copier common-lisp:nil) (:conc-name "struct-shape-beard-"))
@@ -1254,6 +1303,129 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-dataset-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-face-liveness-session-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-face-liveness-session-request-"))
+   (kms-key-id common-lisp:nil :type
+    (common-lisp:or kms-key-id common-lisp:null))
+   (settings common-lisp:nil :type
+    (common-lisp:or create-face-liveness-session-request-settings
+                    common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-face-liveness-session-request
+                    'make-create-face-liveness-session-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-key-id))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'settings))
+      (common-lisp:list
+       (common-lisp:cons "Settings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-face-liveness-session-request-settings (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-face-liveness-session-request-settings-"))
+   (output-config common-lisp:nil :type
+    (common-lisp:or liveness-output-config common-lisp:null))
+   (audit-images-limit common-lisp:nil :type
+    (common-lisp:or audit-images-limit common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-face-liveness-session-request-settings
+                    'make-create-face-liveness-session-request-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-config))
+      (common-lisp:list
+       (common-lisp:cons "OutputConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'audit-images-limit))
+      (common-lisp:list
+       (common-lisp:cons "AuditImagesLimit"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-request-settings))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-face-liveness-session-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-face-liveness-session-response-"))
+   (session-id (common-lisp:error ":session-id is required") :type
+    (common-lisp:or liveness-session-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-face-liveness-session-response
+                    'make-create-face-liveness-session-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'session-id))
+      (common-lisp:list
+       (common-lisp:cons "SessionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-face-liveness-session-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -5144,6 +5316,103 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-face-liveness-session-results-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-face-liveness-session-results-request-"))
+   (session-id (common-lisp:error ":session-id is required") :type
+    (common-lisp:or liveness-session-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-face-liveness-session-results-request
+                    'make-get-face-liveness-session-results-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'session-id))
+      (common-lisp:list
+       (common-lisp:cons "SessionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-face-liveness-session-results-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-face-liveness-session-results-response-"))
+   (session-id (common-lisp:error ":session-id is required") :type
+    (common-lisp:or liveness-session-id common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or liveness-session-status common-lisp:null))
+   (confidence common-lisp:nil :type (common-lisp:or percent common-lisp:null))
+   (reference-image common-lisp:nil :type
+    (common-lisp:or audit-image common-lisp:null))
+   (audit-images common-lisp:nil :type
+    (common-lisp:or audit-images common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-face-liveness-session-results-response
+                    'make-get-face-liveness-session-results-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'session-id))
+      (common-lisp:list
+       (common-lisp:cons "SessionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'confidence))
+      (common-lisp:list
+       (common-lisp:cons "Confidence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reference-image))
+      (common-lisp:list
+       (common-lisp:cons "ReferenceImage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'audit-images))
+      (common-lisp:list
+       (common-lisp:cons "AuditImages"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-face-liveness-session-results-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-face-search-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-face-search-request-"))
    (job-id (common-lisp:error ":job-id is required") :type
@@ -7279,6 +7548,50 @@
                          (aws-sdk/generator/shape::input
                           list-tags-for-resource-response))
    common-lisp:nil))
+(common-lisp:deftype liveness-image-blob ()
+  '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (liveness-output-config (:copier common-lisp:nil)
+      (:conc-name "struct-shape-liveness-output-config-"))
+   (s3bucket (common-lisp:error ":s3bucket is required") :type
+    (common-lisp:or s3bucket common-lisp:null))
+   (s3key-prefix common-lisp:nil :type
+    (common-lisp:or liveness-s3key-prefix common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'liveness-output-config 'make-liveness-output-config))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          liveness-output-config))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          liveness-output-config))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 's3bucket))
+      (common-lisp:list
+       (common-lisp:cons "S3Bucket"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 's3key-prefix))
+      (common-lisp:list
+       (common-lisp:cons "S3KeyPrefix"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          liveness-output-config))
+   common-lisp:nil))
+(common-lisp:deftype liveness-s3key-prefix () 'common-lisp:string)
+(common-lisp:deftype liveness-session-id () 'common-lisp:string)
+(common-lisp:deftype liveness-session-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition malformed-policy-document-exception
      (rekognition-error)
@@ -8989,6 +9302,11 @@
      (rekognition-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'service-quota-exceeded-exception)))
+(common-lisp:progn
+ (common-lisp:define-condition session-not-found-exception
+     (rekognition-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'session-not-found-exception)))
 (common-lisp:progn
  (common-lisp:defstruct
      (shot-segment (:copier common-lisp:nil)
@@ -11515,6 +11833,26 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-dataset))
 (common-lisp:progn
+ (common-lisp:defun create-face-liveness-session
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key kms-key-id settings client-request-token)
+   (common-lisp:declare
+    (common-lisp:ignorable kms-key-id settings client-request-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-face-liveness-session-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateFaceLivenessSession"
+                                                        "2016-06-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-face-liveness-session))
+(common-lisp:progn
  (common-lisp:defun create-project
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -12007,6 +12345,25 @@
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-face-detection))
+(common-lisp:progn
+ (common-lisp:defun get-face-liveness-session-results
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key session-id)
+   (common-lisp:declare (common-lisp:ignorable session-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-face-liveness-session-results-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetFaceLivenessSessionResults"
+                                                        "2016-06-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-face-liveness-session-results))
 (common-lisp:progn
  (common-lisp:defun get-face-search
                     (

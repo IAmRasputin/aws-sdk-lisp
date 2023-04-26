@@ -1377,7 +1377,6 @@
 (common-lisp:deftype launch-type () 'common-lisp:string)
 (common-lisp:deftype limit-max10 () 'common-lisp:integer)
 (common-lisp:deftype limit-max100 () 'common-lisp:integer)
-(common-lisp:deftype limit-max1000 () 'common-lisp:integer)
 (common-lisp:deftype limit-max10000 () 'common-lisp:integer)
 (common-lisp:deftype limit-min1 () 'common-lisp:integer)
 (common-lisp:progn
@@ -1888,7 +1887,7 @@
      (pipe-source-dynamo-dbstream-parameters (:copier common-lisp:nil)
       (:conc-name "struct-shape-pipe-source-dynamo-dbstream-parameters-"))
    (batch-size common-lisp:nil :type
-    (common-lisp:or limit-max1000 common-lisp:null))
+    (common-lisp:or limit-max10000 common-lisp:null))
    (dead-letter-config common-lisp:nil :type
     (common-lisp:or dead-letter-config common-lisp:null))
    (maximum-batching-window-in-seconds common-lisp:nil :type
@@ -4149,7 +4148,7 @@
       (:conc-name
        "struct-shape-update-pipe-source-dynamo-dbstream-parameters-"))
    (batch-size common-lisp:nil :type
-    (common-lisp:or limit-max1000 common-lisp:null))
+    (common-lisp:or limit-max10000 common-lisp:null))
    (dead-letter-config common-lisp:nil :type
     (common-lisp:or dead-letter-config common-lisp:null))
    (maximum-batching-window-in-seconds common-lisp:nil :type

@@ -1,49 +1,15 @@
 {
   "pagination": {
-    "DescribeComplianceByConfigRule": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "ComplianceByConfigRules"
-    },
-    "DescribeComplianceByResource": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "ComplianceByResources",
-      "limit_key": "Limit"
-    },
-    "DescribeConfigRules": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "ConfigRules"
-    },
-    "GetComplianceDetailsByConfigRule": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "EvaluationResults",
-      "limit_key": "Limit"
-    },
-    "GetComplianceDetailsByResource": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "EvaluationResults"
-    },
-    "GetResourceConfigHistory": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": "configurationItems",
-      "limit_key": "limit"
-    },
-    "ListDiscoveredResources": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": "resourceIdentifiers",
-      "limit_key": "limit"
-    },
     "DescribeAggregateComplianceByConfigRules": {
       "input_token": "NextToken",
       "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "DescribeAggregateComplianceByConformancePacks": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
       "output_token": "NextToken",
-      "result_key": "AggregateComplianceByConfigRules"
+      "result_key": "AggregateComplianceByConformancePacks"
     },
     "DescribeAggregationAuthorizations": {
       "input_token": "NextToken",
@@ -51,11 +17,27 @@
       "output_token": "NextToken",
       "result_key": "AggregationAuthorizations"
     },
+    "DescribeComplianceByConfigRule": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "ComplianceByConfigRules"
+    },
+    "DescribeComplianceByResource": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "ComplianceByResources"
+    },
     "DescribeConfigRuleEvaluationStatus": {
       "input_token": "NextToken",
       "limit_key": "Limit",
       "output_token": "NextToken",
       "result_key": "ConfigRulesEvaluationStatus"
+    },
+    "DescribeConfigRules": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "ConfigRules"
     },
     "DescribeConfigurationAggregatorSourcesStatus": {
       "input_token": "NextToken",
@@ -69,40 +51,10 @@
       "output_token": "NextToken",
       "result_key": "ConfigurationAggregators"
     },
-    "DescribePendingAggregationRequests": {
+    "DescribeConformancePackCompliance": {
       "input_token": "NextToken",
       "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "PendingAggregationRequests"
-    },
-    "DescribeRetentionConfigurations": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "RetentionConfigurations"
-    },
-    "GetAggregateComplianceDetailsByConfigRule": {
-      "input_token": "NextToken",
-      "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "AggregateEvaluationResults"
-    },
-    "ListAggregateDiscoveredResources": {
-      "input_token": "NextToken",
-      "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "ResourceIdentifiers"
-    },
-    "DescribeRemediationExecutionStatus": {
-      "input_token": "NextToken",
-      "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "RemediationExecutionStatuses"
-    },
-    "DescribeAggregateComplianceByConformancePacks": {
-      "input_token": "NextToken",
-      "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "AggregateComplianceByConformancePacks"
+      "output_token": "NextToken"
     },
     "DescribeConformancePackStatus": {
       "input_token": "NextToken",
@@ -140,11 +92,75 @@
       "output_token": "NextToken",
       "result_key": "OrganizationConformancePacks"
     },
+    "DescribePendingAggregationRequests": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "PendingAggregationRequests"
+    },
+    "DescribeRemediationExceptions": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "DescribeRemediationExecutionStatus": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "RemediationExecutionStatuses"
+    },
+    "DescribeRetentionConfigurations": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "RetentionConfigurations"
+    },
+    "GetAggregateComplianceDetailsByConfigRule": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "AggregateEvaluationResults"
+    },
+    "GetAggregateConfigRuleComplianceSummary": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "GetAggregateConformancePackComplianceSummary": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "GetAggregateDiscoveredResourceCounts": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "GetComplianceDetailsByConfigRule": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "EvaluationResults"
+    },
+    "GetComplianceDetailsByResource": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "EvaluationResults"
+    },
+    "GetConformancePackComplianceDetails": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
     "GetConformancePackComplianceSummary": {
       "input_token": "NextToken",
       "limit_key": "Limit",
       "output_token": "NextToken",
       "result_key": "ConformancePackComplianceSummaryList"
+    },
+    "GetDiscoveredResourceCounts": {
+      "input_token": "nextToken",
+      "limit_key": "limit",
+      "output_token": "nextToken"
     },
     "GetOrganizationConfigRuleDetailedStatus": {
       "input_token": "NextToken",
@@ -157,6 +173,40 @@
       "limit_key": "Limit",
       "output_token": "NextToken",
       "result_key": "OrganizationConformancePackDetailedStatuses"
+    },
+    "GetResourceConfigHistory": {
+      "input_token": "nextToken",
+      "limit_key": "limit",
+      "output_token": "nextToken",
+      "result_key": "configurationItems"
+    },
+    "ListAggregateDiscoveredResources": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "ResourceIdentifiers"
+    },
+    "ListConformancePackComplianceScores": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken"
+    },
+    "ListDiscoveredResources": {
+      "input_token": "nextToken",
+      "limit_key": "limit",
+      "output_token": "nextToken",
+      "result_key": "resourceIdentifiers"
+    },
+    "ListResourceEvaluations": {
+      "input_token": "NextToken",
+      "limit_key": "Limit",
+      "output_token": "NextToken",
+      "result_key": "ResourceEvaluations"
+    },
+    "ListStoredQueries": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken"
     },
     "ListTagsForResource": {
       "input_token": "NextToken",
@@ -181,12 +231,6 @@
       ],
       "output_token": "NextToken",
       "result_key": "Results"
-    },
-    "ListResourceEvaluations": {
-      "input_token": "NextToken",
-      "limit_key": "Limit",
-      "output_token": "NextToken",
-      "result_key": "ResourceEvaluations"
     }
   }
 }

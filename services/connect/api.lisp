@@ -82,6 +82,94 @@
                         ((aws-sdk/generator/shape::input action-summary))
    common-lisp:nil))
 (common-lisp:deftype action-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (activate-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-activate-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'activate-evaluation-form-request
+                    'make-activate-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (activate-evaluation-form-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-activate-evaluation-form-response-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'activate-evaluation-form-response
+                    'make-activate-evaluation-form-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          activate-evaluation-form-response))
+   common-lisp:nil))
 (common-lisp:deftype after-contact-work-time-limit () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1103,8 +1191,10 @@
                             available-number-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype aws-region () 'common-lisp:string)
+(common-lisp:deftype behavior-type () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype bot-name () 'common-lisp:string)
+(common-lisp:deftype boxed-boolean () 'common-lisp:boolean)
 (common-lisp:deftype bucket-name () 'common-lisp:string)
 (common-lisp:deftype campaign-id () 'common-lisp:string)
 (common-lisp:deftype channel () 'common-lisp:string)
@@ -2347,6 +2437,115 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or evaluation-form-description common-lisp:null))
+   (items (common-lisp:error ":items is required") :type
+    (common-lisp:or evaluation-form-items-list common-lisp:null))
+   (scoring-strategy common-lisp:nil :type
+    (common-lisp:or evaluation-form-scoring-strategy common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-evaluation-form-request
+                    'make-create-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scoring-strategy))
+      (common-lisp:list
+       (common-lisp:cons "ScoringStrategy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-evaluation-form-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-evaluation-form-response-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-evaluation-form-response
+                    'make-create-evaluation-form-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-evaluation-form-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-hours-of-operation-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-hours-of-operation-request-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
@@ -2693,6 +2892,105 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-integration-association-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-participant-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-participant-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (contact-id (common-lisp:error ":contact-id is required") :type
+    (common-lisp:or contact-id common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null))
+   (participant-details (common-lisp:error ":participant-details is required")
+    :type (common-lisp:or participant-details-to-add common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-participant-request
+                    'make-create-participant-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-id))
+      (common-lisp:list
+       (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-id))
+      (common-lisp:list
+       (common-lisp:cons "ContactId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'participant-details))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-participant-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-participant-response-"))
+   (participant-credentials common-lisp:nil :type
+    (common-lisp:or participant-token-credentials common-lisp:null))
+   (participant-id common-lisp:nil :type
+    (common-lisp:or participant-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-participant-response
+                    'make-create-participant-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'participant-credentials))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantCredentials"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'participant-id))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-participant-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3975,6 +4273,36 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (cross-channel-behavior (:copier common-lisp:nil)
+      (:conc-name "struct-shape-cross-channel-behavior-"))
+   (behavior-type (common-lisp:error ":behavior-type is required") :type
+    (common-lisp:or behavior-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cross-channel-behavior 'make-cross-channel-behavior))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          cross-channel-behavior))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          cross-channel-behavior))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'behavior-type))
+      (common-lisp:list
+       (common-lisp:cons "BehaviorType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          cross-channel-behavior))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (current-metric (:copier common-lisp:nil)
       (:conc-name "struct-shape-current-metric-"))
    (name common-lisp:nil :type
@@ -4182,6 +4510,94 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (deactivate-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deactivate-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deactivate-evaluation-form-request
+                    'make-deactivate-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deactivate-evaluation-form-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deactivate-evaluation-form-response-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deactivate-evaluation-form-response
+                    'make-deactivate-evaluation-form-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deactivate-evaluation-form-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (default-vocabulary (:copier common-lisp:nil)
       (:conc-name "struct-shape-default-vocabulary-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
@@ -4240,6 +4656,32 @@
                            (trivial-types:proper-list default-vocabulary))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype delay () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-contact-evaluation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-contact-evaluation-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-contact-evaluation-request
+                    'make-delete-contact-evaluation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-contact-evaluation-request))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-contact-flow-module-request (:copier common-lisp:nil)
@@ -4336,6 +4778,34 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-contact-flow-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version common-lisp:nil :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-evaluation-form-request
+                    'make-delete-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-evaluation-form-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4787,6 +5257,72 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-contact-evaluation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-contact-evaluation-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-contact-evaluation-request
+                    'make-describe-contact-evaluation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-contact-evaluation-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-contact-evaluation-response-"))
+   (evaluation (common-lisp:error ":evaluation is required") :type
+    (common-lisp:or evaluation common-lisp:null))
+   (evaluation-form (common-lisp:error ":evaluation-form is required") :type
+    (common-lisp:or evaluation-form-content common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-contact-evaluation-response
+                    'make-describe-contact-evaluation-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation))
+      (common-lisp:list
+       (common-lisp:cons "Evaluation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationForm"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-contact-evaluation-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-contact-flow-module-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-contact-flow-module-request-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
@@ -4954,6 +5490,65 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-contact-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version common-lisp:nil :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-evaluation-form-request
+                    'make-describe-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-evaluation-form-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-evaluation-form-response-"))
+   (evaluation-form (common-lisp:error ":evaluation-form is required") :type
+    (common-lisp:or evaluation-form common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-evaluation-form-response
+                    'make-describe-evaluation-form-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationForm"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-evaluation-form-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -5850,6 +6445,16 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input dimensions))
    common-lisp:nil))
+(common-lisp:deftype dimensions-v2key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype dimensions-v2map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-dimensions-v2map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype dimensions-v2value () 'common-lisp:string)
 (common-lisp:deftype directory-alias () 'common-lisp:string)
 (common-lisp:deftype directory-id () 'common-lisp:string)
 (common-lisp:deftype directory-type () 'common-lisp:string)
@@ -6300,6 +6905,1621 @@
 (common-lisp:deftype encryption-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (evaluation (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-"))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (evaluation-arn (common-lisp:error ":evaluation-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (metadata (common-lisp:error ":metadata is required") :type
+    (common-lisp:or evaluation-metadata common-lisp:null))
+   (answers (common-lisp:error ":answers is required") :type
+    (common-lisp:or evaluation-answers-output-map common-lisp:null))
+   (notes (common-lisp:error ":notes is required") :type
+    (common-lisp:or evaluation-notes-map common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or evaluation-status common-lisp:null))
+   (scores common-lisp:nil :type
+    (common-lisp:or evaluation-scores-map common-lisp:null))
+   (created-time (common-lisp:error ":created-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'evaluation 'make-evaluation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metadata))
+      (common-lisp:list
+       (common-lisp:cons "Metadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'answers))
+      (common-lisp:list
+       (common-lisp:cons "Answers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'notes))
+      (common-lisp:list
+       (common-lisp:cons "Notes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scores))
+      (common-lisp:list
+       (common-lisp:cons "Scores"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-answer-data (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-answer-data-"))
+   (string-value common-lisp:nil :type
+    (common-lisp:or evaluation-answer-data-string-value common-lisp:null))
+   (numeric-value common-lisp:nil :type
+    (common-lisp:or evaluation-answer-data-numeric-value common-lisp:null))
+   (not-applicable common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-answer-data 'make-evaluation-answer-data))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-data))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-data))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'string-value))
+      (common-lisp:list
+       (common-lisp:cons "StringValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'numeric-value))
+      (common-lisp:list
+       (common-lisp:cons "NumericValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'not-applicable))
+      (common-lisp:list
+       (common-lisp:cons "NotApplicable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-data))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-answer-data-numeric-value ()
+  'common-lisp:double-float)
+(common-lisp:deftype evaluation-answer-data-string-value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-answer-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-answer-input-"))
+   (value common-lisp:nil :type
+    (common-lisp:or evaluation-answer-data common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-answer-input 'make-evaluation-answer-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-answer-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-answer-output-"))
+   (value common-lisp:nil :type
+    (common-lisp:or evaluation-answer-data common-lisp:null))
+   (system-suggested-value common-lisp:nil :type
+    (common-lisp:or evaluation-answer-data common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-answer-output 'make-evaluation-answer-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'system-suggested-value))
+      (common-lisp:list
+       (common-lisp:cons "SystemSuggestedValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-answer-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-answers-input-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-evaluation-answers-input-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-answers-output-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-evaluation-answers-output-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null))
+   (locked (common-lisp:error ":locked is required") :type
+    (common-lisp:or evaluation-form-version-is-locked common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or evaluation-form-description common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or evaluation-form-version-status common-lisp:null))
+   (items (common-lisp:error ":items is required") :type
+    (common-lisp:or evaluation-form-items-list common-lisp:null))
+   (scoring-strategy common-lisp:nil :type
+    (common-lisp:or evaluation-form-scoring-strategy common-lisp:null))
+   (created-time (common-lisp:error ":created-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (created-by (common-lisp:error ":created-by is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null))
+   (last-modified-by (common-lisp:error ":last-modified-by is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'evaluation-form 'make-evaluation-form))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-form))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-form))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'locked))
+      (common-lisp:list
+       (common-lisp:cons "Locked"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scoring-strategy))
+      (common-lisp:list
+       (common-lisp:cons "ScoringStrategy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "CreatedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-by))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-form))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-content (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-content-"))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or evaluation-form-description common-lisp:null))
+   (items (common-lisp:error ":items is required") :type
+    (common-lisp:or evaluation-form-items-list common-lisp:null))
+   (scoring-strategy common-lisp:nil :type
+    (common-lisp:or evaluation-form-scoring-strategy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-content 'make-evaluation-form-content))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-content))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-content))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scoring-strategy))
+      (common-lisp:list
+       (common-lisp:cons "ScoringStrategy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-content))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-form-description () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-item-"))
+   (section common-lisp:nil :type
+    (common-lisp:or evaluation-form-section common-lisp:null))
+   (question common-lisp:nil :type
+    (common-lisp:or evaluation-form-question common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-item 'make-evaluation-form-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-form-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-form-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'section))
+      (common-lisp:list
+       (common-lisp:cons "Section"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'question))
+      (common-lisp:list
+       (common-lisp:cons "Question"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-form-item))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-form-item-weight () 'common-lisp:double-float)
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-items-list ()
+   '(trivial-types:proper-list evaluation-form-item))
+ (common-lisp:defun |make-evaluation-form-items-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list evaluation-form-item))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-numeric-question-automation (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-numeric-question-automation-"))
+   (property-value common-lisp:nil :type
+    (common-lisp:or numeric-question-property-value-automation
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-numeric-question-automation
+                    'make-evaluation-form-numeric-question-automation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-automation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-automation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'property-value))
+      (common-lisp:list
+       (common-lisp:cons "PropertyValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-automation))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-numeric-question-option (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-numeric-question-option-"))
+   (min-value (common-lisp:error ":min-value is required") :type
+    (common-lisp:or integer common-lisp:null))
+   (max-value (common-lisp:error ":max-value is required") :type
+    (common-lisp:or integer common-lisp:null))
+   (score common-lisp:nil :type
+    (common-lisp:or evaluation-form-question-answer-score common-lisp:null))
+   (automatic-fail common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-numeric-question-option
+                    'make-evaluation-form-numeric-question-option))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-option))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-option))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'min-value))
+      (common-lisp:list
+       (common-lisp:cons "MinValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-value))
+      (common-lisp:list
+       (common-lisp:cons "MaxValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'score))
+      (common-lisp:list
+       (common-lisp:cons "Score"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'automatic-fail))
+      (common-lisp:list
+       (common-lisp:cons "AutomaticFail"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-option))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-numeric-question-option-list ()
+   '(trivial-types:proper-list evaluation-form-numeric-question-option))
+ (common-lisp:defun |make-evaluation-form-numeric-question-option-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            evaluation-form-numeric-question-option))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-numeric-question-properties (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-numeric-question-properties-"))
+   (min-value (common-lisp:error ":min-value is required") :type
+    (common-lisp:or integer common-lisp:null))
+   (max-value (common-lisp:error ":max-value is required") :type
+    (common-lisp:or integer common-lisp:null))
+   (options common-lisp:nil :type
+    (common-lisp:or evaluation-form-numeric-question-option-list
+                    common-lisp:null))
+   (automation common-lisp:nil :type
+    (common-lisp:or evaluation-form-numeric-question-automation
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-numeric-question-properties
+                    'make-evaluation-form-numeric-question-properties))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-properties))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-properties))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'min-value))
+      (common-lisp:list
+       (common-lisp:cons "MinValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-value))
+      (common-lisp:list
+       (common-lisp:cons "MaxValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'automation))
+      (common-lisp:list
+       (common-lisp:cons "Automation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-numeric-question-properties))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-question (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-question-"))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-question-title common-lisp:null))
+   (instructions common-lisp:nil :type
+    (common-lisp:or evaluation-form-question-instructions common-lisp:null))
+   (ref-id (common-lisp:error ":ref-id is required") :type
+    (common-lisp:or reference-id common-lisp:null))
+   (not-applicable-enabled common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (question-type (common-lisp:error ":question-type is required") :type
+    (common-lisp:or evaluation-form-question-type common-lisp:null))
+   (question-type-properties common-lisp:nil :type
+    (common-lisp:or evaluation-form-question-type-properties common-lisp:null))
+   (weight common-lisp:nil :type
+    (common-lisp:or evaluation-form-item-weight common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-question 'make-evaluation-form-question))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instructions))
+      (common-lisp:list
+       (common-lisp:cons "Instructions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ref-id))
+      (common-lisp:list
+       (common-lisp:cons "RefId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'not-applicable-enabled))
+      (common-lisp:list
+       (common-lisp:cons "NotApplicableEnabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'question-type))
+      (common-lisp:list
+       (common-lisp:cons "QuestionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'question-type-properties))
+      (common-lisp:list
+       (common-lisp:cons "QuestionTypeProperties"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'weight))
+      (common-lisp:list
+       (common-lisp:cons "Weight"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-form-question-answer-score ()
+  'common-lisp:integer)
+(common-lisp:deftype evaluation-form-question-instructions ()
+  'common-lisp:string)
+(common-lisp:deftype evaluation-form-question-title () 'common-lisp:string)
+(common-lisp:deftype evaluation-form-question-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-question-type-properties (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-question-type-properties-"))
+   (numeric common-lisp:nil :type
+    (common-lisp:or evaluation-form-numeric-question-properties
+                    common-lisp:null))
+   (single-select common-lisp:nil :type
+    (common-lisp:or evaluation-form-single-select-question-properties
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-question-type-properties
+                    'make-evaluation-form-question-type-properties))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question-type-properties))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question-type-properties))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'numeric))
+      (common-lisp:list
+       (common-lisp:cons "Numeric"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'single-select))
+      (common-lisp:list
+       (common-lisp:cons "SingleSelect"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-question-type-properties))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-form-scoring-mode () 'common-lisp:string)
+(common-lisp:deftype evaluation-form-scoring-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-scoring-strategy (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-scoring-strategy-"))
+   (mode (common-lisp:error ":mode is required") :type
+    (common-lisp:or evaluation-form-scoring-mode common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or evaluation-form-scoring-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-scoring-strategy
+                    'make-evaluation-form-scoring-strategy))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-scoring-strategy))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-scoring-strategy))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'mode))
+      (common-lisp:list
+       (common-lisp:cons "Mode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-scoring-strategy))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-section (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-section-"))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-section-title common-lisp:null))
+   (ref-id (common-lisp:error ":ref-id is required") :type
+    (common-lisp:or reference-id common-lisp:null))
+   (instructions common-lisp:nil :type
+    (common-lisp:or evaluation-form-question-instructions common-lisp:null))
+   (items common-lisp:nil :type
+    (common-lisp:or evaluation-form-items-list common-lisp:null))
+   (weight common-lisp:nil :type
+    (common-lisp:or evaluation-form-item-weight common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-section 'make-evaluation-form-section))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-section))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-section))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ref-id))
+      (common-lisp:list
+       (common-lisp:cons "RefId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instructions))
+      (common-lisp:list
+       (common-lisp:cons "Instructions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'weight))
+      (common-lisp:list
+       (common-lisp:cons "Weight"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-section))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-form-section-title () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-single-select-question-automation
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-evaluation-form-single-select-question-automation-"))
+   (options (common-lisp:error ":options is required") :type
+    (common-lisp:or
+     evaluation-form-single-select-question-automation-option-list
+     common-lisp:null))
+   (default-option-ref-id common-lisp:nil :type
+    (common-lisp:or reference-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-single-select-question-automation
+                    'make-evaluation-form-single-select-question-automation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-option-ref-id))
+      (common-lisp:list
+       (common-lisp:cons "DefaultOptionRefId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-single-select-question-automation-option
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-evaluation-form-single-select-question-automation-option-"))
+   (rule-category common-lisp:nil :type
+    (common-lisp:or single-select-question-rule-category-automation
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-single-select-question-automation-option
+                    'make-evaluation-form-single-select-question-automation-option))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation-option))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation-option))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rule-category))
+      (common-lisp:list
+       (common-lisp:cons "RuleCategory"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-automation-option))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-single-select-question-automation-option-list
+                      ()
+   '(trivial-types:proper-list
+     evaluation-form-single-select-question-automation-option))
+ (common-lisp:defun |make-evaluation-form-single-select-question-automation-option-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            evaluation-form-single-select-question-automation-option))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype evaluation-form-single-select-question-display-mode ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-single-select-question-option (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-evaluation-form-single-select-question-option-"))
+   (ref-id (common-lisp:error ":ref-id is required") :type
+    (common-lisp:or reference-id common-lisp:null))
+   (text (common-lisp:error ":text is required") :type
+    (common-lisp:or evaluation-form-single-select-question-option-text
+                    common-lisp:null))
+   (score common-lisp:nil :type
+    (common-lisp:or evaluation-form-question-answer-score common-lisp:null))
+   (automatic-fail common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-single-select-question-option
+                    'make-evaluation-form-single-select-question-option))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-option))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-option))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ref-id))
+      (common-lisp:list
+       (common-lisp:cons "RefId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'text))
+      (common-lisp:list
+       (common-lisp:cons "Text"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'score))
+      (common-lisp:list
+       (common-lisp:cons "Score"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'automatic-fail))
+      (common-lisp:list
+       (common-lisp:cons "AutomaticFail"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-option))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-single-select-question-option-list ()
+   '(trivial-types:proper-list evaluation-form-single-select-question-option))
+ (common-lisp:defun |make-evaluation-form-single-select-question-option-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            evaluation-form-single-select-question-option))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype evaluation-form-single-select-question-option-text ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-single-select-question-properties
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-evaluation-form-single-select-question-properties-"))
+   (options (common-lisp:error ":options is required") :type
+    (common-lisp:or evaluation-form-single-select-question-option-list
+                    common-lisp:null))
+   (display-as common-lisp:nil :type
+    (common-lisp:or evaluation-form-single-select-question-display-mode
+                    common-lisp:null))
+   (automation common-lisp:nil :type
+    (common-lisp:or evaluation-form-single-select-question-automation
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-single-select-question-properties
+                    'make-evaluation-form-single-select-question-properties))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-properties))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-properties))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'options))
+      (common-lisp:list
+       (common-lisp:cons "Options"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'display-as))
+      (common-lisp:list
+       (common-lisp:cons "DisplayAs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'automation))
+      (common-lisp:list
+       (common-lisp:cons "Automation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-single-select-question-properties))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-summary-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (created-time (common-lisp:error ":created-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (created-by (common-lisp:error ":created-by is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null))
+   (last-modified-by (common-lisp:error ":last-modified-by is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (last-activated-time common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (last-activated-by common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (latest-version (common-lisp:error ":latest-version is required") :type
+    (common-lisp:or version-number common-lisp:null))
+   (active-version common-lisp:nil :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-summary 'make-evaluation-form-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "CreatedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-by))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-activated-time))
+      (common-lisp:list
+       (common-lisp:cons "LastActivatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-activated-by))
+      (common-lisp:list
+       (common-lisp:cons "LastActivatedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'latest-version))
+      (common-lisp:list
+       (common-lisp:cons "LatestVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'active-version))
+      (common-lisp:list
+       (common-lisp:cons "ActiveVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-summary-list ()
+   '(trivial-types:proper-list evaluation-form-summary))
+ (common-lisp:defun |make-evaluation-form-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list evaluation-form-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype evaluation-form-title () 'common-lisp:string)
+(common-lisp:deftype evaluation-form-version-is-locked () 'common-lisp:boolean)
+(common-lisp:deftype evaluation-form-version-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-form-version-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-form-version-summary-"))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null))
+   (locked (common-lisp:error ":locked is required") :type
+    (common-lisp:or evaluation-form-version-is-locked common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or evaluation-form-version-status common-lisp:null))
+   (created-time (common-lisp:error ":created-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (created-by (common-lisp:error ":created-by is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null))
+   (last-modified-by (common-lisp:error ":last-modified-by is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-form-version-summary
+                    'make-evaluation-form-version-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-version-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-version-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'locked))
+      (common-lisp:list
+       (common-lisp:cons "Locked"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-by))
+      (common-lisp:list
+       (common-lisp:cons "CreatedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-by))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedBy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          evaluation-form-version-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-form-version-summary-list ()
+   '(trivial-types:proper-list evaluation-form-version-summary))
+ (common-lisp:defun |make-evaluation-form-version-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            evaluation-form-version-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-metadata-"))
+   (contact-id (common-lisp:error ":contact-id is required") :type
+    (common-lisp:or contact-id common-lisp:null))
+   (evaluator-arn (common-lisp:error ":evaluator-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (contact-agent-id common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (score common-lisp:nil :type
+    (common-lisp:or evaluation-score common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-metadata 'make-evaluation-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-id))
+      (common-lisp:list
+       (common-lisp:cons "ContactId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluator-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluatorArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-agent-id))
+      (common-lisp:list
+       (common-lisp:cons "ContactAgentId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'score))
+      (common-lisp:list
+       (common-lisp:cons "Score"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-metadata))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-note (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-note-"))
+   (value common-lisp:nil :type
+    (common-lisp:or evaluation-note-string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'evaluation-note 'make-evaluation-note))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-note))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-note))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-note))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-note-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype evaluation-notes-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-evaluation-notes-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-score (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-score-"))
+   (percentage common-lisp:nil :type
+    (common-lisp:or evaluation-score-percentage common-lisp:null))
+   (not-applicable common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (automatic-fail common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-score 'make-evaluation-score))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-score))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-score))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'percentage))
+      (common-lisp:list
+       (common-lisp:cons "Percentage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'not-applicable))
+      (common-lisp:list
+       (common-lisp:cons "NotApplicable"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'automatic-fail))
+      (common-lisp:list
+       (common-lisp:cons "AutomaticFail"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-score))
+   common-lisp:nil))
+(common-lisp:deftype evaluation-score-percentage () 'common-lisp:double-float)
+(common-lisp:progn
+ (common-lisp:deftype evaluation-scores-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-evaluation-scores-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:deftype evaluation-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (evaluation-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-evaluation-summary-"))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (evaluation-arn (common-lisp:error ":evaluation-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (evaluation-form-title
+    (common-lisp:error ":evaluation-form-title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or evaluation-status common-lisp:null))
+   (evaluator-arn (common-lisp:error ":evaluator-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (score common-lisp:nil :type
+    (common-lisp:or evaluation-score common-lisp:null))
+   (created-time (common-lisp:error ":created-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (last-modified-time (common-lisp:error ":last-modified-time is required")
+    :type (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'evaluation-summary 'make-evaluation-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input evaluation-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input evaluation-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-title))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormTitle"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluator-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluatorArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'score))
+      (common-lisp:list
+       (common-lisp:cons "Score"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-time))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-modified-time))
+      (common-lisp:list
+       (common-lisp:cons "LastModifiedTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input evaluation-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype evaluation-summary-list ()
+   '(trivial-types:proper-list evaluation-summary))
+ (common-lisp:defun |make-evaluation-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list evaluation-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (event-bridge-action-definition (:copier common-lisp:nil)
       (:conc-name "struct-shape-event-bridge-action-definition-"))
    (name (common-lisp:error ":name is required") :type
@@ -6331,6 +8551,46 @@
    common-lisp:nil))
 (common-lisp:deftype event-bridge-action-name () 'common-lisp:string)
 (common-lisp:deftype event-source-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (filter-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-filter-v2-"))
+   (filter-key common-lisp:nil :type
+    (common-lisp:or resource-arn-or-id common-lisp:null))
+   (filter-values common-lisp:nil :type
+    (common-lisp:or filter-value-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'filter-v2 'make-filter-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input filter-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input filter-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filter-key))
+      (common-lisp:list
+       (common-lisp:cons "FilterKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filter-values))
+      (common-lisp:list
+       (common-lisp:cons "FilterValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input filter-v2))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype filter-value-list ()
+   '(trivial-types:proper-list resource-arn-or-id))
+ (common-lisp:defun |make-filter-value-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list resource-arn-or-id))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (filters (:copier common-lisp:nil) (:conc-name "struct-shape-filters-"))
@@ -6369,6 +8629,13 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input filters))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype filters-v2list () '(trivial-types:proper-list filter-v2))
+ (common-lisp:defun |make-filters-v2list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list filter-v2))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype function-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype function-arns-list ()
@@ -6880,6 +9147,140 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-metric-data-v2request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-metric-data-v2request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (filters (common-lisp:error ":filters is required") :type
+    (common-lisp:or filters-v2list common-lisp:null))
+   (groupings common-lisp:nil :type
+    (common-lisp:or groupings-v2 common-lisp:null))
+   (metrics (common-lisp:error ":metrics is required") :type
+    (common-lisp:or metrics-v2 common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token2500 common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-result100 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-metric-data-v2request
+                    'make-get-metric-data-v2request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'filters))
+      (common-lisp:list
+       (common-lisp:cons "Filters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'groupings))
+      (common-lisp:list
+       (common-lisp:cons "Groupings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metrics))
+      (common-lisp:list
+       (common-lisp:cons "Metrics"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-metric-data-v2response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-metric-data-v2response-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token2500 common-lisp:null))
+   (metric-results common-lisp:nil :type
+    (common-lisp:or metric-results-v2 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-metric-data-v2response
+                    'make-get-metric-data-v2response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metric-results))
+      (common-lisp:list
+       (common-lisp:cons "MetricResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-metric-data-v2response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-task-template-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-task-template-request-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
@@ -7118,12 +9519,20 @@
                           get-traffic-distribution-response))
    common-lisp:nil))
 (common-lisp:deftype grouping () 'common-lisp:string)
+(common-lisp:deftype grouping-v2 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype groupings () '(trivial-types:proper-list grouping))
  (common-lisp:defun |make-groupings|
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list grouping))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype groupings-v2 () '(trivial-types:proper-list grouping-v2))
+ (common-lisp:defun |make-groupings-v2|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list grouping-v2))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -8045,6 +10454,7 @@
                          (aws-sdk/generator/shape::input
                           hours-of-operation-time-slice))
    common-lisp:nil))
+(common-lisp:deftype iso8601datetime () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition idempotency-exception
      (connect-error)
@@ -8381,6 +10791,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list instance-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:deftype integer-count () 'common-lisp:integer)
 (common-lisp:deftype integration-association-id () 'common-lisp:string)
 (common-lisp:progn
@@ -8983,6 +11394,76 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-contact-evaluations-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-contact-evaluations-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (contact-id (common-lisp:error ":contact-id is required") :type
+    (common-lisp:or contact-id common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-contact-evaluations-request
+                    'make-list-contact-evaluations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-contact-evaluations-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-contact-evaluations-response-"))
+   (evaluation-summary-list
+    (common-lisp:error ":evaluation-summary-list is required") :type
+    (common-lisp:or evaluation-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-contact-evaluations-response
+                    'make-list-contact-evaluations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-summary-list))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationSummaryList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-contact-evaluations-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-contact-flow-modules-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-contact-flow-modules-request-"))
    (instance-id (common-lisp:error ":instance-id is required") :type
@@ -9286,6 +11767,149 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-default-vocabularies-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-evaluation-form-versions-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-evaluation-form-versions-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-result100 common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-evaluation-form-versions-request
+                    'make-list-evaluation-form-versions-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-evaluation-form-versions-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-evaluation-form-versions-response-"))
+   (evaluation-form-version-summary-list
+    (common-lisp:error ":evaluation-form-version-summary-list is required")
+    :type
+    (common-lisp:or evaluation-form-version-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-evaluation-form-versions-response
+                    'make-list-evaluation-form-versions-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version-summary-list))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersionSummaryList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-form-versions-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-evaluation-forms-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-evaluation-forms-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-result100 common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-evaluation-forms-request
+                    'make-list-evaluation-forms-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-evaluation-forms-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-evaluation-forms-response-"))
+   (evaluation-form-summary-list
+    (common-lisp:error ":evaluation-form-summary-list is required") :type
+    (common-lisp:or evaluation-form-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-evaluation-forms-response
+                    'make-list-evaluation-forms-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-summary-list))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormSummaryList"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-evaluation-forms-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -11114,7 +13738,9 @@
    (channel (common-lisp:error ":channel is required") :type
     (common-lisp:or channel common-lisp:null))
    (concurrency (common-lisp:error ":concurrency is required") :type
-    (common-lisp:or concurrency common-lisp:null)))
+    (common-lisp:or concurrency common-lisp:null))
+   (cross-channel-behavior common-lisp:nil :type
+    (common-lisp:or cross-channel-behavior common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'media-concurrency 'make-media-concurrency))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -11136,11 +13762,197 @@
       (common-lisp:list
        (common-lisp:cons "Concurrency"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'cross-channel-behavior))
+      (common-lisp:list
+       (common-lisp:cons "CrossChannelBehavior"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input media-concurrency))
    common-lisp:nil))
 (common-lisp:deftype message () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype metric-data-collections-v2 ()
+   '(trivial-types:proper-list metric-data-v2))
+ (common-lisp:defun |make-metric-data-collections-v2|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list metric-data-v2))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (metric-data-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-metric-data-v2-"))
+   (metric common-lisp:nil :type (common-lisp:or metric-v2 common-lisp:null))
+   (value common-lisp:nil :type (common-lisp:or value common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'metric-data-v2 'make-metric-data-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input metric-data-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input metric-data-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metric))
+      (common-lisp:list
+       (common-lisp:cons "Metric"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input metric-data-v2))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (metric-filter-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-metric-filter-v2-"))
+   (metric-filter-key common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (metric-filter-values common-lisp:nil :type
+    (common-lisp:or metric-filter-value-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'metric-filter-v2 'make-metric-filter-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input metric-filter-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input metric-filter-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metric-filter-key))
+      (common-lisp:list
+       (common-lisp:cons "MetricFilterKey"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'metric-filter-values))
+      (common-lisp:list
+       (common-lisp:cons "MetricFilterValues"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input metric-filter-v2))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype metric-filter-value-list ()
+   '(trivial-types:proper-list string))
+ (common-lisp:defun |make-metric-filter-value-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list string))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype metric-filters-v2list ()
+   '(trivial-types:proper-list metric-filter-v2))
+ (common-lisp:defun |make-metric-filters-v2list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list metric-filter-v2))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype metric-name-v2 () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (metric-result-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-metric-result-v2-"))
+   (dimensions common-lisp:nil :type
+    (common-lisp:or dimensions-v2map common-lisp:null))
+   (collections common-lisp:nil :type
+    (common-lisp:or metric-data-collections-v2 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'metric-result-v2 'make-metric-result-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input metric-result-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input metric-result-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'dimensions))
+      (common-lisp:list
+       (common-lisp:cons "Dimensions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'collections))
+      (common-lisp:list
+       (common-lisp:cons "Collections"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input metric-result-v2))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype metric-results-v2 ()
+   '(trivial-types:proper-list metric-result-v2))
+ (common-lisp:defun |make-metric-results-v2|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list metric-result-v2))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (metric-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-metric-v2-"))
+   (name common-lisp:nil :type
+    (common-lisp:or metric-name-v2 common-lisp:null))
+   (threshold common-lisp:nil :type
+    (common-lisp:or threshold-collections common-lisp:null))
+   (metric-filters common-lisp:nil :type
+    (common-lisp:or metric-filters-v2list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'metric-v2 'make-metric-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input metric-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input metric-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'threshold))
+      (common-lisp:list
+       (common-lisp:cons "Threshold"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metric-filters))
+      (common-lisp:list
+       (common-lisp:cons "MetricFilters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input metric-v2))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype metrics-v2 () '(trivial-types:proper-list metric-v2))
+ (common-lisp:defun |make-metrics-v2|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list metric-v2))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype minutes-limit60 () 'common-lisp:integer)
 (common-lisp:deftype monitor-capability () 'common-lisp:string)
 (common-lisp:progn
@@ -11326,6 +14138,40 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input number-reference))
    common-lisp:nil))
+(common-lisp:deftype numeric-question-property-automation-label ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (numeric-question-property-value-automation (:copier common-lisp:nil)
+      (:conc-name "struct-shape-numeric-question-property-value-automation-"))
+   (label (common-lisp:error ":label is required") :type
+    (common-lisp:or numeric-question-property-automation-label
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'numeric-question-property-value-automation
+                    'make-numeric-question-property-value-automation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          numeric-question-property-value-automation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          numeric-question-property-value-automation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'label))
+      (common-lisp:list
+       (common-lisp:cons "Label"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          numeric-question-property-value-automation))
+   common-lisp:nil))
 (common-lisp:deftype origin () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype origins-list () '(trivial-types:proper-list origin))
@@ -11419,7 +14265,48 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input participant-details))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (participant-details-to-add (:copier common-lisp:nil)
+      (:conc-name "struct-shape-participant-details-to-add-"))
+   (participant-role common-lisp:nil :type
+    (common-lisp:or participant-role common-lisp:null))
+   (display-name common-lisp:nil :type
+    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'participant-details-to-add
+                    'make-participant-details-to-add))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-details-to-add))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-details-to-add))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'participant-role))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'display-name))
+      (common-lisp:list
+       (common-lisp:cons "DisplayName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-details-to-add))
+   common-lisp:nil))
 (common-lisp:deftype participant-id () 'common-lisp:string)
+(common-lisp:deftype participant-role () 'common-lisp:string)
 (common-lisp:deftype participant-timer-action () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype participant-timer-config-list ()
@@ -11524,6 +14411,46 @@
                           participant-timer-value))
    common-lisp:nil))
 (common-lisp:deftype participant-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (participant-token-credentials (:copier common-lisp:nil)
+      (:conc-name "struct-shape-participant-token-credentials-"))
+   (participant-token common-lisp:nil :type
+    (common-lisp:or participant-token common-lisp:null))
+   (expiry common-lisp:nil :type
+    (common-lisp:or iso8601datetime common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'participant-token-credentials
+                    'make-participant-token-credentials))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-token-credentials))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-token-credentials))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'participant-token))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expiry))
+      (common-lisp:list
+       (common-lisp:cons "Expiry"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          participant-token-credentials))
+   common-lisp:nil))
 (common-lisp:deftype password () 'common-lisp:string)
 (common-lisp:deftype percentage () 'common-lisp:integer)
 (common-lisp:progn
@@ -12565,6 +15492,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input reference))
    common-lisp:nil))
+(common-lisp:deftype reference-id () 'common-lisp:string)
 (common-lisp:deftype reference-key () 'common-lisp:string)
 (common-lisp:deftype reference-status () 'common-lisp:string)
 (common-lisp:progn
@@ -12801,6 +15729,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list required-field-info))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype resource-arn-or-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition resource-conflict-exception
      (connect-error)
@@ -12809,6 +15738,7 @@
  (common-lisp:export
   (common-lisp:list 'resource-conflict-exception
                     'resource-conflict-exception-message)))
+(common-lisp:deftype resource-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition resource-in-use-exception
      (connect-error)
@@ -14925,6 +17855,63 @@
                            (trivial-types:proper-list
                             task-template-single-select-option))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (single-select-question-rule-category-automation (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-single-select-question-rule-category-automation-"))
+   (category (common-lisp:error ":category is required") :type
+    (common-lisp:or single-select-question-rule-category-automation-label
+                    common-lisp:null))
+   (condition (common-lisp:error ":condition is required") :type
+    (common-lisp:or single-select-question-rule-category-automation-condition
+                    common-lisp:null))
+   (option-ref-id (common-lisp:error ":option-ref-id is required") :type
+    (common-lisp:or reference-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'single-select-question-rule-category-automation
+                    'make-single-select-question-rule-category-automation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          single-select-question-rule-category-automation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          single-select-question-rule-category-automation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'category))
+      (common-lisp:list
+       (common-lisp:cons "Category"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'condition))
+      (common-lisp:list
+       (common-lisp:cons "Condition"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'option-ref-id))
+      (common-lisp:list
+       (common-lisp:cons "OptionRefId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          single-select-question-rule-category-automation))
+   common-lisp:nil))
+(common-lisp:deftype single-select-question-rule-category-automation-condition
+                     ()
+  'common-lisp:string)
+(common-lisp:deftype single-select-question-rule-category-automation-label ()
+  'common-lisp:string)
 (common-lisp:deftype snapshot-version () 'common-lisp:string)
 (common-lisp:deftype sort-order () 'common-lisp:string)
 (common-lisp:deftype source-application-name () 'common-lisp:string)
@@ -14950,7 +17937,9 @@
    (supported-messaging-content-types common-lisp:nil :type
     (common-lisp:or supported-messaging-content-types common-lisp:null))
    (persistent-chat common-lisp:nil :type
-    (common-lisp:or persistent-chat common-lisp:null)))
+    (common-lisp:or persistent-chat common-lisp:null))
+   (related-contact-id common-lisp:nil :type
+    (common-lisp:or contact-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-chat-contact-request
                     'make-start-chat-contact-request))
@@ -15028,6 +18017,13 @@
       (common-lisp:list
        (common-lisp:cons "PersistentChat"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'related-contact-id))
+      (common-lisp:list
+       (common-lisp:cons "RelatedContactId"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -15092,6 +18088,97 @@
                         (
                          (aws-sdk/generator/shape::input
                           start-chat-contact-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-contact-evaluation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-contact-evaluation-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (contact-id (common-lisp:error ":contact-id is required") :type
+    (common-lisp:or contact-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-contact-evaluation-request
+                    'make-start-contact-evaluation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-id))
+      (common-lisp:list
+       (common-lisp:cons "ContactId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-contact-evaluation-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-contact-evaluation-response-"))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (evaluation-arn (common-lisp:error ":evaluation-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-contact-evaluation-response
+                    'make-start-contact-evaluation-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-contact-evaluation-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -15436,7 +18523,9 @@
    (task-template-id common-lisp:nil :type
     (common-lisp:or task-template-id common-lisp:null))
    (quick-connect-id common-lisp:nil :type
-    (common-lisp:or quick-connect-id common-lisp:null)))
+    (common-lisp:or quick-connect-id common-lisp:null))
+   (related-contact-id common-lisp:nil :type
+    (common-lisp:or contact-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-task-contact-request
                     'make-start-task-contact-request))
@@ -15525,6 +18614,13 @@
                            aws-sdk/generator/shape::input 'quick-connect-id))
       (common-lisp:list
        (common-lisp:cons "QuickConnectId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'related-contact-id))
+      (common-lisp:list
+       (common-lisp:cons "RelatedContactId"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -15837,6 +18933,90 @@
                         ((aws-sdk/generator/shape::input string-reference))
    common-lisp:nil))
 (common-lisp:deftype subject () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (submit-contact-evaluation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-submit-contact-evaluation-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (answers common-lisp:nil :type
+    (common-lisp:or evaluation-answers-input-map common-lisp:null))
+   (notes common-lisp:nil :type
+    (common-lisp:or evaluation-notes-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'submit-contact-evaluation-request
+                    'make-submit-contact-evaluation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'answers))
+      (common-lisp:list
+       (common-lisp:cons "Answers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'notes))
+      (common-lisp:list
+       (common-lisp:cons "Notes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (submit-contact-evaluation-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-submit-contact-evaluation-response-"))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (evaluation-arn (common-lisp:error ":evaluation-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'submit-contact-evaluation-response
+                    'make-submit-contact-evaluation-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          submit-contact-evaluation-response))
+   common-lisp:nil))
 (common-lisp:deftype supported-messaging-content-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype supported-messaging-content-types ()
@@ -16453,6 +19633,46 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input threshold))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype threshold-collections ()
+   '(trivial-types:proper-list threshold-v2))
+ (common-lisp:defun |make-threshold-collections|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list threshold-v2))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (threshold-v2 (:copier common-lisp:nil)
+      (:conc-name "struct-shape-threshold-v2-"))
+   (comparison common-lisp:nil :type
+    (common-lisp:or resource-arn-or-id common-lisp:null))
+   (threshold-value common-lisp:nil :type
+    (common-lisp:or threshold-value common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'threshold-v2 'make-threshold-v2))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input threshold-v2))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input threshold-v2))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'comparison))
+      (common-lisp:list
+       (common-lisp:cons "Comparison"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'threshold-value))
+      (common-lisp:list
+       (common-lisp:cons "ThresholdValue"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input threshold-v2))
+   common-lisp:nil))
 (common-lisp:deftype threshold-value () 'common-lisp:double-float)
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
@@ -16910,6 +20130,90 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-contact-attributes-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-contact-evaluation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-contact-evaluation-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (answers common-lisp:nil :type
+    (common-lisp:or evaluation-answers-input-map common-lisp:null))
+   (notes common-lisp:nil :type
+    (common-lisp:or evaluation-notes-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-contact-evaluation-request
+                    'make-update-contact-evaluation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'answers))
+      (common-lisp:list
+       (common-lisp:cons "Answers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'notes))
+      (common-lisp:list
+       (common-lisp:cons "Notes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-contact-evaluation-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-contact-evaluation-response-"))
+   (evaluation-id (common-lisp:error ":evaluation-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (evaluation-arn (common-lisp:error ":evaluation-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-contact-evaluation-response
+                    'make-update-contact-evaluation-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-contact-evaluation-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -17387,6 +20691,148 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-contact-schedule-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-evaluation-form-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-evaluation-form-request-"))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null))
+   (create-new-version common-lisp:nil :type
+    (common-lisp:or boxed-boolean common-lisp:null))
+   (title (common-lisp:error ":title is required") :type
+    (common-lisp:or evaluation-form-title common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or evaluation-form-description common-lisp:null))
+   (items (common-lisp:error ":items is required") :type
+    (common-lisp:or evaluation-form-items-list common-lisp:null))
+   (scoring-strategy common-lisp:nil :type
+    (common-lisp:or evaluation-form-scoring-strategy common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-evaluation-form-request
+                    'make-update-evaluation-form-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'create-new-version))
+      (common-lisp:list
+       (common-lisp:cons "CreateNewVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'items))
+      (common-lisp:list
+       (common-lisp:cons "Items"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'scoring-strategy))
+      (common-lisp:list
+       (common-lisp:cons "ScoringStrategy"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-evaluation-form-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-evaluation-form-response-"))
+   (evaluation-form-id (common-lisp:error ":evaluation-form-id is required")
+    :type (common-lisp:or resource-id common-lisp:null))
+   (evaluation-form-arn (common-lisp:error ":evaluation-form-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (evaluation-form-version
+    (common-lisp:error ":evaluation-form-version is required") :type
+    (common-lisp:or version-number common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-evaluation-form-response
+                    'make-update-evaluation-form-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-id))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'evaluation-form-arn))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'evaluation-form-version))
+      (common-lisp:list
+       (common-lisp:cons "EvaluationFormVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-evaluation-form-response))
    common-lisp:nil))
 (common-lisp:deftype update-hours-of-operation-description ()
   'common-lisp:string)
@@ -19600,6 +23046,7 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype value () 'common-lisp:double-float)
+(common-lisp:deftype version-number () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (vocabulary (:copier common-lisp:nil)
@@ -19844,6 +23291,41 @@
                         ((aws-sdk/generator/shape::input wisdom-info))
    common-lisp:nil))
 common-lisp:nil
+(common-lisp:progn
+ (common-lisp:defun activate-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     evaluation-form-version)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id
+     evaluation-form-version))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-activate-evaluation-form-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A/activate"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "ActivateEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'activate-evaluation-form))
 (common-lisp:progn
  (common-lisp:defun associate-approved-origin
                     (
@@ -20266,6 +23748,37 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-contact-flow-module))
 (common-lisp:progn
+ (common-lisp:defun create-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id title description items
+                     scoring-strategy client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id title description items scoring-strategy
+     client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-evaluation-form-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))))
+                                                        "CreateEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-evaluation-form))
+(common-lisp:progn
  (common-lisp:defun create-hours-of-operation
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -20351,6 +23864,28 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-integration-association))
+(common-lisp:progn
+ (common-lisp:defun create-participant
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id contact-id client-token
+                     participant-details)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id contact-id client-token
+     participant-details))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-participant-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        "/contact/create-participant"
+                                                        "CreateParticipant"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-participant))
 (common-lisp:progn
  (common-lisp:defun create-queue
                     (
@@ -20693,6 +24228,75 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-vocabulary))
 (common-lisp:progn
+ (common-lisp:defun deactivate-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     evaluation-form-version)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id
+     evaluation-form-version))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-deactivate-evaluation-form-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A/deactivate"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "DeactivateEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'deactivate-evaluation-form))
+(common-lisp:progn
+ (common-lisp:defun delete-contact-evaluation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-id)
+   (common-lisp:declare (common-lisp:ignorable instance-id evaluation-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-contact-evaluation-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-id))))
+                                                        "DeleteContactEvaluation"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-contact-evaluation))
+(common-lisp:progn
  (common-lisp:defun delete-contact-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -20758,6 +24362,41 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-contact-flow-module))
+(common-lisp:progn
+ (common-lisp:defun delete-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     evaluation-form-version)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id
+     evaluation-form-version))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-evaluation-form-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "DeleteEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-evaluation-form))
 (common-lisp:progn
  (common-lisp:defun delete-hours-of-operation
                     (
@@ -21212,6 +24851,39 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-contact))
 (common-lisp:progn
+ (common-lisp:defun describe-contact-evaluation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-id)
+   (common-lisp:declare (common-lisp:ignorable instance-id evaluation-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-contact-evaluation-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-id))))
+                                                        "DescribeContactEvaluation"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-contact-evaluation))
+(common-lisp:progn
  (common-lisp:defun describe-contact-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -21277,6 +24949,41 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-contact-flow-module))
+(common-lisp:progn
+ (common-lisp:defun describe-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     evaluation-form-version)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id
+     evaluation-form-version))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-evaluation-form-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "DescribeEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-evaluation-form))
 (common-lisp:progn
  (common-lisp:defun describe-hours-of-operation
                     (
@@ -22216,6 +25923,27 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-metric-data))
 (common-lisp:progn
+ (common-lisp:defun get-metric-data-v2
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn start-time end-time filters
+                     groupings metrics next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable resource-arn start-time end-time filters groupings
+     metrics next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-metric-data-v2request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/metrics/data"
+                                                        "GetMetricDataV2"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-metric-data-v2))
+(common-lisp:progn
  (common-lisp:defun get-task-template
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -22368,6 +26096,35 @@ common-lisp:nil
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-bots))
 (common-lisp:progn
+ (common-lisp:defun list-contact-evaluations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id contact-id next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id contact-id next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-contact-evaluations-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))))
+                                                        "ListContactEvaluations"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-contact-evaluations))
+(common-lisp:progn
  (common-lisp:defun list-contact-flow-modules
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -22495,6 +26252,71 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-default-vocabularies))
+(common-lisp:progn
+ (common-lisp:defun list-evaluation-form-versions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id max-results
+     next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-evaluation-form-versions-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A/versions"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "ListEvaluationFormVersions"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-evaluation-form-versions))
+(common-lisp:progn
+ (common-lisp:defun list-evaluation-forms
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-evaluation-forms-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))))
+                                                        "ListEvaluationForms"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-evaluation-forms))
 (common-lisp:progn
  (common-lisp:defun list-hours-of-operations
                     (
@@ -23517,11 +27339,11 @@ common-lisp:nil
                      common-lisp:&key instance-id contact-flow-id attributes
                      participant-details initial-message client-token
                      chat-duration-in-minutes supported-messaging-content-types
-                     persistent-chat)
+                     persistent-chat related-contact-id)
    (common-lisp:declare
     (common-lisp:ignorable instance-id contact-flow-id attributes
      participant-details initial-message client-token chat-duration-in-minutes
-     supported-messaging-content-types persistent-chat))
+     supported-messaging-content-types persistent-chat related-contact-id))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-start-chat-contact-request
                                          aws-sdk/generator/operation::args)))
@@ -23534,6 +27356,37 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-chat-contact))
+(common-lisp:progn
+ (common-lisp:defun start-contact-evaluation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id contact-id evaluation-form-id
+                     client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id contact-id evaluation-form-id
+     client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-start-contact-evaluation-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))))
+                                                        "StartContactEvaluation"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'start-contact-evaluation))
 (common-lisp:progn
  (common-lisp:defun start-contact-recording
                     (
@@ -23611,11 +27464,11 @@ common-lisp:nil
                      common-lisp:&key instance-id previous-contact-id
                      contact-flow-id attributes name references description
                      client-token scheduled-time task-template-id
-                     quick-connect-id)
+                     quick-connect-id related-contact-id)
    (common-lisp:declare
     (common-lisp:ignorable instance-id previous-contact-id contact-flow-id
      attributes name references description client-token scheduled-time
-     task-template-id quick-connect-id))
+     task-template-id quick-connect-id related-contact-id))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-start-task-contact-request
                                          aws-sdk/generator/operation::args)))
@@ -23687,6 +27540,40 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-contact-streaming))
+(common-lisp:progn
+ (common-lisp:defun submit-contact-evaluation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-id answers notes)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-id answers notes))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-submit-contact-evaluation-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A/~A/submit"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-id))))
+                                                        "SubmitContactEvaluation"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'submit-contact-evaluation))
 (common-lisp:progn
  (common-lisp:defun suspend-contact-recording
                     (
@@ -23878,6 +27765,40 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-contact-attributes))
+(common-lisp:progn
+ (common-lisp:defun update-contact-evaluation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-id answers notes)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-id answers notes))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-contact-evaluation-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/contact-evaluations/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-id))))
+                                                        "UpdateContactEvaluation"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-contact-evaluation))
 (common-lisp:progn
  (common-lisp:defun update-contact-flow-content
                     (
@@ -24073,6 +27994,43 @@ common-lisp:nil
                                                         "2017-08-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-contact-schedule))
+(common-lisp:progn
+ (common-lisp:defun update-evaluation-form
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key instance-id evaluation-form-id
+                     evaluation-form-version create-new-version title
+                     description items scoring-strategy client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id evaluation-form-id
+     evaluation-form-version create-new-version title description items
+     scoring-strategy client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-evaluation-form-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/evaluation-forms/~A/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'instance-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'evaluation-form-id))))
+                                                        "UpdateEvaluationForm"
+                                                        "2017-08-08"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-evaluation-form))
 (common-lisp:progn
  (common-lisp:defun update-hours-of-operation
                     (

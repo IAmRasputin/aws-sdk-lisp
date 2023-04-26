@@ -362,6 +362,46 @@
 (common-lisp:deftype aws-account-id () 'common-lisp:string)
 (common-lisp:deftype aws-region () 'common-lisp:string)
 (common-lisp:deftype base64string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (best-practice (:copier common-lisp:nil)
+      (:conc-name "struct-shape-best-practice-"))
+   (choice-id common-lisp:nil :type
+    (common-lisp:or choice-id common-lisp:null))
+   (choice-title common-lisp:nil :type
+    (common-lisp:or choice-title common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'best-practice 'make-best-practice))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input best-practice))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input best-practice))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'choice-id))
+      (common-lisp:list
+       (common-lisp:cons "ChoiceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'choice-title))
+      (common-lisp:list
+       (common-lisp:cons "ChoiceTitle"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input best-practice))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype best-practices ()
+   '(trivial-types:proper-list best-practice))
+ (common-lisp:defun |make-best-practices|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list best-practice))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype check-description () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -970,6 +1010,110 @@
   (common-lisp:list 'conflict-exception 'conflict-exception-message
                     'conflict-exception-resource-id
                     'conflict-exception-resource-type)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (consolidated-report-metric (:copier common-lisp:nil)
+      (:conc-name "struct-shape-consolidated-report-metric-"))
+   (metric-type common-lisp:nil :type
+    (common-lisp:or metric-type common-lisp:null))
+   (risk-counts common-lisp:nil :type
+    (common-lisp:or risk-counts common-lisp:null))
+   (workload-id common-lisp:nil :type
+    (common-lisp:or workload-id common-lisp:null))
+   (workload-name common-lisp:nil :type
+    (common-lisp:or workload-name common-lisp:null))
+   (workload-arn common-lisp:nil :type
+    (common-lisp:or workload-arn common-lisp:null))
+   (updated-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (lenses common-lisp:nil :type
+    (common-lisp:or lens-metrics common-lisp:null))
+   (lenses-applied-count common-lisp:nil :type
+    (common-lisp:or lenses-applied-count common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'consolidated-report-metric
+                    'make-consolidated-report-metric))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          consolidated-report-metric))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          consolidated-report-metric))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metric-type))
+      (common-lisp:list
+       (common-lisp:cons "MetricType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'risk-counts))
+      (common-lisp:list
+       (common-lisp:cons "RiskCounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workload-id))
+      (common-lisp:list
+       (common-lisp:cons "WorkloadId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workload-name))
+      (common-lisp:list
+       (common-lisp:cons "WorkloadName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'workload-arn))
+      (common-lisp:list
+       (common-lisp:cons "WorkloadArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-at))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'lenses))
+      (common-lisp:list
+       (common-lisp:cons "Lenses"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'lenses-applied-count))
+      (common-lisp:list
+       (common-lisp:cons "LensesAppliedCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          consolidated-report-metric))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype consolidated-report-metrics ()
+   '(trivial-types:proper-list consolidated-report-metric))
+ (common-lisp:defun |make-consolidated-report-metrics|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            consolidated-report-metric))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype count () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1793,6 +1937,87 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-consolidated-report-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-consolidated-report-input-"))
+   (format (common-lisp:error ":format is required") :type
+    (common-lisp:or report-format common-lisp:null))
+   (include-shared-resources common-lisp:nil :type
+    (common-lisp:or include-shared-resources common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or get-consolidated-report-max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-consolidated-report-input
+                    'make-get-consolidated-report-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-input))
+   common-lisp:nil))
+(common-lisp:deftype get-consolidated-report-max-results ()
+  'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-consolidated-report-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-consolidated-report-output-"))
+   (metrics common-lisp:nil :type
+    (common-lisp:or consolidated-report-metrics common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (base64string common-lisp:nil :type
+    (common-lisp:or base64string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-consolidated-report-output
+                    'make-get-consolidated-report-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'metrics))
+      (common-lisp:list
+       (common-lisp:cons "Metrics"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'base64string))
+      (common-lisp:list
+       (common-lisp:cons "Base64String"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-consolidated-report-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-lens-input (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-lens-input-"))
    (lens-alias (common-lisp:error ":lens-alias is required") :type
@@ -2342,6 +2567,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input improvement-summary))
    common-lisp:nil))
+(common-lisp:deftype include-shared-resources () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (wellarchitected-error)
@@ -2437,6 +2663,53 @@
 (common-lisp:deftype lens-arn () 'common-lisp:string)
 (common-lisp:deftype lens-description () 'common-lisp:string)
 (common-lisp:deftype lens-json () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (lens-metric (:copier common-lisp:nil)
+      (:conc-name "struct-shape-lens-metric-"))
+   (lens-arn common-lisp:nil :type (common-lisp:or lens-arn common-lisp:null))
+   (pillars common-lisp:nil :type
+    (common-lisp:or pillar-metrics common-lisp:null))
+   (risk-counts common-lisp:nil :type
+    (common-lisp:or risk-counts common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'lens-metric 'make-lens-metric))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input lens-metric))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input lens-metric))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'lens-arn))
+      (common-lisp:list
+       (common-lisp:cons "LensArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pillars))
+      (common-lisp:list
+       (common-lisp:cons "Pillars"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'risk-counts))
+      (common-lisp:list
+       (common-lisp:cons "RiskCounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input lens-metric))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype lens-metrics () '(trivial-types:proper-list lens-metric))
+ (common-lisp:defun |make-lens-metrics|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list lens-metric))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype lens-name () 'common-lisp:string)
 (common-lisp:deftype lens-name-prefix () 'common-lisp:string)
 (common-lisp:deftype lens-owner () 'common-lisp:string)
@@ -2911,6 +3184,7 @@
                         ((aws-sdk/generator/shape::input lens-upgrade-summary))
    common-lisp:nil))
 (common-lisp:deftype lens-version () 'common-lisp:string)
+(common-lisp:deftype lenses-applied-count () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-answers-input (:copier common-lisp:nil)
@@ -4045,6 +4319,7 @@
                           list-workloads-output))
    common-lisp:nil))
 (common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype metric-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (milestone (:copier common-lisp:nil)
@@ -4263,6 +4538,55 @@
                            (trivial-types:proper-list pillar-difference))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype pillar-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (pillar-metric (:copier common-lisp:nil)
+      (:conc-name "struct-shape-pillar-metric-"))
+   (pillar-id common-lisp:nil :type
+    (common-lisp:or pillar-id common-lisp:null))
+   (risk-counts common-lisp:nil :type
+    (common-lisp:or risk-counts common-lisp:null))
+   (questions common-lisp:nil :type
+    (common-lisp:or question-metrics common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'pillar-metric 'make-pillar-metric))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input pillar-metric))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input pillar-metric))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pillar-id))
+      (common-lisp:list
+       (common-lisp:cons "PillarId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'risk-counts))
+      (common-lisp:list
+       (common-lisp:cons "RiskCounts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'questions))
+      (common-lisp:list
+       (common-lisp:cons "Questions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input pillar-metric))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype pillar-metrics ()
+   '(trivial-types:proper-list pillar-metric))
+ (common-lisp:defun |make-pillar-metrics|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list pillar-metric))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype pillar-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype pillar-notes () 'common-lisp:hash-table)
@@ -4387,8 +4711,57 @@
                            (trivial-types:proper-list question-difference))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype question-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (question-metric (:copier common-lisp:nil)
+      (:conc-name "struct-shape-question-metric-"))
+   (question-id common-lisp:nil :type
+    (common-lisp:or question-id common-lisp:null))
+   (risk common-lisp:nil :type (common-lisp:or risk common-lisp:null))
+   (best-practices common-lisp:nil :type
+    (common-lisp:or best-practices common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'question-metric 'make-question-metric))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input question-metric))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input question-metric))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'question-id))
+      (common-lisp:list
+       (common-lisp:cons "QuestionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'risk))
+      (common-lisp:list
+       (common-lisp:cons "Risk"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'best-practices))
+      (common-lisp:list
+       (common-lisp:cons "BestPractices"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input question-metric))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype question-metrics ()
+   '(trivial-types:proper-list question-metric))
+ (common-lisp:defun |make-question-metrics|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list question-metric))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype question-title () 'common-lisp:string)
 (common-lisp:deftype quota-code () 'common-lisp:string)
+(common-lisp:deftype report-format () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (wellarchitected-error)
@@ -6334,6 +6707,25 @@
         "GetAnswer" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-answer))
+(common-lisp:progn
+ (common-lisp:defun get-consolidated-report
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key format include-shared-resources
+                     next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable format include-shared-resources next-token
+     max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-consolidated-report-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        "/consolidatedReport" "GetConsolidatedReport" "2020-03-31"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-consolidated-report))
 (common-lisp:progn
  (common-lisp:defun get-lens
                     (

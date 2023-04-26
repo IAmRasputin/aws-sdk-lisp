@@ -755,7 +755,9 @@
    (max-results common-lisp:nil :type
     (common-lisp:or max-results common-lisp:null))
    (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+    (common-lisp:or next-token common-lisp:null))
+   (period-alignment common-lisp:nil :type
+    (common-lisp:or period-alignment common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-resource-metrics-request
                     'make-get-resource-metrics-request))
@@ -823,6 +825,13 @@
                            aws-sdk/generator/shape::input 'next-token))
       (common-lisp:list
        (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'period-alignment))
+      (common-lisp:list
+       (common-lisp:cons "PeriodAlignment"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1305,6 +1314,7 @@
  (common-lisp:export
   (common-lisp:list 'not-authorized-exception
                     'not-authorized-exception-message)))
+(common-lisp:deftype period-alignment () 'common-lisp:string)
 (common-lisp:deftype request-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype request-string-list ()
@@ -1527,10 +1537,10 @@
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key service-type identifier metric-queries
                      start-time end-time period-in-seconds max-results
-                     next-token)
+                     next-token period-alignment)
    (common-lisp:declare
     (common-lisp:ignorable service-type identifier metric-queries start-time
-     end-time period-in-seconds max-results next-token))
+     end-time period-in-seconds max-results next-token period-alignment))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-get-resource-metrics-request
                                          aws-sdk/generator/operation::args)))

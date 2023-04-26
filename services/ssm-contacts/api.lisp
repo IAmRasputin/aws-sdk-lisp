@@ -231,11 +231,14 @@
       (resource-id :initarg :resource-id :initform common-lisp:nil :reader
        conflict-exception-resource-id)
       (resource-type :initarg :resource-type :initform common-lisp:nil :reader
-       conflict-exception-resource-type)))
+       conflict-exception-resource-type)
+      (dependent-entities :initarg :dependent-entities :initform
+       common-lisp:nil :reader conflict-exception-dependent-entities)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message
                     'conflict-exception-resource-id
-                    'conflict-exception-resource-type)))
+                    'conflict-exception-resource-type
+                    'conflict-exception-dependent-entities)))
 (common-lisp:progn
  (common-lisp:defstruct
      (contact (:copier common-lisp:nil) (:conc-name "struct-shape-contact-"))
@@ -434,6 +437,45 @@
                            (trivial-types:proper-list contact))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype content () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (coverage-time (:copier common-lisp:nil)
+      (:conc-name "struct-shape-coverage-time-"))
+   (start common-lisp:nil :type
+    (common-lisp:or hand-off-time common-lisp:null))
+   (end common-lisp:nil :type (common-lisp:or hand-off-time common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'coverage-time 'make-coverage-time))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input coverage-time))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input coverage-time))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start))
+      (common-lisp:list
+       (common-lisp:cons "Start"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end))
+      (common-lisp:list
+       (common-lisp:cons "End"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input coverage-time))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype coverage-times ()
+   '(trivial-types:proper-list coverage-time))
+ (common-lisp:defun |make-coverage-times|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list coverage-time))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-contact-channel-request (:copier common-lisp:nil)
@@ -646,6 +688,227 @@
                           create-contact-result))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (create-rotation-override-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-rotation-override-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (new-contact-ids (common-lisp:error ":new-contact-ids is required") :type
+    (common-lisp:or rotation-override-contacts-arn-list common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (idempotency-token common-lisp:nil :type
+    (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-rotation-override-request
+                    'make-create-rotation-override-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'new-contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "NewContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'idempotency-token))
+      (common-lisp:list
+       (common-lisp:cons "IdempotencyToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-rotation-override-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-rotation-override-result-"))
+   (rotation-override-id
+    (common-lisp:error ":rotation-override-id is required") :type
+    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-rotation-override-result
+                    'make-create-rotation-override-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-override-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrideId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-override-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-rotation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-rotation-request-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or rotation-name common-lisp:null))
+   (contact-ids (common-lisp:error ":contact-ids is required") :type
+    (common-lisp:or rotation-contacts-arn-list common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (time-zone-id (common-lisp:error ":time-zone-id is required") :type
+    (common-lisp:or time-zone-id common-lisp:null))
+   (recurrence (common-lisp:error ":recurrence is required") :type
+    (common-lisp:or recurrence-settings common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tags-list common-lisp:null))
+   (idempotency-token common-lisp:nil :type
+    (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-rotation-request 'make-create-rotation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "ContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-zone-id))
+      (common-lisp:list
+       (common-lisp:cons "TimeZoneId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'recurrence))
+      (common-lisp:list
+       (common-lisp:cons "Recurrence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'idempotency-token))
+      (common-lisp:list
+       (common-lisp:cons "IdempotencyToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-rotation-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-rotation-result-"))
+   (rotation-arn (common-lisp:error ":rotation-arn is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-rotation-result 'make-create-rotation-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-arn))
+      (common-lisp:list
+       (common-lisp:cons "RotationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-rotation-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype daily-settings ()
+   '(trivial-types:proper-list hand-off-time))
+ (common-lisp:defun |make-daily-settings|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list hand-off-time))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:define-condition data-encryption-exception
      (ssm-contacts-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -654,6 +917,8 @@
   (common-lisp:list 'data-encryption-exception
                     'data-encryption-exception-message)))
 (common-lisp:deftype date-time () 'common-lisp:string)
+(common-lisp:deftype day-of-month () 'common-lisp:integer)
+(common-lisp:deftype day-of-week () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (deactivate-contact-channel-request (:copier common-lisp:nil)
@@ -812,6 +1077,164 @@
                          (aws-sdk/generator/shape::input
                           delete-contact-result))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-rotation-override-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-rotation-override-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (rotation-override-id
+    (common-lisp:error ":rotation-override-id is required") :type
+    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-rotation-override-request
+                    'make-delete-rotation-override-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-override-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrideId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-rotation-override-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-rotation-override-result-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-rotation-override-result
+                    'make-delete-rotation-override-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-override-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-rotation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-rotation-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-rotation-request 'make-delete-rotation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-rotation-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-rotation-result-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-rotation-result 'make-delete-rotation-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-rotation-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dependent-entity (:copier common-lisp:nil)
+      (:conc-name "struct-shape-dependent-entity-"))
+   (relation-type (common-lisp:error ":relation-type is required") :type
+    (common-lisp:or string common-lisp:null))
+   (dependent-resource-ids
+    (common-lisp:error ":dependent-resource-ids is required") :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dependent-entity 'make-dependent-entity))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input dependent-entity))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input dependent-entity))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'relation-type))
+      (common-lisp:list
+       (common-lisp:cons "RelationType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'dependent-resource-ids))
+      (common-lisp:list
+       (common-lisp:cons "DependentResourceIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input dependent-entity))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype dependent-entity-list ()
+   '(trivial-types:proper-list dependent-entity))
+ (common-lisp:defun |make-dependent-entity-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list dependent-entity))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-engagement-request (:copier common-lisp:nil)
@@ -1445,6 +1868,250 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input get-contact-result))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-rotation-override-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-rotation-override-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (rotation-override-id
+    (common-lisp:error ":rotation-override-id is required") :type
+    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-rotation-override-request
+                    'make-get-rotation-override-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-override-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrideId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-rotation-override-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-rotation-override-result-"))
+   (rotation-override-id common-lisp:nil :type
+    (common-lisp:or uuid common-lisp:null))
+   (rotation-arn common-lisp:nil :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (new-contact-ids common-lisp:nil :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
+   (create-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-rotation-override-result
+                    'make-get-rotation-override-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-override-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrideId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-arn))
+      (common-lisp:list
+       (common-lisp:cons "RotationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'new-contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "NewContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'create-time))
+      (common-lisp:list
+       (common-lisp:cons "CreateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-rotation-override-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-rotation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-rotation-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-rotation-request 'make-get-rotation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input get-rotation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input get-rotation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input get-rotation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-rotation-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-rotation-result-"))
+   (rotation-arn (common-lisp:error ":rotation-arn is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or rotation-name common-lisp:null))
+   (contact-ids (common-lisp:error ":contact-ids is required") :type
+    (common-lisp:or rotation-contacts-arn-list common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (time-zone-id (common-lisp:error ":time-zone-id is required") :type
+    (common-lisp:or time-zone-id common-lisp:null))
+   (recurrence (common-lisp:error ":recurrence is required") :type
+    (common-lisp:or recurrence-settings common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-rotation-result 'make-get-rotation-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input get-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input get-rotation-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-arn))
+      (common-lisp:list
+       (common-lisp:cons "RotationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "ContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-zone-id))
+      (common-lisp:list
+       (common-lisp:cons "TimeZoneId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'recurrence))
+      (common-lisp:list
+       (common-lisp:cons "Recurrence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input get-rotation-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (hand-off-time (:copier common-lisp:nil)
+      (:conc-name "struct-shape-hand-off-time-"))
+   (hour-of-day (common-lisp:error ":hour-of-day is required") :type
+    (common-lisp:or hour-of-day common-lisp:null))
+   (minute-of-hour (common-lisp:error ":minute-of-hour is required") :type
+    (common-lisp:or minute-of-hour common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'hand-off-time 'make-hand-off-time))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input hand-off-time))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input hand-off-time))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'hour-of-day))
+      (common-lisp:list
+       (common-lisp:cons "HourOfDay"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'minute-of-hour))
+      (common-lisp:list
+       (common-lisp:cons "MinuteOfHour"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input hand-off-time))
+   common-lisp:nil))
+(common-lisp:deftype hour-of-day () 'common-lisp:integer)
 (common-lisp:deftype idempotency-token () 'common-lisp:string)
 (common-lisp:deftype incident-id () 'common-lisp:string)
 (common-lisp:progn
@@ -1824,6 +2491,86 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-page-resolutions-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-page-resolutions-request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (page-id (common-lisp:error ":page-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-page-resolutions-request
+                    'make-list-page-resolutions-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'page-id))
+      (common-lisp:list
+       (common-lisp:cons "PageId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-page-resolutions-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-page-resolutions-result-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (page-resolutions (common-lisp:error ":page-resolutions is required") :type
+    (common-lisp:or resolution-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-page-resolutions-result
+                    'make-list-page-resolutions-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'page-resolutions))
+      (common-lisp:list
+       (common-lisp:cons "PageResolutions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-page-resolutions-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-pages-by-contact-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-pages-by-contact-request-"))
    (contact-id (common-lisp:error ":contact-id is required") :type
@@ -2002,6 +2749,451 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-preview-rotation-shifts-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-preview-rotation-shifts-request-"))
+   (rotation-start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (members (common-lisp:error ":members is required") :type
+    (common-lisp:or rotation-preview-member-list common-lisp:null))
+   (time-zone-id (common-lisp:error ":time-zone-id is required") :type
+    (common-lisp:or time-zone-id common-lisp:null))
+   (recurrence (common-lisp:error ":recurrence is required") :type
+    (common-lisp:or recurrence-settings common-lisp:null))
+   (overrides common-lisp:nil :type
+    (common-lisp:or override-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-preview-rotation-shifts-request
+                    'make-list-preview-rotation-shifts-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-start-time))
+      (common-lisp:list
+       (common-lisp:cons "RotationStartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'members))
+      (common-lisp:list
+       (common-lisp:cons "Members"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-zone-id))
+      (common-lisp:list
+       (common-lisp:cons "TimeZoneId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'recurrence))
+      (common-lisp:list
+       (common-lisp:cons "Recurrence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'overrides))
+      (common-lisp:list
+       (common-lisp:cons "Overrides"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-preview-rotation-shifts-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-preview-rotation-shifts-result-"))
+   (rotation-shifts common-lisp:nil :type
+    (common-lisp:or rotation-shifts common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-preview-rotation-shifts-result
+                    'make-list-preview-rotation-shifts-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-shifts))
+      (common-lisp:list
+       (common-lisp:cons "RotationShifts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-preview-rotation-shifts-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotation-overrides-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotation-overrides-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotation-overrides-request
+                    'make-list-rotation-overrides-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotation-overrides-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotation-overrides-result-"))
+   (rotation-overrides common-lisp:nil :type
+    (common-lisp:or rotation-overrides common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotation-overrides-result
+                    'make-list-rotation-overrides-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-overrides))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrides"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-overrides-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotation-shifts-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotation-shifts-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotation-shifts-request
+                    'make-list-rotation-shifts-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotation-shifts-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotation-shifts-result-"))
+   (rotation-shifts common-lisp:nil :type
+    (common-lisp:or rotation-shifts common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotation-shifts-result
+                    'make-list-rotation-shifts-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-shifts))
+      (common-lisp:list
+       (common-lisp:cons "RotationShifts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotation-shifts-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotations-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotations-request-"))
+   (rotation-name-prefix common-lisp:nil :type
+    (common-lisp:or rotation-name common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotations-request 'make-list-rotations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-name-prefix))
+      (common-lisp:list
+       (common-lisp:cons "RotationNamePrefix"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-rotations-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-rotations-result-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or pagination-token common-lisp:null))
+   (rotations (common-lisp:error ":rotations is required") :type
+    (common-lisp:or rotations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-rotations-result 'make-list-rotations-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotations))
+      (common-lisp:list
+       (common-lisp:cons "Rotations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-rotations-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-tags-for-resource-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-tags-for-resource-request-"))
    (resource-arn (common-lisp:error ":resource-arn is required") :type
@@ -2062,6 +3254,57 @@
                           list-tags-for-resource-result))
    common-lisp:nil))
 (common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype member () 'common-lisp:string)
+(common-lisp:deftype minute-of-hour () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (monthly-setting (:copier common-lisp:nil)
+      (:conc-name "struct-shape-monthly-setting-"))
+   (day-of-month (common-lisp:error ":day-of-month is required") :type
+    (common-lisp:or day-of-month common-lisp:null))
+   (hand-off-time (common-lisp:error ":hand-off-time is required") :type
+    (common-lisp:or hand-off-time common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'monthly-setting 'make-monthly-setting))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input monthly-setting))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input monthly-setting))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'day-of-month))
+      (common-lisp:list
+       (common-lisp:cons "DayOfMonth"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'hand-off-time))
+      (common-lisp:list
+       (common-lisp:cons "HandOffTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input monthly-setting))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype monthly-settings ()
+   '(trivial-types:proper-list monthly-setting))
+ (common-lisp:defun |make-monthly-settings|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list monthly-setting))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype number-of-on-calls () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:deftype override-list ()
+   '(trivial-types:proper-list preview-override))
+ (common-lisp:defun |make-override-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list preview-override))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (page (:copier common-lisp:nil) (:conc-name "struct-shape-page-"))
@@ -2158,8 +3401,9 @@
 (common-lisp:progn
  (common-lisp:defstruct
      (plan (:copier common-lisp:nil) (:conc-name "struct-shape-plan-"))
-   (stages (common-lisp:error ":stages is required") :type
-    (common-lisp:or stages-list common-lisp:null)))
+   (stages common-lisp:nil :type (common-lisp:or stages-list common-lisp:null))
+   (rotation-ids common-lisp:nil :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'plan 'make-plan))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input plan))
@@ -2173,11 +3417,60 @@
       (common-lisp:list
        (common-lisp:cons "Stages"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-ids))
+      (common-lisp:list
+       (common-lisp:cons "RotationIds"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input plan))
    common-lisp:nil))
 (common-lisp:deftype policy () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (preview-override (:copier common-lisp:nil)
+      (:conc-name "struct-shape-preview-override-"))
+   (new-members common-lisp:nil :type
+    (common-lisp:or rotation-override-preview-member-list common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'preview-override 'make-preview-override))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input preview-override))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input preview-override))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'new-members))
+      (common-lisp:list
+       (common-lisp:cons "NewMembers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input preview-override))
+   common-lisp:nil))
 (common-lisp:deftype public-content () 'common-lisp:string)
 (common-lisp:deftype public-subject () 'common-lisp:string)
 (common-lisp:progn
@@ -2300,6 +3593,128 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list receipt))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype recurrence-multiplier () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (recurrence-settings (:copier common-lisp:nil)
+      (:conc-name "struct-shape-recurrence-settings-"))
+   (monthly-settings common-lisp:nil :type
+    (common-lisp:or monthly-settings common-lisp:null))
+   (weekly-settings common-lisp:nil :type
+    (common-lisp:or weekly-settings common-lisp:null))
+   (daily-settings common-lisp:nil :type
+    (common-lisp:or daily-settings common-lisp:null))
+   (number-of-on-calls (common-lisp:error ":number-of-on-calls is required")
+    :type (common-lisp:or number-of-on-calls common-lisp:null))
+   (shift-coverages common-lisp:nil :type
+    (common-lisp:or shift-coverages-map common-lisp:null))
+   (recurrence-multiplier
+    (common-lisp:error ":recurrence-multiplier is required") :type
+    (common-lisp:or recurrence-multiplier common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'recurrence-settings 'make-recurrence-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input recurrence-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input recurrence-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'monthly-settings))
+      (common-lisp:list
+       (common-lisp:cons "MonthlySettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'weekly-settings))
+      (common-lisp:list
+       (common-lisp:cons "WeeklySettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'daily-settings))
+      (common-lisp:list
+       (common-lisp:cons "DailySettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'number-of-on-calls))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfOnCalls"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'shift-coverages))
+      (common-lisp:list
+       (common-lisp:cons "ShiftCoverages"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'recurrence-multiplier))
+      (common-lisp:list
+       (common-lisp:cons "RecurrenceMultiplier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input recurrence-settings))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resolution-contact (:copier common-lisp:nil)
+      (:conc-name "struct-shape-resolution-contact-"))
+   (contact-arn (common-lisp:error ":contact-arn is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (type (common-lisp:error ":type is required") :type
+    (common-lisp:or contact-type common-lisp:null))
+   (stage-index common-lisp:nil :type
+    (common-lisp:or stage-index common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resolution-contact 'make-resolution-contact))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input resolution-contact))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input resolution-contact))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-arn))
+      (common-lisp:list
+       (common-lisp:cons "ContactArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'stage-index))
+      (common-lisp:list
+       (common-lisp:cons "StageIndex"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input resolution-contact))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype resolution-list ()
+   '(trivial-types:proper-list resolution-contact))
+ (common-lisp:defun |make-resolution-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list resolution-contact))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (ssm-contacts-error)
@@ -2316,6 +3731,249 @@
                     'resource-not-found-exception-resource-type)))
 (common-lisp:deftype retry-after-seconds () 'common-lisp:integer)
 (common-lisp:deftype retry-interval-in-minutes () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (rotation (:copier common-lisp:nil) (:conc-name "struct-shape-rotation-"))
+   (rotation-arn (common-lisp:error ":rotation-arn is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or rotation-name common-lisp:null))
+   (contact-ids common-lisp:nil :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (time-zone-id common-lisp:nil :type
+    (common-lisp:or time-zone-id common-lisp:null))
+   (recurrence common-lisp:nil :type
+    (common-lisp:or recurrence-settings common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'rotation 'make-rotation))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input rotation))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input rotation))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-arn))
+      (common-lisp:list
+       (common-lisp:cons "RotationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "ContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-zone-id))
+      (common-lisp:list
+       (common-lisp:cons "TimeZoneId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'recurrence))
+      (common-lisp:list
+       (common-lisp:cons "Recurrence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input rotation))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype rotation-contacts-arn-list ()
+   '(trivial-types:proper-list ssm-contacts-arn))
+ (common-lisp:defun |make-rotation-contacts-arn-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list ssm-contacts-arn))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype rotation-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (rotation-override (:copier common-lisp:nil)
+      (:conc-name "struct-shape-rotation-override-"))
+   (rotation-override-id
+    (common-lisp:error ":rotation-override-id is required") :type
+    (common-lisp:or uuid common-lisp:null))
+   (new-contact-ids (common-lisp:error ":new-contact-ids is required") :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (create-time (common-lisp:error ":create-time is required") :type
+    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'rotation-override 'make-rotation-override))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input rotation-override))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input rotation-override))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'rotation-override-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationOverrideId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'new-contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "NewContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'create-time))
+      (common-lisp:list
+       (common-lisp:cons "CreateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input rotation-override))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype rotation-override-contacts-arn-list ()
+   '(trivial-types:proper-list ssm-contacts-arn))
+ (common-lisp:defun |make-rotation-override-contacts-arn-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list ssm-contacts-arn))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype rotation-override-preview-member-list ()
+   '(trivial-types:proper-list member))
+ (common-lisp:defun |make-rotation-override-preview-member-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list member))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype rotation-overrides ()
+   '(trivial-types:proper-list rotation-override))
+ (common-lisp:defun |make-rotation-overrides|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list rotation-override))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype rotation-preview-member-list ()
+   '(trivial-types:proper-list member))
+ (common-lisp:defun |make-rotation-preview-member-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list member))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (rotation-shift (:copier common-lisp:nil)
+      (:conc-name "struct-shape-rotation-shift-"))
+   (contact-ids common-lisp:nil :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null))
+   (start-time (common-lisp:error ":start-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (end-time (common-lisp:error ":end-time is required") :type
+    (common-lisp:or date-time common-lisp:null))
+   (type common-lisp:nil :type (common-lisp:or shift-type common-lisp:null))
+   (shift-details common-lisp:nil :type
+    (common-lisp:or shift-details common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'rotation-shift 'make-rotation-shift))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input rotation-shift))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input rotation-shift))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "ContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-time))
+      (common-lisp:list
+       (common-lisp:cons "EndTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'shift-details))
+      (common-lisp:list
+       (common-lisp:cons "ShiftDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input rotation-shift))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype rotation-shifts ()
+   '(trivial-types:proper-list rotation-shift))
+ (common-lisp:defun |make-rotation-shifts|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list rotation-shift))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype rotations () '(trivial-types:proper-list rotation))
+ (common-lisp:defun |make-rotations|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list rotation))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (send-activation-code-request (:copier common-lisp:nil)
@@ -2390,8 +4048,50 @@
                     'service-quota-exceeded-exception-resource-type
                     'service-quota-exceeded-exception-quota-code
                     'service-quota-exceeded-exception-service-code)))
+(common-lisp:progn
+ (common-lisp:deftype shift-coverages-map () 'common-lisp:hash-table)
+ (common-lisp:defun |make-shift-coverages-map|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (shift-details (:copier common-lisp:nil)
+      (:conc-name "struct-shape-shift-details-"))
+   (overridden-contact-ids
+    (common-lisp:error ":overridden-contact-ids is required") :type
+    (common-lisp:or ssm-contacts-arn-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'shift-details 'make-shift-details))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input shift-details))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input shift-details))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'overridden-contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "OverriddenContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input shift-details))
+   common-lisp:nil))
+(common-lisp:deftype shift-type () 'common-lisp:string)
 (common-lisp:deftype simple-address () 'common-lisp:string)
 (common-lisp:deftype ssm-contacts-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype ssm-contacts-arn-list ()
+   '(trivial-types:proper-list ssm-contacts-arn))
+ (common-lisp:defun |make-ssm-contacts-arn-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list ssm-contacts-arn))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (stage (:copier common-lisp:nil) (:conc-name "struct-shape-stage-"))
@@ -2424,6 +4124,7 @@
                         ((aws-sdk/generator/shape::input stage))
    common-lisp:nil))
 (common-lisp:deftype stage-duration-in-mins () 'common-lisp:integer)
+(common-lisp:deftype stage-index () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype stages-list () '(trivial-types:proper-list stage))
  (common-lisp:defun |make-stages-list|
@@ -2796,6 +4497,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input time-range))
    common-lisp:nil))
+(common-lisp:deftype time-zone-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (untag-resource-request (:copier common-lisp:nil)
@@ -2995,6 +4697,94 @@
                           update-contact-result))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (update-rotation-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-rotation-request-"))
+   (rotation-id (common-lisp:error ":rotation-id is required") :type
+    (common-lisp:or ssm-contacts-arn common-lisp:null))
+   (contact-ids common-lisp:nil :type
+    (common-lisp:or rotation-contacts-arn-list common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or date-time common-lisp:null))
+   (time-zone-id common-lisp:nil :type
+    (common-lisp:or time-zone-id common-lisp:null))
+   (recurrence (common-lisp:error ":recurrence is required") :type
+    (common-lisp:or recurrence-settings common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-rotation-request 'make-update-rotation-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rotation-id))
+      (common-lisp:list
+       (common-lisp:cons "RotationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contact-ids))
+      (common-lisp:list
+       (common-lisp:cons "ContactIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-zone-id))
+      (common-lisp:list
+       (common-lisp:cons "TimeZoneId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'recurrence))
+      (common-lisp:list
+       (common-lisp:cons "Recurrence"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-rotation-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-rotation-result-")))
+ (common-lisp:export
+  (common-lisp:list 'update-rotation-result 'make-update-rotation-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-rotation-result))
+   common-lisp:nil))
+(common-lisp:deftype uuid () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:define-condition validation-exception
      (ssm-contacts-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -3056,6 +4846,46 @@
                             validation-exception-field))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype validation-exception-reason () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (weekly-setting (:copier common-lisp:nil)
+      (:conc-name "struct-shape-weekly-setting-"))
+   (day-of-week (common-lisp:error ":day-of-week is required") :type
+    (common-lisp:or day-of-week common-lisp:null))
+   (hand-off-time (common-lisp:error ":hand-off-time is required") :type
+    (common-lisp:or hand-off-time common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'weekly-setting 'make-weekly-setting))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input weekly-setting))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input weekly-setting))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'day-of-week))
+      (common-lisp:list
+       (common-lisp:cons "DayOfWeek"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'hand-off-time))
+      (common-lisp:list
+       (common-lisp:cons "HandOffTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input weekly-setting))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype weekly-settings ()
+   '(trivial-types:proper-list weekly-setting))
+ (common-lisp:defun |make-weekly-settings|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list weekly-setting))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defun accept-page
                     (
@@ -3138,6 +4968,48 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-contact-channel))
 (common-lisp:progn
+ (common-lisp:defun create-rotation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key name contact-ids start-time time-zone-id
+                     recurrence tags idempotency-token)
+   (common-lisp:declare
+    (common-lisp:ignorable name contact-ids start-time time-zone-id recurrence
+     tags idempotency-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-rotation-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateRotation"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-rotation))
+(common-lisp:progn
+ (common-lisp:defun create-rotation-override
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id new-contact-ids start-time
+                     end-time idempotency-token)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id new-contact-ids start-time end-time
+     idempotency-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-rotation-override-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateRotationOverride"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-rotation-override))
+(common-lisp:progn
  (common-lisp:defun deactivate-contact-channel
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3192,6 +5064,43 @@
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-contact-channel))
+(common-lisp:progn
+ (common-lisp:defun delete-rotation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id)
+   (common-lisp:declare (common-lisp:ignorable rotation-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-rotation-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteRotation"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-rotation))
+(common-lisp:progn
+ (common-lisp:defun delete-rotation-override
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id rotation-override-id)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id rotation-override-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-rotation-override-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteRotationOverride"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-rotation-override))
 (common-lisp:progn
  (common-lisp:defun describe-engagement
                     (
@@ -3282,6 +5191,43 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-contact-policy))
 (common-lisp:progn
+ (common-lisp:defun get-rotation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id)
+   (common-lisp:declare (common-lisp:ignorable rotation-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-rotation-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetRotation"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-rotation))
+(common-lisp:progn
+ (common-lisp:defun get-rotation-override
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id rotation-override-id)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id rotation-override-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-rotation-override-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetRotationOverride"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-rotation-override))
+(common-lisp:progn
  (common-lisp:defun list-contact-channels
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3359,6 +5305,24 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-page-receipts))
 (common-lisp:progn
+ (common-lisp:defun list-page-resolutions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token page-id)
+   (common-lisp:declare (common-lisp:ignorable next-token page-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-page-resolutions-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListPageResolutions"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-page-resolutions))
+(common-lisp:progn
  (common-lisp:defun list-pages-by-contact
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3396,6 +5360,91 @@
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pages-by-engagement))
+(common-lisp:progn
+ (common-lisp:defun list-preview-rotation-shifts
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-start-time start-time end-time
+                     members time-zone-id recurrence overrides next-token
+                     max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-start-time start-time end-time members
+     time-zone-id recurrence overrides next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-preview-rotation-shifts-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListPreviewRotationShifts"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-preview-rotation-shifts))
+(common-lisp:progn
+ (common-lisp:defun list-rotation-overrides
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id start-time end-time
+                     next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id start-time end-time next-token
+     max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-rotation-overrides-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListRotationOverrides"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-rotation-overrides))
+(common-lisp:progn
+ (common-lisp:defun list-rotation-shifts
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id start-time end-time
+                     next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id start-time end-time next-token
+     max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-rotation-shifts-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListRotationShifts"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-rotation-shifts))
+(common-lisp:progn
+ (common-lisp:defun list-rotations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-name-prefix next-token
+                     max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-name-prefix next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-rotations-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListRotations"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-rotations))
 (common-lisp:progn
  (common-lisp:defun list-tags-for-resource
                     (
@@ -3563,3 +5612,24 @@
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-contact-channel))
+(common-lisp:progn
+ (common-lisp:defun update-rotation
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key rotation-id contact-ids start-time
+                     time-zone-id recurrence)
+   (common-lisp:declare
+    (common-lisp:ignorable rotation-id contact-ids start-time time-zone-id
+     recurrence))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-rotation-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateRotation"
+                                                        "2021-05-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-rotation))

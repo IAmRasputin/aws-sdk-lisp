@@ -4,10 +4,7 @@
       "input_token": "NextToken",
       "output_token": "NextToken",
       "limit_key": "MaxResults",
-      "result_key": "Services",
-      "non_aggregate_keys": [
-        "FormatVersion"
-      ]
+      "result_key": "Services"
     },
     "GetAttributeValues": {
       "input_token": "NextToken",
@@ -19,10 +16,13 @@
       "input_token": "NextToken",
       "output_token": "NextToken",
       "limit_key": "MaxResults",
-      "result_key": "PriceList",
-      "non_aggregate_keys": [
-        "FormatVersion"
-      ]
+      "result_key": "PriceList"
+    },
+    "ListPriceLists": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "PriceLists"
     }
   }
 }

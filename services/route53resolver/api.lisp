@@ -729,7 +729,9 @@
     (common-lisp:or resolver-endpoint-direction common-lisp:null))
    (ip-addresses (common-lisp:error ":ip-addresses is required") :type
     (common-lisp:or ip-addresses-request common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (resolver-endpoint-type common-lisp:nil :type
+    (common-lisp:or resolver-endpoint-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-resolver-endpoint-request
                     'make-create-resolver-endpoint-request))
@@ -783,6 +785,14 @@
                            aws-sdk/generator/shape::input 'tags))
       (common-lisp:list
        (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resolver-endpoint-type))
+      (common-lisp:list
+       (common-lisp:cons "ResolverEndpointType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3541,7 +3551,8 @@
       (:conc-name "struct-shape-ip-address-request-"))
    (subnet-id (common-lisp:error ":subnet-id is required") :type
     (common-lisp:or subnet-id common-lisp:null))
-   (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null)))
+   (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null))
+   (ipv6 common-lisp:nil :type (common-lisp:or ipv6 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'ip-address-request 'make-ip-address-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3563,6 +3574,13 @@
       (common-lisp:list
        (common-lisp:cons "Ip"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ipv6))
+      (common-lisp:list
+       (common-lisp:cons "Ipv6"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input ip-address-request))
@@ -3575,6 +3593,7 @@
    (subnet-id common-lisp:nil :type
     (common-lisp:or subnet-id common-lisp:null))
    (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null))
+   (ipv6 common-lisp:nil :type (common-lisp:or ipv6 common-lisp:null))
    (status common-lisp:nil :type
     (common-lisp:or ip-address-status common-lisp:null))
    (status-message common-lisp:nil :type
@@ -3610,6 +3629,13 @@
                            aws-sdk/generator/shape::input 'ip))
       (common-lisp:list
        (common-lisp:cons "Ip"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ipv6))
+      (common-lisp:list
+       (common-lisp:cons "Ipv6"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3651,7 +3677,8 @@
    (ip-id common-lisp:nil :type (common-lisp:or resource-id common-lisp:null))
    (subnet-id common-lisp:nil :type
     (common-lisp:or subnet-id common-lisp:null))
-   (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null)))
+   (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null))
+   (ipv6 common-lisp:nil :type (common-lisp:or ipv6 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'ip-address-update 'make-ip-address-update))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3680,6 +3707,13 @@
       (common-lisp:list
        (common-lisp:cons "Ip"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ipv6))
+      (common-lisp:list
+       (common-lisp:cons "Ipv6"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input ip-address-update))
@@ -3700,6 +3734,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list ip-address-response))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype ipv6 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (route53resolver-error)
@@ -5550,7 +5585,9 @@
    (creation-time common-lisp:nil :type
     (common-lisp:or rfc3339time-string common-lisp:null))
    (modification-time common-lisp:nil :type
-    (common-lisp:or rfc3339time-string common-lisp:null)))
+    (common-lisp:or rfc3339time-string common-lisp:null))
+   (resolver-endpoint-type common-lisp:nil :type
+    (common-lisp:or resolver-endpoint-type common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resolver-endpoint 'make-resolver-endpoint))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5642,12 +5679,21 @@
       (common-lisp:list
        (common-lisp:cons "ModificationTime"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resolver-endpoint-type))
+      (common-lisp:list
+       (common-lisp:cons "ResolverEndpointType"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input resolver-endpoint))
    common-lisp:nil))
 (common-lisp:deftype resolver-endpoint-direction () 'common-lisp:string)
 (common-lisp:deftype resolver-endpoint-status () 'common-lisp:string)
+(common-lisp:deftype resolver-endpoint-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype resolver-endpoints ()
    '(trivial-types:proper-list resolver-endpoint))
@@ -6321,9 +6367,9 @@
  (common-lisp:defstruct
      (target-address (:copier common-lisp:nil)
       (:conc-name "struct-shape-target-address-"))
-   (ip (common-lisp:error ":ip is required") :type
-    (common-lisp:or ip common-lisp:null))
-   (port common-lisp:nil :type (common-lisp:or port common-lisp:null)))
+   (ip common-lisp:nil :type (common-lisp:or ip common-lisp:null))
+   (port common-lisp:nil :type (common-lisp:or port common-lisp:null))
+   (ipv6 common-lisp:nil :type (common-lisp:or ipv6 common-lisp:null)))
  (common-lisp:export (common-lisp:list 'target-address 'make-target-address))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input target-address))
@@ -6343,6 +6389,13 @@
                            aws-sdk/generator/shape::input 'port))
       (common-lisp:list
        (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ipv6))
+      (common-lisp:list
+       (common-lisp:cons "Ipv6"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -6841,6 +6894,47 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-ip-address (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-ip-address-"))
+   (ip-id (common-lisp:error ":ip-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (ipv6 (common-lisp:error ":ipv6 is required") :type
+    (common-lisp:or ipv6 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-ip-address 'make-update-ip-address))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input update-ip-address))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input update-ip-address))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ip-id))
+      (common-lisp:list
+       (common-lisp:cons "IpId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ipv6))
+      (common-lisp:list
+       (common-lisp:cons "Ipv6"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input update-ip-address))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype update-ip-addresses ()
+   '(trivial-types:proper-list update-ip-address))
+ (common-lisp:defun |make-update-ip-addresses|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list update-ip-address))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-resolver-config-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-resolver-config-request-"))
    (resource-id (common-lisp:error ":resource-id is required") :type
@@ -6991,7 +7085,11 @@
    (resolver-endpoint-id
     (common-lisp:error ":resolver-endpoint-id is required") :type
     (common-lisp:or resource-id common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null)))
+   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (resolver-endpoint-type common-lisp:nil :type
+    (common-lisp:or resolver-endpoint-type common-lisp:null))
+   (update-ip-addresses common-lisp:nil :type
+    (common-lisp:or update-ip-addresses common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-resolver-endpoint-request
                     'make-update-resolver-endpoint-request))
@@ -7018,6 +7116,21 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resolver-endpoint-type))
+      (common-lisp:list
+       (common-lisp:cons "ResolverEndpointType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-ip-addresses))
+      (common-lisp:list
+       (common-lisp:cons "UpdateIpAddresses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7268,10 +7381,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key creator-request-id name
-                     security-group-ids direction ip-addresses tags)
+                     security-group-ids direction ip-addresses tags
+                     resolver-endpoint-type)
    (common-lisp:declare
     (common-lisp:ignorable creator-request-id name security-group-ids direction
-     ip-addresses tags))
+     ip-addresses tags resolver-endpoint-type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-resolver-endpoint-request
                                          aws-sdk/generator/operation::args)))
@@ -8203,8 +8317,11 @@
  (common-lisp:defun update-resolver-endpoint
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key resolver-endpoint-id name)
-   (common-lisp:declare (common-lisp:ignorable resolver-endpoint-id name))
+                     common-lisp:&key resolver-endpoint-id name
+                     resolver-endpoint-type update-ip-addresses)
+   (common-lisp:declare
+    (common-lisp:ignorable resolver-endpoint-id name resolver-endpoint-type
+     update-ip-addresses))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-resolver-endpoint-request
                                          aws-sdk/generator/operation::args)))

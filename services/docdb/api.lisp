@@ -7378,7 +7378,9 @@
    (enable-cloudwatch-logs-exports common-lisp:nil :type
     (common-lisp:or log-type-list common-lisp:null))
    (deletion-protection common-lisp:nil :type
-    (common-lisp:or boolean-optional common-lisp:null)))
+    (common-lisp:or boolean-optional common-lisp:null))
+   (dbcluster-parameter-group-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'restore-dbcluster-from-snapshot-message
                     'make-restore-dbcluster-from-snapshot-message))
@@ -7477,6 +7479,14 @@
                            aws-sdk/generator/shape::input 'deletion-protection))
       (common-lisp:list
        (common-lisp:cons "DeletionProtection"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'dbcluster-parameter-group-name))
+      (common-lisp:list
+       (common-lisp:cons "DBClusterParameterGroupName"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -9174,12 +9184,13 @@
                      common-lisp:&key availability-zones dbcluster-identifier
                      snapshot-identifier engine engine-version port
                      dbsubnet-group-name vpc-security-group-ids tags kms-key-id
-                     enable-cloudwatch-logs-exports deletion-protection)
+                     enable-cloudwatch-logs-exports deletion-protection
+                     dbcluster-parameter-group-name)
    (common-lisp:declare
     (common-lisp:ignorable availability-zones dbcluster-identifier
      snapshot-identifier engine engine-version port dbsubnet-group-name
      vpc-security-group-ids tags kms-key-id enable-cloudwatch-logs-exports
-     deletion-protection))
+     deletion-protection dbcluster-parameter-group-name))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-restore-dbcluster-from-snapshot-message

@@ -1051,6 +1051,50 @@
                           create-template-response))
    common-lisp:nil))
 (common-lisp:deftype created-time () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-domain-request-"))
+   (domain-id (common-lisp:error ":domainid is required") :type
+    (common-lisp:or domain-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-domain-request 'make-delete-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-domain-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-domain-response-")))
+ (common-lisp:export
+  (common-lisp:list 'delete-domain-response 'make-delete-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-domain-response))
+   common-lisp:nil))
 (common-lisp:deftype domain-arn () 'common-lisp:string)
 (common-lisp:deftype domain-id () 'common-lisp:string)
 (common-lisp:deftype domain-name () 'common-lisp:string)
@@ -4085,6 +4129,34 @@
                                                         "2022-10-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-template))
+(common-lisp:progn
+ (common-lisp:defun delete-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id)
+   (common-lisp:declare (common-lisp:ignorable domain-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-domain-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'connectcases-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/domains/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'domain-id))))
+                                                        "DeleteDomain"
+                                                        "2022-10-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-domain))
 (common-lisp:progn
  (common-lisp:defun get-case
                     (

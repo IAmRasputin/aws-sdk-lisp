@@ -5439,7 +5439,9 @@
     (common-lisp:or timeout-config common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (job-executions-retry-config common-lisp:nil :type
-    (common-lisp:or job-executions-retry-config common-lisp:null)))
+    (common-lisp:or job-executions-retry-config common-lisp:null))
+   (maintenance-windows common-lisp:nil :type
+    (common-lisp:or maintenance-windows common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-job-template-request
                     'make-create-job-template-request))
@@ -5524,6 +5526,13 @@
                            'job-executions-retry-config))
       (common-lisp:list
        (common-lisp:cons "jobExecutionsRetryConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'maintenance-windows))
+      (common-lisp:list
+       (common-lisp:cons "maintenanceWindows"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7270,6 +7279,7 @@
 (common-lisp:deftype created-at-date () 'common-lisp:string)
 (common-lisp:deftype creation-date () 'common-lisp:string)
 (common-lisp:deftype credential-duration-seconds () 'common-lisp:integer)
+(common-lisp:deftype cron-expression () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (custom-code-signing (:copier common-lisp:nil)
@@ -10385,7 +10395,9 @@
    (timeout-config common-lisp:nil :type
     (common-lisp:or timeout-config common-lisp:null))
    (job-executions-retry-config common-lisp:nil :type
-    (common-lisp:or job-executions-retry-config common-lisp:null)))
+    (common-lisp:or job-executions-retry-config common-lisp:null))
+   (maintenance-windows common-lisp:nil :type
+    (common-lisp:or maintenance-windows common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-job-template-response
                     'make-describe-job-template-response))
@@ -10477,6 +10489,13 @@
                            'job-executions-retry-config))
       (common-lisp:list
        (common-lisp:cons "jobExecutionsRetryConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'maintenance-windows))
+      (common-lisp:list
+       (common-lisp:cons "maintenanceWindows"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -12520,6 +12539,7 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype domain-name () 'common-lisp:string)
 (common-lisp:deftype domain-type () 'common-lisp:string)
+(common-lisp:deftype duration-in-minutes () 'common-lisp:integer)
 (common-lisp:deftype duration-seconds () 'common-lisp:integer)
 (common-lisp:deftype dynamic-group-status () 'common-lisp:string)
 (common-lisp:progn
@@ -15035,7 +15055,9 @@
    (is-concurrent common-lisp:nil :type
     (common-lisp:or boolean-wrapper-object common-lisp:null))
    (scheduling-config common-lisp:nil :type
-    (common-lisp:or scheduling-config common-lisp:null)))
+    (common-lisp:or scheduling-config common-lisp:null))
+   (scheduled-job-rollouts common-lisp:nil :type
+    (common-lisp:or scheduled-job-rollout-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'job 'make-job))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input job))
@@ -15205,6 +15227,14 @@
                            aws-sdk/generator/shape::input 'scheduling-config))
       (common-lisp:list
        (common-lisp:cons "schedulingConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'scheduled-job-rollouts))
+      (common-lisp:list
+       (common-lisp:cons "scheduledJobRollouts"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -20339,6 +20369,47 @@
                           machine-learning-detection-config))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (maintenance-window (:copier common-lisp:nil)
+      (:conc-name "struct-shape-maintenance-window-"))
+   (start-time (common-lisp:error ":starttime is required") :type
+    (common-lisp:or cron-expression common-lisp:null))
+   (duration-in-minutes (common-lisp:error ":durationinminutes is required")
+    :type (common-lisp:or duration-in-minutes common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'maintenance-window 'make-maintenance-window))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input maintenance-window))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input maintenance-window))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "startTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'duration-in-minutes))
+      (common-lisp:list
+       (common-lisp:cons "durationInMinutes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input maintenance-window))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype maintenance-windows ()
+   '(trivial-types:proper-list maintenance-window))
+ (common-lisp:defun |make-maintenance-windows|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list maintenance-window))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:define-condition malformed-policy-exception
      (iot-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -23530,6 +23601,44 @@
 (common-lisp:deftype scheduled-audit-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (scheduled-job-rollout (:copier common-lisp:nil)
+      (:conc-name "struct-shape-scheduled-job-rollout-"))
+   (start-time common-lisp:nil :type
+    (common-lisp:or string-date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-job-rollout 'make-scheduled-job-rollout))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-job-rollout))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-job-rollout))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "startTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          scheduled-job-rollout))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype scheduled-job-rollout-list ()
+   '(trivial-types:proper-list scheduled-job-rollout))
+ (common-lisp:defun |make-scheduled-job-rollout-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list scheduled-job-rollout))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
      (scheduling-config (:copier common-lisp:nil)
       (:conc-name "struct-shape-scheduling-config-"))
    (start-time common-lisp:nil :type
@@ -23537,7 +23646,9 @@
    (end-time common-lisp:nil :type
     (common-lisp:or string-date-time common-lisp:null))
    (end-behavior common-lisp:nil :type
-    (common-lisp:or job-end-behavior common-lisp:null)))
+    (common-lisp:or job-end-behavior common-lisp:null))
+   (maintenance-windows common-lisp:nil :type
+    (common-lisp:or maintenance-windows common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'scheduling-config 'make-scheduling-config))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -23565,6 +23676,13 @@
                            aws-sdk/generator/shape::input 'end-behavior))
       (common-lisp:list
        (common-lisp:cons "endBehavior"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'maintenance-windows))
+      (common-lisp:list
+       (common-lisp:cons "maintenanceWindows"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -30756,11 +30874,12 @@
                      common-lisp:&key job-template-id job-arn document-source
                      document description presigned-url-config
                      job-executions-rollout-config abort-config timeout-config
-                     tags job-executions-retry-config)
+                     tags job-executions-retry-config maintenance-windows)
    (common-lisp:declare
     (common-lisp:ignorable job-template-id job-arn document-source document
      description presigned-url-config job-executions-rollout-config
-     abort-config timeout-config tags job-executions-retry-config))
+     abort-config timeout-config tags job-executions-retry-config
+     maintenance-windows))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-job-template-request
                                          aws-sdk/generator/operation::args)))

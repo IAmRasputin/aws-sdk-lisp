@@ -23,7 +23,9 @@
   '(("AccessDeniedException" . access-denied-exception)
     ("ConflictException" . conflict-exception)
     ("InternalServerException" . internal-server-exception)
+    ("OutpostOfflineException" . outpost-offline-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
+    ("ThrottlingException" . throttling-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
@@ -32,6 +34,8 @@
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
+(common-lisp:deftype aws-account-id () 'common-lisp:string)
+(common-lisp:deftype capacity-in-bytes () 'common-lisp:integer)
 (common-lisp:deftype cidr-block () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
@@ -187,7 +191,9 @@
    (access-type common-lisp:nil :type
     (common-lisp:or endpoint-access-type common-lisp:null))
    (customer-owned-ipv4pool common-lisp:nil :type
-    (common-lisp:or customer-owned-ipv4pool common-lisp:null)))
+    (common-lisp:or customer-owned-ipv4pool common-lisp:null))
+   (failed-reason common-lisp:nil :type
+    (common-lisp:or failed-reason common-lisp:null)))
  (common-lisp:export (common-lisp:list 'endpoint 'make-endpoint))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input endpoint))
@@ -272,6 +278,13 @@
       (common-lisp:list
        (common-lisp:cons "CustomerOwnedIpv4Pool"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failed-reason))
+      (common-lisp:list
+       (common-lisp:cons "FailedReason"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input endpoint))
@@ -287,7 +300,39 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list endpoint))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:deftype error-message () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (failed-reason (:copier common-lisp:nil)
+      (:conc-name "struct-shape-failed-reason-"))
+   (error-code common-lisp:nil :type
+    (common-lisp:or error-code common-lisp:null))
+   (message common-lisp:nil :type (common-lisp:or message common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'failed-reason 'make-failed-reason))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input failed-reason))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input failed-reason))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-code))
+      (common-lisp:list
+       (common-lisp:cons "ErrorCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message))
+      (common-lisp:list
+       (common-lisp:cons "Message"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input failed-reason))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (s3outposts-error)
@@ -362,6 +407,71 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-outposts-with-s3request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-outposts-with-s3request-"))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-outposts-with-s3request
+                    'make-list-outposts-with-s3request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-outposts-with-s3result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-outposts-with-s3result-"))
+   (outposts common-lisp:nil :type (common-lisp:or outposts common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-outposts-with-s3result
+                    'make-list-outposts-with-s3result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outposts))
+      (common-lisp:list
+       (common-lisp:cons "Outposts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-outposts-with-s3result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-shared-endpoints-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-shared-endpoints-request-"))
    (next-token common-lisp:nil :type
@@ -429,6 +539,7 @@
                           list-shared-endpoints-result))
    common-lisp:nil))
 (common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (network-interface (:copier common-lisp:nil)
@@ -464,7 +575,72 @@
                            (trivial-types:proper-list network-interface))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype next-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (outpost (:copier common-lisp:nil) (:conc-name "struct-shape-outpost-"))
+   (outpost-arn common-lisp:nil :type
+    (common-lisp:or outpost-arn common-lisp:null))
+   (outpost-id common-lisp:nil :type
+    (common-lisp:or outpost-id common-lisp:null))
+   (owner-id common-lisp:nil :type
+    (common-lisp:or aws-account-id common-lisp:null))
+   (capacity-in-bytes common-lisp:nil :type
+    (common-lisp:or capacity-in-bytes common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'outpost 'make-outpost))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input outpost))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input outpost))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outpost-arn))
+      (common-lisp:list
+       (common-lisp:cons "OutpostArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outpost-id))
+      (common-lisp:list
+       (common-lisp:cons "OutpostId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'owner-id))
+      (common-lisp:list
+       (common-lisp:cons "OwnerId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'capacity-in-bytes))
+      (common-lisp:list
+       (common-lisp:cons "CapacityInBytes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input outpost))
+   common-lisp:nil))
+(common-lisp:deftype outpost-arn () 'common-lisp:string)
 (common-lisp:deftype outpost-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition outpost-offline-exception
+     (s3outposts-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       outpost-offline-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'outpost-offline-exception
+                    'outpost-offline-exception-message)))
+(common-lisp:progn
+ (common-lisp:deftype outposts () '(trivial-types:proper-list outpost))
+ (common-lisp:defun |make-outposts|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list outpost))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (s3outposts-error)
@@ -475,6 +651,13 @@
                     'resource-not-found-exception-message)))
 (common-lisp:deftype security-group-id () 'common-lisp:string)
 (common-lisp:deftype subnet-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition throttling-exception
+     (s3outposts-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       throttling-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (s3outposts-error)
@@ -543,6 +726,25 @@
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-endpoints))
+(common-lisp:progn
+ (common-lisp:defun list-outposts-with-s3
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-outposts-with-s3request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        "/S3Outposts/ListOutpostsWithS3"
+                                                        "ListOutpostsWithS3"
+                                                        "2017-07-25"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-outposts-with-s3))
 (common-lisp:progn
  (common-lisp:defun list-shared-endpoints
                     (

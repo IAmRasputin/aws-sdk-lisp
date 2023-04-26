@@ -24,12 +24,14 @@
     ("BadRequestException" . bad-request-exception)
     ("ConflictException" . conflict-exception)
     ("ForbiddenException" . forbidden-exception)
+    ("GoneException" . gone-exception)
     ("NotFoundException" . not-found-exception)
     ("ResourceLimitExceededException" . resource-limit-exceeded-exception)
     ("ServiceFailureException" . service-failure-exception)
     ("ServiceUnavailableException" . service-unavailable-exception)
     ("ThrottledClientException" . throttled-client-exception)
-    ("UnauthorizedClientException" . unauthorized-client-exception)))
+    ("UnauthorizedClientException" . unauthorized-client-exception)
+    ("UnprocessableEntityException" . unprocessable-entity-exception)))
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (chime-sdk-voice-error)
@@ -150,6 +152,7 @@
 (common-lisp:deftype alexa-skill-status () 'common-lisp:string)
 (common-lisp:deftype alpha2country-code () 'common-lisp:string)
 (common-lisp:deftype area-code () 'common-lisp:string)
+(common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (associate-phone-numbers-with-voice-connector-group-request
@@ -438,6 +441,46 @@
                           batch-update-phone-number-response))
    common-lisp:nil))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (call-details (:copier common-lisp:nil)
+      (:conc-name "struct-shape-call-details-"))
+   (voice-connector-id common-lisp:nil :type
+    (common-lisp:or non-empty-string128 common-lisp:null))
+   (transaction-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (is-caller common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'call-details 'make-call-details))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input call-details))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input call-details))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-connector-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceConnectorId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transaction-id))
+      (common-lisp:list
+       (common-lisp:cons "TransactionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'is-caller))
+      (common-lisp:list
+       (common-lisp:cons "IsCaller"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input call-details))
+   common-lisp:nil))
 (common-lisp:deftype calling-name () 'common-lisp:string)
 (common-lisp:deftype calling-name-status () 'common-lisp:string)
 (common-lisp:deftype calling-region () 'common-lisp:string)
@@ -544,6 +587,8 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list capability))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype client-request-id () 'common-lisp:string)
+(common-lisp:deftype confidence-score () 'common-lisp:single-float)
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (chime-sdk-voice-error)
@@ -852,7 +897,8 @@
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or sip-media-application-name common-lisp:null))
    (endpoints (common-lisp:error ":endpoints is required") :type
-    (common-lisp:or sip-media-application-endpoint-list common-lisp:null)))
+    (common-lisp:or sip-media-application-endpoint-list common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-sip-media-application-request
                     'make-create-sip-media-application-request))
@@ -885,6 +931,13 @@
                            aws-sdk/generator/shape::input 'endpoints))
       (common-lisp:list
        (common-lisp:cons "Endpoints"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1101,7 +1154,8 @@
    (aws-region common-lisp:nil :type
     (common-lisp:or voice-connector-aws-region common-lisp:null))
    (require-encryption (common-lisp:error ":require-encryption is required")
-    :type (common-lisp:or boolean common-lisp:null)))
+    :type (common-lisp:or boolean common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-voice-connector-request
                     'make-create-voice-connector-request))
@@ -1134,6 +1188,13 @@
                            aws-sdk/generator/shape::input 'require-encryption))
       (common-lisp:list
        (common-lisp:cons "RequireEncryption"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1171,6 +1232,172 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-voice-connector-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-voice-profile-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-voice-profile-domain-request-"))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or voice-profile-domain-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-description common-lisp:null))
+   (server-side-encryption-configuration
+    (common-lisp:error ":server-side-encryption-configuration is required")
+    :type
+    (common-lisp:or server-side-encryption-configuration common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-id common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-voice-profile-domain-request
+                    'make-create-voice-profile-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'server-side-encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "ServerSideEncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-voice-profile-domain-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-voice-profile-domain-response-"))
+   (voice-profile-domain common-lisp:nil :type
+    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-voice-profile-domain-response
+                    'make-create-voice-profile-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-domain-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-voice-profile-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-voice-profile-request-"))
+   (speaker-search-task-id
+    (common-lisp:error ":speaker-search-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-voice-profile-request
+                    'make-create-voice-profile-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-task-id))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTaskId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-voice-profile-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-voice-profile-response-"))
+   (voice-profile common-lisp:nil :type
+    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-voice-profile-response
+                    'make-create-voice-profile-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfile"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-voice-profile-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1579,6 +1806,55 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-voice-connector-termination-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-voice-profile-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-voice-profile-domain-request-"))
+   (voice-profile-domain-id
+    (common-lisp:error ":voice-profile-domain-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-voice-profile-domain-request
+                    'make-delete-voice-profile-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-voice-profile-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-voice-profile-request-"))
+   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-voice-profile-request
+                    'make-delete-voice-profile-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-voice-profile-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2271,6 +2547,64 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-speaker-search-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-speaker-search-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (speaker-search-task-id
+    (common-lisp:error ":speaker-search-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-speaker-search-task-request
+                    'make-get-speaker-search-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-speaker-search-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-speaker-search-task-response-"))
+   (speaker-search-task common-lisp:nil :type
+    (common-lisp:or speaker-search-task common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-speaker-search-task-response
+                    'make-get-speaker-search-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'speaker-search-task))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTask"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-speaker-search-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-voice-connector-emergency-calling-configuration-request
       (:copier common-lisp:nil)
       (:conc-name
@@ -2784,9 +3118,188 @@
                          (aws-sdk/generator/shape::input
                           get-voice-connector-termination-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-profile-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-profile-domain-request-"))
+   (voice-profile-domain-id
+    (common-lisp:error ":voice-profile-domain-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-profile-domain-request
+                    'make-get-voice-profile-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-profile-domain-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-profile-domain-response-"))
+   (voice-profile-domain common-lisp:nil :type
+    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-profile-domain-response
+                    'make-get-voice-profile-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-domain-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-profile-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-profile-request-"))
+   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-profile-request
+                    'make-get-voice-profile-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-profile-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-profile-response-"))
+   (voice-profile common-lisp:nil :type
+    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-profile-response
+                    'make-get-voice-profile-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfile"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-profile-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-tone-analysis-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-tone-analysis-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (voice-tone-analysis-task-id
+    (common-lisp:error ":voice-tone-analysis-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (is-caller (common-lisp:error ":is-caller is required") :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-tone-analysis-task-request
+                    'make-get-voice-tone-analysis-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-voice-tone-analysis-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-voice-tone-analysis-task-response-"))
+   (voice-tone-analysis-task common-lisp:nil :type
+    (common-lisp:or voice-tone-analysis-task common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-voice-tone-analysis-task-response
+                    'make-get-voice-tone-analysis-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-tone-analysis-task))
+      (common-lisp:list
+       (common-lisp:cons "VoiceToneAnalysisTask"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-voice-tone-analysis-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition gone-exception
+     (chime-sdk-voice-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'gone-exception)))
 (common-lisp:deftype guid-string () 'common-lisp:string)
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:deftype iso8601timestamp () 'common-lisp:string)
+(common-lisp:deftype language-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-available-voice-connector-regions-response (:copier common-lisp:nil)
@@ -3218,6 +3731,60 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-tags-for-resource-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-request
+                    'make-list-tags-for-resource-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-tags-for-resource-response-"))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-response
+                    'make-list-tags-for-resource-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-tags-for-resource-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-voice-connector-groups-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-voice-connector-groups-request-"))
    (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -3406,9 +3973,143 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-voice-profile-domains-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-voice-profile-domains-request-"))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-voice-profile-domains-request
+                    'make-list-voice-profile-domains-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-voice-profile-domains-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-voice-profile-domains-response-"))
+   (voice-profile-domains common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-voice-profile-domains-response
+                    'make-list-voice-profile-domains-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domains))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomains"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profile-domains-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-voice-profiles-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-voice-profiles-request-"))
+   (voice-profile-domain-id
+    (common-lisp:error ":voice-profile-domain-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-voice-profiles-request
+                    'make-list-voice-profiles-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-voice-profiles-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-voice-profiles-response-"))
+   (voice-profiles common-lisp:nil :type
+    (common-lisp:or voice-profile-summary-list common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-voice-profiles-response
+                    'make-list-voice-profiles-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profiles))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfiles"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-voice-profiles-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (logging-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-logging-configuration-"))
    (enable-siplogs common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (enable-media-metric-logs common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'logging-configuration 'make-logging-configuration))
@@ -3428,15 +4129,63 @@
       (common-lisp:list
        (common-lisp:cons "EnableSIPLogs"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-media-metric-logs))
+      (common-lisp:list
+       (common-lisp:cons "EnableMediaMetricLogs"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
                          (aws-sdk/generator/shape::input
                           logging-configuration))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (media-insights-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-media-insights-configuration-"))
+   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (configuration-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'media-insights-configuration
+                    'make-media-insights-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'disabled))
+      (common-lisp:list
+       (common-lisp:cons "Disabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "ConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-configuration))
+   common-lisp:nil))
 (common-lisp:deftype next-token-string () 'common-lisp:string)
 (common-lisp:deftype non-empty-string () 'common-lisp:string)
 (common-lisp:deftype non-empty-string128 () 'common-lisp:string)
+(common-lisp:deftype non-empty-string256 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype non-empty-string-list ()
    '(trivial-types:proper-list string))
@@ -5093,6 +5842,37 @@
                            (trivial-types:proper-list sensitive-string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (server-side-encryption-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-server-side-encryption-configuration-"))
+   (kms-key-arn (common-lisp:error ":kms-key-arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'server-side-encryption-configuration
+                    'make-server-side-encryption-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-side-encryption-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-side-encryption-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'kms-key-arn))
+      (common-lisp:list
+       (common-lisp:cons "KmsKeyArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          server-side-encryption-configuration))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition service-failure-exception
      (chime-sdk-voice-error)
      common-lisp:nil)
@@ -5125,7 +5905,9 @@
    (created-timestamp common-lisp:nil :type
     (common-lisp:or iso8601timestamp common-lisp:null))
    (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (sip-media-application-arn common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'sip-media-application 'make-sip-media-application))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5179,6 +5961,14 @@
                            aws-sdk/generator/shape::input 'updated-timestamp))
       (common-lisp:list
        (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sip-media-application-arn))
+      (common-lisp:list
+       (common-lisp:cons "SipMediaApplicationArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5491,6 +6281,406 @@
 (common-lisp:deftype sip-rule-trigger-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (speaker-search-details (:copier common-lisp:nil)
+      (:conc-name "struct-shape-speaker-search-details-"))
+   (results common-lisp:nil :type
+    (common-lisp:or speaker-search-result-list common-lisp:null))
+   (voiceprint-generation-status common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'speaker-search-details 'make-speaker-search-details))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-details))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-details))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'results))
+      (common-lisp:list
+       (common-lisp:cons "Results"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voiceprint-generation-status))
+      (common-lisp:list
+       (common-lisp:cons "VoiceprintGenerationStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-details))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (speaker-search-result (:copier common-lisp:nil)
+      (:conc-name "struct-shape-speaker-search-result-"))
+   (confidence-score common-lisp:nil :type
+    (common-lisp:or confidence-score common-lisp:null))
+   (voice-profile-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'speaker-search-result 'make-speaker-search-result))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-result))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-result))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'confidence-score))
+      (common-lisp:list
+       (common-lisp:cons "ConfidenceScore"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          speaker-search-result))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype speaker-search-result-list ()
+   '(trivial-types:proper-list speaker-search-result))
+ (common-lisp:defun |make-speaker-search-result-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list speaker-search-result))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (speaker-search-task (:copier common-lisp:nil)
+      (:conc-name "struct-shape-speaker-search-task-"))
+   (speaker-search-task-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (speaker-search-task-status common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (call-details common-lisp:nil :type
+    (common-lisp:or call-details common-lisp:null))
+   (speaker-search-details common-lisp:nil :type
+    (common-lisp:or speaker-search-details common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (started-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'speaker-search-task 'make-speaker-search-task))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input speaker-search-task))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input speaker-search-task))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-task-id))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTaskId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-task-status))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTaskStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'call-details))
+      (common-lisp:list
+       (common-lisp:cons "CallDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-details))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'started-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "StartedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "StatusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input speaker-search-task))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-speaker-search-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-speaker-search-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (transaction-id (common-lisp:error ":transaction-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-profile-domain-id
+    (common-lisp:error ":voice-profile-domain-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-speaker-search-task-request
+                    'make-start-speaker-search-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transaction-id))
+      (common-lisp:list
+       (common-lisp:cons "TransactionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-speaker-search-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-speaker-search-task-response-"))
+   (speaker-search-task common-lisp:nil :type
+    (common-lisp:or speaker-search-task common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-speaker-search-task-response
+                    'make-start-speaker-search-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'speaker-search-task))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTask"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-speaker-search-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-voice-tone-analysis-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-voice-tone-analysis-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (transaction-id (common-lisp:error ":transaction-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (language-code (common-lisp:error ":language-code is required") :type
+    (common-lisp:or language-code common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-voice-tone-analysis-task-request
+                    'make-start-voice-tone-analysis-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'transaction-id))
+      (common-lisp:list
+       (common-lisp:cons "TransactionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-code))
+      (common-lisp:list
+       (common-lisp:cons "LanguageCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-voice-tone-analysis-task-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-start-voice-tone-analysis-task-response-"))
+   (voice-tone-analysis-task common-lisp:nil :type
+    (common-lisp:or voice-tone-analysis-task common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-voice-tone-analysis-task-response
+                    'make-start-voice-tone-analysis-task-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-tone-analysis-task))
+      (common-lisp:list
+       (common-lisp:cons "VoiceToneAnalysisTask"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          start-voice-tone-analysis-task-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stop-speaker-search-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stop-speaker-search-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (speaker-search-task-id
+    (common-lisp:error ":speaker-search-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-speaker-search-task-request
+                    'make-stop-speaker-search-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-speaker-search-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-speaker-search-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-speaker-search-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stop-voice-tone-analysis-task-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stop-voice-tone-analysis-task-request-"))
+   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
+    :type (common-lisp:or non-empty-string128 common-lisp:null))
+   (voice-tone-analysis-task-id
+    (common-lisp:error ":voice-tone-analysis-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-voice-tone-analysis-task-request
+                    'make-stop-voice-tone-analysis-task-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-voice-tone-analysis-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-voice-tone-analysis-task-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-voice-tone-analysis-task-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (streaming-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-streaming-configuration-"))
    (data-retention-in-hours
@@ -5499,7 +6689,9 @@
    (disabled (common-lisp:error ":disabled is required") :type
     (common-lisp:or boolean common-lisp:null))
    (streaming-notification-targets common-lisp:nil :type
-    (common-lisp:or streaming-notification-target-list common-lisp:null)))
+    (common-lisp:or streaming-notification-target-list common-lisp:null))
+   (media-insights-configuration common-lisp:nil :type
+    (common-lisp:or media-insights-configuration common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'streaming-configuration 'make-streaming-configuration))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5533,6 +6725,14 @@
                            'streaming-notification-targets))
       (common-lisp:list
        (common-lisp:cons "StreamingNotificationTargets"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-configuration))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsConfiguration"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5589,6 +6789,86 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
+   (key (common-lisp:error ":key is required") :type
+    (common-lisp:or tag-key common-lisp:null))
+   (value (common-lisp:error ":value is required") :type
+    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tag))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tag))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'key))
+      (common-lisp:list
+       (common-lisp:cons "Key"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "Value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tag))
+   common-lisp:nil))
+(common-lisp:deftype tag-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype tag-key-list () '(trivial-types:proper-list tag-key))
+ (common-lisp:defun |make-tag-key-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tag-key))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype tag-list () '(trivial-types:proper-list tag))
+ (common-lisp:defun |make-tag-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list tag))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag-resource-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-tag-resource-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (tags (common-lisp:error ":tags is required") :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input tag-resource-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input tag-resource-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceARN"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input tag-resource-request))
+   common-lisp:nil))
+(common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (termination (:copier common-lisp:nil)
@@ -5691,6 +6971,50 @@
      (chime-sdk-voice-error)
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'unauthorized-client-exception)))
+(common-lisp:progn
+ (common-lisp:define-condition unprocessable-entity-exception
+     (chime-sdk-voice-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'unprocessable-entity-exception)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (untag-resource-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-untag-resource-request-"))
+   (resource-arn (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (tag-keys (common-lisp:error ":tag-keys is required") :type
+    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceARN"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tag-keys))
+      (common-lisp:list
+       (common-lisp:cons "TagKeys"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          untag-resource-request))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-global-settings-request (:copier common-lisp:nil)
@@ -6333,6 +7657,147 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-voice-profile-domain-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-voice-profile-domain-request-"))
+   (voice-profile-domain-id
+    (common-lisp:error ":voice-profile-domain-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-voice-profile-domain-request
+                    'make-update-voice-profile-domain-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-voice-profile-domain-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-voice-profile-domain-response-"))
+   (voice-profile-domain common-lisp:nil :type
+    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-voice-profile-domain-response
+                    'make-update-voice-profile-domain-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomain"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-domain-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-voice-profile-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-voice-profile-request-"))
+   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (speaker-search-task-id
+    (common-lisp:error ":speaker-search-task-id is required") :type
+    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-voice-profile-request
+                    'make-update-voice-profile-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-task-id))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchTaskId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-voice-profile-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-voice-profile-response-"))
+   (voice-profile common-lisp:nil :type
+    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-voice-profile-response
+                    'make-update-voice-profile-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfile"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-voice-profile-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (validate-e911address-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-validate-e911address-request-"))
    (aws-account-id (common-lisp:error ":aws-account-id is required") :type
@@ -6739,6 +8204,417 @@
                           voice-connector-settings))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (voice-profile (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-profile-"))
+   (voice-profile-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-profile-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (voice-profile-domain-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (expiration-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'voice-profile 'make-voice-profile))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input voice-profile))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input voice-profile))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile-arn))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'expiration-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input voice-profile))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (voice-profile-domain (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-profile-domain-"))
+   (voice-profile-domain-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-profile-domain-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-description common-lisp:null))
+   (server-side-encryption-configuration common-lisp:nil :type
+    (common-lisp:or server-side-encryption-configuration common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'voice-profile-domain 'make-voice-profile-domain))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input voice-profile-domain))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input voice-profile-domain))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-arn))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'server-side-encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "ServerSideEncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input voice-profile-domain))
+   common-lisp:nil))
+(common-lisp:deftype voice-profile-domain-description () 'common-lisp:string)
+(common-lisp:deftype voice-profile-domain-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (voice-profile-domain-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-profile-domain-summary-"))
+   (voice-profile-domain-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-profile-domain-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or voice-profile-domain-description common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'voice-profile-domain-summary
+                    'make-voice-profile-domain-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-domain-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-domain-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-arn))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-domain-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype voice-profile-domain-summary-list ()
+   '(trivial-types:proper-list voice-profile-domain-summary))
+ (common-lisp:defun |make-voice-profile-domain-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            voice-profile-domain-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (voice-profile-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-profile-summary-"))
+   (voice-profile-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-profile-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (voice-profile-domain-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (expiration-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'voice-profile-summary 'make-voice-profile-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'voice-profile-arn))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-profile-domain-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceProfileDomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'expiration-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "ExpirationTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-profile-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype voice-profile-summary-list ()
+   '(trivial-types:proper-list voice-profile-summary))
+ (common-lisp:defun |make-voice-profile-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list voice-profile-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (voice-tone-analysis-task (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-tone-analysis-task-"))
+   (voice-tone-analysis-task-id common-lisp:nil :type
+    (common-lisp:or non-empty-string256 common-lisp:null))
+   (voice-tone-analysis-task-status common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (call-details common-lisp:nil :type
+    (common-lisp:or call-details common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (started-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (status-message common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'voice-tone-analysis-task 'make-voice-tone-analysis-task))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-tone-analysis-task))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-tone-analysis-task))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-tone-analysis-task-id))
+      (common-lisp:list
+       (common-lisp:cons "VoiceToneAnalysisTaskId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-tone-analysis-task-status))
+      (common-lisp:list
+       (common-lisp:cons "VoiceToneAnalysisTaskStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'call-details))
+      (common-lisp:list
+       (common-lisp:cons "CallDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'started-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "StartedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status-message))
+      (common-lisp:list
+       (common-lisp:cons "StatusMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-tone-analysis-task))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:defun associate-phone-numbers-with-voice-connector
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6879,8 +8755,8 @@
  (common-lisp:defun create-sip-media-application
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key aws-region name endpoints)
-   (common-lisp:declare (common-lisp:ignorable aws-region name endpoints))
+                     common-lisp:&key aws-region name endpoints tags)
+   (common-lisp:declare (common-lisp:ignorable aws-region name endpoints tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-create-sip-media-application-request
@@ -6942,9 +8818,9 @@
  (common-lisp:defun create-voice-connector
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key name aws-region require-encryption)
+                     common-lisp:&key name aws-region require-encryption tags)
    (common-lisp:declare
-    (common-lisp:ignorable name aws-region require-encryption))
+    (common-lisp:ignorable name aws-region require-encryption tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-voice-connector-request
                                          aws-sdk/generator/operation::args)))
@@ -6972,6 +8848,43 @@
         "/voice-connector-groups" "CreateVoiceConnectorGroup" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-voice-connector-group))
+(common-lisp:progn
+ (common-lisp:defun create-voice-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key speaker-search-task-id)
+   (common-lisp:declare (common-lisp:ignorable speaker-search-task-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-voice-profile-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        "/voice-profiles" "CreateVoiceProfile" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-voice-profile))
+(common-lisp:progn
+ (common-lisp:defun create-voice-profile-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key name description
+                     server-side-encryption-configuration client-request-token
+                     tags)
+   (common-lisp:declare
+    (common-lisp:ignorable name description
+     server-side-encryption-configuration client-request-token tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-voice-profile-domain-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        "/voice-profile-domains" "CreateVoiceProfileDomain" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-voice-profile-domain))
 (common-lisp:progn
  (common-lisp:defun delete-phone-number
                     (
@@ -7257,6 +9170,51 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-voice-connector-termination-credentials))
 (common-lisp:progn
+ (common-lisp:defun delete-voice-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-id)
+   (common-lisp:declare (common-lisp:ignorable voice-profile-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-voice-profile-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profiles/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-id))))
+        "DeleteVoiceProfile" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-voice-profile))
+(common-lisp:progn
+ (common-lisp:defun delete-voice-profile-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-domain-id)
+   (common-lisp:declare (common-lisp:ignorable voice-profile-domain-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-voice-profile-domain-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-domain-id))))
+        "DeleteVoiceProfileDomain" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-voice-profile-domain))
+(common-lisp:progn
  (common-lisp:defun disassociate-phone-numbers-from-voice-connector
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -7493,6 +9451,35 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-sip-rule))
 (common-lisp:progn
+ (common-lisp:defun get-speaker-search-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id
+                     speaker-search-task-id)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id speaker-search-task-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-speaker-search-task-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/speaker-search-tasks/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'speaker-search-task-id))))
+        "GetSpeakerSearchTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-speaker-search-task))
+(common-lisp:progn
  (common-lisp:defun get-voice-connector
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -7706,6 +9693,81 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-voice-connector-termination-health))
 (common-lisp:progn
+ (common-lisp:defun get-voice-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-id)
+   (common-lisp:declare (common-lisp:ignorable voice-profile-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-voice-profile-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profiles/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-id))))
+        "GetVoiceProfile" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-voice-profile))
+(common-lisp:progn
+ (common-lisp:defun get-voice-profile-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-domain-id)
+   (common-lisp:declare (common-lisp:ignorable voice-profile-domain-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-voice-profile-domain-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-domain-id))))
+        "GetVoiceProfileDomain" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-voice-profile-domain))
+(common-lisp:progn
+ (common-lisp:defun get-voice-tone-analysis-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id
+                     voice-tone-analysis-task-id is-caller)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id voice-tone-analysis-task-id
+     is-caller))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-voice-tone-analysis-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/voice-tone-analysis-tasks/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-tone-analysis-task-id))))
+        "GetVoiceToneAnalysisTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-voice-tone-analysis-task))
+(common-lisp:progn
  (common-lisp:defun list-available-voice-connector-regions ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
@@ -7830,6 +9892,22 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-supported-phone-number-countries))
 (common-lisp:progn
+ (common-lisp:defun list-tags-for-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-tags-for-resource-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        "/tags" "ListTagsForResource" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
  (common-lisp:defun list-voice-connector-groups
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -7886,6 +9964,41 @@
         "/voice-connectors" "ListVoiceConnectors" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-voice-connectors))
+(common-lisp:progn
+ (common-lisp:defun list-voice-profile-domains
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-voice-profile-domains-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        "/voice-profile-domains" "ListVoiceProfileDomains" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-voice-profile-domains))
+(common-lisp:progn
+ (common-lisp:defun list-voice-profiles
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-domain-id next-token
+                     max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-profile-domain-id next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-voice-profiles-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        "/voice-profiles" "ListVoiceProfiles" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-voice-profiles))
 (common-lisp:progn
  (common-lisp:defun put-sip-media-application-alexa-skill-configuration
                     (
@@ -8162,6 +10275,151 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-available-phone-numbers))
 (common-lisp:progn
+ (common-lisp:defun start-speaker-search-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id transaction-id
+                     voice-profile-domain-id client-request-token)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id transaction-id
+     voice-profile-domain-id client-request-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-start-speaker-search-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/speaker-search-tasks"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))))
+        "StartSpeakerSearchTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'start-speaker-search-task))
+(common-lisp:progn
+ (common-lisp:defun start-voice-tone-analysis-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id transaction-id
+                     language-code client-request-token)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id transaction-id language-code
+     client-request-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-start-voice-tone-analysis-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/voice-tone-analysis-tasks"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))))
+        "StartVoiceToneAnalysisTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'start-voice-tone-analysis-task))
+(common-lisp:progn
+ (common-lisp:defun stop-speaker-search-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id
+                     speaker-search-task-id)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id speaker-search-task-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-stop-speaker-search-task-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/speaker-search-tasks/~A?operation=stop"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'speaker-search-task-id))))
+        "StopSpeakerSearchTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'stop-speaker-search-task))
+(common-lisp:progn
+ (common-lisp:defun stop-voice-tone-analysis-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-connector-id
+                     voice-tone-analysis-task-id)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-connector-id voice-tone-analysis-task-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-stop-voice-tone-analysis-task-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/voice-connectors/~A/voice-tone-analysis-tasks/~A?operation=stop"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-connector-id))
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-tone-analysis-task-id))))
+        "StopVoiceToneAnalysisTask" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'stop-voice-tone-analysis-task))
+(common-lisp:progn
+ (common-lisp:defun tag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tags)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-tag-resource-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        "/tags?operation=tag-resource" "TagResource" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'tag-resource))
+(common-lisp:progn
+ (common-lisp:defun untag-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key resource-arn tag-keys)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tag-keys))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-untag-resource-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        "/tags?operation=untag-resource" "UntagResource" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'untag-resource))
+(common-lisp:progn
  (common-lisp:defun update-global-settings
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -8376,6 +10634,53 @@
         "UpdateVoiceConnectorGroup" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-voice-connector-group))
+(common-lisp:progn
+ (common-lisp:defun update-voice-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-id speaker-search-task-id)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-profile-id speaker-search-task-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-voice-profile-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profiles/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-id))))
+        "UpdateVoiceProfile" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-voice-profile))
+(common-lisp:progn
+ (common-lisp:defun update-voice-profile-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key voice-profile-domain-id name description)
+   (common-lisp:declare
+    (common-lisp:ignorable voice-profile-domain-id name description))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-voice-profile-domain-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'voice-profile-domain-id))))
+        "UpdateVoiceProfileDomain" "2022-08-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-voice-profile-domain))
 (common-lisp:progn
  (common-lisp:defun validate-e911address
                     (

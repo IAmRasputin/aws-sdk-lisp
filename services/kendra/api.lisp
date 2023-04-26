@@ -21,6 +21,7 @@
 (common-lisp:defvar *error-map*
   '(("AccessDeniedException" . access-denied-exception)
     ("ConflictException" . conflict-exception)
+    ("FeaturedResultsConflictException" . featured-results-conflict-exception)
     ("InternalServerException" . internal-server-exception)
     ("InvalidRequestException" . invalid-request-exception)
     ("ResourceAlreadyExistException" . resource-already-exist-exception)
@@ -897,6 +898,138 @@
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
+     (batch-delete-featured-results-set-error (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-delete-featured-results-set-error-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or featured-results-set-id common-lisp:null))
+   (error-code (common-lisp:error ":error-code is required") :type
+    (common-lisp:or error-code common-lisp:null))
+   (error-message (common-lisp:error ":error-message is required") :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-featured-results-set-error
+                    'make-batch-delete-featured-results-set-error))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-error))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-error))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-code))
+      (common-lisp:list
+       (common-lisp:cons "ErrorCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'error-message))
+      (common-lisp:list
+       (common-lisp:cons "ErrorMessage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-error))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype batch-delete-featured-results-set-errors ()
+   '(trivial-types:proper-list batch-delete-featured-results-set-error))
+ (common-lisp:defun |make-batch-delete-featured-results-set-errors|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            batch-delete-featured-results-set-error))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-delete-featured-results-set-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-delete-featured-results-set-request-"))
+   (index-id (common-lisp:error ":index-id is required") :type
+    (common-lisp:or index-id common-lisp:null))
+   (featured-results-set-ids
+    (common-lisp:error ":featured-results-set-ids is required") :type
+    (common-lisp:or featured-results-set-id-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-featured-results-set-request
+                    'make-batch-delete-featured-results-set-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'index-id))
+      (common-lisp:list
+       (common-lisp:cons "IndexId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-ids))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (batch-delete-featured-results-set-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-batch-delete-featured-results-set-response-"))
+   (errors (common-lisp:error ":errors is required") :type
+    (common-lisp:or batch-delete-featured-results-set-errors
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-delete-featured-results-set-response
+                    'make-batch-delete-featured-results-set-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'errors))
+      (common-lisp:list
+       (common-lisp:cons "Errors"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          batch-delete-featured-results-set-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (batch-get-document-status-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-batch-get-document-status-request-"))
    (index-id (common-lisp:error ":index-id is required") :type
@@ -1523,6 +1656,54 @@
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (conflicting-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-conflicting-item-"))
+   (query-text common-lisp:nil :type
+    (common-lisp:or query-text common-lisp:null))
+   (set-name common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (set-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflicting-item 'make-conflicting-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input conflicting-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input conflicting-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-text))
+      (common-lisp:list
+       (common-lisp:cons "QueryText"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'set-name))
+      (common-lisp:list
+       (common-lisp:cons "SetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'set-id))
+      (common-lisp:list
+       (common-lisp:cons "SetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input conflicting-item))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype conflicting-items ()
+   '(trivial-types:proper-list conflicting-item))
+ (common-lisp:defun |make-conflicting-items|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list conflicting-item))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (confluence-attachment-configuration (:copier common-lisp:nil)
@@ -2748,6 +2929,133 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input create-faq-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-featured-results-set-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-featured-results-set-request-"))
+   (index-id (common-lisp:error ":index-id is required") :type
+    (common-lisp:or index-id common-lisp:null))
+   (featured-results-set-name
+    (common-lisp:error ":featured-results-set-name is required") :type
+    (common-lisp:or featured-results-set-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or featured-results-set-description common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token-name common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or featured-results-set-status common-lisp:null))
+   (query-texts common-lisp:nil :type
+    (common-lisp:or query-text-list common-lisp:null))
+   (featured-documents common-lisp:nil :type
+    (common-lisp:or featured-document-list common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-featured-results-set-request
+                    'make-create-featured-results-set-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'index-id))
+      (common-lisp:list
+       (common-lisp:cons "IndexId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-name))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-texts))
+      (common-lisp:list
+       (common-lisp:cons "QueryTexts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'featured-documents))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedDocuments"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-featured-results-set-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-featured-results-set-response-"))
+   (featured-results-set common-lisp:nil :type
+    (common-lisp:or featured-results-set common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-featured-results-set-response
+                    'make-create-featured-results-set-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-featured-results-set-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4891,6 +5199,156 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-faq-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-featured-results-set-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-featured-results-set-request-"))
+   (index-id (common-lisp:error ":index-id is required") :type
+    (common-lisp:or index-id common-lisp:null))
+   (featured-results-set-id
+    (common-lisp:error ":featured-results-set-id is required") :type
+    (common-lisp:or featured-results-set-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-featured-results-set-request
+                    'make-describe-featured-results-set-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'index-id))
+      (common-lisp:list
+       (common-lisp:cons "IndexId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-id))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-featured-results-set-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-featured-results-set-response-"))
+   (featured-results-set-id common-lisp:nil :type
+    (common-lisp:or featured-results-set-id common-lisp:null))
+   (featured-results-set-name common-lisp:nil :type
+    (common-lisp:or featured-results-set-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or featured-results-set-description common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or featured-results-set-status common-lisp:null))
+   (query-texts common-lisp:nil :type
+    (common-lisp:or query-text-list common-lisp:null))
+   (featured-documents-with-metadata common-lisp:nil :type
+    (common-lisp:or featured-document-with-metadata-list common-lisp:null))
+   (featured-documents-missing common-lisp:nil :type
+    (common-lisp:or featured-document-missing-list common-lisp:null))
+   (last-updated-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null))
+   (creation-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-featured-results-set-response
+                    'make-describe-featured-results-set-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-id))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-name))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-texts))
+      (common-lisp:list
+       (common-lisp:cons "QueryTexts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-documents-with-metadata))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedDocumentsWithMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-documents-missing))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedDocumentsMissing"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreationTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-featured-results-set-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -7093,6 +7551,432 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list faq-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-document (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-document-"))
+   (id common-lisp:nil :type (common-lisp:or document-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-document 'make-featured-document))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input featured-document))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input featured-document))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input featured-document))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype featured-document-list ()
+   '(trivial-types:proper-list featured-document))
+ (common-lisp:defun |make-featured-document-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list featured-document))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-document-missing (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-document-missing-"))
+   (id common-lisp:nil :type (common-lisp:or document-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-document-missing
+                    'make-featured-document-missing))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-missing))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-missing))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-missing))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype featured-document-missing-list ()
+   '(trivial-types:proper-list featured-document-missing))
+ (common-lisp:defun |make-featured-document-missing-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            featured-document-missing))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-document-with-metadata (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-document-with-metadata-"))
+   (id common-lisp:nil :type (common-lisp:or document-id common-lisp:null))
+   (title common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (uri common-lisp:nil :type (common-lisp:or url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-document-with-metadata
+                    'make-featured-document-with-metadata))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-with-metadata))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-with-metadata))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'title))
+      (common-lisp:list
+       (common-lisp:cons "Title"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'uri))
+      (common-lisp:list
+       (common-lisp:cons "URI"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-document-with-metadata))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype featured-document-with-metadata-list ()
+   '(trivial-types:proper-list featured-document-with-metadata))
+ (common-lisp:defun |make-featured-document-with-metadata-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            featured-document-with-metadata))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:define-condition featured-results-conflict-exception
+     (kendra-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       featured-results-conflict-exception-message)
+      (conflicting-items :initarg :conflicting-items :initform common-lisp:nil
+       :reader featured-results-conflict-exception-conflicting-items)))
+ (common-lisp:export
+  (common-lisp:list 'featured-results-conflict-exception
+                    'featured-results-conflict-exception-message
+                    'featured-results-conflict-exception-conflicting-items)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-results-item (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-results-item-"))
+   (id common-lisp:nil :type (common-lisp:or result-id common-lisp:null))
+   (type common-lisp:nil :type
+    (common-lisp:or query-result-type common-lisp:null))
+   (additional-attributes common-lisp:nil :type
+    (common-lisp:or additional-result-attribute-list common-lisp:null))
+   (document-id common-lisp:nil :type
+    (common-lisp:or document-id common-lisp:null))
+   (document-title common-lisp:nil :type
+    (common-lisp:or text-with-highlights common-lisp:null))
+   (document-excerpt common-lisp:nil :type
+    (common-lisp:or text-with-highlights common-lisp:null))
+   (document-uri common-lisp:nil :type (common-lisp:or url common-lisp:null))
+   (document-attributes common-lisp:nil :type
+    (common-lisp:or document-attribute-list common-lisp:null))
+   (feedback-token common-lisp:nil :type
+    (common-lisp:or feedback-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-results-item 'make-featured-results-item))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-item))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-item))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "Id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'additional-attributes))
+      (common-lisp:list
+       (common-lisp:cons "AdditionalAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-id))
+      (common-lisp:list
+       (common-lisp:cons "DocumentId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-title))
+      (common-lisp:list
+       (common-lisp:cons "DocumentTitle"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-excerpt))
+      (common-lisp:list
+       (common-lisp:cons "DocumentExcerpt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-uri))
+      (common-lisp:list
+       (common-lisp:cons "DocumentURI"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'document-attributes))
+      (common-lisp:list
+       (common-lisp:cons "DocumentAttributes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'feedback-token))
+      (common-lisp:list
+       (common-lisp:cons "FeedbackToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-item))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype featured-results-item-list ()
+   '(trivial-types:proper-list featured-results-item))
+ (common-lisp:defun |make-featured-results-item-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list featured-results-item))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-results-set (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-results-set-"))
+   (featured-results-set-id common-lisp:nil :type
+    (common-lisp:or featured-results-set-id common-lisp:null))
+   (featured-results-set-name common-lisp:nil :type
+    (common-lisp:or featured-results-set-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or featured-results-set-description common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or featured-results-set-status common-lisp:null))
+   (query-texts common-lisp:nil :type
+    (common-lisp:or query-text-list common-lisp:null))
+   (featured-documents common-lisp:nil :type
+    (common-lisp:or featured-document-list common-lisp:null))
+   (last-updated-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null))
+   (creation-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-results-set 'make-featured-results-set))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input featured-results-set))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input featured-results-set))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-id))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-name))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-texts))
+      (common-lisp:list
+       (common-lisp:cons "QueryTexts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'featured-documents))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedDocuments"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreationTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input featured-results-set))
+   common-lisp:nil))
+(common-lisp:deftype featured-results-set-description () 'common-lisp:string)
+(common-lisp:deftype featured-results-set-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype featured-results-set-id-list ()
+   '(trivial-types:proper-list featured-results-set-id))
+ (common-lisp:defun |make-featured-results-set-id-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list featured-results-set-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype featured-results-set-name () 'common-lisp:string)
+(common-lisp:deftype featured-results-set-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (featured-results-set-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-featured-results-set-summary-"))
+   (featured-results-set-id common-lisp:nil :type
+    (common-lisp:or featured-results-set-id common-lisp:null))
+   (featured-results-set-name common-lisp:nil :type
+    (common-lisp:or featured-results-set-name common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or featured-results-set-status common-lisp:null))
+   (last-updated-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null))
+   (creation-timestamp common-lisp:nil :type
+    (common-lisp:or long common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'featured-results-set-summary
+                    'make-featured-results-set-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-set-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-set-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-id))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-name))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "LastUpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'creation-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreationTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          featured-results-set-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype featured-results-set-summary-items ()
+   '(trivial-types:proper-list featured-results-set-summary))
+ (common-lisp:defun |make-featured-results-set-summary-items|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            featured-results-set-summary))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype feedback-token () 'common-lisp:string)
 (common-lisp:deftype file-system-id () 'common-lisp:string)
 (common-lisp:deftype folder-id () 'common-lisp:string)
@@ -9288,6 +10172,97 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-featured-results-sets-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-featured-results-sets-request-"))
+   (index-id (common-lisp:error ":index-id is required") :type
+    (common-lisp:or index-id common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results-integer-for-list-featured-results-sets-request
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-featured-results-sets-request
+                    'make-list-featured-results-sets-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'index-id))
+      (common-lisp:list
+       (common-lisp:cons "IndexId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-featured-results-sets-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-featured-results-sets-response-"))
+   (featured-results-set-summary-items common-lisp:nil :type
+    (common-lisp:or featured-results-set-summary-items common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-featured-results-sets-response
+                    'make-list-featured-results-sets-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-summary-items))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetSummaryItems"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-featured-results-sets-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-groups-older-than-ordering-id-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-groups-older-than-ordering-id-request-"))
    (index-id (common-lisp:error ":index-id is required") :type
@@ -9736,6 +10711,9 @@
 (common-lisp:deftype max-results-integer-for-list-experiences-request ()
   'common-lisp:integer)
 (common-lisp:deftype max-results-integer-for-list-faqs-request ()
+  'common-lisp:integer)
+(common-lisp:deftype max-results-integer-for-list-featured-results-sets-request
+                     ()
   'common-lisp:integer)
 (common-lisp:deftype max-results-integer-for-list-indices-request ()
   'common-lisp:integer)
@@ -10421,7 +11399,9 @@
    (warnings common-lisp:nil :type
     (common-lisp:or warning-list common-lisp:null))
    (spell-corrected-queries common-lisp:nil :type
-    (common-lisp:or spell-corrected-query-list common-lisp:null)))
+    (common-lisp:or spell-corrected-query-list common-lisp:null))
+   (featured-results-items common-lisp:nil :type
+    (common-lisp:or featured-results-item-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'query-result 'make-query-result))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input query-result))
@@ -10471,6 +11451,14 @@
                            'spell-corrected-queries))
       (common-lisp:list
        (common-lisp:cons "SpellCorrectedQueries"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-items))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsItems"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10699,6 +11687,14 @@
 (common-lisp:deftype query-suggestions-id () 'common-lisp:string)
 (common-lisp:deftype query-suggestions-status () 'common-lisp:string)
 (common-lisp:deftype query-text () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype query-text-list ()
+   '(trivial-types:proper-list query-text))
+ (common-lisp:defun |make-query-text-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list query-text))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (quip-configuration (:copier common-lisp:nil)
@@ -13758,6 +14754,126 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-featured-results-set-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-featured-results-set-request-"))
+   (index-id (common-lisp:error ":index-id is required") :type
+    (common-lisp:or index-id common-lisp:null))
+   (featured-results-set-id
+    (common-lisp:error ":featured-results-set-id is required") :type
+    (common-lisp:or featured-results-set-id common-lisp:null))
+   (featured-results-set-name common-lisp:nil :type
+    (common-lisp:or featured-results-set-name common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or featured-results-set-description common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or featured-results-set-status common-lisp:null))
+   (query-texts common-lisp:nil :type
+    (common-lisp:or query-text-list common-lisp:null))
+   (featured-documents common-lisp:nil :type
+    (common-lisp:or featured-document-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-featured-results-set-request
+                    'make-update-featured-results-set-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'index-id))
+      (common-lisp:list
+       (common-lisp:cons "IndexId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-id))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set-name))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSetName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'query-texts))
+      (common-lisp:list
+       (common-lisp:cons "QueryTexts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'featured-documents))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedDocuments"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-featured-results-set-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-featured-results-set-response-"))
+   (featured-results-set common-lisp:nil :type
+    (common-lisp:or featured-results-set common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-featured-results-set-response
+                    'make-update-featured-results-set-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'featured-results-set))
+      (common-lisp:list
+       (common-lisp:cons "FeaturedResultsSet"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-featured-results-set-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (update-index-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-index-request-"))
    (id (common-lisp:error ":id is required") :type
@@ -14587,6 +15703,26 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-delete-document))
 (common-lisp:progn
+ (common-lisp:defun batch-delete-featured-results-set
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key index-id featured-results-set-ids)
+   (common-lisp:declare
+    (common-lisp:ignorable index-id featured-results-set-ids))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-batch-delete-featured-results-set-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'kendra-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "BatchDeleteFeaturedResultsSet"
+                                                        "2019-02-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'batch-delete-featured-results-set))
+(common-lisp:progn
  (common-lisp:defun batch-get-document-status
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -14732,6 +15868,29 @@
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-faq))
+(common-lisp:progn
+ (common-lisp:defun create-featured-results-set
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key index-id featured-results-set-name
+                     description client-token status query-texts
+                     featured-documents tags)
+   (common-lisp:declare
+    (common-lisp:ignorable index-id featured-results-set-name description
+     client-token status query-texts featured-documents tags))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-featured-results-set-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'kendra-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateFeaturedResultsSet"
+                                                        "2019-02-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-featured-results-set))
 (common-lisp:progn
  (common-lisp:defun create-index
                     (
@@ -15020,6 +16179,26 @@
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-faq))
+(common-lisp:progn
+ (common-lisp:defun describe-featured-results-set
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key index-id featured-results-set-id)
+   (common-lisp:declare
+    (common-lisp:ignorable index-id featured-results-set-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-featured-results-set-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'kendra-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeFeaturedResultsSet"
+                                                        "2019-02-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-featured-results-set))
 (common-lisp:progn
  (common-lisp:defun describe-index
                     (
@@ -15329,6 +16508,26 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-faqs))
 (common-lisp:progn
+ (common-lisp:defun list-featured-results-sets
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key index-id next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable index-id next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-featured-results-sets-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'kendra-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListFeaturedResultsSets"
+                                                        "2019-02-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-featured-results-sets))
+(common-lisp:progn
  (common-lisp:defun list-groups-older-than-ordering-id
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -15634,6 +16833,30 @@
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-experience))
+(common-lisp:progn
+ (common-lisp:defun update-featured-results-set
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key index-id featured-results-set-id
+                     featured-results-set-name description status query-texts
+                     featured-documents)
+   (common-lisp:declare
+    (common-lisp:ignorable index-id featured-results-set-id
+     featured-results-set-name description status query-texts
+     featured-documents))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-featured-results-set-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'kendra-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateFeaturedResultsSet"
+                                                        "2019-02-03"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-featured-results-set))
 (common-lisp:progn
  (common-lisp:defun update-index
                     (

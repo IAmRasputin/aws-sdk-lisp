@@ -2,21 +2,9 @@
   "pagination": {
     "ListAccelerators": {
       "input_token": "NextToken",
-      "limit_key": "MaxResults",
       "output_token": "NextToken",
+      "limit_key": "MaxResults",
       "result_key": "Accelerators"
-    },
-    "ListEndpointGroups": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "EndpointGroups"
-    },
-    "ListListeners": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Listeners"
     },
     "ListByoipCidrs": {
       "input_token": "NextToken",
@@ -29,6 +17,11 @@
       "output_token": "NextToken",
       "limit_key": "MaxResults",
       "result_key": "Accelerators"
+    },
+    "ListCustomRoutingEndpointGroups": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults"
     },
     "ListCustomRoutingListeners": {
       "input_token": "NextToken",
@@ -47,6 +40,18 @@
       "output_token": "NextToken",
       "limit_key": "MaxResults",
       "result_key": "DestinationPortMappings"
+    },
+    "ListEndpointGroups": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "EndpointGroups"
+    },
+    "ListListeners": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Listeners"
     }
   }
 }

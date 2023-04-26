@@ -142,10 +142,12 @@
       (:conc-name "struct-shape-create-access-token-response-"))
    (secret (common-lisp:error ":secret is required") :type
     (common-lisp:or access-token-secret common-lisp:null))
-   (name common-lisp:nil :type
+   (name (common-lisp:error ":name is required") :type
     (common-lisp:or access-token-name common-lisp:null))
-   (expires-time common-lisp:nil :type
-    (common-lisp:or synthetic-timestamp-date-time common-lisp:null)))
+   (expires-time (common-lisp:error ":expirestime is required") :type
+    (common-lisp:or synthetic-timestamp-date-time common-lisp:null))
+   (access-token-id (common-lisp:error ":accesstokenid is required") :type
+    (common-lisp:or access-token-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-access-token-response
                     'make-create-access-token-response))
@@ -178,6 +180,13 @@
                            aws-sdk/generator/shape::input 'expires-time))
       (common-lisp:list
        (common-lisp:cons "expiresTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'access-token-id))
+      (common-lisp:list
+       (common-lisp:cons "accessTokenId"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2541,7 +2550,7 @@
      (list-source-repository-branches-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-source-repository-branches-response-"))
    (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (items common-lisp:nil :type
+   (items (common-lisp:error ":items is required") :type
     (common-lisp:or list-source-repository-branches-items common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-source-repository-branches-response
@@ -3261,6 +3270,100 @@
                          (aws-sdk/generator/shape::input
                           stop-dev-environment-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stop-dev-environment-session-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stop-dev-environment-session-request-"))
+   (space-name (common-lisp:error ":spacename is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (project-name (common-lisp:error ":projectname is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or uuid common-lisp:null))
+   (session-id (common-lisp:error ":sessionid is required") :type
+    (common-lisp:or stop-dev-environment-session-request-session-id-string
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-dev-environment-session-request
+                    'make-stop-dev-environment-session-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-request))
+   common-lisp:nil))
+(common-lisp:deftype stop-dev-environment-session-request-session-id-string ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stop-dev-environment-session-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stop-dev-environment-session-response-"))
+   (space-name (common-lisp:error ":spacename is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (project-name (common-lisp:error ":projectname is required") :type
+    (common-lisp:or name-string common-lisp:null))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or uuid common-lisp:null))
+   (session-id (common-lisp:error ":sessionid is required") :type
+    (common-lisp:or stop-dev-environment-session-response-session-id-string
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-dev-environment-session-response
+                    'make-stop-dev-environment-session-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'space-name))
+      (common-lisp:list
+       (common-lisp:cons "spaceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'project-name))
+      (common-lisp:list
+       (common-lisp:cons "projectName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'session-id))
+      (common-lisp:list
+       (common-lisp:cons "sessionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          stop-dev-environment-session-response))
+   common-lisp:nil))
+(common-lisp:deftype stop-dev-environment-session-response-session-id-string ()
+  'common-lisp:string)
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype string-list () '(trivial-types:proper-list string))
@@ -4237,6 +4340,48 @@
                                                         "2022-09-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-dev-environment))
+(common-lisp:progn
+ (common-lisp:defun stop-dev-environment-session
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key space-name project-name id session-id)
+   (common-lisp:declare
+    (common-lisp:ignorable space-name project-name id session-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-stop-dev-environment-session-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'codecatalyst-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/spaces/~A/projects/~A/devEnvironments/~A/session/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'space-name))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'project-name))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'session-id))))
+                                                        "StopDevEnvironmentSession"
+                                                        "2022-09-28"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'stop-dev-environment-session))
 (common-lisp:progn
  (common-lisp:defun update-dev-environment
                     (

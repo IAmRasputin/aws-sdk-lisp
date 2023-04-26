@@ -3295,6 +3295,8 @@
                     'directory-already-shared-exception-request-id)))
 (common-lisp:deftype directory-configuration-setting-allowed-values ()
   'common-lisp:string)
+(common-lisp:deftype directory-configuration-setting-data-type ()
+  'common-lisp:string)
 (common-lisp:deftype directory-configuration-setting-last-requested-date-time
                      ()
   'common-lisp:string)
@@ -6631,6 +6633,9 @@
                     common-lisp:null))
    (last-requested-date-time common-lisp:nil :type
     (common-lisp:or directory-configuration-setting-last-requested-date-time
+                    common-lisp:null))
+   (data-type common-lisp:nil :type
+    (common-lisp:or directory-configuration-setting-data-type
                     common-lisp:null)))
  (common-lisp:export (common-lisp:list 'setting-entry 'make-setting-entry))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -6711,6 +6716,13 @@
                            'last-requested-date-time))
       (common-lisp:list
        (common-lisp:cons "LastRequestedDateTime"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'data-type))
+      (common-lisp:list
+       (common-lisp:cons "DataType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

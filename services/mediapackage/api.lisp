@@ -74,6 +74,8 @@
  (common-lisp:defstruct
      (channel (:copier common-lisp:nil) (:conc-name "struct-shape-channel-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -96,6 +98,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -522,6 +531,8 @@
      (configure-logs-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-configure-logs-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -549,6 +560,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -650,6 +668,8 @@
      (create-channel-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-channel-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -677,6 +697,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1052,6 +1079,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (description common-lisp:nil :type
@@ -1112,6 +1141,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1520,6 +1556,8 @@
      (describe-channel-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-describe-channel-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -1548,6 +1586,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1756,6 +1801,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (description common-lisp:nil :type
@@ -1816,6 +1863,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2274,11 +2328,7 @@
     (common-lisp:or |__integer| common-lisp:null))
    (program-date-time-interval-seconds common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
-   (url common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (ad-triggers common-lisp:nil :type
-    (common-lisp:or ad-triggers common-lisp:null))
-   (ads-on-delivery-restrictions common-lisp:nil :type
-    (common-lisp:or ads-on-delivery-restrictions common-lisp:null)))
+   (url common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'hls-manifest 'make-hls-manifest))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input hls-manifest))
@@ -2343,21 +2393,6 @@
                            aws-sdk/generator/shape::input 'url))
       (common-lisp:list
        (common-lisp:cons "Url"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'ad-triggers))
-      (common-lisp:list
-       (common-lisp:cons "AdTriggers"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'ads-on-delivery-restrictions))
-      (common-lisp:list
-       (common-lisp:cons "AdsOnDeliveryRestrictions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3031,6 +3066,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (description common-lisp:nil :type
@@ -3085,6 +3122,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3512,6 +3556,8 @@
      (rotate-channel-credentials-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-rotate-channel-credentials-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -3540,6 +3586,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3620,6 +3673,8 @@
      (rotate-ingest-endpoint-credentials-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-rotate-ingest-endpoint-credentials-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -3648,6 +3703,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3997,6 +4059,8 @@
      (update-channel-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-channel-response-"))
    (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (egress-access-logs common-lisp:nil :type
@@ -4024,6 +4088,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -4208,6 +4279,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (cmaf-package common-lisp:nil :type
     (common-lisp:or cmaf-package common-lisp:null))
+   (created-at common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
    (dash-package common-lisp:nil :type
     (common-lisp:or dash-package common-lisp:null))
    (description common-lisp:nil :type
@@ -4268,6 +4341,13 @@
                            aws-sdk/generator/shape::input 'cmaf-package))
       (common-lisp:list
        (common-lisp:cons "CmafPackage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value

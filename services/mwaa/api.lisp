@@ -142,6 +142,10 @@
     (common-lisp:or schedulers common-lisp:null))
    (source-bucket-arn (common-lisp:error ":source-bucket-arn is required")
     :type (common-lisp:or s3bucket-arn common-lisp:null))
+   (startup-script-s3object-version common-lisp:nil :type
+    (common-lisp:or s3object-version common-lisp:null))
+   (startup-script-s3path common-lisp:nil :type
+    (common-lisp:or relative-path common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
    (webserver-access-mode common-lisp:nil :type
     (common-lisp:or webserver-access-mode common-lisp:null))
@@ -274,6 +278,22 @@
                            aws-sdk/generator/shape::input 'source-bucket-arn))
       (common-lisp:list
        (common-lisp:cons "SourceBucketArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3object-version))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3ObjectVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3path))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3Path"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -529,6 +549,10 @@
     (common-lisp:or iam-role-arn common-lisp:null))
    (source-bucket-arn common-lisp:nil :type
     (common-lisp:or s3bucket-arn common-lisp:null))
+   (startup-script-s3object-version common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (startup-script-s3path common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (status common-lisp:nil :type
     (common-lisp:or environment-status common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
@@ -695,6 +719,22 @@
                            aws-sdk/generator/shape::input 'source-bucket-arn))
       (common-lisp:list
        (common-lisp:cons "SourceBucketArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3object-version))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3ObjectVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3path))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3Path"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1593,6 +1633,10 @@
     (common-lisp:or schedulers common-lisp:null))
    (source-bucket-arn common-lisp:nil :type
     (common-lisp:or s3bucket-arn common-lisp:null))
+   (startup-script-s3object-version common-lisp:nil :type
+    (common-lisp:or s3object-version common-lisp:null))
+   (startup-script-s3path common-lisp:nil :type
+    (common-lisp:or relative-path common-lisp:null))
    (webserver-access-mode common-lisp:nil :type
     (common-lisp:or webserver-access-mode common-lisp:null))
    (weekly-maintenance-window-start common-lisp:nil :type
@@ -1717,6 +1761,22 @@
                            aws-sdk/generator/shape::input 'source-bucket-arn))
       (common-lisp:list
        (common-lisp:cons "SourceBucketArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3object-version))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3ObjectVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'startup-script-s3path))
+      (common-lisp:list
+       (common-lisp:cons "StartupScriptS3Path"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1884,14 +1944,16 @@
                      max-workers min-workers name network-configuration
                      plugins-s3object-version plugins-s3path
                      requirements-s3object-version requirements-s3path
-                     schedulers source-bucket-arn tags webserver-access-mode
-                     weekly-maintenance-window-start)
+                     schedulers source-bucket-arn
+                     startup-script-s3object-version startup-script-s3path tags
+                     webserver-access-mode weekly-maintenance-window-start)
    (common-lisp:declare
     (common-lisp:ignorable airflow-configuration-options airflow-version
      dag-s3path environment-class execution-role-arn kms-key
      logging-configuration max-workers min-workers name network-configuration
      plugins-s3object-version plugins-s3path requirements-s3object-version
-     requirements-s3path schedulers source-bucket-arn tags
+     requirements-s3path schedulers source-bucket-arn
+     startup-script-s3object-version startup-script-s3path tags
      webserver-access-mode weekly-maintenance-window-start))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-environment-input
@@ -2139,15 +2201,17 @@
                      min-workers name network-configuration
                      plugins-s3object-version plugins-s3path
                      requirements-s3object-version requirements-s3path
-                     schedulers source-bucket-arn webserver-access-mode
-                     weekly-maintenance-window-start)
+                     schedulers source-bucket-arn
+                     startup-script-s3object-version startup-script-s3path
+                     webserver-access-mode weekly-maintenance-window-start)
    (common-lisp:declare
     (common-lisp:ignorable airflow-configuration-options airflow-version
      dag-s3path environment-class execution-role-arn logging-configuration
      max-workers min-workers name network-configuration
      plugins-s3object-version plugins-s3path requirements-s3object-version
-     requirements-s3path schedulers source-bucket-arn webserver-access-mode
-     weekly-maintenance-window-start))
+     requirements-s3path schedulers source-bucket-arn
+     startup-script-s3object-version startup-script-s3path
+     webserver-access-mode weekly-maintenance-window-start))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-environment-input
                                          aws-sdk/generator/operation::args)))

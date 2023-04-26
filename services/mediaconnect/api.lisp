@@ -22,13 +22,457 @@
 (common-lisp:defvar *error-map*
   '(("AddFlowOutputs420Exception" . add-flow-outputs420exception)
     ("BadRequestException" . bad-request-exception)
+    ("ConflictException" . conflict-exception)
+    ("CreateBridge420Exception" . create-bridge420exception)
     ("CreateFlow420Exception" . create-flow420exception)
+    ("CreateGateway420Exception" . create-gateway420exception)
     ("ForbiddenException" . forbidden-exception)
     ("GrantFlowEntitlements420Exception" . grant-flow-entitlements420exception)
     ("InternalServerErrorException" . internal-server-error-exception)
     ("NotFoundException" . not-found-exception)
     ("ServiceUnavailableException" . service-unavailable-exception)
     ("TooManyRequestsException" . too-many-requests-exception)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-flow-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-flow-source-request-"))
+   (flow-arn (common-lisp:error ":flow-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (flow-vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-flow-source-request
+                    'make-add-bridge-flow-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-flow-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-flow-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-arn))
+      (common-lisp:list
+       (common-lisp:cons "FlowArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'flow-vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "FlowVpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-flow-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-network-output-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-network-output-request-"))
+   (ip-address (common-lisp:error ":ip-address is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name (common-lisp:error ":network-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port (common-lisp:error ":port is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (protocol (common-lisp:error ":protocol is required") :type
+    (common-lisp:or protocol common-lisp:null))
+   (ttl (common-lisp:error ":ttl is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-network-output-request
+                    'make-add-bridge-network-output-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-output-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ip-address))
+      (common-lisp:list
+       (common-lisp:cons "IpAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ttl))
+      (common-lisp:list
+       (common-lisp:cons "Ttl"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-output-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-network-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-network-source-request-"))
+   (multicast-ip (common-lisp:error ":multicast-ip is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name (common-lisp:error ":network-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port (common-lisp:error ":port is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (protocol (common-lisp:error ":protocol is required") :type
+    (common-lisp:or protocol common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-network-source-request
+                    'make-add-bridge-network-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'multicast-ip))
+      (common-lisp:list
+       (common-lisp:cons "MulticastIp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-network-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-output-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-output-request-"))
+   (network-output common-lisp:nil :type
+    (common-lisp:or add-bridge-network-output-request common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-output-request
+                    'make-add-bridge-output-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-output-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-output))
+      (common-lisp:list
+       (common-lisp:cons "NetworkOutput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-output-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-outputs-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-outputs-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs (common-lisp:error ":outputs is required") :type
+    (common-lisp:or |__listOfAddBridgeOutputRequest| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-outputs-request
+                    'make-add-bridge-outputs-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-outputs-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-outputs-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs common-lisp:nil :type
+    (common-lisp:or |__listOfBridgeOutput| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-outputs-response
+                    'make-add-bridge-outputs-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-outputs-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-source-request-"))
+   (flow-source common-lisp:nil :type
+    (common-lisp:or add-bridge-flow-source-request common-lisp:null))
+   (network-source common-lisp:nil :type
+    (common-lisp:or add-bridge-network-source-request common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-source-request
+                    'make-add-bridge-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-source))
+      (common-lisp:list
+       (common-lisp:cons "FlowSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-source))
+      (common-lisp:list
+       (common-lisp:cons "NetworkSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-sources-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-sources-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (sources (common-lisp:error ":sources is required") :type
+    (common-lisp:or |__listOfAddBridgeSourceRequest| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-sources-request
+                    'make-add-bridge-sources-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sources))
+      (common-lisp:list
+       (common-lisp:cons "Sources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-bridge-sources-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-bridge-sources-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (sources common-lisp:nil :type
+    (common-lisp:or |__listOfBridgeSource| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-bridge-sources-response
+                    'make-add-bridge-sources-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sources))
+      (common-lisp:list
+       (common-lisp:cons "Sources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-bridge-sources-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (add-egress-gateway-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-egress-gateway-bridge-request-"))
+   (max-bitrate (common-lisp:error ":max-bitrate is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-egress-gateway-bridge-request
+                    'make-add-egress-gateway-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-egress-gateway-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-egress-gateway-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-egress-gateway-bridge-request))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (add-flow-media-streams-request (:copier common-lisp:nil)
@@ -329,6 +773,46 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (add-ingress-gateway-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-add-ingress-gateway-bridge-request-"))
+   (max-bitrate (common-lisp:error ":max-bitrate is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (max-outputs (common-lisp:error ":max-outputs is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-ingress-gateway-bridge-request
+                    'make-add-ingress-gateway-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-ingress-gateway-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-ingress-gateway-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-outputs))
+      (common-lisp:list
+       (common-lisp:cons "MaxOutputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          add-ingress-gateway-bridge-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (add-maintenance (:copier common-lisp:nil)
       (:conc-name "struct-shape-add-maintenance-"))
    (maintenance-day (common-lisp:error ":maintenance-day is required") :type
@@ -604,7 +1088,546 @@
        bad-request-exception-message)))
  (common-lisp:export
   (common-lisp:list 'bad-request-exception 'bad-request-exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge (:copier common-lisp:nil) (:conc-name "struct-shape-bridge-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (bridge-messages common-lisp:nil :type
+    (common-lisp:or |__listOfMessageDetail| common-lisp:null))
+   (bridge-state (common-lisp:error ":bridge-state is required") :type
+    (common-lisp:or bridge-state common-lisp:null))
+   (egress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or egress-gateway-bridge common-lisp:null))
+   (ingress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or ingress-gateway-bridge common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs common-lisp:nil :type
+    (common-lisp:or |__listOfBridgeOutput| common-lisp:null))
+   (placement-arn (common-lisp:error ":placement-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-failover-config common-lisp:nil :type
+    (common-lisp:or failover-config common-lisp:null))
+   (sources common-lisp:nil :type
+    (common-lisp:or |__listOfBridgeSource| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'bridge 'make-bridge))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input bridge))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input bridge))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-messages))
+      (common-lisp:list
+       (common-lisp:cons "BridgeMessages"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-state))
+      (common-lisp:list
+       (common-lisp:cons "BridgeState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'egress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "EgressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'ingress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "IngressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'placement-arn))
+      (common-lisp:list
+       (common-lisp:cons "PlacementArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-failover-config))
+      (common-lisp:list
+       (common-lisp:cons "SourceFailoverConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sources))
+      (common-lisp:list
+       (common-lisp:cons "Sources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input bridge))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-flow-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-flow-output-"))
+   (flow-arn (common-lisp:error ":flow-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (flow-source-arn (common-lisp:error ":flow-source-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bridge-flow-output 'make-bridge-flow-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input bridge-flow-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input bridge-flow-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-arn))
+      (common-lisp:list
+       (common-lisp:cons "FlowArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-source-arn))
+      (common-lisp:list
+       (common-lisp:cons "FlowSourceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input bridge-flow-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-flow-source (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-flow-source-"))
+   (flow-arn (common-lisp:error ":flow-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (flow-vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (output-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bridge-flow-source 'make-bridge-flow-source))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input bridge-flow-source))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input bridge-flow-source))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-arn))
+      (common-lisp:list
+       (common-lisp:cons "FlowArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'flow-vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "FlowVpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-arn))
+      (common-lisp:list
+       (common-lisp:cons "OutputArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input bridge-flow-source))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-network-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-network-output-"))
+   (ip-address (common-lisp:error ":ip-address is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name (common-lisp:error ":network-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port (common-lisp:error ":port is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (protocol (common-lisp:error ":protocol is required") :type
+    (common-lisp:or protocol common-lisp:null))
+   (ttl (common-lisp:error ":ttl is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bridge-network-output 'make-bridge-network-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ip-address))
+      (common-lisp:list
+       (common-lisp:cons "IpAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ttl))
+      (common-lisp:list
+       (common-lisp:cons "Ttl"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-network-source (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-network-source-"))
+   (multicast-ip (common-lisp:error ":multicast-ip is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name (common-lisp:error ":network-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port (common-lisp:error ":port is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (protocol (common-lisp:error ":protocol is required") :type
+    (common-lisp:or protocol common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bridge-network-source 'make-bridge-network-source))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-source))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-source))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'multicast-ip))
+      (common-lisp:list
+       (common-lisp:cons "MulticastIp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          bridge-network-source))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-output-"))
+   (flow-output common-lisp:nil :type
+    (common-lisp:or bridge-flow-output common-lisp:null))
+   (network-output common-lisp:nil :type
+    (common-lisp:or bridge-network-output common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'bridge-output 'make-bridge-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input bridge-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input bridge-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-output))
+      (common-lisp:list
+       (common-lisp:cons "FlowOutput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-output))
+      (common-lisp:list
+       (common-lisp:cons "NetworkOutput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input bridge-output))
+   common-lisp:nil))
+(common-lisp:deftype bridge-placement () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bridge-source (:copier common-lisp:nil)
+      (:conc-name "struct-shape-bridge-source-"))
+   (flow-source common-lisp:nil :type
+    (common-lisp:or bridge-flow-source common-lisp:null))
+   (network-source common-lisp:nil :type
+    (common-lisp:or bridge-network-source common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'bridge-source 'make-bridge-source))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input bridge-source))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input bridge-source))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-source))
+      (common-lisp:list
+       (common-lisp:cons "FlowSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-source))
+      (common-lisp:list
+       (common-lisp:cons "NetworkSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input bridge-source))
+   common-lisp:nil))
+(common-lisp:deftype bridge-state () 'common-lisp:string)
 (common-lisp:deftype colorimetry () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition conflict-exception
+     (mediaconnect-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       conflict-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'conflict-exception-message)))
+(common-lisp:deftype connection-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition create-bridge420exception
+     (mediaconnect-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       create-bridge420exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'create-bridge420exception
+                    'create-bridge420exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-bridge-request-"))
+   (egress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or add-egress-gateway-bridge-request common-lisp:null))
+   (ingress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or add-ingress-gateway-bridge-request common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs common-lisp:nil :type
+    (common-lisp:or |__listOfAddBridgeOutputRequest| common-lisp:null))
+   (placement-arn (common-lisp:error ":placement-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-failover-config common-lisp:nil :type
+    (common-lisp:or failover-config common-lisp:null))
+   (sources (common-lisp:error ":sources is required") :type
+    (common-lisp:or |__listOfAddBridgeSourceRequest| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-bridge-request 'make-create-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'egress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "EgressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'ingress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "IngressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'outputs))
+      (common-lisp:list
+       (common-lisp:cons "Outputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'placement-arn))
+      (common-lisp:list
+       (common-lisp:cons "PlacementArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-failover-config))
+      (common-lisp:list
+       (common-lisp:cons "SourceFailoverConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sources))
+      (common-lisp:list
+       (common-lisp:cons "Sources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-bridge-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-bridge-response-"))
+   (bridge common-lisp:nil :type (common-lisp:or bridge common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-bridge-response 'make-create-bridge-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge))
+      (common-lisp:list
+       (common-lisp:cons "Bridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-bridge-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:define-condition create-flow420exception
      (mediaconnect-error)
@@ -742,6 +1765,144 @@
                         ((aws-sdk/generator/shape::input create-flow-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:define-condition create-gateway420exception
+     (mediaconnect-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       create-gateway420exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'create-gateway420exception
+                    'create-gateway420exception-message)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-gateway-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-gateway-request-"))
+   (egress-cidr-blocks (common-lisp:error ":egress-cidr-blocks is required")
+    :type (common-lisp:or |__listOf__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (networks (common-lisp:error ":networks is required") :type
+    (common-lisp:or |__listOfGatewayNetwork| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-gateway-request 'make-create-gateway-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'egress-cidr-blocks))
+      (common-lisp:list
+       (common-lisp:cons "EgressCidrBlocks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'networks))
+      (common-lisp:list
+       (common-lisp:cons "Networks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-gateway-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-gateway-response-"))
+   (gateway common-lisp:nil :type (common-lisp:or gateway common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-gateway-response 'make-create-gateway-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway))
+      (common-lisp:list
+       (common-lisp:cons "Gateway"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-gateway-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-bridge-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-bridge-request 'make-delete-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-bridge-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-bridge-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-bridge-response 'make-delete-bridge-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-bridge-response))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:defstruct
      (delete-flow-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-flow-request-"))
@@ -789,6 +1950,178 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input delete-flow-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-gateway-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-gateway-request-"))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-gateway-request 'make-delete-gateway-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-gateway-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-gateway-response-"))
+   (gateway-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-gateway-response 'make-delete-gateway-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-gateway-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deregister-gateway-instance-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deregister-gateway-instance-request-"))
+   (force common-lisp:nil :type (common-lisp:or |__boolean| common-lisp:null))
+   (gateway-instance-arn
+    (common-lisp:error ":gateway-instance-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deregister-gateway-instance-request
+                    'make-deregister-gateway-instance-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (deregister-gateway-instance-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-deregister-gateway-instance-response-"))
+   (gateway-instance-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (instance-state common-lisp:nil :type
+    (common-lisp:or instance-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'deregister-gateway-instance-response
+                    'make-deregister-gateway-instance-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-instance-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayInstanceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-state))
+      (common-lisp:list
+       (common-lisp:cons "InstanceState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          deregister-gateway-instance-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-bridge-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-bridge-request 'make-describe-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-bridge-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-bridge-response-"))
+   (bridge common-lisp:nil :type (common-lisp:or bridge common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-bridge-response 'make-describe-bridge-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge))
+      (common-lisp:list
+       (common-lisp:cons "Bridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-bridge-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -849,6 +2182,115 @@
                         (
                          (aws-sdk/generator/shape::input
                           describe-flow-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-gateway-instance-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-gateway-instance-request-"))
+   (gateway-instance-arn
+    (common-lisp:error ":gateway-instance-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-gateway-instance-request
+                    'make-describe-gateway-instance-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-gateway-instance-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-gateway-instance-response-"))
+   (gateway-instance common-lisp:nil :type
+    (common-lisp:or gateway-instance common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-gateway-instance-response
+                    'make-describe-gateway-instance-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-instance))
+      (common-lisp:list
+       (common-lisp:cons "GatewayInstance"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-instance-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-gateway-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-gateway-request-"))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-gateway-request 'make-describe-gateway-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-gateway-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-gateway-response-"))
+   (gateway common-lisp:nil :type (common-lisp:or gateway common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-gateway-response
+                    'make-describe-gateway-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway))
+      (common-lisp:list
+       (common-lisp:cons "Gateway"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-gateway-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -959,6 +2401,7 @@
                          (aws-sdk/generator/shape::input
                           describe-reservation-response))
    common-lisp:nil))
+(common-lisp:deftype desired-state () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (destination-configuration (:copier common-lisp:nil)
@@ -1067,6 +2510,45 @@
                           destination-configuration-request))
    common-lisp:nil))
 (common-lisp:deftype duration-units () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (egress-gateway-bridge (:copier common-lisp:nil)
+      (:conc-name "struct-shape-egress-gateway-bridge-"))
+   (instance-id common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-bitrate (common-lisp:error ":max-bitrate is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'egress-gateway-bridge 'make-egress-gateway-bridge))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          egress-gateway-bridge))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          egress-gateway-bridge))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-id))
+      (common-lisp:list
+       (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          egress-gateway-bridge))
+   common-lisp:nil))
 (common-lisp:deftype encoder-profile () 'common-lisp:string)
 (common-lisp:deftype encoding-name () 'common-lisp:string)
 (common-lisp:progn
@@ -1660,6 +3142,237 @@
   (common-lisp:list 'forbidden-exception 'forbidden-exception-message)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (gateway (:copier common-lisp:nil) (:conc-name "struct-shape-gateway-"))
+   (egress-cidr-blocks (common-lisp:error ":egress-cidr-blocks is required")
+    :type (common-lisp:or |__listOf__string| common-lisp:null))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-messages common-lisp:nil :type
+    (common-lisp:or |__listOfMessageDetail| common-lisp:null))
+   (gateway-state common-lisp:nil :type
+    (common-lisp:or gateway-state common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (networks (common-lisp:error ":networks is required") :type
+    (common-lisp:or |__listOfGatewayNetwork| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'gateway 'make-gateway))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input gateway))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input gateway))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'egress-cidr-blocks))
+      (common-lisp:list
+       (common-lisp:cons "EgressCidrBlocks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-messages))
+      (common-lisp:list
+       (common-lisp:cons "GatewayMessages"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-state))
+      (common-lisp:list
+       (common-lisp:cons "GatewayState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'networks))
+      (common-lisp:list
+       (common-lisp:cons "Networks"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input gateway))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (gateway-bridge-source (:copier common-lisp:nil)
+      (:conc-name "struct-shape-gateway-bridge-source-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'gateway-bridge-source 'make-gateway-bridge-source))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          gateway-bridge-source))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          gateway-bridge-source))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "VpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          gateway-bridge-source))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (gateway-instance (:copier common-lisp:nil)
+      (:conc-name "struct-shape-gateway-instance-"))
+   (bridge-placement (common-lisp:error ":bridge-placement is required") :type
+    (common-lisp:or bridge-placement common-lisp:null))
+   (connection-status (common-lisp:error ":connection-status is required")
+    :type (common-lisp:or connection-status common-lisp:null))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-instance-arn
+    (common-lisp:error ":gateway-instance-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (instance-messages common-lisp:nil :type
+    (common-lisp:or |__listOfMessageDetail| common-lisp:null))
+   (instance-state (common-lisp:error ":instance-state is required") :type
+    (common-lisp:or instance-state common-lisp:null))
+   (running-bridge-count
+    (common-lisp:error ":running-bridge-count is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'gateway-instance 'make-gateway-instance))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input gateway-instance))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input gateway-instance))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-placement))
+      (common-lisp:list
+       (common-lisp:cons "BridgePlacement"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'connection-status))
+      (common-lisp:list
+       (common-lisp:cons "ConnectionStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-instance-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayInstanceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-id))
+      (common-lisp:list
+       (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-messages))
+      (common-lisp:list
+       (common-lisp:cons "InstanceMessages"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-state))
+      (common-lisp:list
+       (common-lisp:cons "InstanceState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'running-bridge-count))
+      (common-lisp:list
+       (common-lisp:cons "RunningBridgeCount"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input gateway-instance))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (gateway-network (:copier common-lisp:nil)
+      (:conc-name "struct-shape-gateway-network-"))
+   (cidr-block (common-lisp:error ":cidr-block is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'gateway-network 'make-gateway-network))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input gateway-network))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input gateway-network))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'cidr-block))
+      (common-lisp:list
+       (common-lisp:cons "CidrBlock"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input gateway-network))
+   common-lisp:nil))
+(common-lisp:deftype gateway-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
      (grant-entitlement-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-grant-entitlement-request-"))
    (data-transfer-subscriber-fee-percent common-lisp:nil :type
@@ -1817,6 +3530,54 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (ingress-gateway-bridge (:copier common-lisp:nil)
+      (:conc-name "struct-shape-ingress-gateway-bridge-"))
+   (instance-id common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-bitrate (common-lisp:error ":max-bitrate is required") :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (max-outputs (common-lisp:error ":max-outputs is required") :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'ingress-gateway-bridge 'make-ingress-gateway-bridge))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          ingress-gateway-bridge))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          ingress-gateway-bridge))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-id))
+      (common-lisp:list
+       (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-outputs))
+      (common-lisp:list
+       (common-lisp:cons "MaxOutputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          ingress-gateway-bridge))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (input-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-input-configuration-"))
    (input-ip (common-lisp:error ":input-ip is required") :type
@@ -1897,6 +3658,7 @@
                          (aws-sdk/generator/shape::input
                           input-configuration-request))
    common-lisp:nil))
+(common-lisp:deftype instance-state () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (interface (:copier common-lisp:nil)
@@ -1953,6 +3715,66 @@
   (common-lisp:list 'internal-server-error-exception
                     'internal-server-error-exception-message)))
 (common-lisp:deftype key-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-bridges-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-bridges-request-"))
+   (filter-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-bridges-request 'make-list-bridges-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input list-bridges-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input list-bridges-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input list-bridges-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-bridges-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-bridges-response-"))
+   (bridges common-lisp:nil :type
+    (common-lisp:or |__listOfListedBridge| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-bridges-response 'make-list-bridges-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-bridges-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-bridges-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridges))
+      (common-lisp:list
+       (common-lisp:cons "Bridges"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-bridges-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-entitlements-request (:copier common-lisp:nil)
@@ -2070,6 +3892,138 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input list-flows-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-gateway-instances-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-gateway-instances-request-"))
+   (filter-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-gateway-instances-request
+                    'make-list-gateway-instances-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-gateway-instances-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-gateway-instances-response-"))
+   (instances common-lisp:nil :type
+    (common-lisp:or |__listOfListedGatewayInstance| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-gateway-instances-response
+                    'make-list-gateway-instances-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instances))
+      (common-lisp:list
+       (common-lisp:cons "Instances"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateway-instances-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-gateways-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-gateways-request-"))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-gateways-request 'make-list-gateways-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-gateways-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-gateways-response-"))
+   (gateways common-lisp:nil :type
+    (common-lisp:or |__listOfListedGateway| common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-gateways-response 'make-list-gateways-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateways))
+      (common-lisp:list
+       (common-lisp:cons "Gateways"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-gateways-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2258,6 +4212,65 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (listed-bridge (:copier common-lisp:nil)
+      (:conc-name "struct-shape-listed-bridge-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (bridge-state (common-lisp:error ":bridge-state is required") :type
+    (common-lisp:or bridge-state common-lisp:null))
+   (bridge-type (common-lisp:error ":bridge-type is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (placement-arn (common-lisp:error ":placement-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'listed-bridge 'make-listed-bridge))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input listed-bridge))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input listed-bridge))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-state))
+      (common-lisp:list
+       (common-lisp:cons "BridgeState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-type))
+      (common-lisp:list
+       (common-lisp:cons "BridgeType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'placement-arn))
+      (common-lisp:list
+       (common-lisp:cons "PlacementArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input listed-bridge))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (listed-entitlement (:copier common-lisp:nil)
       (:conc-name "struct-shape-listed-entitlement-"))
    (data-transfer-subscriber-fee-percent common-lisp:nil :type
@@ -2375,6 +4388,106 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input listed-flow))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (listed-gateway (:copier common-lisp:nil)
+      (:conc-name "struct-shape-listed-gateway-"))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-state (common-lisp:error ":gateway-state is required") :type
+    (common-lisp:or gateway-state common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'listed-gateway 'make-listed-gateway))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input listed-gateway))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input listed-gateway))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-state))
+      (common-lisp:list
+       (common-lisp:cons "GatewayState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input listed-gateway))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (listed-gateway-instance (:copier common-lisp:nil)
+      (:conc-name "struct-shape-listed-gateway-instance-"))
+   (gateway-arn (common-lisp:error ":gateway-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-instance-arn
+    (common-lisp:error ":gateway-instance-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (instance-id (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (instance-state common-lisp:nil :type
+    (common-lisp:or instance-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'listed-gateway-instance 'make-listed-gateway-instance))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          listed-gateway-instance))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          listed-gateway-instance))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'gateway-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-instance-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayInstanceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-id))
+      (common-lisp:list
+       (common-lisp:cons "InstanceId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-state))
+      (common-lisp:list
+       (common-lisp:cons "InstanceState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          listed-gateway-instance))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2815,6 +4928,47 @@
 (common-lisp:deftype media-stream-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (message-detail (:copier common-lisp:nil)
+      (:conc-name "struct-shape-message-detail-"))
+   (code (common-lisp:error ":code is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-name common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'message-detail 'make-message-detail))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input message-detail))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input message-detail))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'code))
+      (common-lisp:list
+       (common-lisp:cons "Code"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'message))
+      (common-lisp:list
+       (common-lisp:cons "Message"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-name))
+      (common-lisp:list
+       (common-lisp:cons "ResourceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input message-detail))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (messages (:copier common-lisp:nil) (:conc-name "struct-shape-messages-"))
    (errors (common-lisp:error ":errors is required") :type
     (common-lisp:or |__listOf__string| common-lisp:null)))
@@ -2959,7 +5113,11 @@
    (transport common-lisp:nil :type
     (common-lisp:or transport common-lisp:null))
    (vpc-interface-attachment common-lisp:nil :type
-    (common-lisp:or vpc-interface-attachment common-lisp:null)))
+    (common-lisp:or vpc-interface-attachment common-lisp:null))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (bridge-ports common-lisp:nil :type
+    (common-lisp:or |__listOf__integer| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'output 'make-output))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input output))
@@ -3061,6 +5219,20 @@
       (common-lisp:list
        (common-lisp:cons "VpcInterfaceAttachment"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-ports))
+      (common-lisp:list
+       (common-lisp:cons "BridgePorts"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input output))
@@ -3141,6 +5313,138 @@
                           purchase-offering-response))
    common-lisp:nil))
 (common-lisp:deftype range () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-bridge-output-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-remove-bridge-output-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (output-name (common-lisp:error ":output-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-bridge-output-request
+                    'make-remove-bridge-output-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-bridge-output-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-remove-bridge-output-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (output-name common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-bridge-output-response
+                    'make-remove-bridge-output-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-name))
+      (common-lisp:list
+       (common-lisp:cons "OutputName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-output-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-bridge-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-remove-bridge-source-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-name (common-lisp:error ":source-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-bridge-source-request
+                    'make-remove-bridge-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-bridge-source-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-remove-bridge-source-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-name common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-bridge-source-response
+                    'make-remove-bridge-source-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source-name))
+      (common-lisp:list
+       (common-lisp:cons "SourceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          remove-bridge-source-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (remove-flow-media-stream-request (:copier common-lisp:nil)
@@ -3691,6 +5995,47 @@
                     'service-unavailable-exception-message)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (set-gateway-bridge-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-set-gateway-bridge-source-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'set-gateway-bridge-source-request
+                    'make-set-gateway-bridge-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-gateway-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-gateway-bridge-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "VpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          set-gateway-bridge-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (set-source-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-set-source-request-"))
    (decryption common-lisp:nil :type
@@ -3727,7 +6072,9 @@
    (vpc-interface-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (whitelist-cidr common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-bridge-source common-lisp:nil :type
+    (common-lisp:or set-gateway-bridge-source-request common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'set-source-request 'make-set-source-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3864,6 +6211,14 @@
       (common-lisp:list
        (common-lisp:cons "WhitelistCidr"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-bridge-source))
+      (common-lisp:list
+       (common-lisp:cons "GatewayBridgeSource"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input set-source-request))
@@ -3898,7 +6253,9 @@
    (vpc-interface-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (whitelist-cidr common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-bridge-source common-lisp:nil :type
+    (common-lisp:or gateway-bridge-source common-lisp:null)))
  (common-lisp:export (common-lisp:list 'source 'make-source))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input source))
@@ -4004,6 +6361,14 @@
                            aws-sdk/generator/shape::input 'whitelist-cidr))
       (common-lisp:list
        (common-lisp:cons "WhitelistCidr"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-bridge-source))
+      (common-lisp:list
+       (common-lisp:cons "GatewayBridgeSource"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4325,6 +6690,512 @@
                         (
                          (aws-sdk/generator/shape::input
                           untag-resource-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-flow-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-flow-source-request-"))
+   (flow-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (flow-vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-flow-source-request
+                    'make-update-bridge-flow-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-flow-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-flow-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-arn))
+      (common-lisp:list
+       (common-lisp:cons "FlowArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'flow-vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "FlowVpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-flow-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-network-output-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-network-output-request-"))
+   (ip-address common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port common-lisp:nil :type (common-lisp:or |__integer| common-lisp:null))
+   (protocol common-lisp:nil :type (common-lisp:or protocol common-lisp:null))
+   (ttl common-lisp:nil :type (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-network-output-request
+                    'make-update-bridge-network-output-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-output-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ip-address))
+      (common-lisp:list
+       (common-lisp:cons "IpAddress"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ttl))
+      (common-lisp:list
+       (common-lisp:cons "Ttl"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-output-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-network-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-network-source-request-"))
+   (multicast-ip common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-name common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (port common-lisp:nil :type (common-lisp:or |__integer| common-lisp:null))
+   (protocol common-lisp:nil :type (common-lisp:or protocol common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-network-source-request
+                    'make-update-bridge-network-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'multicast-ip))
+      (common-lisp:list
+       (common-lisp:cons "MulticastIp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-name))
+      (common-lisp:list
+       (common-lisp:cons "NetworkName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'port))
+      (common-lisp:list
+       (common-lisp:cons "Port"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'protocol))
+      (common-lisp:list
+       (common-lisp:cons "Protocol"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-network-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-output-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-output-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (network-output common-lisp:nil :type
+    (common-lisp:or update-bridge-network-output-request common-lisp:null))
+   (output-name (common-lisp:error ":output-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-output-request
+                    'make-update-bridge-output-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-output))
+      (common-lisp:list
+       (common-lisp:cons "NetworkOutput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-output-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-output-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (output common-lisp:nil :type
+    (common-lisp:or bridge-output common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-output-response
+                    'make-update-bridge-output-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output))
+      (common-lisp:list
+       (common-lisp:cons "Output"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-output-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (egress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or update-egress-gateway-bridge-request common-lisp:null))
+   (ingress-gateway-bridge common-lisp:nil :type
+    (common-lisp:or update-ingress-gateway-bridge-request common-lisp:null))
+   (source-failover-config common-lisp:nil :type
+    (common-lisp:or update-failover-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-request 'make-update-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'egress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "EgressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'ingress-gateway-bridge))
+      (common-lisp:list
+       (common-lisp:cons "IngressGatewayBridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-failover-config))
+      (common-lisp:list
+       (common-lisp:cons "SourceFailoverConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-response-"))
+   (bridge common-lisp:nil :type (common-lisp:or bridge common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-response 'make-update-bridge-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge))
+      (common-lisp:list
+       (common-lisp:cons "Bridge"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-source-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (flow-source common-lisp:nil :type
+    (common-lisp:or update-bridge-flow-source-request common-lisp:null))
+   (network-source common-lisp:nil :type
+    (common-lisp:or update-bridge-network-source-request common-lisp:null))
+   (source-name (common-lisp:error ":source-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-source-request
+                    'make-update-bridge-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'flow-source))
+      (common-lisp:list
+       (common-lisp:cons "FlowSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'network-source))
+      (common-lisp:list
+       (common-lisp:cons "NetworkSource"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-source-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-source-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source common-lisp:nil :type
+    (common-lisp:or bridge-source common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-source-response
+                    'make-update-bridge-source-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'source))
+      (common-lisp:list
+       (common-lisp:cons "Source"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-source-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-state-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-state-request-"))
+   (bridge-arn (common-lisp:error ":bridge-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (desired-state (common-lisp:error ":desired-state is required") :type
+    (common-lisp:or desired-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-state-request
+                    'make-update-bridge-state-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'desired-state))
+      (common-lisp:list
+       (common-lisp:cons "DesiredState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-bridge-state-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-bridge-state-response-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (desired-state common-lisp:nil :type
+    (common-lisp:or desired-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-bridge-state-response
+                    'make-update-bridge-state-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'desired-state))
+      (common-lisp:list
+       (common-lisp:cons "DesiredState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-bridge-state-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-egress-gateway-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-egress-gateway-bridge-request-"))
+   (max-bitrate common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-egress-gateway-bridge-request
+                    'make-update-egress-gateway-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-egress-gateway-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-egress-gateway-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-egress-gateway-bridge-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4990,7 +7861,9 @@
    (vpc-interface-name common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (whitelist-cidr common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+    (common-lisp:or |__string| common-lisp:null))
+   (gateway-bridge-source common-lisp:nil :type
+    (common-lisp:or update-gateway-bridge-source-request common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-flow-source-request
                     'make-update-flow-source-request))
@@ -5125,6 +7998,14 @@
       (common-lisp:list
        (common-lisp:cons "WhitelistCidr"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-bridge-source))
+      (common-lisp:list
+       (common-lisp:cons "GatewayBridgeSource"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -5169,6 +8050,162 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-flow-source-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-gateway-bridge-source-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-gateway-bridge-source-request-"))
+   (bridge-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vpc-interface-attachment common-lisp:nil :type
+    (common-lisp:or vpc-interface-attachment common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-gateway-bridge-source-request
+                    'make-update-gateway-bridge-source-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-bridge-source-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-bridge-source-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-arn))
+      (common-lisp:list
+       (common-lisp:cons "BridgeArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vpc-interface-attachment))
+      (common-lisp:list
+       (common-lisp:cons "VpcInterfaceAttachment"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-bridge-source-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-gateway-instance-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-gateway-instance-request-"))
+   (bridge-placement common-lisp:nil :type
+    (common-lisp:or bridge-placement common-lisp:null))
+   (gateway-instance-arn
+    (common-lisp:error ":gateway-instance-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-gateway-instance-request
+                    'make-update-gateway-instance-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-placement))
+      (common-lisp:list
+       (common-lisp:cons "BridgePlacement"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-gateway-instance-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-gateway-instance-response-"))
+   (bridge-placement common-lisp:nil :type
+    (common-lisp:or bridge-placement common-lisp:null))
+   (gateway-instance-arn common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-gateway-instance-response
+                    'make-update-gateway-instance-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'bridge-placement))
+      (common-lisp:list
+       (common-lisp:cons "BridgePlacement"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'gateway-instance-arn))
+      (common-lisp:list
+       (common-lisp:cons "GatewayInstanceArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-gateway-instance-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-ingress-gateway-bridge-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-ingress-gateway-bridge-request-"))
+   (max-bitrate common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (max-outputs common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-ingress-gateway-bridge-request
+                    'make-update-ingress-gateway-bridge-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-ingress-gateway-bridge-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-ingress-gateway-bridge-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-bitrate))
+      (common-lisp:list
+       (common-lisp:cons "MaxBitrate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-outputs))
+      (common-lisp:list
+       (common-lisp:cons "MaxOutputs"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-ingress-gateway-bridge-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -5387,6 +8424,24 @@
 (common-lisp:deftype |__double| () 'common-lisp:double-float)
 (common-lisp:deftype |__integer| () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:deftype |__listOfAddBridgeOutputRequest| ()
+   '(trivial-types:proper-list add-bridge-output-request))
+ (common-lisp:defun |make-__listofaddbridgeoutputrequest|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            add-bridge-output-request))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfAddBridgeSourceRequest| ()
+   '(trivial-types:proper-list add-bridge-source-request))
+ (common-lisp:defun |make-__listofaddbridgesourcerequest|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            add-bridge-source-request))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype |__listOfAddMediaStreamRequest| ()
    '(trivial-types:proper-list add-media-stream-request))
  (common-lisp:defun |make-__listofaddmediastreamrequest|
@@ -5402,6 +8457,22 @@
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list add-output-request))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfBridgeOutput| ()
+   '(trivial-types:proper-list bridge-output))
+ (common-lisp:defun |make-__listofbridgeoutput|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list bridge-output))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfBridgeSource| ()
+   '(trivial-types:proper-list bridge-source))
+ (common-lisp:defun |make-__listofbridgesource|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list bridge-source))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype |__listOfDestinationConfiguration| ()
@@ -5430,6 +8501,14 @@
                            (trivial-types:proper-list entitlement))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype |__listOfGatewayNetwork| ()
+   '(trivial-types:proper-list gateway-network))
+ (common-lisp:defun |make-__listofgatewaynetwork|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list gateway-network))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype |__listOfGrantEntitlementRequest| ()
    '(trivial-types:proper-list grant-entitlement-request))
  (common-lisp:defun |make-__listofgrantentitlementrequest|
@@ -5456,6 +8535,14 @@
                             input-configuration-request))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype |__listOfListedBridge| ()
+   '(trivial-types:proper-list listed-bridge))
+ (common-lisp:defun |make-__listoflistedbridge|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list listed-bridge))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype |__listOfListedEntitlement| ()
    '(trivial-types:proper-list listed-entitlement))
  (common-lisp:defun |make-__listoflistedentitlement|
@@ -5470,6 +8557,22 @@
                     (common-lisp:&rest aws-sdk/generator/shape::members)
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list listed-flow))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfListedGateway| ()
+   '(trivial-types:proper-list listed-gateway))
+ (common-lisp:defun |make-__listoflistedgateway|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list listed-gateway))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfListedGatewayInstance| ()
+   '(trivial-types:proper-list listed-gateway-instance))
+ (common-lisp:defun |make-__listoflistedgatewayinstance|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list listed-gateway-instance))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype |__listOfMediaStream| ()
@@ -5514,6 +8617,14 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list
                             media-stream-source-configuration-request))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfMessageDetail| ()
+   '(trivial-types:proper-list message-detail))
+ (common-lisp:defun |make-__listofmessagedetail|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list message-detail))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype |__listOfOffering| ()
@@ -5597,6 +8708,62 @@
 (common-lisp:deftype |__string| () 'common-lisp:string)
 (common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
 (common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defun add-bridge-outputs
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn outputs)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn outputs))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-add-bridge-outputs-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/outputs"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "AddBridgeOutputs"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'add-bridge-outputs))
+(common-lisp:progn
+ (common-lisp:defun add-bridge-sources
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn sources)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn sources))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-add-bridge-sources-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/sources"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "AddBridgeSources"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'add-bridge-sources))
 (common-lisp:progn
  (common-lisp:defun add-flow-media-streams
                     (
@@ -5710,6 +8877,28 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-flow-vpc-interfaces))
 (common-lisp:progn
+ (common-lisp:defun create-bridge
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key egress-gateway-bridge
+                     ingress-gateway-bridge name outputs placement-arn
+                     source-failover-config sources)
+   (common-lisp:declare
+    (common-lisp:ignorable egress-gateway-bridge ingress-gateway-bridge name
+     outputs placement-arn source-failover-config sources))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-bridge-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/v1/bridges"
+                                                        "CreateBridge"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-bridge))
+(common-lisp:progn
  (common-lisp:defun create-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5731,6 +8920,53 @@
                                                         "2018-11-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-flow))
+(common-lisp:progn
+ (common-lisp:defun create-gateway
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key egress-cidr-blocks name networks)
+   (common-lisp:declare
+    (common-lisp:ignorable egress-cidr-blocks name networks))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-gateway-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/v1/gateways"
+                                                        "CreateGateway"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-gateway))
+(common-lisp:progn
+ (common-lisp:defun delete-bridge
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-bridge-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "DeleteBridge"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-bridge))
 (common-lisp:progn
  (common-lisp:defun delete-flow
                     (
@@ -5760,6 +8996,91 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-flow))
 (common-lisp:progn
+ (common-lisp:defun delete-gateway
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key gateway-arn)
+   (common-lisp:declare (common-lisp:ignorable gateway-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-gateway-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/gateways/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'gateway-arn))))
+                                                        "DeleteGateway"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-gateway))
+(common-lisp:progn
+ (common-lisp:defun deregister-gateway-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key force gateway-instance-arn)
+   (common-lisp:declare (common-lisp:ignorable force gateway-instance-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-deregister-gateway-instance-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/gateway-instances/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'gateway-instance-arn))))
+                                                        "DeregisterGatewayInstance"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'deregister-gateway-instance))
+(common-lisp:progn
+ (common-lisp:defun describe-bridge
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-bridge-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "DescribeBridge"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-bridge))
+(common-lisp:progn
  (common-lisp:defun describe-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5787,6 +9108,63 @@
                                                         "2018-11-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-flow))
+(common-lisp:progn
+ (common-lisp:defun describe-gateway
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key gateway-arn)
+   (common-lisp:declare (common-lisp:ignorable gateway-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-gateway-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/gateways/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'gateway-arn))))
+                                                        "DescribeGateway"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-gateway))
+(common-lisp:progn
+ (common-lisp:defun describe-gateway-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key gateway-instance-arn)
+   (common-lisp:declare (common-lisp:ignorable gateway-instance-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-gateway-instance-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/gateway-instances/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'gateway-instance-arn))))
+                                                        "DescribeGatewayInstance"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-gateway-instance))
 (common-lisp:progn
  (common-lisp:defun describe-offering
                     (
@@ -5872,6 +9250,25 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'grant-flow-entitlements))
 (common-lisp:progn
+ (common-lisp:defun list-bridges
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key filter-arn max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable filter-arn max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-bridges-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET" "/v1/bridges"
+                                                        "ListBridges"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-bridges))
+(common-lisp:progn
  (common-lisp:defun list-entitlements
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -5908,6 +9305,44 @@
                                                         "2018-11-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-flows))
+(common-lisp:progn
+ (common-lisp:defun list-gateway-instances
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key filter-arn max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable filter-arn max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-gateway-instances-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET"
+                                                        "/v1/gateway-instances"
+                                                        "ListGatewayInstances"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-gateway-instances))
+(common-lisp:progn
+ (common-lisp:defun list-gateways
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-gateways-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "GET" "/v1/gateways"
+                                                        "ListGateways"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-gateways))
 (common-lisp:progn
  (common-lisp:defun list-offerings
                     (
@@ -6002,6 +9437,70 @@
                                                         "2018-11-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'purchase-offering))
+(common-lisp:progn
+ (common-lisp:defun remove-bridge-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn output-name)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn output-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-remove-bridge-output-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/outputs/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'output-name))))
+                                                        "RemoveBridgeOutput"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'remove-bridge-output))
+(common-lisp:progn
+ (common-lisp:defun remove-bridge-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn source-name)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn source-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-remove-bridge-source-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "DELETE"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/sources/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'source-name))))
+                                                        "RemoveBridgeSource"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'remove-bridge-source))
 (common-lisp:progn
  (common-lisp:defun remove-flow-media-stream
                     (
@@ -6276,6 +9775,132 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
+ (common-lisp:defun update-bridge
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn egress-gateway-bridge
+                     ingress-gateway-bridge source-failover-config)
+   (common-lisp:declare
+    (common-lisp:ignorable bridge-arn egress-gateway-bridge
+     ingress-gateway-bridge source-failover-config))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-bridge-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "UpdateBridge"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-bridge))
+(common-lisp:progn
+ (common-lisp:defun update-bridge-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn network-output output-name)
+   (common-lisp:declare
+    (common-lisp:ignorable bridge-arn network-output output-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-bridge-output-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/outputs/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'output-name))))
+                                                        "UpdateBridgeOutput"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-bridge-output))
+(common-lisp:progn
+ (common-lisp:defun update-bridge-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn flow-source network-source
+                     source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable bridge-arn flow-source network-source source-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-bridge-source-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/sources/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'source-name))))
+                                                        "UpdateBridgeSource"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-bridge-source))
+(common-lisp:progn
+ (common-lisp:defun update-bridge-state
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-arn desired-state)
+   (common-lisp:declare (common-lisp:ignorable bridge-arn desired-state))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-bridge-state-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/bridges/~A/state"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'bridge-arn))))
+                                                        "UpdateBridgeState"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-bridge-state))
+(common-lisp:progn
  (common-lisp:defun update-flow
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -6425,13 +10050,15 @@
                      max-sync-buffer media-stream-source-configurations
                      min-latency protocol sender-control-port sender-ip-address
                      source-arn source-listener-address source-listener-port
-                     stream-id vpc-interface-name whitelist-cidr)
+                     stream-id vpc-interface-name whitelist-cidr
+                     gateway-bridge-source)
    (common-lisp:declare
     (common-lisp:ignorable decryption description entitlement-arn flow-arn
      ingest-port max-bitrate max-latency max-sync-buffer
      media-stream-source-configurations min-latency protocol
      sender-control-port sender-ip-address source-arn source-listener-address
-     source-listener-port stream-id vpc-interface-name whitelist-cidr))
+     source-listener-port stream-id vpc-interface-name whitelist-cidr
+     gateway-bridge-source))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-flow-source-request
                                          aws-sdk/generator/operation::args)))
@@ -6458,3 +10085,32 @@
                                                         "2018-11-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-flow-source))
+(common-lisp:progn
+ (common-lisp:defun update-gateway-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key bridge-placement gateway-instance-arn)
+   (common-lisp:declare
+    (common-lisp:ignorable bridge-placement gateway-instance-arn))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-gateway-instance-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'mediaconnect-request
+                                                        aws-sdk/generator/operation::input
+                                                        "PUT"
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/v1/gateway-instances/~A"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'gateway-instance-arn))))
+                                                        "UpdateGatewayInstance"
+                                                        "2018-11-14"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-gateway-instance))

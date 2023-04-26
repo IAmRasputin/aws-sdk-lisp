@@ -29,6 +29,11 @@
     ("CrawlerRunningException" . crawler-running-exception)
     ("CrawlerStoppingException" . crawler-stopping-exception)
     ("EntityNotFoundException" . entity-not-found-exception)
+    ("FederatedResourceAlreadyExistsException"
+     . federated-resource-already-exists-exception)
+    ("FederationSourceException" . federation-source-exception)
+    ("FederationSourceRetryableException"
+     . federation-source-retryable-exception)
     ("GlueEncryptionException" . glue-encryption-exception)
     ("IdempotentParameterMismatchException"
      . idempotent-parameter-mismatch-exception)
@@ -9937,7 +9942,9 @@
    (target-database common-lisp:nil :type
     (common-lisp:or database-identifier common-lisp:null))
    (catalog-id common-lisp:nil :type
-    (common-lisp:or catalog-id-string common-lisp:null)))
+    (common-lisp:or catalog-id-string common-lisp:null))
+   (federated-database common-lisp:nil :type
+    (common-lisp:or federated-database common-lisp:null)))
  (common-lisp:export (common-lisp:list 'database 'make-database))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input database))
@@ -10001,6 +10008,13 @@
       (common-lisp:list
        (common-lisp:cons "CatalogId"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'federated-database))
+      (common-lisp:list
+       (common-lisp:cons "FederatedDatabase"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input database))
@@ -10052,7 +10066,9 @@
    (create-table-default-permissions common-lisp:nil :type
     (common-lisp:or principal-permissions-list common-lisp:null))
    (target-database common-lisp:nil :type
-    (common-lisp:or database-identifier common-lisp:null)))
+    (common-lisp:or database-identifier common-lisp:null))
+   (federated-database common-lisp:nil :type
+    (common-lisp:or federated-database common-lisp:null)))
  (common-lisp:export (common-lisp:list 'database-input 'make-database-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input database-input))
@@ -10101,6 +10117,13 @@
                            aws-sdk/generator/shape::input 'target-database))
       (common-lisp:list
        (common-lisp:cons "TargetDatabase"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'federated-database))
+      (common-lisp:list
+       (common-lisp:cons "FederatedDatabase"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -13099,10 +13122,14 @@
  (common-lisp:define-condition entity-not-found-exception
      (glue-error)
      ((message :initarg :message :initform common-lisp:nil :reader
-       entity-not-found-exception-message)))
+       entity-not-found-exception-message)
+      (from-federation-source :initarg :from-federation-source :initform
+       common-lisp:nil :reader
+       entity-not-found-exception-from-federation-source)))
  (common-lisp:export
   (common-lisp:list 'entity-not-found-exception
-                    'entity-not-found-exception-message)))
+                    'entity-not-found-exception-message
+                    'entity-not-found-exception-from-federation-source)))
 (common-lisp:progn
  (common-lisp:deftype error-by-name () 'common-lisp:hash-table)
  (common-lisp:defun |make-error-by-name| (aws-sdk/generator/shape::key-values)
@@ -13386,6 +13413,114 @@
                           export-labels-task-run-properties))
    common-lisp:nil))
 (common-lisp:deftype extended-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (federated-database (:copier common-lisp:nil)
+      (:conc-name "struct-shape-federated-database-"))
+   (identifier common-lisp:nil :type
+    (common-lisp:or federation-identifier common-lisp:null))
+   (connection-name common-lisp:nil :type
+    (common-lisp:or name-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'federated-database 'make-federated-database))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input federated-database))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input federated-database))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'identifier))
+      (common-lisp:list
+       (common-lisp:cons "Identifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'connection-name))
+      (common-lisp:list
+       (common-lisp:cons "ConnectionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input federated-database))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:define-condition federated-resource-already-exists-exception
+     (glue-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       federated-resource-already-exists-exception-message)
+      (associated-glue-resource :initarg :associated-glue-resource :initform
+       common-lisp:nil :reader
+       federated-resource-already-exists-exception-associated-glue-resource)))
+ (common-lisp:export
+  (common-lisp:list 'federated-resource-already-exists-exception
+                    'federated-resource-already-exists-exception-message
+                    'federated-resource-already-exists-exception-associated-glue-resource)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (federated-table (:copier common-lisp:nil)
+      (:conc-name "struct-shape-federated-table-"))
+   (identifier common-lisp:nil :type
+    (common-lisp:or federation-identifier common-lisp:null))
+   (database-identifier common-lisp:nil :type
+    (common-lisp:or federation-identifier common-lisp:null))
+   (connection-name common-lisp:nil :type
+    (common-lisp:or name-string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'federated-table 'make-federated-table))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input federated-table))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input federated-table))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'identifier))
+      (common-lisp:list
+       (common-lisp:cons "Identifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'database-identifier))
+      (common-lisp:list
+       (common-lisp:cons "DatabaseIdentifier"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'connection-name))
+      (common-lisp:list
+       (common-lisp:cons "ConnectionName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input federated-table))
+   common-lisp:nil))
+(common-lisp:deftype federation-identifier () 'common-lisp:string)
+(common-lisp:deftype federation-source-error-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition federation-source-exception
+     (glue-error)
+     ((federation-source-error-code :initarg :federation-source-error-code
+       :initform common-lisp:nil :reader
+       federation-source-exception-federation-source-error-code)
+      (message :initarg :message :initform common-lisp:nil :reader
+       federation-source-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'federation-source-exception
+                    'federation-source-exception-federation-source-error-code
+                    'federation-source-exception-message)))
+(common-lisp:progn
+ (common-lisp:define-condition federation-source-retryable-exception
+     (glue-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       federation-source-retryable-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'federation-source-retryable-exception
+                    'federation-source-retryable-exception-message)))
 (common-lisp:deftype field-name () 'common-lisp:string)
 (common-lisp:deftype field-type () 'common-lisp:string)
 (common-lisp:progn
@@ -20474,9 +20609,13 @@
  (common-lisp:define-condition invalid-input-exception
      (glue-error)
      ((message :initarg :message :initform common-lisp:nil :reader
-       invalid-input-exception-message)))
+       invalid-input-exception-message)
+      (from-federation-source :initarg :from-federation-source :initform
+       common-lisp:nil :reader
+       invalid-input-exception-from-federation-source)))
  (common-lisp:export
-  (common-lisp:list 'invalid-input-exception 'invalid-input-exception-message)))
+  (common-lisp:list 'invalid-input-exception 'invalid-input-exception-message
+                    'invalid-input-exception-from-federation-source)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-state-exception
      (glue-error)
@@ -32574,7 +32713,9 @@
    (catalog-id common-lisp:nil :type
     (common-lisp:or catalog-id-string common-lisp:null))
    (version-id common-lisp:nil :type
-    (common-lisp:or version-string common-lisp:null)))
+    (common-lisp:or version-string common-lisp:null))
+   (federated-table common-lisp:nil :type
+    (common-lisp:or federated-table common-lisp:null)))
  (common-lisp:export (common-lisp:list 'table 'make-table))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input table))
@@ -32721,6 +32862,13 @@
                            aws-sdk/generator/shape::input 'version-id))
       (common-lisp:list
        (common-lisp:cons "VersionId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'federated-table))
+      (common-lisp:list
+       (common-lisp:cons "FederatedTable"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -34856,8 +35004,6 @@
       (:conc-name "struct-shape-update-data-quality-ruleset-request-"))
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or name-string common-lisp:null))
-   (updated-name common-lisp:nil :type
-    (common-lisp:or name-string common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or description-string common-lisp:null))
    (ruleset common-lisp:nil :type
@@ -34880,13 +35026,6 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'updated-name))
-      (common-lisp:list
-       (common-lisp:cons "UpdatedName"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -40683,9 +40822,8 @@
  (common-lisp:defun update-data-quality-ruleset
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key name updated-name description ruleset)
-   (common-lisp:declare
-    (common-lisp:ignorable name updated-name description ruleset))
+                     common-lisp:&key name description ruleset)
+   (common-lisp:declare (common-lisp:ignorable name description ruleset))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-update-data-quality-ruleset-request

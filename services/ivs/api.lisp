@@ -282,6 +282,8 @@
     (common-lisp:or is-authorized common-lisp:null))
    (ingest-endpoint common-lisp:nil :type
     (common-lisp:or ingest-endpoint common-lisp:null))
+   (insecure-ingest common-lisp:nil :type
+    (common-lisp:or insecure-ingest common-lisp:null))
    (latency-mode common-lisp:nil :type
     (common-lisp:or channel-latency-mode common-lisp:null))
    (name common-lisp:nil :type (common-lisp:or channel-name common-lisp:null))
@@ -317,6 +319,13 @@
                            aws-sdk/generator/shape::input 'ingest-endpoint))
       (common-lisp:list
        (common-lisp:cons "ingestEndpoint"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insecure-ingest))
+      (common-lisp:list
+       (common-lisp:cons "insecureIngest"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -400,6 +409,8 @@
    (arn common-lisp:nil :type (common-lisp:or channel-arn common-lisp:null))
    (authorized common-lisp:nil :type
     (common-lisp:or is-authorized common-lisp:null))
+   (insecure-ingest common-lisp:nil :type
+    (common-lisp:or insecure-ingest common-lisp:null))
    (latency-mode common-lisp:nil :type
     (common-lisp:or channel-latency-mode common-lisp:null))
    (name common-lisp:nil :type (common-lisp:or channel-name common-lisp:null))
@@ -425,6 +436,13 @@
                            aws-sdk/generator/shape::input 'authorized))
       (common-lisp:list
        (common-lisp:cons "authorized"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insecure-ingest))
+      (common-lisp:list
+       (common-lisp:cons "insecureIngest"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -479,6 +497,8 @@
      (create-channel-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-channel-request-"))
    (authorized common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (insecure-ingest common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (latency-mode common-lisp:nil :type
     (common-lisp:or channel-latency-mode common-lisp:null))
    (name common-lisp:nil :type (common-lisp:or channel-name common-lisp:null))
@@ -503,6 +523,13 @@
                            aws-sdk/generator/shape::input 'authorized))
       (common-lisp:list
        (common-lisp:cons "authorized"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insecure-ingest))
+      (common-lisp:list
+       (common-lisp:cons "insecureIngest"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1395,6 +1422,7 @@
                         ((aws-sdk/generator/shape::input ingest-configuration))
    common-lisp:nil))
 (common-lisp:deftype ingest-endpoint () 'common-lisp:string)
+(common-lisp:deftype insecure-ingest () 'common-lisp:boolean)
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
@@ -3045,6 +3073,8 @@
    (arn (common-lisp:error ":arn is required") :type
     (common-lisp:or channel-arn common-lisp:null))
    (authorized common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (insecure-ingest common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (latency-mode common-lisp:nil :type
     (common-lisp:or channel-latency-mode common-lisp:null))
    (name common-lisp:nil :type (common-lisp:or channel-name common-lisp:null))
@@ -3075,6 +3105,13 @@
                            aws-sdk/generator/shape::input 'authorized))
       (common-lisp:list
        (common-lisp:cons "authorized"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insecure-ingest))
+      (common-lisp:list
+       (common-lisp:cons "insecureIngest"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -3275,10 +3312,10 @@
  (common-lisp:defun create-channel
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key authorized latency-mode name
-                     recording-configuration-arn tags type)
+                     common-lisp:&key authorized insecure-ingest latency-mode
+                     name recording-configuration-arn tags type)
    (common-lisp:declare
-    (common-lisp:ignorable authorized latency-mode name
+    (common-lisp:ignorable authorized insecure-ingest latency-mode name
      recording-configuration-arn tags type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-channel-request
@@ -3786,10 +3823,10 @@
  (common-lisp:defun update-channel
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key arn authorized latency-mode name
-                     recording-configuration-arn type)
+                     common-lisp:&key arn authorized insecure-ingest
+                     latency-mode name recording-configuration-arn type)
    (common-lisp:declare
-    (common-lisp:ignorable arn authorized latency-mode name
+    (common-lisp:ignorable arn authorized insecure-ingest latency-mode name
      recording-configuration-arn type))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-channel-request

@@ -1399,6 +1399,8 @@
     (common-lisp:or metric-definition-id common-lisp:null))
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or metric-name common-lisp:null))
+   (namespace common-lisp:nil :type
+    (common-lisp:or namespace common-lisp:null))
    (unit-label common-lisp:nil :type
     (common-lisp:or unit-label common-lisp:null))
    (value-key common-lisp:nil :type
@@ -1442,6 +1444,13 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'namespace))
+      (common-lisp:list
+       (common-lisp:cons "Namespace"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'unit-label))
       (common-lisp:list
        (common-lisp:cons "UnitLabel"
@@ -1476,6 +1485,8 @@
     (common-lisp:or event-pattern common-lisp:null))
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or metric-name common-lisp:null))
+   (namespace common-lisp:nil :type
+    (common-lisp:or namespace common-lisp:null))
    (unit-label common-lisp:nil :type
     (common-lisp:or unit-label common-lisp:null))
    (value-key common-lisp:nil :type
@@ -1512,6 +1523,13 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'namespace))
+      (common-lisp:list
+       (common-lisp:cons "Namespace"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1610,6 +1628,7 @@
                             metric-destination-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype metric-name () 'common-lisp:string)
+(common-lisp:deftype namespace () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype pages () '(trivial-types:proper-list url))
  (common-lisp:defun |make-pages|
@@ -1624,9 +1643,9 @@
    (app-monitor-details (common-lisp:error ":app-monitor-details is required")
     :type (common-lisp:or app-monitor-details common-lisp:null))
    (batch-id (common-lisp:error ":batch-id is required") :type
-    (common-lisp:or string common-lisp:null))
+    (common-lisp:or put-rum-events-request-batch-id-string common-lisp:null))
    (id (common-lisp:error ":id is required") :type
-    (common-lisp:or app-monitor-id common-lisp:null))
+    (common-lisp:or put-rum-events-request-id-string common-lisp:null))
    (rum-events (common-lisp:error ":rum-events is required") :type
     (common-lisp:or rum-event-list common-lisp:null))
    (user-details (common-lisp:error ":user-details is required") :type
@@ -1676,6 +1695,9 @@
                          (aws-sdk/generator/shape::input
                           put-rum-events-request))
    common-lisp:nil))
+(common-lisp:deftype put-rum-events-request-batch-id-string ()
+  'common-lisp:string)
+(common-lisp:deftype put-rum-events-request-id-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (put-rum-events-response (:copier common-lisp:nil)
@@ -1842,7 +1864,7 @@
    (details (common-lisp:error ":details is required") :type
     (common-lisp:or json-value common-lisp:null))
    (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
+    (common-lisp:or rum-event-id-string common-lisp:null))
    (metadata common-lisp:nil :type
     (common-lisp:or json-value common-lisp:null))
    (timestamp (common-lisp:error ":string is required") :type
@@ -1894,6 +1916,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input rum-event))
    common-lisp:nil))
+(common-lisp:deftype rum-event-id-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype rum-event-list () '(trivial-types:proper-list rum-event))
  (common-lisp:defun |make-rum-event-list|
@@ -2252,8 +2275,10 @@
  (common-lisp:defstruct
      (user-details (:copier common-lisp:nil)
       (:conc-name "struct-shape-user-details-"))
-   (session-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (user-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (session-id common-lisp:nil :type
+    (common-lisp:or user-details-session-id-string common-lisp:null))
+   (user-id common-lisp:nil :type
+    (common-lisp:or user-details-user-id-string common-lisp:null)))
  (common-lisp:export (common-lisp:list 'user-details 'make-user-details))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user-details))
@@ -2278,6 +2303,8 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input user-details))
    common-lisp:nil))
+(common-lisp:deftype user-details-session-id-string () 'common-lisp:string)
+(common-lisp:deftype user-details-user-id-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (rum-error)

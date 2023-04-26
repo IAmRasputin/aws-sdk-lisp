@@ -4556,7 +4556,9 @@
    (source-metadata common-lisp:nil :type
     (common-lisp:or anomaly-source-metadata common-lisp:null))
    (anomaly-resources common-lisp:nil :type
-    (common-lisp:or anomaly-resources common-lisp:null)))
+    (common-lisp:or anomaly-resources common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or anomaly-description common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'proactive-anomaly 'make-proactive-anomaly))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -4658,6 +4660,13 @@
       (common-lisp:list
        (common-lisp:cons "AnomalyResources"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input proactive-anomaly))
@@ -4690,7 +4699,9 @@
    (source-metadata common-lisp:nil :type
     (common-lisp:or anomaly-source-metadata common-lisp:null))
    (anomaly-resources common-lisp:nil :type
-    (common-lisp:or anomaly-resources common-lisp:null)))
+    (common-lisp:or anomaly-resources common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or anomaly-description common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'proactive-anomaly-summary
                     'make-proactive-anomaly-summary))
@@ -4796,6 +4807,13 @@
                            aws-sdk/generator/shape::input 'anomaly-resources))
       (common-lisp:list
        (common-lisp:cons "AnomalyResources"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

@@ -5021,7 +5021,9 @@
    (engine-version common-lisp:nil :type
     (common-lisp:or engine-version common-lisp:null))
    (execution-parameters common-lisp:nil :type
-    (common-lisp:or execution-parameters common-lisp:null)))
+    (common-lisp:or execution-parameters common-lisp:null))
+   (substatement-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export (common-lisp:list 'query-execution 'make-query-execution))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input query-execution))
@@ -5108,6 +5110,13 @@
                            'execution-parameters))
       (common-lisp:list
        (common-lisp:cons "ExecutionParameters"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'substatement-type))
+      (common-lisp:list
+       (common-lisp:cons "SubstatementType"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7788,7 +7797,9 @@
     (common-lisp:or role-arn common-lisp:null))
    (customer-content-encryption-configuration common-lisp:nil :type
     (common-lisp:or customer-content-encryption-configuration
-                    common-lisp:null)))
+                    common-lisp:null))
+   (enable-minimum-encryption-configuration common-lisp:nil :type
+    (common-lisp:or boxed-boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'work-group-configuration 'make-work-group-configuration))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -7870,6 +7881,14 @@
       (common-lisp:list
        (common-lisp:cons "CustomerContentEncryptionConfiguration"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-minimum-encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "EnableMinimumEncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -7902,7 +7921,9 @@
     (common-lisp:or role-arn common-lisp:null))
    (customer-content-encryption-configuration common-lisp:nil :type
     (common-lisp:or customer-content-encryption-configuration
-                    common-lisp:null)))
+                    common-lisp:null))
+   (enable-minimum-encryption-configuration common-lisp:nil :type
+    (common-lisp:or boxed-boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'work-group-configuration-updates
                     'make-work-group-configuration-updates))
@@ -8000,6 +8021,14 @@
                            'customer-content-encryption-configuration))
       (common-lisp:list
        (common-lisp:cons "CustomerContentEncryptionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-minimum-encryption-configuration))
+      (common-lisp:list
+       (common-lisp:cons "EnableMinimumEncryptionConfiguration"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

@@ -49,7 +49,9 @@
     (common-lisp:or accessor-status common-lisp:null))
    (creation-date common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn-string common-lisp:null)))
+   (arn common-lisp:nil :type (common-lisp:or arn-string common-lisp:null))
+   (tags common-lisp:nil :type
+    (common-lisp:or output-tag-map common-lisp:null)))
  (common-lisp:export (common-lisp:list 'accessor 'make-accessor))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input accessor))
@@ -97,6 +99,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -235,7 +244,9 @@
     (common-lisp:error ":client-request-token is required") :type
     (common-lisp:or client-request-token-string common-lisp:null))
    (accessor-type (common-lisp:error ":accessor-type is required") :type
-    (common-lisp:or accessor-type common-lisp:null)))
+    (common-lisp:or accessor-type common-lisp:null))
+   (tags common-lisp:nil :type
+    (common-lisp:or input-tag-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-accessor-input 'make-create-accessor-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -261,6 +272,13 @@
                            aws-sdk/generator/shape::input 'accessor-type))
       (common-lisp:list
        (common-lisp:cons "AccessorType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -3753,9 +3771,9 @@
  (common-lisp:defun create-accessor
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key client-request-token accessor-type)
+                     common-lisp:&key client-request-token accessor-type tags)
    (common-lisp:declare
-    (common-lisp:ignorable client-request-token accessor-type))
+    (common-lisp:ignorable client-request-token accessor-type tags))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-accessor-input
                                          aws-sdk/generator/operation::args)))

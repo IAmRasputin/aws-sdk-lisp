@@ -38,10 +38,14 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (securitylake-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((error-code :initarg :error-code :initform common-lisp:nil :reader
+       access-denied-exception-error-code)
+      (message :initarg :message :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
-  (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
+  (common-lisp:list 'access-denied-exception
+                    'access-denied-exception-error-code
+                    'access-denied-exception-message)))
 (common-lisp:deftype access-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype access-type-list ()
@@ -810,6 +814,10 @@
  (common-lisp:defstruct
      (create-subscriber-response (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-subscriber-response-"))
+   (resource-share-arn common-lisp:nil :type
+    (common-lisp:or resource-share-arn common-lisp:null))
+   (resource-share-name common-lisp:nil :type
+    (common-lisp:or resource-share-name common-lisp:null))
    (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
    (s3bucket-arn common-lisp:nil :type
     (common-lisp:or s3bucket-arn common-lisp:null))
@@ -830,6 +838,20 @@
                          (aws-sdk/generator/shape::input
                           create-subscriber-response))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-share-name))
+      (common-lisp:list
+       (common-lisp:cons "resourceShareName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'role-arn))
@@ -2016,7 +2038,9 @@
     (common-lisp:or s3bucket-arn common-lisp:null))
    (status common-lisp:nil :type
     (common-lisp:or |settingsStatus| common-lisp:null))
-   (tags-map common-lisp:nil :type (common-lisp:or tags-map common-lisp:null)))
+   (tags-map common-lisp:nil :type (common-lisp:or tags-map common-lisp:null))
+   (update-status common-lisp:nil :type
+    (common-lisp:or update-status common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'lake-configuration-response
                     'make-lake-configuration-response))
@@ -2080,6 +2104,13 @@
       (common-lisp:list
        (common-lisp:cons "tagsMap"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-status))
+      (common-lisp:list
+       (common-lisp:cons "updateStatus"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -2095,6 +2126,37 @@
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (last-update-failure (:copier common-lisp:nil)
+      (:conc-name "struct-shape-last-update-failure-"))
+   (code common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (reason common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'last-update-failure 'make-last-update-failure))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input last-update-failure))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input last-update-failure))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'code))
+      (common-lisp:list
+       (common-lisp:cons "code"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'reason))
+      (common-lisp:list
+       (common-lisp:cons "reason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input last-update-failure))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-datalake-exceptions-request (:copier common-lisp:nil)
@@ -2478,6 +2540,8 @@
                     'resource-not-found-exception-message
                     'resource-not-found-exception-resource-id
                     'resource-not-found-exception-resource-type)))
+(common-lisp:deftype resource-share-arn () 'common-lisp:string)
+(common-lisp:deftype resource-share-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (retention-setting (:copier common-lisp:nil)
@@ -2615,6 +2679,10 @@
     (common-lisp:or synthetic-timestamp-date-time common-lisp:null))
    (external-id common-lisp:nil :type
     (common-lisp:or safe-string common-lisp:null))
+   (resource-share-arn common-lisp:nil :type
+    (common-lisp:or resource-share-arn common-lisp:null))
+   (resource-share-name common-lisp:nil :type
+    (common-lisp:or resource-share-name common-lisp:null))
    (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
    (s3bucket-arn common-lisp:nil :type
     (common-lisp:or s3bucket-arn common-lisp:null))
@@ -2670,6 +2738,20 @@
                            aws-sdk/generator/shape::input 'external-id))
       (common-lisp:list
        (common-lisp:cons "externalId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-share-arn))
+      (common-lisp:list
+       (common-lisp:cons "resourceShareArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resource-share-name))
+      (common-lisp:list
+       (common-lisp:cons "resourceShareName"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2969,6 +3051,48 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-datalake-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-status (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-status-"))
+   (last-update-failure common-lisp:nil :type
+    (common-lisp:or last-update-failure common-lisp:null))
+   (last-update-request-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (last-update-status common-lisp:nil :type
+    (common-lisp:or |settingsStatus| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'update-status 'make-update-status))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input update-status))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input update-status))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-update-failure))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdateFailure"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-update-request-id))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdateRequestId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'last-update-status))
+      (common-lisp:list
+       (common-lisp:cons "lastUpdateStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input update-status))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct

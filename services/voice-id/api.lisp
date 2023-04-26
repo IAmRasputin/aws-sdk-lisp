@@ -37,6 +37,86 @@
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (associate-fraudster-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-associate-fraudster-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (fraudster-id (common-lisp:error ":fraudster-id is required") :type
+    (common-lisp:or fraudster-id common-lisp:null))
+   (watchlist-id (common-lisp:error ":watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-fraudster-request
+                    'make-associate-fraudster-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fraudster-id))
+      (common-lisp:list
+       (common-lisp:cons "FraudsterId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-fraudster-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-associate-fraudster-response-"))
+   (fraudster common-lisp:nil :type
+    (common-lisp:or fraudster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-fraudster-response
+                    'make-associate-fraudster-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fraudster))
+      (common-lisp:list
+       (common-lisp:cons "Fraudster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          associate-fraudster-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (authentication-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-authentication-configuration-"))
    (acceptance-threshold
@@ -165,6 +245,7 @@
                          (aws-sdk/generator/shape::input
                           authentication-result))
    common-lisp:nil))
+(common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype client-token-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
@@ -274,6 +355,94 @@
                          (aws-sdk/generator/shape::input
                           create-domain-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-watchlist-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-watchlist-request-"))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token-string common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or watchlist-description common-lisp:null))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or watchlist-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-watchlist-request 'make-create-watchlist-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-watchlist-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-watchlist-response-"))
+   (watchlist common-lisp:nil :type
+    (common-lisp:or watchlist common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-watchlist-response
+                    'make-create-watchlist-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist))
+      (common-lisp:list
+       (common-lisp:cons "Watchlist"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-watchlist-response))
+   common-lisp:nil))
 (common-lisp:deftype customer-speaker-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -382,6 +551,45 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-speaker-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-watchlist-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-watchlist-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (watchlist-id (common-lisp:error ":watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-watchlist-request 'make-delete-watchlist-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-watchlist-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-watchlist-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-watchlist-request))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -725,7 +933,158 @@
                          (aws-sdk/generator/shape::input
                           describe-speaker-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-watchlist-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-watchlist-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (watchlist-id (common-lisp:error ":watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-watchlist-request
+                    'make-describe-watchlist-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-watchlist-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-describe-watchlist-response-"))
+   (watchlist common-lisp:nil :type
+    (common-lisp:or watchlist common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-watchlist-response
+                    'make-describe-watchlist-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist))
+      (common-lisp:list
+       (common-lisp:cons "Watchlist"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          describe-watchlist-response))
+   common-lisp:nil))
 (common-lisp:deftype description () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-fraudster-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-disassociate-fraudster-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (fraudster-id (common-lisp:error ":fraudster-id is required") :type
+    (common-lisp:or fraudster-id common-lisp:null))
+   (watchlist-id (common-lisp:error ":watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-fraudster-request
+                    'make-disassociate-fraudster-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fraudster-id))
+      (common-lisp:list
+       (common-lisp:cons "FraudsterId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-fraudster-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-disassociate-fraudster-response-"))
+   (fraudster common-lisp:nil :type
+    (common-lisp:or fraudster common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-fraudster-response
+                    'make-disassociate-fraudster-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fraudster))
+      (common-lisp:list
+       (common-lisp:cons "Fraudster"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          disassociate-fraudster-response))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (domain (:copier common-lisp:nil) (:conc-name "struct-shape-domain-"))
@@ -744,7 +1103,9 @@
    (server-side-encryption-update-details common-lisp:nil :type
     (common-lisp:or server-side-encryption-update-details common-lisp:null))
    (updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (watchlist-details common-lisp:nil :type
+    (common-lisp:or watchlist-details common-lisp:null)))
  (common-lisp:export (common-lisp:list 'domain 'make-domain))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain))
@@ -816,6 +1177,13 @@
       (common-lisp:list
        (common-lisp:cons "UpdatedAt"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-details))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistDetails"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input domain))
@@ -850,7 +1218,9 @@
    (server-side-encryption-update-details common-lisp:nil :type
     (common-lisp:or server-side-encryption-update-details common-lisp:null))
    (updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (watchlist-details common-lisp:nil :type
+    (common-lisp:or watchlist-details common-lisp:null)))
  (common-lisp:export (common-lisp:list 'domain-summary 'make-domain-summary))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-summary))
@@ -922,6 +1292,13 @@
       (common-lisp:list
        (common-lisp:cons "UpdatedAt"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-details))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistDetails"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input domain-summary))
@@ -969,7 +1346,10 @@
    (fraud-detection-action common-lisp:nil :type
     (common-lisp:or fraud-detection-action common-lisp:null))
    (risk-threshold common-lisp:nil :type
-    (common-lisp:or score common-lisp:null)))
+    (common-lisp:or score common-lisp:null))
+   (watchlist-ids common-lisp:nil :type
+    (common-lisp:or enrollment-job-fraud-detection-config-watchlist-ids
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'enrollment-job-fraud-detection-config
                     'make-enrollment-job-fraud-detection-config))
@@ -997,12 +1377,27 @@
       (common-lisp:list
        (common-lisp:cons "RiskThreshold"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-ids))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistIds"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
                          (aws-sdk/generator/shape::input
                           enrollment-job-fraud-detection-config))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype enrollment-job-fraud-detection-config-watchlist-ids ()
+   '(trivial-types:proper-list watchlist-id))
+ (common-lisp:defun |make-enrollment-job-fraud-detection-config-watchlist-ids|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list watchlist-id))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (evaluate-session-request (:copier common-lisp:nil)
@@ -1157,8 +1552,10 @@
  (common-lisp:defstruct
      (fraud-detection-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-fraud-detection-configuration-"))
-   (risk-threshold (common-lisp:error ":risk-threshold is required") :type
-    (common-lisp:or score common-lisp:null)))
+   (risk-threshold common-lisp:nil :type
+    (common-lisp:or score common-lisp:null))
+   (watchlist-id common-lisp:nil :type
+    (common-lisp:or watchlist-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'fraud-detection-configuration
                     'make-fraud-detection-configuration))
@@ -1177,6 +1574,13 @@
                            aws-sdk/generator/shape::input 'risk-threshold))
       (common-lisp:list
        (common-lisp:cons "RiskThreshold"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1325,7 +1729,9 @@
    (domain-id common-lisp:nil :type
     (common-lisp:or domain-id common-lisp:null))
    (generated-fraudster-id common-lisp:nil :type
-    (common-lisp:or generated-fraudster-id common-lisp:null)))
+    (common-lisp:or generated-fraudster-id common-lisp:null))
+   (watchlist-ids common-lisp:nil :type
+    (common-lisp:or response-watchlist-ids common-lisp:null)))
  (common-lisp:export (common-lisp:list 'fraudster 'make-fraudster))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input fraudster))
@@ -1353,6 +1759,13 @@
                            'generated-fraudster-id))
       (common-lisp:list
        (common-lisp:cons "GeneratedFraudsterId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-ids))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistIds"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1587,6 +2000,66 @@
                         (
                          (aws-sdk/generator/shape::input
                           fraudster-registration-job-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype fraudster-summaries ()
+   '(trivial-types:proper-list fraudster-summary))
+ (common-lisp:defun |make-fraudster-summaries|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list fraudster-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (fraudster-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-fraudster-summary-"))
+   (created-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (domain-id common-lisp:nil :type
+    (common-lisp:or domain-id common-lisp:null))
+   (generated-fraudster-id common-lisp:nil :type
+    (common-lisp:or generated-fraudster-id common-lisp:null))
+   (watchlist-ids common-lisp:nil :type
+    (common-lisp:or response-watchlist-ids common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'fraudster-summary 'make-fraudster-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input fraudster-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input fraudster-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'generated-fraudster-id))
+      (common-lisp:list
+       (common-lisp:cons "GeneratedFraudsterId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-ids))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistIds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input fraudster-summary))
    common-lisp:nil))
 (common-lisp:deftype generated-fraudster-id () 'common-lisp:string)
 (common-lisp:deftype generated-speaker-id () 'common-lisp:string)
@@ -1854,6 +2327,101 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (list-fraudsters-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-fraudsters-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results-for-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (watchlist-id common-lisp:nil :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-fraudsters-request 'make-list-fraudsters-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-fraudsters-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-fraudsters-response-"))
+   (fraudster-summaries common-lisp:nil :type
+    (common-lisp:or fraudster-summaries common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-fraudsters-response 'make-list-fraudsters-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fraudster-summaries))
+      (common-lisp:list
+       (common-lisp:cons "FraudsterSummaries"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-fraudsters-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (list-speaker-enrollment-jobs-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-list-speaker-enrollment-jobs-request-"))
    (domain-id (common-lisp:error ":domain-id is required") :type
@@ -2096,6 +2664,92 @@
                          (aws-sdk/generator/shape::input
                           list-tags-for-resource-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-watchlists-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-watchlists-request-"))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or max-results-for-list common-lisp:null))
+   (next-token common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-watchlists-request 'make-list-watchlists-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'max-results))
+      (common-lisp:list
+       (common-lisp:cons "MaxResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-watchlists-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-list-watchlists-response-"))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (watchlist-summaries common-lisp:nil :type
+    (common-lisp:or watchlist-summaries common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-watchlists-response 'make-list-watchlists-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-summaries))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistSummaries"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-watchlists-response))
+   common-lisp:nil))
 (common-lisp:deftype max-results-for-list () 'common-lisp:integer)
 (common-lisp:deftype max-results-for-list-domain-fe () 'common-lisp:integer)
 (common-lisp:deftype next-token () 'common-lisp:string)
@@ -2207,7 +2861,9 @@
    (duplicate-registration-action common-lisp:nil :type
     (common-lisp:or duplicate-registration-action common-lisp:null))
    (fraudster-similarity-threshold common-lisp:nil :type
-    (common-lisp:or score common-lisp:null)))
+    (common-lisp:or score common-lisp:null))
+   (watchlist-ids common-lisp:nil :type
+    (common-lisp:or registration-config-watchlist-ids common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'registration-config 'make-registration-config))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2231,10 +2887,25 @@
       (common-lisp:list
        (common-lisp:cons "FraudsterSimilarityThreshold"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-ids))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistIds"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input registration-config))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype registration-config-watchlist-ids ()
+   '(trivial-types:proper-list watchlist-id))
+ (common-lisp:defun |make-registration-config-watchlist-ids|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list watchlist-id))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (voice-id-error)
@@ -2247,6 +2918,14 @@
                     'resource-not-found-exception-message
                     'resource-not-found-exception-resource-type)))
 (common-lisp:deftype resource-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype response-watchlist-ids ()
+   '(trivial-types:proper-list watchlist-id))
+ (common-lisp:defun |make-response-watchlist-ids|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list watchlist-id))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype s3uri () 'common-lisp:string)
 (common-lisp:deftype score () 'common-lisp:integer)
 (common-lisp:progn
@@ -3230,6 +3909,94 @@
                           update-domain-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (update-watchlist-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-watchlist-request-"))
+   (description common-lisp:nil :type
+    (common-lisp:or watchlist-description common-lisp:null))
+   (domain-id (common-lisp:error ":domain-id is required") :type
+    (common-lisp:or domain-id common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or watchlist-name common-lisp:null))
+   (watchlist-id (common-lisp:error ":watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-watchlist-request 'make-update-watchlist-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-watchlist-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-watchlist-response-"))
+   (watchlist common-lisp:nil :type
+    (common-lisp:or watchlist common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-watchlist-response
+                    'make-update-watchlist-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist))
+      (common-lisp:list
+       (common-lisp:cons "Watchlist"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-watchlist-response))
+   common-lisp:nil))
+(common-lisp:progn
  (common-lisp:define-condition validation-exception
      (voice-id-error)
      ((message :initarg :message :initform common-lisp:nil :reader
@@ -3261,6 +4028,217 @@
                         ((aws-sdk/generator/shape::input voice-spoofing-risk))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (watchlist (:copier common-lisp:nil)
+      (:conc-name "struct-shape-watchlist-"))
+   (created-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (default-watchlist common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or watchlist-description common-lisp:null))
+   (domain-id common-lisp:nil :type
+    (common-lisp:or domain-id common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or watchlist-name common-lisp:null))
+   (updated-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (watchlist-id common-lisp:nil :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'watchlist 'make-watchlist))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input watchlist))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input watchlist))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-watchlist))
+      (common-lisp:list
+       (common-lisp:cons "DefaultWatchlist"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-at))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input watchlist))
+   common-lisp:nil))
+(common-lisp:deftype watchlist-description () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (watchlist-details (:copier common-lisp:nil)
+      (:conc-name "struct-shape-watchlist-details-"))
+   (default-watchlist-id
+    (common-lisp:error ":default-watchlist-id is required") :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'watchlist-details 'make-watchlist-details))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input watchlist-details))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input watchlist-details))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'default-watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "DefaultWatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input watchlist-details))
+   common-lisp:nil))
+(common-lisp:deftype watchlist-id () 'common-lisp:string)
+(common-lisp:deftype watchlist-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype watchlist-summaries ()
+   '(trivial-types:proper-list watchlist-summary))
+ (common-lisp:defun |make-watchlist-summaries|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list watchlist-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (watchlist-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-watchlist-summary-"))
+   (created-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (default-watchlist common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (description common-lisp:nil :type
+    (common-lisp:or watchlist-description common-lisp:null))
+   (domain-id common-lisp:nil :type
+    (common-lisp:or domain-id common-lisp:null))
+   (name common-lisp:nil :type
+    (common-lisp:or watchlist-name common-lisp:null))
+   (updated-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (watchlist-id common-lisp:nil :type
+    (common-lisp:or watchlist-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'watchlist-summary 'make-watchlist-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input watchlist-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input watchlist-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "CreatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'default-watchlist))
+      (common-lisp:list
+       (common-lisp:cons "DefaultWatchlist"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'description))
+      (common-lisp:list
+       (common-lisp:cons "Description"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'domain-id))
+      (common-lisp:list
+       (common-lisp:cons "DomainId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "Name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-at))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'watchlist-id))
+      (common-lisp:list
+       (common-lisp:cons "WatchlistId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input watchlist-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defun associate-fraudster
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id fraudster-id watchlist-id)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-id fraudster-id watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-associate-fraudster-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "AssociateFraudster"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'associate-fraudster))
+(common-lisp:progn
  (common-lisp:defun create-domain
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3281,6 +4259,25 @@
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-domain))
+(common-lisp:progn
+ (common-lisp:defun create-watchlist
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key client-token description domain-id name)
+   (common-lisp:declare
+    (common-lisp:ignorable client-token description domain-id name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-watchlist-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateWatchlist"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-watchlist))
 (common-lisp:progn
  (common-lisp:defun delete-domain
                     (
@@ -3335,6 +4332,24 @@
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-speaker))
+(common-lisp:progn
+ (common-lisp:defun delete-watchlist
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id watchlist-id)
+   (common-lisp:declare (common-lisp:ignorable domain-id watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-watchlist-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteWatchlist"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-watchlist))
 (common-lisp:progn
  (common-lisp:defun describe-domain
                     (
@@ -3428,6 +4443,43 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-speaker-enrollment-job))
 (common-lisp:progn
+ (common-lisp:defun describe-watchlist
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id watchlist-id)
+   (common-lisp:declare (common-lisp:ignorable domain-id watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-describe-watchlist-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DescribeWatchlist"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'describe-watchlist))
+(common-lisp:progn
+ (common-lisp:defun disassociate-fraudster
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id fraudster-id watchlist-id)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-id fraudster-id watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-disassociate-fraudster-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DisassociateFraudster"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'disassociate-fraudster))
+(common-lisp:progn
  (common-lisp:defun evaluate-session
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -3484,6 +4536,26 @@
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-fraudster-registration-jobs))
+(common-lisp:progn
+ (common-lisp:defun list-fraudsters
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id max-results next-token
+                     watchlist-id)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-id max-results next-token watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-fraudsters-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListFraudsters"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-fraudsters))
 (common-lisp:progn
  (common-lisp:defun list-speaker-enrollment-jobs
                     (
@@ -3542,6 +4614,25 @@
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
+ (common-lisp:defun list-watchlists
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key domain-id max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable domain-id max-results next-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-list-watchlists-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "ListWatchlists"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-watchlists))
 (common-lisp:progn
  (common-lisp:defun opt-out-speaker
                     (
@@ -3663,3 +4754,22 @@
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-domain))
+(common-lisp:progn
+ (common-lisp:defun update-watchlist
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key description domain-id name watchlist-id)
+   (common-lisp:declare
+    (common-lisp:ignorable description domain-id name watchlist-id))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-watchlist-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateWatchlist"
+                                                        "2021-09-27"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-watchlist))

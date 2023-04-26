@@ -145,6 +145,8 @@
    common-lisp:nil))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype aws-account-id () 'common-lisp:string)
+(common-lisp:deftype blocker-status () 'common-lisp:string)
+(common-lisp:deftype blocker-type () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -520,6 +522,8 @@
     (common-lisp:or description common-lisp:null))
    (environment-name (common-lisp:error ":environmentname is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (last-client-request-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (last-deployment-attempted-at common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null))
    (last-deployment-succeeded-at common-lisp:nil :type
@@ -582,6 +586,14 @@
                            aws-sdk/generator/shape::input 'environment-name))
       (common-lisp:list
        (common-lisp:cons "environmentName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "lastClientRequestToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -856,6 +868,8 @@
  (common-lisp:defstruct
      (create-component-input (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-component-input-"))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or description common-lisp:null))
    (environment-name common-lisp:nil :type
@@ -885,6 +899,13 @@
                          (aws-sdk/generator/shape::input
                           create-component-input))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'description))
@@ -1686,6 +1707,123 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-service-instance-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-service-instance-input-"))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null))
+   (name (common-lisp:error ":name is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (spec (common-lisp:error ":spec is required") :type
+    (common-lisp:or spec-contents common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (template-major-version common-lisp:nil :type
+    (common-lisp:or template-version-part common-lisp:null))
+   (template-minor-version common-lisp:nil :type
+    (common-lisp:or template-version-part common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-service-instance-input
+                    'make-create-service-instance-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'name))
+      (common-lisp:list
+       (common-lisp:cons "name"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'spec))
+      (common-lisp:list
+       (common-lisp:cons "spec"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'template-major-version))
+      (common-lisp:list
+       (common-lisp:cons "templateMajorVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'template-minor-version))
+      (common-lisp:list
+       (common-lisp:cons "templateMinorVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-service-instance-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-service-instance-output-"))
+   (service-instance (common-lisp:error ":serviceinstance is required") :type
+    (common-lisp:or service-instance common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-service-instance-output
+                    'make-create-service-instance-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-instance))
+      (common-lisp:list
+       (common-lisp:cons "serviceInstance"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-instance-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-service-output (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-service-output-"))
    (service (common-lisp:error ":service is required") :type
@@ -1713,6 +1851,104 @@
                         (
                          (aws-sdk/generator/shape::input
                           create-service-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-service-sync-config-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-service-sync-config-input-"))
+   (branch (common-lisp:error ":branch is required") :type
+    (common-lisp:or git-branch-name common-lisp:null))
+   (file-path (common-lisp:error ":filepath is required") :type
+    (common-lisp:or ops-file-path common-lisp:null))
+   (repository-name (common-lisp:error ":repositoryname is required") :type
+    (common-lisp:or repository-name common-lisp:null))
+   (repository-provider (common-lisp:error ":repositoryprovider is required")
+    :type (common-lisp:or repository-provider common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-service-sync-config-input
+                    'make-create-service-sync-config-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'branch))
+      (common-lisp:list
+       (common-lisp:cons "branch"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'file-path))
+      (common-lisp:list
+       (common-lisp:cons "filePath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-name))
+      (common-lisp:list
+       (common-lisp:cons "repositoryName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-provider))
+      (common-lisp:list
+       (common-lisp:cons "repositoryProvider"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-service-sync-config-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-service-sync-config-output-"))
+   (service-sync-config common-lisp:nil :type
+    (common-lisp:or service-sync-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-service-sync-config-output
+                    'make-create-service-sync-config-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-sync-config))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-service-sync-config-output))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2509,6 +2745,68 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-service-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-service-sync-config-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-service-sync-config-input-"))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-service-sync-config-input
+                    'make-delete-service-sync-config-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-service-sync-config-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-service-sync-config-output-"))
+   (service-sync-config common-lisp:nil :type
+    (common-lisp:or service-sync-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-service-sync-config-output
+                    'make-delete-service-sync-config-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-sync-config))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-service-sync-config-output))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4540,6 +4838,98 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-service-instance-sync-status-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-instance-sync-status-input-"))
+   (service-instance-name
+    (common-lisp:error ":serviceinstancename is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-instance-sync-status-input
+                    'make-get-service-instance-sync-status-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-instance-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceInstanceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-service-instance-sync-status-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-instance-sync-status-output-"))
+   (desired-state common-lisp:nil :type
+    (common-lisp:or revision common-lisp:null))
+   (latest-successful-sync common-lisp:nil :type
+    (common-lisp:or resource-sync-attempt common-lisp:null))
+   (latest-sync common-lisp:nil :type
+    (common-lisp:or resource-sync-attempt common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-instance-sync-status-output
+                    'make-get-service-instance-sync-status-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'desired-state))
+      (common-lisp:list
+       (common-lisp:cons "desiredState"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'latest-successful-sync))
+      (common-lisp:list
+       (common-lisp:cons "latestSuccessfulSync"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'latest-sync))
+      (common-lisp:list
+       (common-lisp:cons "latestSync"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-instance-sync-status-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-service-output (:copier common-lisp:nil)
       (:conc-name "struct-shape-get-service-output-"))
    (service common-lisp:nil :type (common-lisp:or service common-lisp:null)))
@@ -4560,6 +4950,141 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input get-service-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-service-sync-blocker-summary-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-sync-blocker-summary-input-"))
+   (service-instance-name common-lisp:nil :type
+    (common-lisp:or resource-name common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-sync-blocker-summary-input
+                    'make-get-service-sync-blocker-summary-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-instance-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceInstanceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-service-sync-blocker-summary-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-sync-blocker-summary-output-"))
+   (service-sync-blocker-summary common-lisp:nil :type
+    (common-lisp:or service-sync-blocker-summary common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-sync-blocker-summary-output
+                    'make-get-service-sync-blocker-summary-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-sync-blocker-summary))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncBlockerSummary"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-blocker-summary-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-service-sync-config-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-sync-config-input-"))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-sync-config-input
+                    'make-get-service-sync-config-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-service-sync-config-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-get-service-sync-config-output-"))
+   (service-sync-config common-lisp:nil :type
+    (common-lisp:or service-sync-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-service-sync-config-output
+                    'make-get-service-sync-config-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-sync-config))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-service-sync-config-output))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4886,6 +5411,14 @@
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
+(common-lisp:progn
+ (common-lisp:deftype latest-sync-blockers ()
+   '(trivial-types:proper-list sync-blocker))
+ (common-lisp:defun |make-latest-sync-blockers|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list sync-blocker))
+   aws-sdk/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-component-outputs-input (:copier common-lisp:nil)
@@ -6834,6 +7367,7 @@
                          (aws-sdk/generator/shape::input
                           notify-resource-deployment-status-change-output))
    common-lisp:nil))
+(common-lisp:deftype ops-file-path () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (output (:copier common-lisp:nil) (:conc-name "struct-shape-output-"))
@@ -7159,6 +7693,8 @@
       (:conc-name "struct-shape-repository-summary-"))
    (arn (common-lisp:error ":arn is required") :type
     (common-lisp:or repository-arn common-lisp:null))
+   (connection-arn (common-lisp:error ":connectionarn is required") :type
+    (common-lisp:or arn common-lisp:null))
    (name (common-lisp:error ":name is required") :type
     (common-lisp:or repository-name common-lisp:null))
    (provider (common-lisp:error ":provider is required") :type
@@ -7176,6 +7712,13 @@
                            aws-sdk/generator/shape::input 'arn))
       (common-lisp:list
        (common-lisp:cons "arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'connection-arn))
+      (common-lisp:list
+       (common-lisp:cons "connectionArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -7834,6 +8377,8 @@
     (common-lisp:or status-message common-lisp:null))
    (environment-name (common-lisp:error ":environmentname is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (last-client-request-token common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (last-deployment-attempted-at
     (common-lisp:error ":lastdeploymentattemptedat is required") :type
     (common-lisp:or timestamp common-lisp:null))
@@ -7895,6 +8440,14 @@
                            aws-sdk/generator/shape::input 'environment-name))
       (common-lisp:list
        (common-lisp:cons "environmentName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'last-client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "lastClientRequestToken"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -8324,6 +8877,116 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list service-summary))
    aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-sync-blocker-summary (:copier common-lisp:nil)
+      (:conc-name "struct-shape-service-sync-blocker-summary-"))
+   (latest-blockers common-lisp:nil :type
+    (common-lisp:or latest-sync-blockers common-lisp:null))
+   (service-instance-name common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-sync-blocker-summary
+                    'make-service-sync-blocker-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          service-sync-blocker-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          service-sync-blocker-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'latest-blockers))
+      (common-lisp:list
+       (common-lisp:cons "latestBlockers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-instance-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceInstanceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          service-sync-blocker-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-sync-config (:copier common-lisp:nil)
+      (:conc-name "struct-shape-service-sync-config-"))
+   (branch (common-lisp:error ":branch is required") :type
+    (common-lisp:or git-branch-name common-lisp:null))
+   (file-path (common-lisp:error ":filepath is required") :type
+    (common-lisp:or ops-file-path common-lisp:null))
+   (repository-name (common-lisp:error ":repositoryname is required") :type
+    (common-lisp:or repository-name common-lisp:null))
+   (repository-provider (common-lisp:error ":repositoryprovider is required")
+    :type (common-lisp:or repository-provider common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-sync-config 'make-service-sync-config))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input service-sync-config))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input service-sync-config))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'branch))
+      (common-lisp:list
+       (common-lisp:cons "branch"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'file-path))
+      (common-lisp:list
+       (common-lisp:cons "filePath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-name))
+      (common-lisp:list
+       (common-lisp:cons "repositoryName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-provider))
+      (common-lisp:list
+       (common-lisp:cons "repositoryProvider"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input service-sync-config))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (service-template (:copier common-lisp:nil)
@@ -8807,6 +9470,133 @@
 (common-lisp:deftype status-message () 'common-lisp:string)
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype subdirectory () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sync-blocker (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sync-blocker-"))
+   (contexts common-lisp:nil :type
+    (common-lisp:or sync-blocker-contexts common-lisp:null))
+   (created-at (common-lisp:error ":createdat is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (created-reason (common-lisp:error ":createdreason is required") :type
+    (common-lisp:or string common-lisp:null))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (resolved-at common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (resolved-reason common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (status (common-lisp:error ":status is required") :type
+    (common-lisp:or blocker-status common-lisp:null))
+   (type (common-lisp:error ":type is required") :type
+    (common-lisp:or blocker-type common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'sync-blocker 'make-sync-blocker))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input sync-blocker))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input sync-blocker))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'contexts))
+      (common-lisp:list
+       (common-lisp:cons "contexts"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-at))
+      (common-lisp:list
+       (common-lisp:cons "createdAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-reason))
+      (common-lisp:list
+       (common-lisp:cons "createdReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resolved-at))
+      (common-lisp:list
+       (common-lisp:cons "resolvedAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resolved-reason))
+      (common-lisp:list
+       (common-lisp:cons "resolvedReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input sync-blocker))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sync-blocker-context (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sync-blocker-context-"))
+   (key (common-lisp:error ":key is required") :type
+    (common-lisp:or string common-lisp:null))
+   (value (common-lisp:error ":value is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sync-blocker-context 'make-sync-blocker-context))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input sync-blocker-context))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input sync-blocker-context))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'key))
+      (common-lisp:list
+       (common-lisp:cons "key"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'value))
+      (common-lisp:list
+       (common-lisp:cons "value"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input sync-blocker-context))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype sync-blocker-contexts ()
+   '(trivial-types:proper-list sync-blocker-context))
+ (common-lisp:defun |make-sync-blocker-contexts|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list sync-blocker-context))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype sync-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -9168,6 +9958,8 @@
  (common-lisp:defstruct
      (update-component-input (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-component-input-"))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null))
    (deployment-type (common-lisp:error ":deploymenttype is required") :type
     (common-lisp:or component-deployment-update-type common-lisp:null))
    (description common-lisp:nil :type
@@ -9194,6 +9986,13 @@
                          (aws-sdk/generator/shape::input
                           update-component-input))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'deployment-type))
@@ -9752,6 +10551,8 @@
  (common-lisp:defstruct
      (update-service-instance-input (:copier common-lisp:nil)
       (:conc-name "struct-shape-update-service-instance-input-"))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null))
    (deployment-type (common-lisp:error ":deploymenttype is required") :type
     (common-lisp:or deployment-update-type common-lisp:null))
    (name (common-lisp:error ":name is required") :type
@@ -9776,6 +10577,13 @@
                          (aws-sdk/generator/shape::input
                           update-service-instance-input))
    (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input 'deployment-type))
@@ -9985,6 +10793,195 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-service-pipeline-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-service-sync-blocker-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-service-sync-blocker-input-"))
+   (id (common-lisp:error ":id is required") :type
+    (common-lisp:or string common-lisp:null))
+   (resolved-reason (common-lisp:error ":resolvedreason is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-service-sync-blocker-input
+                    'make-update-service-sync-blocker-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'resolved-reason))
+      (common-lisp:list
+       (common-lisp:cons "resolvedReason"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-service-sync-blocker-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-service-sync-blocker-output-"))
+   (service-instance-name common-lisp:nil :type
+    (common-lisp:or resource-name common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null))
+   (service-sync-blocker (common-lisp:error ":servicesyncblocker is required")
+    :type (common-lisp:or sync-blocker common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-service-sync-blocker-output
+                    'make-update-service-sync-blocker-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-instance-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceInstanceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'service-sync-blocker))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncBlocker"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-blocker-output))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-service-sync-config-input (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-service-sync-config-input-"))
+   (branch (common-lisp:error ":branch is required") :type
+    (common-lisp:or git-branch-name common-lisp:null))
+   (file-path (common-lisp:error ":filepath is required") :type
+    (common-lisp:or ops-file-path common-lisp:null))
+   (repository-name (common-lisp:error ":repositoryname is required") :type
+    (common-lisp:or repository-name common-lisp:null))
+   (repository-provider (common-lisp:error ":repositoryprovider is required")
+    :type (common-lisp:or repository-provider common-lisp:null))
+   (service-name (common-lisp:error ":servicename is required") :type
+    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-service-sync-config-input
+                    'make-update-service-sync-config-input))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-input))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-input))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'branch))
+      (common-lisp:list
+       (common-lisp:cons "branch"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'file-path))
+      (common-lisp:list
+       (common-lisp:cons "filePath"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-name))
+      (common-lisp:list
+       (common-lisp:cons "repositoryName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'repository-provider))
+      (common-lisp:list
+       (common-lisp:cons "repositoryProvider"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-name))
+      (common-lisp:list
+       (common-lisp:cons "serviceName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-input))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-service-sync-config-output (:copier common-lisp:nil)
+      (:conc-name "struct-shape-update-service-sync-config-output-"))
+   (service-sync-config common-lisp:nil :type
+    (common-lisp:or service-sync-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-service-sync-config-output
+                    'make-update-service-sync-config-output))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-output))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-output))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'service-sync-config))
+      (common-lisp:list
+       (common-lisp:cons "serviceSyncConfig"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-service-sync-config-output))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -10403,12 +11400,12 @@
  (common-lisp:defun create-component
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key description environment-name manifest
-                     name service-instance-name service-name service-spec tags
-                     template-file)
+                     common-lisp:&key client-token description environment-name
+                     manifest name service-instance-name service-name
+                     service-spec tags template-file)
    (common-lisp:declare
-    (common-lisp:ignorable description environment-name manifest name
-     service-instance-name service-name service-spec tags template-file))
+    (common-lisp:ignorable client-token description environment-name manifest
+     name service-instance-name service-name service-spec tags template-file))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-component-input
                                          aws-sdk/generator/operation::args)))
@@ -10558,6 +11555,48 @@
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-service))
+(common-lisp:progn
+ (common-lisp:defun create-service-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key client-token name service-name spec tags
+                     template-major-version template-minor-version)
+   (common-lisp:declare
+    (common-lisp:ignorable client-token name service-name spec tags
+     template-major-version template-minor-version))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-service-instance-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateServiceInstance"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-service-instance))
+(common-lisp:progn
+ (common-lisp:defun create-service-sync-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key branch file-path repository-name
+                     repository-provider service-name)
+   (common-lisp:declare
+    (common-lisp:ignorable branch file-path repository-name repository-provider
+     service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-create-service-sync-config-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "CreateServiceSyncConfig"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-service-sync-config))
 (common-lisp:progn
  (common-lisp:defun create-service-template
                     (
@@ -10757,6 +11796,24 @@
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-service))
+(common-lisp:progn
+ (common-lisp:defun delete-service-sync-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key service-name)
+   (common-lisp:declare (common-lisp:ignorable service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-service-sync-config-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteServiceSyncConfig"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-service-sync-config))
 (common-lisp:progn
  (common-lisp:defun delete-service-template
                     (
@@ -11003,6 +12060,64 @@
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-service-instance))
+(common-lisp:progn
+ (common-lisp:defun get-service-instance-sync-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key service-instance-name service-name)
+   (common-lisp:declare
+    (common-lisp:ignorable service-instance-name service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-service-instance-sync-status-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetServiceInstanceSyncStatus"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-service-instance-sync-status))
+(common-lisp:progn
+ (common-lisp:defun get-service-sync-blocker-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key service-instance-name service-name)
+   (common-lisp:declare
+    (common-lisp:ignorable service-instance-name service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-service-sync-blocker-summary-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetServiceSyncBlockerSummary"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-service-sync-blocker-summary))
+(common-lisp:progn
+ (common-lisp:defun get-service-sync-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key service-name)
+   (common-lisp:declare (common-lisp:ignorable service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-get-service-sync-config-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "GetServiceSyncConfig"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-service-sync-config))
 (common-lisp:progn
  (common-lisp:defun get-service-template
                     (
@@ -11578,11 +12693,11 @@
  (common-lisp:defun update-component
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key deployment-type description name
-                     service-instance-name service-name service-spec
+                     common-lisp:&key client-token deployment-type description
+                     name service-instance-name service-name service-spec
                      template-file)
    (common-lisp:declare
-    (common-lisp:ignorable deployment-type description name
+    (common-lisp:ignorable client-token deployment-type description name
      service-instance-name service-name service-spec template-file))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-component-input
@@ -11706,10 +12821,11 @@
  (common-lisp:defun update-service-instance
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key deployment-type name service-name spec
-                     template-major-version template-minor-version)
+                     common-lisp:&key client-token deployment-type name
+                     service-name spec template-major-version
+                     template-minor-version)
    (common-lisp:declare
-    (common-lisp:ignorable deployment-type name service-name spec
+    (common-lisp:ignorable client-token deployment-type name service-name spec
      template-major-version template-minor-version))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-service-instance-input
@@ -11744,6 +12860,46 @@
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-service-pipeline))
+(common-lisp:progn
+ (common-lisp:defun update-service-sync-blocker
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key id resolved-reason)
+   (common-lisp:declare (common-lisp:ignorable id resolved-reason))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-service-sync-blocker-input
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateServiceSyncBlocker"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-service-sync-blocker))
+(common-lisp:progn
+ (common-lisp:defun update-service-sync-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key branch file-path repository-name
+                     repository-provider service-name)
+   (common-lisp:declare
+    (common-lisp:ignorable branch file-path repository-name repository-provider
+     service-name))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-update-service-sync-config-input
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'proton-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "UpdateServiceSyncConfig"
+                                                        "2020-07-20"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-service-sync-config))
 (common-lisp:progn
  (common-lisp:defun update-service-template
                     (

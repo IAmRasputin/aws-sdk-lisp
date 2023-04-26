@@ -28,6 +28,7 @@
     ("BlueGreenDeploymentNotFoundFault"
      . blue-green-deployment-not-found-fault)
     ("CertificateNotFoundFault" . certificate-not-found-fault)
+    ("CreateCustomDBEngineVersionFault" . create-custom-dbengine-version-fault)
     ("CustomAvailabilityZoneNotFoundFault"
      . custom-availability-zone-not-found-fault)
     ("CustomDBEngineVersionAlreadyExistsFault"
@@ -2214,6 +2215,11 @@
                           create-blue-green-deployment-response))
    common-lisp:nil))
 (common-lisp:progn
+ (common-lisp:define-condition create-custom-dbengine-version-fault
+     (rds-error)
+     common-lisp:nil)
+ (common-lisp:export (common-lisp:list 'create-custom-dbengine-version-fault)))
+(common-lisp:progn
  (common-lisp:defstruct
      (create-custom-dbengine-version-message (:copier common-lisp:nil)
       (:conc-name "struct-shape-create-custom-dbengine-version-message-"))
@@ -3625,8 +3631,7 @@
    (dbinstance-identifier
     (common-lisp:error ":dbinstance-identifier is required") :type
     (common-lisp:or string common-lisp:null))
-   (source-dbinstance-identifier
-    (common-lisp:error ":source-dbinstance-identifier is required") :type
+   (source-dbinstance-identifier common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (dbinstance-class common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -3694,7 +3699,9 @@
    (enable-customer-owned-ip common-lisp:nil :type
     (common-lisp:or boolean-optional common-lisp:null))
    (allocated-storage common-lisp:nil :type
-    (common-lisp:or integer-optional common-lisp:null)))
+    (common-lisp:or integer-optional common-lisp:null))
+   (source-dbcluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-dbinstance-read-replica-message
                     'make-create-dbinstance-read-replica-message))
@@ -3980,6 +3987,14 @@
                            aws-sdk/generator/shape::input 'allocated-storage))
       (common-lisp:list
        (common-lisp:cons "AllocatedStorage"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'source-dbcluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "SourceDBClusterIdentifier"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -7379,7 +7394,9 @@
    (master-user-secret common-lisp:nil :type
     (common-lisp:or master-user-secret common-lisp:null))
    (certificate-details common-lisp:nil :type
-    (common-lisp:or certificate-details common-lisp:null)))
+    (common-lisp:or certificate-details common-lisp:null))
+   (read-replica-source-dbcluster-identifier common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export (common-lisp:list 'dbinstance 'make-dbinstance))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input dbinstance))
@@ -7981,6 +7998,14 @@
                            aws-sdk/generator/shape::input 'certificate-details))
       (common-lisp:list
        (common-lisp:cons "CertificateDetails"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'read-replica-source-dbcluster-identifier))
+      (common-lisp:list
+       (common-lisp:cons "ReadReplicaSourceDBClusterIdentifier"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -16380,7 +16405,10 @@
    (rotate-master-user-password common-lisp:nil :type
     (common-lisp:or boolean-optional common-lisp:null))
    (master-user-secret-kms-key-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (engine-mode common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (allow-engine-mode-change common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'modify-dbcluster-message 'make-modify-dbcluster-message))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -16689,6 +16717,21 @@
                            'master-user-secret-kms-key-id))
       (common-lisp:list
        (common-lisp:cons "MasterUserSecretKmsKeyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'engine-mode))
+      (common-lisp:list
+       (common-lisp:cons "EngineMode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'allow-engine-mode-change))
+      (common-lisp:list
+       (common-lisp:cons "AllowEngineModeChange"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -26539,7 +26582,7 @@
                      domain-iamrole-name replica-mode max-allocated-storage
                      custom-iam-instance-profile network-type
                      storage-throughput enable-customer-owned-ip
-                     allocated-storage)
+                     allocated-storage source-dbcluster-identifier)
    (common-lisp:declare
     (common-lisp:ignorable dbinstance-identifier source-dbinstance-identifier
      dbinstance-class availability-zone port multi-az
@@ -26552,7 +26595,7 @@
      processor-features use-default-processor-features deletion-protection
      domain domain-iamrole-name replica-mode max-allocated-storage
      custom-iam-instance-profile network-type storage-throughput
-     enable-customer-owned-ip allocated-storage))
+     enable-customer-owned-ip allocated-storage source-dbcluster-identifier))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply
                        'make-create-dbinstance-read-replica-message
@@ -28117,7 +28160,8 @@
                      performance-insights-retention-period
                      serverless-v2scaling-configuration network-type
                      manage-master-user-password rotate-master-user-password
-                     master-user-secret-kms-key-id)
+                     master-user-secret-kms-key-id engine-mode
+                     allow-engine-mode-change)
    (common-lisp:declare
     (common-lisp:ignorable dbcluster-identifier new-dbcluster-identifier
      apply-immediately backup-retention-period dbcluster-parameter-group-name
@@ -28133,7 +28177,7 @@
      enable-performance-insights performance-insights-kmskey-id
      performance-insights-retention-period serverless-v2scaling-configuration
      network-type manage-master-user-password rotate-master-user-password
-     master-user-secret-kms-key-id))
+     master-user-secret-kms-key-id engine-mode allow-engine-mode-change))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-modify-dbcluster-message
                                          aws-sdk/generator/operation::args)))

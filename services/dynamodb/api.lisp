@@ -568,7 +568,7 @@
    (scale-out-cooldown common-lisp:nil :type
     (common-lisp:or integer-object common-lisp:null))
    (target-value (common-lisp:error ":target-value is required") :type
-    (common-lisp:or double common-lisp:null)))
+    (common-lisp:or double-object common-lisp:null)))
  (common-lisp:export
   (common-lisp:list
    'auto-scaling-target-tracking-scaling-policy-configuration-description
@@ -629,7 +629,7 @@
    (scale-out-cooldown common-lisp:nil :type
     (common-lisp:or integer-object common-lisp:null))
    (target-value (common-lisp:error ":target-value is required") :type
-    (common-lisp:or double common-lisp:null)))
+    (common-lisp:or double-object common-lisp:null)))
  (common-lisp:export
   (common-lisp:list
    'auto-scaling-target-tracking-scaling-policy-configuration-update
@@ -2144,7 +2144,9 @@
     (common-lisp:or ssespecification common-lisp:null))
    (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (table-class common-lisp:nil :type
-    (common-lisp:or table-class common-lisp:null)))
+    (common-lisp:or table-class common-lisp:null))
+   (deletion-protection-enabled common-lisp:nil :type
+    (common-lisp:or deletion-protection-enabled common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-table-input 'make-create-table-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -2233,6 +2235,14 @@
                            aws-sdk/generator/shape::input 'table-class))
       (common-lisp:list
        (common-lisp:cons "TableClass"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'deletion-protection-enabled))
+      (common-lisp:list
+       (common-lisp:cons "DeletionProtectionEnabled"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2742,6 +2752,7 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input delete-table-output))
    common-lisp:nil))
+(common-lisp:deftype deletion-protection-enabled () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-backup-input (:copier common-lisp:nil)
@@ -3630,7 +3641,7 @@
                           describe-time-to-live-output))
    common-lisp:nil))
 (common-lisp:deftype destination-status () 'common-lisp:string)
-(common-lisp:deftype double () 'common-lisp:double-float)
+(common-lisp:deftype double-object () 'common-lisp:double-float)
 (common-lisp:progn
  (common-lisp:define-condition duplicate-item-exception
      (dynamodb-error)
@@ -4702,8 +4713,9 @@
    (provisioned-throughput common-lisp:nil :type
     (common-lisp:or provisioned-throughput-description common-lisp:null))
    (index-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (item-count common-lisp:nil :type (common-lisp:or long common-lisp:null))
+    (common-lisp:or long-object common-lisp:null))
+   (item-count common-lisp:nil :type
+    (common-lisp:or long-object common-lisp:null))
    (index-arn common-lisp:nil :type (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'global-secondary-index-description
@@ -5274,7 +5286,7 @@
    (end-time common-lisp:nil :type
     (common-lisp:or import-end-time common-lisp:null))
    (processed-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
+    (common-lisp:or long-object common-lisp:null))
    (processed-item-count common-lisp:nil :type
     (common-lisp:or processed-item-count common-lisp:null))
    (imported-item-count common-lisp:nil :type
@@ -6663,8 +6675,9 @@
    (projection common-lisp:nil :type
     (common-lisp:or projection common-lisp:null))
    (index-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (item-count common-lisp:nil :type (common-lisp:or long common-lisp:null))
+    (common-lisp:or long-object common-lisp:null))
+   (item-count common-lisp:nil :type
+    (common-lisp:or long-object common-lisp:null))
    (index-arn common-lisp:nil :type (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'local-secondary-index-description
@@ -6802,6 +6815,7 @@
                             local-secondary-index-info))
    aws-sdk/generator/shape::members))
 (common-lisp:deftype long () 'common-lisp:integer)
+(common-lisp:deftype long-object () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype map-attribute-value () 'common-lisp:hash-table)
  (common-lisp:defun |make-map-attribute-value|
@@ -9382,7 +9396,7 @@
    (table-arn common-lisp:nil :type
     (common-lisp:or table-arn common-lisp:null))
    (table-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
+    (common-lisp:or long-object common-lisp:null))
    (key-schema (common-lisp:error ":key-schema is required") :type
     (common-lisp:or key-schema common-lisp:null))
    (table-creation-date-time
@@ -9787,8 +9801,9 @@
    (provisioned-throughput common-lisp:nil :type
     (common-lisp:or provisioned-throughput-description common-lisp:null))
    (table-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (item-count common-lisp:nil :type (common-lisp:or long common-lisp:null))
+    (common-lisp:or long-object common-lisp:null))
+   (item-count common-lisp:nil :type
+    (common-lisp:or long-object common-lisp:null))
    (table-arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (table-id common-lisp:nil :type (common-lisp:or table-id common-lisp:null))
    (billing-mode-summary common-lisp:nil :type
@@ -9814,7 +9829,9 @@
    (archival-summary common-lisp:nil :type
     (common-lisp:or archival-summary common-lisp:null))
    (table-class-summary common-lisp:nil :type
-    (common-lisp:or table-class-summary common-lisp:null)))
+    (common-lisp:or table-class-summary common-lisp:null))
+   (deletion-protection-enabled common-lisp:nil :type
+    (common-lisp:or deletion-protection-enabled common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'table-description 'make-table-description))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -9982,6 +9999,14 @@
                            aws-sdk/generator/shape::input 'table-class-summary))
       (common-lisp:list
        (common-lisp:cons "TableClassSummary"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'deletion-protection-enabled))
+      (common-lisp:list
+       (common-lisp:cons "DeletionProtectionEnabled"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -11268,7 +11293,9 @@
    (replica-updates common-lisp:nil :type
     (common-lisp:or replication-group-update-list common-lisp:null))
    (table-class common-lisp:nil :type
-    (common-lisp:or table-class common-lisp:null)))
+    (common-lisp:or table-class common-lisp:null))
+   (deletion-protection-enabled common-lisp:nil :type
+    (common-lisp:or deletion-protection-enabled common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-table-input 'make-update-table-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -11342,6 +11369,14 @@
                            aws-sdk/generator/shape::input 'table-class))
       (common-lisp:list
        (common-lisp:cons "TableClass"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'deletion-protection-enabled))
+      (common-lisp:list
+       (common-lisp:cons "DeletionProtectionEnabled"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -11682,12 +11717,13 @@
                      key-schema local-secondary-indexes
                      global-secondary-indexes billing-mode
                      provisioned-throughput stream-specification
-                     ssespecification tags table-class)
+                     ssespecification tags table-class
+                     deletion-protection-enabled)
    (common-lisp:declare
     (common-lisp:ignorable attribute-definitions table-name key-schema
      local-secondary-indexes global-secondary-indexes billing-mode
      provisioned-throughput stream-specification ssespecification tags
-     table-class))
+     table-class deletion-protection-enabled))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-table-input
                                          aws-sdk/generator/operation::args)))
@@ -12594,11 +12630,12 @@
                      common-lisp:&key attribute-definitions table-name
                      billing-mode provisioned-throughput
                      global-secondary-index-updates stream-specification
-                     ssespecification replica-updates table-class)
+                     ssespecification replica-updates table-class
+                     deletion-protection-enabled)
    (common-lisp:declare
     (common-lisp:ignorable attribute-definitions table-name billing-mode
      provisioned-throughput global-secondary-index-updates stream-specification
-     ssespecification replica-updates table-class))
+     ssespecification replica-updates table-class deletion-protection-enabled))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-table-input
                                          aws-sdk/generator/operation::args)))

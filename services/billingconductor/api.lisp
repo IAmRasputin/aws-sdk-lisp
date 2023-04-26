@@ -129,6 +129,14 @@
    common-lisp:nil))
 (common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:deftype account-id-filter-list ()
+   '(trivial-types:proper-list account-id))
+ (common-lisp:defun |make-account-id-filter-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list account-id))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype account-id-list ()
    '(trivial-types:proper-list account-id))
  (common-lisp:defun |make-account-id-list|
@@ -779,6 +787,14 @@
    common-lisp:nil))
 (common-lisp:deftype billing-group-name () 'common-lisp:string)
 (common-lisp:deftype billing-group-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype billing-group-status-list ()
+   '(trivial-types:proper-list billing-group-status))
+ (common-lisp:defun |make-billing-group-status-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list billing-group-status))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype billing-group-status-reason () 'common-lisp:string)
 (common-lisp:deftype billing-period () 'common-lisp:string)
 (common-lisp:deftype client-token () 'common-lisp:string)
@@ -1739,7 +1755,11 @@
    (start-billing-period common-lisp:nil :type
     (common-lisp:or billing-period common-lisp:null))
    (end-billing-period common-lisp:nil :type
-    (common-lisp:or billing-period common-lisp:null)))
+    (common-lisp:or billing-period common-lisp:null))
+   (arn common-lisp:nil :type
+    (common-lisp:or custom-line-item-arn common-lisp:null))
+   (start-time common-lisp:nil :type
+    (common-lisp:or instant common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'custom-line-item-version-list-element
                     'make-custom-line-item-version-list-element))
@@ -1829,6 +1849,20 @@
                            aws-sdk/generator/shape::input 'end-billing-period))
       (common-lisp:list
        (common-lisp:cons "EndBillingPeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'arn))
+      (common-lisp:list
+       (common-lisp:cons "Arn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-time))
+      (common-lisp:list
+       (common-lisp:cons "StartTime"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2328,7 +2362,9 @@
    (association common-lisp:nil :type
     (common-lisp:or association common-lisp:null))
    (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null)))
+    (common-lisp:or account-id common-lisp:null))
+   (account-ids common-lisp:nil :type
+    (common-lisp:or account-id-filter-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-account-associations-filter
                     'make-list-account-associations-filter))
@@ -2354,6 +2390,13 @@
                            aws-sdk/generator/shape::input 'account-id))
       (common-lisp:list
        (common-lisp:cons "AccountId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'account-ids))
+      (common-lisp:list
+       (common-lisp:cons "AccountIds"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -2583,7 +2626,9 @@
    (arns common-lisp:nil :type
     (common-lisp:or billing-group-arn-list common-lisp:null))
    (pricing-plan common-lisp:nil :type
-    (common-lisp:or pricing-plan-full-arn common-lisp:null)))
+    (common-lisp:or pricing-plan-full-arn common-lisp:null))
+   (statuses common-lisp:nil :type
+    (common-lisp:or billing-group-status-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'list-billing-groups-filter
                     'make-list-billing-groups-filter))
@@ -2609,6 +2654,13 @@
                            aws-sdk/generator/shape::input 'pricing-plan))
       (common-lisp:list
        (common-lisp:cons "PricingPlan"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'statuses))
+      (common-lisp:list
+       (common-lisp:cons "Statuses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4092,7 +4144,11 @@
     (common-lisp:or instant common-lisp:null))
    (billing-entity common-lisp:nil :type
     (common-lisp:or billing-entity common-lisp:null))
-   (tiering common-lisp:nil :type (common-lisp:or tiering common-lisp:null)))
+   (tiering common-lisp:nil :type (common-lisp:or tiering common-lisp:null))
+   (usage-type common-lisp:nil :type
+    (common-lisp:or usage-type common-lisp:null))
+   (operation common-lisp:nil :type
+    (common-lisp:or operation common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'pricing-rule-list-element
                     'make-pricing-rule-list-element))
@@ -4189,6 +4245,20 @@
                            aws-sdk/generator/shape::input 'tiering))
       (common-lisp:list
        (common-lisp:cons "Tiering"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'usage-type))
+      (common-lisp:list
+       (common-lisp:cons "UsageType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'operation))
+      (common-lisp:list
+       (common-lisp:cons "Operation"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

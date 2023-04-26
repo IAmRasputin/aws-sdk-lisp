@@ -313,7 +313,9 @@
    (event-time (common-lisp:error ":event-time is required") :type
     (common-lisp:or value-as-string common-lisp:null))
    (target-stores common-lisp:nil :type
-    (common-lisp:or target-stores common-lisp:null)))
+    (common-lisp:or target-stores common-lisp:null))
+   (deletion-mode common-lisp:nil :type
+    (common-lisp:or deletion-mode common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'delete-record-request 'make-delete-record-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -331,6 +333,7 @@
                          (aws-sdk/generator/shape::input
                           delete-record-request))
    common-lisp:nil))
+(common-lisp:deftype deletion-mode () 'common-lisp:string)
 (common-lisp:deftype feature-group-name () 'common-lisp:string)
 (common-lisp:deftype feature-name () 'common-lisp:string)
 (common-lisp:progn
@@ -538,11 +541,11 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key feature-group-name
-                     record-identifier-value-as-string event-time
-                     target-stores)
+                     record-identifier-value-as-string event-time target-stores
+                     deletion-mode)
    (common-lisp:declare
     (common-lisp:ignorable feature-group-name record-identifier-value-as-string
-     event-time target-stores))
+     event-time target-stores deletion-mode))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-delete-record-request
                                          aws-sdk/generator/operation::args)))

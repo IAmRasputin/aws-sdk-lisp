@@ -22,6 +22,7 @@
  (common-lisp:export 'chime-sdk-media-pipelines-error))
 (common-lisp:defvar *error-map*
   '(("BadRequestException" . bad-request-exception)
+    ("ConflictException" . conflict-exception)
     ("ForbiddenException" . forbidden-exception)
     ("NotFoundException" . not-found-exception)
     ("ResourceLimitExceededException" . resource-limit-exceeded-exception)
@@ -30,6 +31,293 @@
     ("ThrottledClientException" . throttled-client-exception)
     ("UnauthorizedClientException" . unauthorized-client-exception)))
 (common-lisp:deftype amazon-resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (amazon-transcribe-call-analytics-processor-configuration
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-amazon-transcribe-call-analytics-processor-configuration-"))
+   (language-code (common-lisp:error ":language-code is required") :type
+    (common-lisp:or call-analytics-language-code common-lisp:null))
+   (vocabulary-name common-lisp:nil :type
+    (common-lisp:or vocabulary-name common-lisp:null))
+   (vocabulary-filter-name common-lisp:nil :type
+    (common-lisp:or vocabulary-filter-name common-lisp:null))
+   (vocabulary-filter-method common-lisp:nil :type
+    (common-lisp:or vocabulary-filter-method common-lisp:null))
+   (language-model-name common-lisp:nil :type
+    (common-lisp:or model-name common-lisp:null))
+   (enable-partial-results-stabilization common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (partial-results-stability common-lisp:nil :type
+    (common-lisp:or partial-results-stability common-lisp:null))
+   (content-identification-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (content-redaction-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (pii-entity-types common-lisp:nil :type
+    (common-lisp:or pii-entity-types common-lisp:null))
+   (filter-partial-results common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (post-call-analytics-settings common-lisp:nil :type
+    (common-lisp:or post-call-analytics-settings common-lisp:null))
+   (call-analytics-stream-categories common-lisp:nil :type
+    (common-lisp:or category-name-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'amazon-transcribe-call-analytics-processor-configuration
+                    'make-amazon-transcribe-call-analytics-processor-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-call-analytics-processor-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-call-analytics-processor-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-code))
+      (common-lisp:list
+       (common-lisp:cons "LanguageCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vocabulary-name))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vocabulary-filter-name))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyFilterName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vocabulary-filter-method))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyFilterMethod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-model-name))
+      (common-lisp:list
+       (common-lisp:cons "LanguageModelName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-partial-results-stabilization))
+      (common-lisp:list
+       (common-lisp:cons "EnablePartialResultsStabilization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'partial-results-stability))
+      (common-lisp:list
+       (common-lisp:cons "PartialResultsStability"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'content-identification-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentIdentificationType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'content-redaction-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentRedactionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pii-entity-types))
+      (common-lisp:list
+       (common-lisp:cons "PiiEntityTypes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'filter-partial-results))
+      (common-lisp:list
+       (common-lisp:cons "FilterPartialResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'post-call-analytics-settings))
+      (common-lisp:list
+       (common-lisp:cons "PostCallAnalyticsSettings"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'call-analytics-stream-categories))
+      (common-lisp:list
+       (common-lisp:cons "CallAnalyticsStreamCategories"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-call-analytics-processor-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (amazon-transcribe-processor-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-amazon-transcribe-processor-configuration-"))
+   (language-code (common-lisp:error ":language-code is required") :type
+    (common-lisp:or call-analytics-language-code common-lisp:null))
+   (vocabulary-name common-lisp:nil :type
+    (common-lisp:or vocabulary-name common-lisp:null))
+   (vocabulary-filter-name common-lisp:nil :type
+    (common-lisp:or vocabulary-filter-name common-lisp:null))
+   (vocabulary-filter-method common-lisp:nil :type
+    (common-lisp:or vocabulary-filter-method common-lisp:null))
+   (show-speaker-label common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (enable-partial-results-stabilization common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (partial-results-stability common-lisp:nil :type
+    (common-lisp:or partial-results-stability common-lisp:null))
+   (content-identification-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (content-redaction-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (pii-entity-types common-lisp:nil :type
+    (common-lisp:or pii-entity-types common-lisp:null))
+   (language-model-name common-lisp:nil :type
+    (common-lisp:or model-name common-lisp:null))
+   (filter-partial-results common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'amazon-transcribe-processor-configuration
+                    'make-amazon-transcribe-processor-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-processor-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-processor-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-code))
+      (common-lisp:list
+       (common-lisp:cons "LanguageCode"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'vocabulary-name))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vocabulary-filter-name))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyFilterName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'vocabulary-filter-method))
+      (common-lisp:list
+       (common-lisp:cons "VocabularyFilterMethod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'show-speaker-label))
+      (common-lisp:list
+       (common-lisp:cons "ShowSpeakerLabel"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-partial-results-stabilization))
+      (common-lisp:list
+       (common-lisp:cons "EnablePartialResultsStabilization"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'partial-results-stability))
+      (common-lisp:list
+       (common-lisp:cons "PartialResultsStability"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'content-identification-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentIdentificationType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'content-redaction-type))
+      (common-lisp:list
+       (common-lisp:cons "ContentRedactionType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'pii-entity-types))
+      (common-lisp:list
+       (common-lisp:cons "PiiEntityTypes"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'language-model-name))
+      (common-lisp:list
+       (common-lisp:cons "LanguageModelName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'filter-partial-results))
+      (common-lisp:list
+       (common-lisp:cons "FilterPartialResults"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          amazon-transcribe-processor-configuration))
+   common-lisp:nil))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -268,6 +556,59 @@
   (common-lisp:list 'bad-request-exception 'bad-request-exception-code
                     'bad-request-exception-message
                     'bad-request-exception-request-id)))
+(common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:deftype call-analytics-language-code () 'common-lisp:string)
+(common-lisp:deftype category-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype category-name-list ()
+   '(trivial-types:proper-list category-name))
+ (common-lisp:defun |make-category-name-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list category-name))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (channel-definition (:copier common-lisp:nil)
+      (:conc-name "struct-shape-channel-definition-"))
+   (channel-id (common-lisp:error ":channel-id is required") :type
+    (common-lisp:or channel-id common-lisp:null))
+   (participant-role common-lisp:nil :type
+    (common-lisp:or participant-role common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'channel-definition 'make-channel-definition))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input channel-definition))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input channel-definition))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'channel-id))
+      (common-lisp:list
+       (common-lisp:cons "ChannelId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'participant-role))
+      (common-lisp:list
+       (common-lisp:cons "ParticipantRole"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input channel-definition))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype channel-definitions ()
+   '(trivial-types:proper-list channel-definition))
+ (common-lisp:defun |make-channel-definitions|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list channel-definition))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype channel-id () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (chime-sdk-meeting-concatenation-configuration (:copier common-lisp:nil)
@@ -580,6 +921,19 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype concatenation-source-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:define-condition conflict-exception
+     (chime-sdk-media-pipelines-error)
+     ((code :initarg :code :initform common-lisp:nil :reader
+       conflict-exception-code)
+      (message :initarg :message :initform common-lisp:nil :reader
+       conflict-exception-message)
+      (request-id :initarg :request-id :initform common-lisp:nil :reader
+       conflict-exception-request-id)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'conflict-exception-code
+                    'conflict-exception-message
+                    'conflict-exception-request-id)))
+(common-lisp:progn
  (common-lisp:defstruct
      (content-artifacts-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-content-artifacts-configuration-"))
@@ -651,7 +1005,9 @@
                           content-concatenation-configuration))
    common-lisp:nil))
 (common-lisp:deftype content-mux-type () 'common-lisp:string)
+(common-lisp:deftype content-redaction-output () 'common-lisp:string)
 (common-lisp:deftype content-share-layout-option () 'common-lisp:string)
+(common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (create-media-capture-pipeline-request (:copier common-lisp:nil)
@@ -863,6 +1219,256 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-media-insights-pipeline-configuration-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-media-insights-pipeline-configuration-request-"))
+   (media-insights-pipeline-configuration-name
+    (common-lisp:error
+     ":media-insights-pipeline-configuration-name is required")
+    :type
+    (common-lisp:or media-insights-pipeline-configuration-name-string
+                    common-lisp:null))
+   (resource-access-role-arn
+    (common-lisp:error ":resource-access-role-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (real-time-alert-configuration common-lisp:nil :type
+    (common-lisp:or real-time-alert-configuration common-lisp:null))
+   (elements (common-lisp:error ":elements is required") :type
+    (common-lisp:or media-insights-pipeline-configuration-elements
+                    common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-media-insights-pipeline-configuration-request
+                    'make-create-media-insights-pipeline-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resource-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceAccessRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'real-time-alert-configuration))
+      (common-lisp:list
+       (common-lisp:cons "RealTimeAlertConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'elements))
+      (common-lisp:list
+       (common-lisp:cons "Elements"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-media-insights-pipeline-configuration-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-create-media-insights-pipeline-configuration-response-"))
+   (media-insights-pipeline-configuration common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-media-insights-pipeline-configuration-response
+                    'make-create-media-insights-pipeline-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-configuration-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-media-insights-pipeline-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-media-insights-pipeline-request-"))
+   (media-insights-pipeline-configuration-arn
+    (common-lisp:error
+     ":media-insights-pipeline-configuration-arn is required")
+    :type (common-lisp:or arn common-lisp:null))
+   (kinesis-video-stream-source-runtime-configuration common-lisp:nil :type
+    (common-lisp:or kinesis-video-stream-source-runtime-configuration
+                    common-lisp:null))
+   (media-insights-runtime-metadata common-lisp:nil :type
+    (common-lisp:or media-insights-runtime-metadata common-lisp:null))
+   (kinesis-video-stream-recording-source-runtime-configuration common-lisp:nil
+    :type
+    (common-lisp:or kinesis-video-stream-recording-source-runtime-configuration
+                    common-lisp:null))
+   (s3recording-sink-runtime-configuration common-lisp:nil :type
+    (common-lisp:or s3recording-sink-runtime-configuration common-lisp:null))
+   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
+   (client-request-token common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-media-insights-pipeline-request
+                    'make-create-media-insights-pipeline-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'kinesis-video-stream-source-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons "KinesisVideoStreamSourceRuntimeConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-runtime-metadata))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsRuntimeMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'kinesis-video-stream-recording-source-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons
+        "KinesisVideoStreamRecordingSourceRuntimeConfiguration"
+        (aws-sdk/generator/shape::input-params
+         aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           's3recording-sink-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons "S3RecordingSinkRuntimeConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'tags))
+      (common-lisp:list
+       (common-lisp:cons "Tags"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'client-request-token))
+      (common-lisp:list
+       (common-lisp:cons "ClientRequestToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-media-insights-pipeline-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-create-media-insights-pipeline-response-"))
+   (media-insights-pipeline
+    (common-lisp:error ":media-insights-pipeline is required") :type
+    (common-lisp:or media-insights-pipeline common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-media-insights-pipeline-response
+                    'make-create-media-insights-pipeline-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipeline"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          create-media-insights-pipeline-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-media-live-connector-pipeline-request (:copier common-lisp:nil)
       (:conc-name
        "struct-shape-create-media-live-connector-pipeline-request-"))
@@ -1010,6 +1616,32 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-media-insights-pipeline-configuration-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-delete-media-insights-pipeline-configuration-request-"))
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-media-insights-pipeline-configuration-request
+                    'make-delete-media-insights-pipeline-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-media-insights-pipeline-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-media-pipeline-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-media-pipeline-request-"))
    (media-pipeline-id (common-lisp:error ":media-pipeline-id is required")
@@ -1055,6 +1687,43 @@
   (common-lisp:list 'forbidden-exception 'forbidden-exception-code
                     'forbidden-exception-message
                     'forbidden-exception-request-id)))
+(common-lisp:deftype fragment-number-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (fragment-selector (:copier common-lisp:nil)
+      (:conc-name "struct-shape-fragment-selector-"))
+   (fragment-selector-type
+    (common-lisp:error ":fragment-selector-type is required") :type
+    (common-lisp:or fragment-selector-type common-lisp:null))
+   (timestamp-range (common-lisp:error ":timestamp-range is required") :type
+    (common-lisp:or timestamp-range common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'fragment-selector 'make-fragment-selector))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input fragment-selector))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input fragment-selector))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'fragment-selector-type))
+      (common-lisp:list
+       (common-lisp:cons "FragmentSelectorType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'timestamp-range))
+      (common-lisp:list
+       (common-lisp:cons "TimestampRange"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input fragment-selector))
+   common-lisp:nil))
+(common-lisp:deftype fragment-selector-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (get-media-capture-pipeline-request (:copier common-lisp:nil)
@@ -1110,6 +1779,66 @@
                         (
                          (aws-sdk/generator/shape::input
                           get-media-capture-pipeline-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-media-insights-pipeline-configuration-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-media-insights-pipeline-configuration-request-"))
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-media-insights-pipeline-configuration-request
+                    'make-get-media-insights-pipeline-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-media-insights-pipeline-configuration-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-media-insights-pipeline-configuration-response-"))
+   (media-insights-pipeline-configuration common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-media-insights-pipeline-configuration-response
+                    'make-get-media-insights-pipeline-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-media-insights-pipeline-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1210,6 +1939,251 @@
    common-lisp:nil))
 (common-lisp:deftype guid-string () 'common-lisp:string)
 (common-lisp:deftype iso8601timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (issue-detection-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-issue-detection-configuration-"))
+   (rule-name (common-lisp:error ":rule-name is required") :type
+    (common-lisp:or rule-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'issue-detection-configuration
+                    'make-issue-detection-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          issue-detection-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          issue-detection-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rule-name))
+      (common-lisp:list
+       (common-lisp:cons "RuleName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          issue-detection-configuration))
+   common-lisp:nil))
+(common-lisp:deftype keyword () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (keyword-match-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-keyword-match-configuration-"))
+   (rule-name (common-lisp:error ":rule-name is required") :type
+    (common-lisp:or rule-name common-lisp:null))
+   (keywords (common-lisp:error ":keywords is required") :type
+    (common-lisp:or keyword-match-word-list common-lisp:null))
+   (negate common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'keyword-match-configuration
+                    'make-keyword-match-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          keyword-match-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          keyword-match-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rule-name))
+      (common-lisp:list
+       (common-lisp:cons "RuleName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'keywords))
+      (common-lisp:list
+       (common-lisp:cons "Keywords"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'negate))
+      (common-lisp:list
+       (common-lisp:cons "Negate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          keyword-match-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype keyword-match-word-list ()
+   '(trivial-types:proper-list keyword))
+ (common-lisp:defun |make-keyword-match-word-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list keyword))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (kinesis-data-stream-sink-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-kinesis-data-stream-sink-configuration-"))
+   (insights-target common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'kinesis-data-stream-sink-configuration
+                    'make-kinesis-data-stream-sink-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-data-stream-sink-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-data-stream-sink-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insights-target))
+      (common-lisp:list
+       (common-lisp:cons "InsightsTarget"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-data-stream-sink-configuration))
+   common-lisp:nil))
+(common-lisp:deftype kinesis-video-stream-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (kinesis-video-stream-recording-source-runtime-configuration
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-kinesis-video-stream-recording-source-runtime-configuration-"))
+   (streams (common-lisp:error ":streams is required") :type
+    (common-lisp:or recording-stream-list common-lisp:null))
+   (fragment-selector (common-lisp:error ":fragment-selector is required")
+    :type (common-lisp:or fragment-selector common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'kinesis-video-stream-recording-source-runtime-configuration
+   'make-kinesis-video-stream-recording-source-runtime-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-recording-source-runtime-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-recording-source-runtime-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'streams))
+      (common-lisp:list
+       (common-lisp:cons "Streams"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fragment-selector))
+      (common-lisp:list
+       (common-lisp:cons "FragmentSelector"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-recording-source-runtime-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (kinesis-video-stream-source-runtime-configuration
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-kinesis-video-stream-source-runtime-configuration-"))
+   (streams (common-lisp:error ":streams is required") :type
+    (common-lisp:or streams common-lisp:null))
+   (media-encoding (common-lisp:error ":media-encoding is required") :type
+    (common-lisp:or media-encoding common-lisp:null))
+   (media-sample-rate (common-lisp:error ":media-sample-rate is required")
+    :type (common-lisp:or media-sample-rate-hertz common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'kinesis-video-stream-source-runtime-configuration
+                    'make-kinesis-video-stream-source-runtime-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-source-runtime-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-source-runtime-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'streams))
+      (common-lisp:list
+       (common-lisp:cons "Streams"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'media-encoding))
+      (common-lisp:list
+       (common-lisp:cons "MediaEncoding"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'media-sample-rate))
+      (common-lisp:list
+       (common-lisp:cons "MediaSampleRate"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          kinesis-video-stream-source-runtime-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (lambda-function-sink-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-lambda-function-sink-configuration-"))
+   (insights-target common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'lambda-function-sink-configuration
+                    'make-lambda-function-sink-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          lambda-function-sink-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          lambda-function-sink-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insights-target))
+      (common-lisp:list
+       (common-lisp:cons "InsightsTarget"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          lambda-function-sink-configuration))
+   common-lisp:nil))
 (common-lisp:deftype layout-option () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1275,6 +2249,76 @@
                         (
                          (aws-sdk/generator/shape::input
                           list-media-capture-pipelines-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-media-insights-pipeline-configurations-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-media-insights-pipeline-configurations-request-"))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (max-results common-lisp:nil :type
+    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-media-insights-pipeline-configurations-request
+                    'make-list-media-insights-pipeline-configurations-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-media-insights-pipeline-configurations-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-list-media-insights-pipeline-configurations-response-"))
+   (media-insights-pipeline-configurations common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration-summary-list
+                    common-lisp:null))
+   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-media-insights-pipeline-configurations-response
+                    'make-list-media-insights-pipeline-configurations-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configurations))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurations"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'next-token))
+      (common-lisp:list
+       (common-lisp:cons "NextToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          list-media-insights-pipeline-configurations-response))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1836,6 +2880,420 @@
                          (aws-sdk/generator/shape::input
                           media-concatenation-pipeline))
    common-lisp:nil))
+(common-lisp:deftype media-encoding () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (media-insights-pipeline (:copier common-lisp:nil)
+      (:conc-name "struct-shape-media-insights-pipeline-"))
+   (media-pipeline-id common-lisp:nil :type
+    (common-lisp:or guid-string common-lisp:null))
+   (media-pipeline-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (media-insights-pipeline-configuration-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (status common-lisp:nil :type
+    (common-lisp:or media-pipeline-status common-lisp:null))
+   (kinesis-video-stream-source-runtime-configuration common-lisp:nil :type
+    (common-lisp:or kinesis-video-stream-source-runtime-configuration
+                    common-lisp:null))
+   (media-insights-runtime-metadata common-lisp:nil :type
+    (common-lisp:or media-insights-runtime-metadata common-lisp:null))
+   (kinesis-video-stream-recording-source-runtime-configuration common-lisp:nil
+    :type
+    (common-lisp:or kinesis-video-stream-recording-source-runtime-configuration
+                    common-lisp:null))
+   (s3recording-sink-runtime-configuration common-lisp:nil :type
+    (common-lisp:or s3recording-sink-runtime-configuration common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'media-insights-pipeline 'make-media-insights-pipeline))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'media-pipeline-id))
+      (common-lisp:list
+       (common-lisp:cons "MediaPipelineId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'media-pipeline-arn))
+      (common-lisp:list
+       (common-lisp:cons "MediaPipelineArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'status))
+      (common-lisp:list
+       (common-lisp:cons "Status"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'kinesis-video-stream-source-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons "KinesisVideoStreamSourceRuntimeConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-runtime-metadata))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsRuntimeMetadata"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'kinesis-video-stream-recording-source-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons
+        "KinesisVideoStreamRecordingSourceRuntimeConfiguration"
+        (aws-sdk/generator/shape::input-params
+         aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           's3recording-sink-runtime-configuration))
+      (common-lisp:list
+       (common-lisp:cons "S3RecordingSinkRuntimeConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (media-insights-pipeline-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-media-insights-pipeline-configuration-"))
+   (media-insights-pipeline-configuration-name common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration-name-string
+                    common-lisp:null))
+   (media-insights-pipeline-configuration-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (resource-access-role-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null))
+   (real-time-alert-configuration common-lisp:nil :type
+    (common-lisp:or real-time-alert-configuration common-lisp:null))
+   (elements common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration-elements
+                    common-lisp:null))
+   (media-insights-pipeline-configuration-id common-lisp:nil :type
+    (common-lisp:or guid-string common-lisp:null))
+   (created-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null))
+   (updated-timestamp common-lisp:nil :type
+    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'media-insights-pipeline-configuration
+                    'make-media-insights-pipeline-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resource-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceAccessRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'real-time-alert-configuration))
+      (common-lisp:list
+       (common-lisp:cons "RealTimeAlertConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'elements))
+      (common-lisp:list
+       (common-lisp:cons "Elements"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-id))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'created-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "CreatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'updated-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "UpdatedTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (media-insights-pipeline-configuration-element (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-media-insights-pipeline-configuration-element-"))
+   (type (common-lisp:error ":type is required") :type
+    (common-lisp:or media-insights-pipeline-configuration-element-type
+                    common-lisp:null))
+   (amazon-transcribe-call-analytics-processor-configuration common-lisp:nil
+    :type
+    (common-lisp:or amazon-transcribe-call-analytics-processor-configuration
+                    common-lisp:null))
+   (amazon-transcribe-processor-configuration common-lisp:nil :type
+    (common-lisp:or amazon-transcribe-processor-configuration
+                    common-lisp:null))
+   (kinesis-data-stream-sink-configuration common-lisp:nil :type
+    (common-lisp:or kinesis-data-stream-sink-configuration common-lisp:null))
+   (s3recording-sink-configuration common-lisp:nil :type
+    (common-lisp:or s3recording-sink-configuration common-lisp:null))
+   (voice-analytics-processor-configuration common-lisp:nil :type
+    (common-lisp:or voice-analytics-processor-configuration common-lisp:null))
+   (lambda-function-sink-configuration common-lisp:nil :type
+    (common-lisp:or lambda-function-sink-configuration common-lisp:null))
+   (sqs-queue-sink-configuration common-lisp:nil :type
+    (common-lisp:or sqs-queue-sink-configuration common-lisp:null))
+   (sns-topic-sink-configuration common-lisp:nil :type
+    (common-lisp:or sns-topic-sink-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'media-insights-pipeline-configuration-element
+                    'make-media-insights-pipeline-configuration-element))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-element))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-element))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'amazon-transcribe-call-analytics-processor-configuration))
+      (common-lisp:list
+       (common-lisp:cons "AmazonTranscribeCallAnalyticsProcessorConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'amazon-transcribe-processor-configuration))
+      (common-lisp:list
+       (common-lisp:cons "AmazonTranscribeProcessorConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'kinesis-data-stream-sink-configuration))
+      (common-lisp:list
+       (common-lisp:cons "KinesisDataStreamSinkConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           's3recording-sink-configuration))
+      (common-lisp:list
+       (common-lisp:cons "S3RecordingSinkConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-analytics-processor-configuration))
+      (common-lisp:list
+       (common-lisp:cons "VoiceAnalyticsProcessorConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'lambda-function-sink-configuration))
+      (common-lisp:list
+       (common-lisp:cons "LambdaFunctionSinkConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sqs-queue-sink-configuration))
+      (common-lisp:list
+       (common-lisp:cons "SqsQueueSinkConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sns-topic-sink-configuration))
+      (common-lisp:list
+       (common-lisp:cons "SnsTopicSinkConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-element))
+   common-lisp:nil))
+(common-lisp:deftype media-insights-pipeline-configuration-element-type ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype media-insights-pipeline-configuration-elements ()
+   '(trivial-types:proper-list media-insights-pipeline-configuration-element))
+ (common-lisp:defun |make-media-insights-pipeline-configuration-elements|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            media-insights-pipeline-configuration-element))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype media-insights-pipeline-configuration-name-string ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (media-insights-pipeline-configuration-summary (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-media-insights-pipeline-configuration-summary-"))
+   (media-insights-pipeline-configuration-name common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration-name-string
+                    common-lisp:null))
+   (media-insights-pipeline-configuration-id common-lisp:nil :type
+    (common-lisp:or guid-string common-lisp:null))
+   (media-insights-pipeline-configuration-arn common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'media-insights-pipeline-configuration-summary
+                    'make-media-insights-pipeline-configuration-summary))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-summary))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-summary))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-name))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-id))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration-arn))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfigurationArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          media-insights-pipeline-configuration-summary))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype media-insights-pipeline-configuration-summary-list ()
+   '(trivial-types:proper-list media-insights-pipeline-configuration-summary))
+ (common-lisp:defun |make-media-insights-pipeline-configuration-summary-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            media-insights-pipeline-configuration-summary))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype media-insights-runtime-metadata ()
+   'common-lisp:hash-table)
+ (common-lisp:defun |make-media-insights-runtime-metadata|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
  (common-lisp:defstruct
      (media-live-connector-pipeline (:copier common-lisp:nil)
@@ -1930,7 +3388,9 @@
    (media-live-connector-pipeline common-lisp:nil :type
     (common-lisp:or media-live-connector-pipeline common-lisp:null))
    (media-concatenation-pipeline common-lisp:nil :type
-    (common-lisp:or media-concatenation-pipeline common-lisp:null)))
+    (common-lisp:or media-concatenation-pipeline common-lisp:null))
+   (media-insights-pipeline common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline common-lisp:null)))
  (common-lisp:export (common-lisp:list 'media-pipeline 'make-media-pipeline))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input media-pipeline))
@@ -1961,6 +3421,14 @@
       (common-lisp:list
        (common-lisp:cons "MediaConcatenationPipeline"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipeline"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input media-pipeline))
@@ -1976,6 +3444,7 @@
 (common-lisp:deftype media-pipeline-sink-type () 'common-lisp:string)
 (common-lisp:deftype media-pipeline-source-type () 'common-lisp:string)
 (common-lisp:deftype media-pipeline-status () 'common-lisp:string)
+(common-lisp:deftype media-pipeline-status-update () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (media-pipeline-summary (:copier common-lisp:nil)
@@ -2015,6 +3484,7 @@
                          (aws-sdk/generator/shape::input
                           media-pipeline-summary))
    common-lisp:nil))
+(common-lisp:deftype media-sample-rate-hertz () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
      (meeting-events-concatenation-configuration (:copier common-lisp:nil)
@@ -2046,6 +3516,8 @@
                          (aws-sdk/generator/shape::input
                           meeting-events-concatenation-configuration))
    common-lisp:nil))
+(common-lisp:deftype model-name () 'common-lisp:string)
+(common-lisp:deftype non-empty-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition not-found-exception
      (chime-sdk-media-pipelines-error)
@@ -2059,6 +3531,72 @@
   (common-lisp:list 'not-found-exception 'not-found-exception-code
                     'not-found-exception-message
                     'not-found-exception-request-id)))
+(common-lisp:deftype number-of-channels () 'common-lisp:integer)
+(common-lisp:deftype partial-results-stability () 'common-lisp:string)
+(common-lisp:deftype participant-role () 'common-lisp:string)
+(common-lisp:deftype pii-entity-types () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (post-call-analytics-settings (:copier common-lisp:nil)
+      (:conc-name "struct-shape-post-call-analytics-settings-"))
+   (output-location (common-lisp:error ":output-location is required") :type
+    (common-lisp:or string common-lisp:null))
+   (data-access-role-arn
+    (common-lisp:error ":data-access-role-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (content-redaction-output common-lisp:nil :type
+    (common-lisp:or content-redaction-output common-lisp:null))
+   (output-encryption-kmskey-id common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'post-call-analytics-settings
+                    'make-post-call-analytics-settings))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          post-call-analytics-settings))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          post-call-analytics-settings))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'output-location))
+      (common-lisp:list
+       (common-lisp:cons "OutputLocation"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'data-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "DataAccessRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'content-redaction-output))
+      (common-lisp:list
+       (common-lisp:cons "ContentRedactionOutput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'output-encryption-kmskey-id))
+      (common-lisp:list
+       (common-lisp:cons "OutputEncryptionKMSKeyId"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          post-call-analytics-settings))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (presenter-only-configuration (:copier common-lisp:nil)
@@ -2091,6 +3629,149 @@
                           presenter-only-configuration))
    common-lisp:nil))
 (common-lisp:deftype presenter-position () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (real-time-alert-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-real-time-alert-configuration-"))
+   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
+   (rules common-lisp:nil :type
+    (common-lisp:or real-time-alert-rule-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'real-time-alert-configuration
+                    'make-real-time-alert-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          real-time-alert-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          real-time-alert-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'disabled))
+      (common-lisp:list
+       (common-lisp:cons "Disabled"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rules))
+      (common-lisp:list
+       (common-lisp:cons "Rules"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          real-time-alert-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (real-time-alert-rule (:copier common-lisp:nil)
+      (:conc-name "struct-shape-real-time-alert-rule-"))
+   (type (common-lisp:error ":type is required") :type
+    (common-lisp:or real-time-alert-rule-type common-lisp:null))
+   (keyword-match-configuration common-lisp:nil :type
+    (common-lisp:or keyword-match-configuration common-lisp:null))
+   (sentiment-configuration common-lisp:nil :type
+    (common-lisp:or sentiment-configuration common-lisp:null))
+   (issue-detection-configuration common-lisp:nil :type
+    (common-lisp:or issue-detection-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'real-time-alert-rule 'make-real-time-alert-rule))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input real-time-alert-rule))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input real-time-alert-rule))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'type))
+      (common-lisp:list
+       (common-lisp:cons "Type"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'keyword-match-configuration))
+      (common-lisp:list
+       (common-lisp:cons "KeywordMatchConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'sentiment-configuration))
+      (common-lisp:list
+       (common-lisp:cons "SentimentConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'issue-detection-configuration))
+      (common-lisp:list
+       (common-lisp:cons "IssueDetectionConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input real-time-alert-rule))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype real-time-alert-rule-list ()
+   '(trivial-types:proper-list real-time-alert-rule))
+ (common-lisp:defun |make-real-time-alert-rule-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list real-time-alert-rule))
+   aws-sdk/generator/shape::members))
+(common-lisp:deftype real-time-alert-rule-type () 'common-lisp:string)
+(common-lisp:deftype recording-file-format () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (recording-stream-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-recording-stream-configuration-"))
+   (stream-arn common-lisp:nil :type
+    (common-lisp:or kinesis-video-stream-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'recording-stream-configuration
+                    'make-recording-stream-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          recording-stream-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          recording-stream-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'stream-arn))
+      (common-lisp:list
+       (common-lisp:cons "StreamArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          recording-stream-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype recording-stream-list ()
+   '(trivial-types:proper-list recording-stream-configuration))
+ (common-lisp:defun |make-recording-stream-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list
+                            recording-stream-configuration))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype resolution-option () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition resource-limit-exceeded-exception
@@ -2107,6 +3788,7 @@
                     'resource-limit-exceeded-exception-message
                     'resource-limit-exceeded-exception-request-id)))
 (common-lisp:deftype result-max () 'common-lisp:integer)
+(common-lisp:deftype rule-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (s3bucket-sink-configuration (:copier common-lisp:nil)
@@ -2137,6 +3819,88 @@
                         (
                          (aws-sdk/generator/shape::input
                           s3bucket-sink-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (s3recording-sink-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-s3recording-sink-configuration-"))
+   (destination common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (recording-file-format common-lisp:nil :type
+    (common-lisp:or recording-file-format common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 's3recording-sink-configuration
+                    'make-s3recording-sink-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination))
+      (common-lisp:list
+       (common-lisp:cons "Destination"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'recording-file-format))
+      (common-lisp:list
+       (common-lisp:cons "RecordingFileFormat"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (s3recording-sink-runtime-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-s3recording-sink-runtime-configuration-"))
+   (destination (common-lisp:error ":destination is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (recording-file-format
+    (common-lisp:error ":recording-file-format is required") :type
+    (common-lisp:or recording-file-format common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 's3recording-sink-runtime-configuration
+                    'make-s3recording-sink-runtime-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-runtime-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-runtime-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'destination))
+      (common-lisp:list
+       (common-lisp:cons "Destination"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'recording-file-format))
+      (common-lisp:list
+       (common-lisp:cons "RecordingFileFormat"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          s3recording-sink-runtime-configuration))
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2179,6 +3943,56 @@
    common-lisp:nil))
 (common-lisp:deftype sensitive-string () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (sentiment-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sentiment-configuration-"))
+   (rule-name (common-lisp:error ":rule-name is required") :type
+    (common-lisp:or rule-name common-lisp:null))
+   (sentiment-type (common-lisp:error ":sentiment-type is required") :type
+    (common-lisp:or sentiment-type common-lisp:null))
+   (time-period (common-lisp:error ":time-period is required") :type
+    (common-lisp:or sentiment-time-period-in-seconds common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sentiment-configuration 'make-sentiment-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sentiment-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sentiment-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'rule-name))
+      (common-lisp:list
+       (common-lisp:cons "RuleName"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'sentiment-type))
+      (common-lisp:list
+       (common-lisp:cons "SentimentType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'time-period))
+      (common-lisp:list
+       (common-lisp:cons "TimePeriod"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sentiment-configuration))
+   common-lisp:nil))
+(common-lisp:deftype sentiment-time-period-in-seconds () 'common-lisp:integer)
+(common-lisp:deftype sentiment-type () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:define-condition service-failure-exception
      (chime-sdk-media-pipelines-error)
      ((code :initarg :code :initform common-lisp:nil :reader
@@ -2207,6 +4021,37 @@
                     'service-unavailable-exception-request-id)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (sns-topic-sink-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sns-topic-sink-configuration-"))
+   (insights-target common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sns-topic-sink-configuration
+                    'make-sns-topic-sink-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sns-topic-sink-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sns-topic-sink-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insights-target))
+      (common-lisp:list
+       (common-lisp:cons "InsightsTarget"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sns-topic-sink-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (source-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-source-configuration-"))
    (selected-video-streams common-lisp:nil :type
@@ -2230,6 +4075,129 @@
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input source-configuration))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sqs-queue-sink-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-sqs-queue-sink-configuration-"))
+   (insights-target common-lisp:nil :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sqs-queue-sink-configuration
+                    'make-sqs-queue-sink-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          sqs-queue-sink-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          sqs-queue-sink-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'insights-target))
+      (common-lisp:list
+       (common-lisp:cons "InsightsTarget"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          sqs-queue-sink-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stream-channel-definition (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stream-channel-definition-"))
+   (number-of-channels (common-lisp:error ":number-of-channels is required")
+    :type (common-lisp:or number-of-channels common-lisp:null))
+   (channel-definitions common-lisp:nil :type
+    (common-lisp:or channel-definitions common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stream-channel-definition
+                    'make-stream-channel-definition))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          stream-channel-definition))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          stream-channel-definition))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'number-of-channels))
+      (common-lisp:list
+       (common-lisp:cons "NumberOfChannels"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'channel-definitions))
+      (common-lisp:list
+       (common-lisp:cons "ChannelDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          stream-channel-definition))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (stream-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-stream-configuration-"))
+   (stream-arn (common-lisp:error ":stream-arn is required") :type
+    (common-lisp:or kinesis-video-stream-arn common-lisp:null))
+   (fragment-number common-lisp:nil :type
+    (common-lisp:or fragment-number-string common-lisp:null))
+   (stream-channel-definition
+    (common-lisp:error ":stream-channel-definition is required") :type
+    (common-lisp:or stream-channel-definition common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stream-configuration 'make-stream-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input stream-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input stream-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'stream-arn))
+      (common-lisp:list
+       (common-lisp:cons "StreamArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'fragment-number))
+      (common-lisp:list
+       (common-lisp:cons "FragmentNumber"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'stream-channel-definition))
+      (common-lisp:list
+       (common-lisp:cons "StreamChannelDefinition"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input stream-configuration))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype streams ()
+   '(trivial-types:proper-list stream-configuration))
+ (common-lisp:defun |make-streams|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list stream-configuration))
+   aws-sdk/generator/shape::members))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2346,6 +4314,39 @@
                     'throttled-client-exception-code
                     'throttled-client-exception-message
                     'throttled-client-exception-request-id)))
+(common-lisp:deftype timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (timestamp-range (:copier common-lisp:nil)
+      (:conc-name "struct-shape-timestamp-range-"))
+   (start-timestamp (common-lisp:error ":start-timestamp is required") :type
+    (common-lisp:or timestamp common-lisp:null))
+   (end-timestamp (common-lisp:error ":end-timestamp is required") :type
+    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'timestamp-range 'make-timestamp-range))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input timestamp-range))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input timestamp-range))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'start-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "StartTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'end-timestamp))
+      (common-lisp:list
+       (common-lisp:cons "EndTimestamp"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input timestamp-range))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
      (transcription-messages-concatenation-configuration
@@ -2455,6 +4456,131 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (update-media-insights-pipeline-configuration-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-media-insights-pipeline-configuration-request-"))
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (resource-access-role-arn
+    (common-lisp:error ":resource-access-role-arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (real-time-alert-configuration common-lisp:nil :type
+    (common-lisp:or real-time-alert-configuration common-lisp:null))
+   (elements (common-lisp:error ":elements is required") :type
+    (common-lisp:or media-insights-pipeline-configuration-elements
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-media-insights-pipeline-configuration-request
+                    'make-update-media-insights-pipeline-configuration-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'resource-access-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "ResourceAccessRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'real-time-alert-configuration))
+      (common-lisp:list
+       (common-lisp:cons "RealTimeAlertConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'elements))
+      (common-lisp:list
+       (common-lisp:cons "Elements"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-media-insights-pipeline-configuration-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-media-insights-pipeline-configuration-response-"))
+   (media-insights-pipeline-configuration common-lisp:nil :type
+    (common-lisp:or media-insights-pipeline-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-media-insights-pipeline-configuration-response
+                    'make-update-media-insights-pipeline-configuration-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'media-insights-pipeline-configuration))
+      (common-lisp:list
+       (common-lisp:cons "MediaInsightsPipelineConfiguration"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-configuration-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-media-insights-pipeline-status-request (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-update-media-insights-pipeline-status-request-"))
+   (identifier (common-lisp:error ":identifier is required") :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (update-status (common-lisp:error ":update-status is required") :type
+    (common-lisp:or media-pipeline-status-update common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-media-insights-pipeline-status-request
+                    'make-update-media-insights-pipeline-status-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-status-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-status-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'update-status))
+      (common-lisp:list
+       (common-lisp:cons "UpdateStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          update-media-insights-pipeline-status-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (video-artifacts-configuration (:copier common-lisp:nil)
       (:conc-name "struct-shape-video-artifacts-configuration-"))
    (state (common-lisp:error ":state is required") :type
@@ -2525,6 +4651,53 @@
                           video-concatenation-configuration))
    common-lisp:nil))
 (common-lisp:deftype video-mux-type () 'common-lisp:string)
+(common-lisp:deftype vocabulary-filter-method () 'common-lisp:string)
+(common-lisp:deftype vocabulary-filter-name () 'common-lisp:string)
+(common-lisp:deftype vocabulary-name () 'common-lisp:string)
+(common-lisp:deftype voice-analytics-configuration-status ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (voice-analytics-processor-configuration (:copier common-lisp:nil)
+      (:conc-name "struct-shape-voice-analytics-processor-configuration-"))
+   (speaker-search-status common-lisp:nil :type
+    (common-lisp:or voice-analytics-configuration-status common-lisp:null))
+   (voice-tone-analysis-status common-lisp:nil :type
+    (common-lisp:or voice-analytics-configuration-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'voice-analytics-processor-configuration
+                    'make-voice-analytics-processor-configuration))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-analytics-processor-configuration))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-analytics-processor-configuration))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'speaker-search-status))
+      (common-lisp:list
+       (common-lisp:cons "SpeakerSearchStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'voice-tone-analysis-status))
+      (common-lisp:list
+       (common-lisp:cons "VoiceToneAnalysisStatus"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          voice-analytics-processor-configuration))
+   common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defun create-media-capture-pipeline
                     (
@@ -2565,6 +4738,58 @@
         "CreateMediaConcatenationPipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-concatenation-pipeline))
+(common-lisp:progn
+ (common-lisp:defun create-media-insights-pipeline
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key media-insights-pipeline-configuration-arn
+                     kinesis-video-stream-source-runtime-configuration
+                     media-insights-runtime-metadata
+                     kinesis-video-stream-recording-source-runtime-configuration
+                     s3recording-sink-runtime-configuration tags
+                     client-request-token)
+   (common-lisp:declare
+    (common-lisp:ignorable media-insights-pipeline-configuration-arn
+     kinesis-video-stream-source-runtime-configuration
+     media-insights-runtime-metadata
+     kinesis-video-stream-recording-source-runtime-configuration
+     s3recording-sink-runtime-configuration tags client-request-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-media-insights-pipeline-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "POST" "/media-insights-pipelines" "CreateMediaInsightsPipeline"
+        "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-media-insights-pipeline))
+(common-lisp:progn
+ (common-lisp:defun create-media-insights-pipeline-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key
+                     media-insights-pipeline-configuration-name
+                     resource-access-role-arn real-time-alert-configuration
+                     elements tags client-request-token)
+   (common-lisp:declare
+    (common-lisp:ignorable media-insights-pipeline-configuration-name
+     resource-access-role-arn real-time-alert-configuration elements tags
+     client-request-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-media-insights-pipeline-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "POST" "/media-insights-pipeline-configurations"
+        "CreateMediaInsightsPipelineConfiguration" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'create-media-insights-pipeline-configuration))
 (common-lisp:progn
  (common-lisp:defun create-media-live-connector-pipeline
                     (
@@ -2608,6 +4833,31 @@
         "DeleteMediaCapturePipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-media-capture-pipeline))
+(common-lisp:progn
+ (common-lisp:defun delete-media-insights-pipeline-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifier)
+   (common-lisp:declare (common-lisp:ignorable identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-media-insights-pipeline-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "DELETE"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/media-insights-pipeline-configurations/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'identifier))))
+        "DeleteMediaInsightsPipelineConfiguration" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-media-insights-pipeline-configuration))
 (common-lisp:progn
  (common-lisp:defun delete-media-pipeline
                     (
@@ -2656,6 +4906,31 @@
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-media-capture-pipeline))
 (common-lisp:progn
+ (common-lisp:defun get-media-insights-pipeline-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifier)
+   (common-lisp:declare (common-lisp:ignorable identifier))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-media-insights-pipeline-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "GET"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/media-insights-pipeline-configurations/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'identifier))))
+        "GetMediaInsightsPipelineConfiguration" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-media-insights-pipeline-configuration))
+(common-lisp:progn
  (common-lisp:defun get-media-pipeline
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
@@ -2696,6 +4971,24 @@
         "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-media-capture-pipelines))
+(common-lisp:progn
+ (common-lisp:defun list-media-insights-pipeline-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-media-insights-pipeline-configurations-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "GET" "/media-insights-pipeline-configurations"
+        "ListMediaInsightsPipelineConfigurations" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'list-media-insights-pipeline-configurations))
 (common-lisp:progn
  (common-lisp:defun list-media-pipelines
                     (
@@ -2760,3 +5053,56 @@
         "POST" "/tags?operation=untag-resource" "UntagResource" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
+(common-lisp:progn
+ (common-lisp:defun update-media-insights-pipeline-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifier resource-access-role-arn
+                     real-time-alert-configuration elements)
+   (common-lisp:declare
+    (common-lisp:ignorable identifier resource-access-role-arn
+     real-time-alert-configuration elements))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-media-insights-pipeline-configuration-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/media-insights-pipeline-configurations/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'identifier))))
+        "UpdateMediaInsightsPipelineConfiguration" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-media-insights-pipeline-configuration))
+(common-lisp:progn
+ (common-lisp:defun update-media-insights-pipeline-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key identifier update-status)
+   (common-lisp:declare (common-lisp:ignorable identifier update-status))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-media-insights-pipeline-status-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input
+        'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
+        "PUT"
+        (common-lisp:lambda (aws-sdk/generator/operation::input)
+          (common-lisp:format common-lisp:nil
+                              "/media-insights-pipeline-status/~A"
+                              (quri.encode:url-encode
+                               (common-lisp:slot-value
+                                aws-sdk/generator/operation::input
+                                'identifier))))
+        "UpdateMediaInsightsPipelineStatus" "2021-07-15"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'update-media-insights-pipeline-status))

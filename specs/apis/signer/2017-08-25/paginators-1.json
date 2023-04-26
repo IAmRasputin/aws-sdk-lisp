@@ -2,21 +2,18 @@
   "pagination": {
     "ListSigningJobs": {
       "input_token": "nextToken",
-      "limit_key": "maxResults",
       "output_token": "nextToken",
-      "result_key": "jobs"
+      "limit_key": "maxResults"
     },
     "ListSigningPlatforms": {
       "input_token": "nextToken",
-      "limit_key": "maxResults",
       "output_token": "nextToken",
-      "result_key": "platforms"
+      "limit_key": "maxResults"
     },
     "ListSigningProfiles": {
       "input_token": "nextToken",
-      "limit_key": "maxResults",
       "output_token": "nextToken",
-      "result_key": "profiles"
+      "limit_key": "maxResults"
     }
   }
 }

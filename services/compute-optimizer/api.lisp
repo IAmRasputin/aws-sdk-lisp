@@ -3689,7 +3689,9 @@
    (effective-recommendation-preferences common-lisp:nil :type
     (common-lisp:or effective-recommendation-preferences common-lisp:null))
    (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types common-lisp:null)))
+    (common-lisp:or inferred-workload-types common-lisp:null))
+   (instance-state common-lisp:nil :type
+    (common-lisp:or instance-state common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'instance-recommendation 'make-instance-recommendation))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -3808,6 +3810,13 @@
       (common-lisp:list
        (common-lisp:cons "inferredWorkloadTypes"
                          (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'instance-state))
+      (common-lisp:list
+       (common-lisp:cons "instanceState"
+                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -3919,6 +3928,7 @@
    (common-lisp:check-type aws-sdk/generator/shape::members
                            (trivial-types:proper-list instance-recommendation))
    aws-sdk/generator/shape::members))
+(common-lisp:deftype instance-state () 'common-lisp:string)
 (common-lisp:deftype instance-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
@@ -5101,6 +5111,7 @@
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:deftype resource-type () 'common-lisp:string)
+(common-lisp:deftype root-volume () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
      (s3destination (:copier common-lisp:nil)
@@ -5551,7 +5562,9 @@
    (volume-baseline-throughput common-lisp:nil :type
     (common-lisp:or volume-baseline-throughput common-lisp:null))
    (volume-burst-throughput common-lisp:nil :type
-    (common-lisp:or volume-burst-throughput common-lisp:null)))
+    (common-lisp:or volume-burst-throughput common-lisp:null))
+   (root-volume common-lisp:nil :type
+    (common-lisp:or root-volume common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'volume-configuration 'make-volume-configuration))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5603,6 +5616,13 @@
                            'volume-burst-throughput))
       (common-lisp:list
        (common-lisp:cons "volumeBurstThroughput"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'root-volume))
+      (common-lisp:list
+       (common-lisp:cons "rootVolume"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload

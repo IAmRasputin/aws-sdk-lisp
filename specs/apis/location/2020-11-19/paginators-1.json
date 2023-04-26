@@ -3,8 +3,14 @@
     "GetDevicePositionHistory": {
       "input_token": "NextToken",
       "output_token": "NextToken",
-      "result_key": "DevicePositions",
-      "limit_key": "MaxResults"
+      "limit_key": "MaxResults",
+      "result_key": "DevicePositions"
+    },
+    "ListDevicePositions": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Entries"
     },
     "ListGeofenceCollections": {
       "input_token": "NextToken",
@@ -15,8 +21,14 @@
     "ListGeofences": {
       "input_token": "NextToken",
       "output_token": "NextToken",
-      "result_key": "Entries",
-      "limit_key": "MaxResults"
+      "limit_key": "MaxResults",
+      "result_key": "Entries"
+    },
+    "ListKeys": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Entries"
     },
     "ListMaps": {
       "input_token": "NextToken",
@@ -30,6 +42,12 @@
       "limit_key": "MaxResults",
       "result_key": "Entries"
     },
+    "ListRouteCalculators": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Entries"
+    },
     "ListTrackerConsumers": {
       "input_token": "NextToken",
       "output_token": "NextToken",
@@ -37,18 +55,6 @@
       "result_key": "ConsumerArns"
     },
     "ListTrackers": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "Entries"
-    },
-    "ListDevicePositions": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "Entries"
-    },
-    "ListRouteCalculators": {
       "input_token": "NextToken",
       "output_token": "NextToken",
       "limit_key": "MaxResults",

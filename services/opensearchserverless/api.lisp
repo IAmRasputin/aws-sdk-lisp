@@ -22,7 +22,9 @@
 (common-lisp:defvar *error-map*
   '(("ConflictException" . conflict-exception)
     ("InternalServerException" . internal-server-exception)
+    ("OcuLimitExceededException" . ocu-limit-exceeded-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
+    ("ServiceQuotaExceededException" . service-quota-exceeded-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2727,6 +2729,14 @@
                           list-vpc-endpoints-response))
    common-lisp:nil))
 (common-lisp:deftype long () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:define-condition ocu-limit-exceeded-exception
+     (opensearchserverless-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       ocu-limit-exceeded-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'ocu-limit-exceeded-exception
+                    'ocu-limit-exceeded-exception-message)))
 (common-lisp:deftype policy-description () 'common-lisp:string)
 (common-lisp:deftype policy-document () 'common-lisp:string)
 (common-lisp:deftype policy-name () 'common-lisp:string)
@@ -3205,6 +3215,26 @@
                           security-policy-summary))
    common-lisp:nil))
 (common-lisp:deftype security-policy-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition service-quota-exceeded-exception
+     (opensearchserverless-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       service-quota-exceeded-exception-message)
+      (quota-code :initarg :quota-code :initform common-lisp:nil :reader
+       service-quota-exceeded-exception-quota-code)
+      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+       service-quota-exceeded-exception-resource-id)
+      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+       service-quota-exceeded-exception-resource-type)
+      (service-code :initarg :service-code :initform common-lisp:nil :reader
+       service-quota-exceeded-exception-service-code)))
+ (common-lisp:export
+  (common-lisp:list 'service-quota-exceeded-exception
+                    'service-quota-exceeded-exception-message
+                    'service-quota-exceeded-exception-quota-code
+                    'service-quota-exceeded-exception-resource-id
+                    'service-quota-exceeded-exception-resource-type
+                    'service-quota-exceeded-exception-service-code)))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype subnet-id () 'common-lisp:string)
 (common-lisp:progn

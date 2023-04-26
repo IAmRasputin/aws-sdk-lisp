@@ -2840,6 +2840,76 @@
    common-lisp:nil))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-task-definitions-request (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-task-definitions-request-"))
+   (task-definitions (common-lisp:error ":taskdefinitions is required") :type
+    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-task-definitions-request
+                    'make-delete-task-definitions-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'task-definitions))
+      (common-lisp:list
+       (common-lisp:cons "taskDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-task-definitions-response (:copier common-lisp:nil)
+      (:conc-name "struct-shape-delete-task-definitions-response-"))
+   (task-definitions common-lisp:nil :type
+    (common-lisp:or task-definition-list common-lisp:null))
+   (failures common-lisp:nil :type (common-lisp:or failures common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-task-definitions-response
+                    'make-delete-task-definitions-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'task-definitions))
+      (common-lisp:list
+       (common-lisp:cons "taskDefinitions"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'failures))
+      (common-lisp:list
+       (common-lisp:cons "failures"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          delete-task-definitions-response))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-task-set-request (:copier common-lisp:nil)
       (:conc-name "struct-shape-delete-task-set-request-"))
    (cluster (common-lisp:error ":cluster is required") :type
@@ -10372,6 +10442,14 @@
                            (trivial-types:proper-list task-definition-field))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype task-definition-list ()
+   '(trivial-types:proper-list task-definition))
+ (common-lisp:defun |make-task-definition-list|
+                    (common-lisp:&rest aws-sdk/generator/shape::members)
+   (common-lisp:check-type aws-sdk/generator/shape::members
+                           (trivial-types:proper-list task-definition))
+   aws-sdk/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct
      (task-definition-placement-constraint (:copier common-lisp:nil)
       (:conc-name "struct-shape-task-definition-placement-constraint-"))
@@ -12135,6 +12213,24 @@
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-service))
+(common-lisp:progn
+ (common-lisp:defun delete-task-definitions
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key task-definitions)
+   (common-lisp:declare (common-lisp:ignorable task-definitions))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply 'make-delete-task-definitions-request
+                                         aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'ecs-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" "/"
+                                                        "DeleteTaskDefinitions"
+                                                        "2014-11-13"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'delete-task-definitions))
 (common-lisp:progn
  (common-lisp:defun delete-task-set
                     (
