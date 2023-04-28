@@ -1,99 +1,118 @@
 {
   "pagination": {
-    "ListAppliedSchemaArns": {
-      "input_token": "NextToken",
+    "ListObjectParentPaths": {
+      "result_key": "PathToObjectIdentifiersList",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListAttachedIndices": {
       "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListDevelopmentSchemaArns": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListDirectories": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListFacetAttributes": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
       "limit_key": "MaxResults"
     },
     "ListFacetNames": {
-      "input_token": "NextToken",
+      "result_key": "FacetNames",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListIndex": {
       "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListManagedSchemaArns": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListObjectAttributes": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListObjectChildren": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListObjectParentPaths": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListObjectParents": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListObjectPolicies": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListPolicyAttachments": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
       "limit_key": "MaxResults"
     },
     "ListPublishedSchemaArns": {
-      "input_token": "NextToken",
+      "result_key": "SchemaArns",
       "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
     },
-    "ListTagsForResource": {
-      "input_token": "NextToken",
+    "ListDirectories": {
+      "result_key": "Directories",
       "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
     },
-    "ListTypedLinkFacetAttributes": {
-      "input_token": "NextToken",
+    "ListDevelopmentSchemaArns": {
+      "result_key": "SchemaArns",
       "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
     },
     "ListTypedLinkFacetNames": {
-      "input_token": "NextToken",
+      "result_key": "FacetNames",
       "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListIndex": {
+      "result_key": "IndexAttachments",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListFacetAttributes": {
+      "result_key": "Attributes",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListObjectPolicies": {
+      "result_key": "AttachedPolicyIds",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListTagsForResource": {
+      "result_key": "Tags",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListAttachedIndices": {
+      "result_key": "IndexAttachments",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
     },
     "LookupPolicy": {
-      "input_token": "NextToken",
+      "result_key": "PolicyToPathList",
       "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
+    },
+    "ListPolicyAttachments": {
+      "result_key": "ObjectIdentifiers",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListObjectAttributes": {
+      "result_key": "Attributes",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListAppliedSchemaArns": {
+      "result_key": "SchemaArns",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListTypedLinkFacetAttributes": {
+      "result_key": "Attributes",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
+    },
+    "ListIncomingTypedLinks": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "LinkSpecifiers"
+    },
+    "ListManagedSchemaArns": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "SchemaArns"
+    },
+    "ListOutgoingTypedLinks": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "TypedLinkSpecifiers"
     }
   }
 }

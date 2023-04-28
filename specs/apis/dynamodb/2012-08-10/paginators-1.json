@@ -1,41 +1,47 @@
 {
   "pagination": {
-    "BatchGetItem": {
-      "input_token": "RequestItems",
-      "output_token": "UnprocessedKeys"
-    },
-    "ListContributorInsights": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken"
-    },
-    "ListExports": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken"
-    },
-    "ListImports": {
-      "input_token": "NextToken",
-      "limit_key": "PageSize",
-      "output_token": "NextToken"
+    "ListBackups": {
+      "input_token": "ExclusiveStartBackupArn",
+      "output_token": "LastEvaluatedBackupArn",
+      "limit_key": "Limit",
+      "result_key": "BackupSummaries"
     },
     "ListTables": {
       "input_token": "ExclusiveStartTableName",
-      "limit_key": "Limit",
       "output_token": "LastEvaluatedTableName",
+      "limit_key": "Limit",
       "result_key": "TableNames"
     },
     "Query": {
       "input_token": "ExclusiveStartKey",
-      "limit_key": "Limit",
       "output_token": "LastEvaluatedKey",
-      "result_key": "Items"
+      "limit_key": "Limit",
+      "result_key": [
+        "Items",
+        "Count",
+        "ScannedCount"
+      ],
+      "non_aggregate_keys": [
+        "ConsumedCapacity"
+      ]
     },
     "Scan": {
       "input_token": "ExclusiveStartKey",
-      "limit_key": "Limit",
       "output_token": "LastEvaluatedKey",
-      "result_key": "Items"
+      "limit_key": "Limit",
+      "result_key": [
+        "Items",
+        "Count",
+        "ScannedCount"
+      ],
+      "non_aggregate_keys": [
+        "ConsumedCapacity"
+      ]
+    },
+    "ListTagsOfResource": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "Tags"
     }
   }
 }

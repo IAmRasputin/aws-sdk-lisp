@@ -1,46 +1,46 @@
 {
-  "pagination" : {
-    "ListBridges" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Bridges"
+  "pagination": {
+    "ListFlows": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Flows"
     },
-    "ListEntitlements" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Entitlements"
+    "ListEntitlements": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Entitlements"
     },
-    "ListFlows" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Flows"
+    "ListOfferings": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Offerings"
     },
-    "ListGatewayInstances" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Instances"
+    "ListReservations": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Reservations"
     },
-    "ListGateways" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Gateways"
+    "ListBridges": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Bridges"
     },
-    "ListOfferings" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Offerings"
+    "ListGatewayInstances": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Instances"
     },
-    "ListReservations" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxResults",
-      "result_key" : "Reservations"
+    "ListGateways": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "Gateways"
     }
   }
 }

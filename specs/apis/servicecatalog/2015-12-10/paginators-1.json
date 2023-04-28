@@ -1,99 +1,100 @@
 {
   "pagination": {
-    "DescribePortfolioShares": {
-      "input_token": "PageToken",
+    "SearchProductsAsAdmin": {
+      "result_key": "ProductViewDetails",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "GetProvisionedProductOutputs": {
       "input_token": "PageToken",
-      "output_token": "NextPageToken",
       "limit_key": "PageSize"
     },
     "ListAcceptedPortfolioShares": {
-      "input_token": "PageToken",
+      "result_key": "PortfolioDetails",
       "output_token": "NextPageToken",
+      "input_token": "PageToken",
       "limit_key": "PageSize"
     },
-    "ListBudgetsForResource": {
-      "input_token": "PageToken",
+    "ListPortfolios": {
+      "result_key": "PortfolioDetails",
       "output_token": "NextPageToken",
+      "input_token": "PageToken",
       "limit_key": "PageSize"
     },
     "ListConstraintsForPortfolio": {
-      "input_token": "PageToken",
+      "result_key": "ConstraintDetails",
       "output_token": "NextPageToken",
+      "input_token": "PageToken",
       "limit_key": "PageSize"
     },
     "ListLaunchPaths": {
-      "input_token": "PageToken",
+      "result_key": "LaunchPathSummaries",
       "output_token": "NextPageToken",
+      "input_token": "PageToken",
+      "limit_key": "PageSize"
+    },
+    "ListTagOptions": {
+      "result_key": "TagOptionDetails",
+      "output_token": "PageToken",
+      "input_token": "PageToken",
+      "limit_key": "PageSize"
+    },
+    "ListPortfoliosForProduct": {
+      "result_key": "PortfolioDetails",
+      "output_token": "NextPageToken",
+      "input_token": "PageToken",
+      "limit_key": "PageSize"
+    },
+    "ListPrincipalsForPortfolio": {
+      "result_key": "Principals",
+      "output_token": "NextPageToken",
+      "input_token": "PageToken",
+      "limit_key": "PageSize"
+    },
+    "ListResourcesForTagOption": {
+      "result_key": "ResourceDetails",
+      "output_token": "PageToken",
+      "input_token": "PageToken",
       "limit_key": "PageSize"
     },
     "ListOrganizationPortfolioAccess": {
       "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "OrganizationNodes"
     },
-    "ListPortfolioAccess": {
+    "ListProvisionedProductPlans": {
       "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "ListPortfolios": {
-      "input_token": "PageToken",
-      "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "ListPortfoliosForProduct": {
-      "input_token": "PageToken",
-      "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "ListPrincipalsForPortfolio": {
-      "input_token": "PageToken",
-      "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "ProvisionedProductPlans"
     },
     "ListProvisioningArtifactsForServiceAction": {
       "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "ProvisioningArtifactViews"
     },
-    "ListResourcesForTagOption": {
+    "ListRecordHistory": {
       "input_token": "PageToken",
-      "output_token": "PageToken",
-      "limit_key": "PageSize"
+      "limit_key": "PageSize",
+      "output_token": "NextPageToken",
+      "result_key": "RecordDetails"
     },
     "ListServiceActions": {
       "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "ServiceActionSummaries"
     },
     "ListServiceActionsForProvisioningArtifact": {
       "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "ServiceActionSummaries"
     },
-    "ListTagOptions": {
+    "ScanProvisionedProducts": {
       "input_token": "PageToken",
-      "output_token": "PageToken",
-      "limit_key": "PageSize"
-    },
-    "SearchProducts": {
-      "input_token": "PageToken",
+      "limit_key": "PageSize",
       "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "SearchProductsAsAdmin": {
-      "input_token": "PageToken",
-      "output_token": "NextPageToken",
-      "limit_key": "PageSize"
-    },
-    "SearchProvisionedProducts": {
-      "input_token": "PageToken",
-      "output_token": "NextPageToken",
-      "limit_key": "PageSize"
+      "result_key": "ProvisionedProducts"
     }
   }
 }

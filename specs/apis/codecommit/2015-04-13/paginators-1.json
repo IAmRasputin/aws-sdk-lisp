@@ -1,69 +1,44 @@
 {
   "pagination": {
-    "DescribeMergeConflicts": {
-      "input_token": "nextToken",
-      "limit_key": "maxMergeHunks",
-      "output_token": "nextToken"
-    },
-    "DescribePullRequestEvents": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
-    "GetCommentReactions": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
-    "GetCommentsForComparedCommit": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
-    "GetCommentsForPullRequest": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
-    "GetDifferences": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken"
-    },
-    "GetMergeConflicts": {
-      "input_token": "nextToken",
-      "limit_key": "maxConflictFiles",
-      "output_token": "nextToken"
-    },
-    "ListApprovalRuleTemplates": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
-    "ListAssociatedApprovalRuleTemplatesForRepository": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
-    },
     "ListBranches": {
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "branches"
-    },
-    "ListPullRequests": {
-      "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
     },
     "ListRepositories": {
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "repositories"
     },
-    "ListRepositoriesForApprovalRuleTemplate": {
+    "GetCommentsForComparedCommit": {
+      "result_key": "commentsForComparedCommitData",
+      "output_token": "nextToken",
       "input_token": "nextToken",
-      "limit_key": "maxResults",
-      "output_token": "nextToken"
+      "limit_key": "maxResults"
+    },
+    "DescribePullRequestEvents": {
+      "result_key": "pullRequestEvents",
+      "output_token": "nextToken",
+      "input_token": "nextToken",
+      "limit_key": "maxResults"
+    },
+    "GetCommentsForPullRequest": {
+      "result_key": "commentsForPullRequestData",
+      "output_token": "nextToken",
+      "input_token": "nextToken",
+      "limit_key": "maxResults"
+    },
+    "ListPullRequests": {
+      "result_key": "pullRequestIds",
+      "output_token": "nextToken",
+      "input_token": "nextToken",
+      "limit_key": "maxResults"
+    },
+    "GetDifferences": {
+      "result_key": "differences",
+      "output_token": "NextToken",
+      "input_token": "NextToken",
+      "limit_key": "MaxResults"
     }
   }
 }

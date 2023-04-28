@@ -42,17 +42,6 @@
       "limit_key": "MaxResults",
       "result_key": "CopyJobs"
     },
-    "ListFrameworks": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListLegalHolds": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "LegalHolds"
-    },
     "ListProtectedResources": {
       "input_token": "NextToken",
       "output_token": "NextToken",
@@ -65,27 +54,11 @@
       "limit_key": "MaxResults",
       "result_key": "RecoveryPoints"
     },
-    "ListRecoveryPointsByLegalHold": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults",
-      "result_key": "RecoveryPoints"
-    },
     "ListRecoveryPointsByResource": {
       "input_token": "NextToken",
       "output_token": "NextToken",
       "limit_key": "MaxResults",
       "result_key": "RecoveryPoints"
-    },
-    "ListReportJobs": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListReportPlans": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
     },
     "ListRestoreJobs": {
       "input_token": "NextToken",
@@ -93,10 +66,17 @@
       "limit_key": "MaxResults",
       "result_key": "RestoreJobs"
     },
-    "ListTags": {
+    "ListLegalHolds": {
       "input_token": "NextToken",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
+      "limit_key": "MaxResults",
+      "result_key": "LegalHolds"
+    },
+    "ListRecoveryPointsByLegalHold": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "limit_key": "MaxResults",
+      "result_key": "RecoveryPoints"
     }
   }
 }

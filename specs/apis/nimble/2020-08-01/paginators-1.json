@@ -12,25 +12,20 @@
     },
     "ListLaunchProfileMembers": {
       "input_token": "nextToken",
-      "output_token": "nextToken",
       "limit_key": "maxResults",
+      "output_token": "nextToken",
       "result_key": "members"
     },
     "ListLaunchProfiles": {
       "input_token": "nextToken",
-      "output_token": "nextToken",
       "limit_key": "maxResults",
+      "output_token": "nextToken",
       "result_key": "launchProfiles"
     },
     "ListStreamingImages": {
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "streamingImages"
-    },
-    "ListStreamingSessionBackups": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": "streamingSessionBackups"
     },
     "ListStreamingSessions": {
       "input_token": "nextToken",
@@ -39,20 +34,25 @@
     },
     "ListStudioComponents": {
       "input_token": "nextToken",
-      "output_token": "nextToken",
       "limit_key": "maxResults",
+      "output_token": "nextToken",
       "result_key": "studioComponents"
     },
     "ListStudioMembers": {
       "input_token": "nextToken",
-      "output_token": "nextToken",
       "limit_key": "maxResults",
+      "output_token": "nextToken",
       "result_key": "members"
     },
     "ListStudios": {
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "studios"
+    },
+    "ListStreamingSessionBackups": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "streamingSessionBackups"
     }
   }
 }

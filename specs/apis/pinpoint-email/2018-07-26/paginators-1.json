@@ -2,33 +2,33 @@
   "pagination": {
     "GetDedicatedIps": {
       "input_token": "NextToken",
+      "limit_key": "PageSize",
       "output_token": "NextToken",
-      "limit_key": "PageSize"
+      "result_key": "DedicatedIps"
     },
     "ListConfigurationSets": {
       "input_token": "NextToken",
+      "limit_key": "PageSize",
       "output_token": "NextToken",
-      "limit_key": "PageSize"
+      "result_key": "ConfigurationSets"
     },
     "ListDedicatedIpPools": {
       "input_token": "NextToken",
+      "limit_key": "PageSize",
       "output_token": "NextToken",
-      "limit_key": "PageSize"
+      "result_key": "DedicatedIpPools"
     },
     "ListDeliverabilityTestReports": {
       "input_token": "NextToken",
+      "limit_key": "PageSize",
       "output_token": "NextToken",
-      "limit_key": "PageSize"
-    },
-    "ListDomainDeliverabilityCampaigns": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "PageSize"
+      "result_key": "DeliverabilityTestReports"
     },
     "ListEmailIdentities": {
       "input_token": "NextToken",
+      "limit_key": "PageSize",
       "output_token": "NextToken",
-      "limit_key": "PageSize"
+      "result_key": "EmailIdentities"
     }
   }
 }

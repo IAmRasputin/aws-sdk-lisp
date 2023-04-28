@@ -1,21 +1,25 @@
 {
   "pagination": {
-    "DescribeTrails": {
-      "result_key": "trailList"
-    },
-    "GetQueryResults": {
+    "LookupEvents": {
       "input_token": "NextToken",
-      "output_token": "NextToken"
-    },
-    "ListChannels": {
-      "input_token": "NextToken",
+      "output_token": "NextToken",
       "limit_key": "MaxResults",
-      "output_token": "NextToken"
+      "result_key": "Events"
     },
-    "ListEventDataStores": {
+    "ListPublicKeys": {
       "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken"
+      "output_token": "NextToken",
+      "result_key": "PublicKeyList"
+    },
+    "ListTags": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "ResourceTagList"
+    },
+    "ListTrails": {
+      "input_token": "NextToken",
+      "output_token": "NextToken",
+      "result_key": "Trails"
     },
     "ListImportFailures": {
       "input_token": "NextToken",
@@ -28,32 +32,6 @@
       "limit_key": "MaxResults",
       "output_token": "NextToken",
       "result_key": "Imports"
-    },
-    "ListPublicKeys": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "PublicKeyList"
-    },
-    "ListQueries": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken"
-    },
-    "ListTags": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "ResourceTagList"
-    },
-    "ListTrails": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "result_key": "Trails"
-    },
-    "LookupEvents": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Events"
     }
   }
 }

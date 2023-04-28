@@ -1,11 +1,5 @@
 {
   "pagination": {
-    "DescribeCachediSCSIVolumes": {
-      "result_key": "CachediSCSIVolumes"
-    },
-    "DescribeStorediSCSIVolumes": {
-      "result_key": "StorediSCSIVolumes"
-    },
     "DescribeTapeArchives": {
       "input_token": "Marker",
       "limit_key": "Limit",
@@ -30,6 +24,24 @@
       "output_token": "Marker",
       "result_key": "VTLDevices"
     },
+    "ListGateways": {
+      "input_token": "Marker",
+      "limit_key": "Limit",
+      "output_token": "Marker",
+      "result_key": "Gateways"
+    },
+    "ListVolumes": {
+      "input_token": "Marker",
+      "limit_key": "Limit",
+      "output_token": "Marker",
+      "result_key": "VolumeInfos"
+    },
+    "ListTapes": {
+      "input_token": "Marker",
+      "limit_key": "Limit",
+      "output_token": "Marker",
+      "result_key": "TapeInfos"
+    },
     "ListFileShares": {
       "input_token": "Marker",
       "limit_key": "Limit",
@@ -38,24 +50,6 @@
       ],
       "output_token": "NextMarker",
       "result_key": "FileShareInfoList"
-    },
-    "ListFileSystemAssociations": {
-      "input_token": "Marker",
-      "limit_key": "Limit",
-      "non_aggregate_keys": [
-        "Marker"
-      ],
-      "output_token": "NextMarker",
-      "result_key": "FileSystemAssociationSummaryList"
-    },
-    "ListGateways": {
-      "input_token": "Marker",
-      "limit_key": "Limit",
-      "output_token": "Marker",
-      "result_key": "Gateways"
-    },
-    "ListLocalDisks": {
-      "result_key": "Disks"
     },
     "ListTagsForResource": {
       "input_token": "Marker",
@@ -72,20 +66,14 @@
       "output_token": "Marker",
       "result_key": "PoolInfos"
     },
-    "ListTapes": {
+    "ListFileSystemAssociations": {
       "input_token": "Marker",
       "limit_key": "Limit",
-      "output_token": "Marker",
-      "result_key": "TapeInfos"
-    },
-    "ListVolumeRecoveryPoints": {
-      "result_key": "VolumeRecoveryPointInfos"
-    },
-    "ListVolumes": {
-      "input_token": "Marker",
-      "limit_key": "Limit",
-      "output_token": "Marker",
-      "result_key": "VolumeInfos"
+      "non_aggregate_keys": [
+        "Marker"
+      ],
+      "output_token": "NextMarker",
+      "result_key": "FileSystemAssociationSummaryList"
     }
   }
 }

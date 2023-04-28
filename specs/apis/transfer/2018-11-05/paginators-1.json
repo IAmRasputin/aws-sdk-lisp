@@ -1,5 +1,11 @@
 {
   "pagination": {
+    "ListServers": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Servers"
+    },
     "ListAccesses": {
       "input_token": "NextToken",
       "limit_key": "MaxResults",
@@ -8,24 +14,6 @@
       ],
       "output_token": "NextToken",
       "result_key": "Accesses"
-    },
-    "ListAgreements": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Agreements"
-    },
-    "ListCertificates": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Certificates"
-    },
-    "ListConnectors": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Connectors"
     },
     "ListExecutions": {
       "input_token": "NextToken",
@@ -36,23 +24,11 @@
       "output_token": "NextToken",
       "result_key": "Executions"
     },
-    "ListProfiles": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Profiles"
-    },
     "ListSecurityPolicies": {
       "input_token": "NextToken",
       "limit_key": "MaxResults",
       "output_token": "NextToken",
       "result_key": "SecurityPolicyNames"
-    },
-    "ListServers": {
-      "input_token": "NextToken",
-      "limit_key": "MaxResults",
-      "output_token": "NextToken",
-      "result_key": "Servers"
     },
     "ListTagsForResource": {
       "input_token": "NextToken",
@@ -77,6 +53,30 @@
       "limit_key": "MaxResults",
       "output_token": "NextToken",
       "result_key": "Workflows"
+    },
+    "ListAgreements": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Agreements"
+    },
+    "ListCertificates": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Certificates"
+    },
+    "ListConnectors": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Connectors"
+    },
+    "ListProfiles": {
+      "input_token": "NextToken",
+      "limit_key": "MaxResults",
+      "output_token": "NextToken",
+      "result_key": "Profiles"
     }
   }
 }

@@ -1,19 +1,22 @@
 {
-  "pagination" : {
-    "ListApplicationVersions" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxItems"
+  "pagination": {
+    "ListApplicationDependencies": {
+      "input_token": "NextToken",
+      "limit_key": "MaxItems",
+      "output_token": "NextToken",
+      "result_key": "Dependencies"
     },
-    "ListApplications" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxItems"
+    "ListApplicationVersions": {
+      "input_token": "NextToken",
+      "limit_key": "MaxItems",
+      "output_token": "NextToken",
+      "result_key": "Versions"
     },
-    "ListApplicationDependencies" : {
-      "input_token" : "NextToken",
-      "output_token" : "NextToken",
-      "limit_key" : "MaxItems"
+    "ListApplications": {
+      "input_token": "NextToken",
+      "limit_key": "MaxItems",
+      "output_token": "NextToken",
+      "result_key": "Applications"
     }
   }
 }

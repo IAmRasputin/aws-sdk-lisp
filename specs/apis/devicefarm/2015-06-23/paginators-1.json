@@ -1,13 +1,5 @@
 {
   "pagination": {
-    "GetOfferingStatus": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": [
-        "current",
-        "nextPeriod"
-      ]
-    },
     "ListArtifacts": {
       "input_token": "nextToken",
       "output_token": "nextToken",
@@ -27,16 +19,6 @@
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "jobs"
-    },
-    "ListOfferingTransactions": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": "offeringTransactions"
-    },
-    "ListOfferings": {
-      "input_token": "nextToken",
-      "output_token": "nextToken",
-      "result_key": "offerings"
     },
     "ListProjects": {
       "input_token": "nextToken",
@@ -58,26 +40,6 @@
       "output_token": "nextToken",
       "result_key": "suites"
     },
-    "ListTestGridProjects": {
-      "input_token": "nextToken",
-      "limit_key": "maxResult",
-      "output_token": "nextToken"
-    },
-    "ListTestGridSessionActions": {
-      "input_token": "nextToken",
-      "limit_key": "maxResult",
-      "output_token": "nextToken"
-    },
-    "ListTestGridSessionArtifacts": {
-      "input_token": "nextToken",
-      "limit_key": "maxResult",
-      "output_token": "nextToken"
-    },
-    "ListTestGridSessions": {
-      "input_token": "nextToken",
-      "limit_key": "maxResult",
-      "output_token": "nextToken"
-    },
     "ListTests": {
       "input_token": "nextToken",
       "output_token": "nextToken",
@@ -92,6 +54,57 @@
       "input_token": "nextToken",
       "output_token": "nextToken",
       "result_key": "uploads"
+    },
+    "GetOfferingStatus": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": [
+        "current",
+        "nextPeriod"
+      ]
+    },
+    "ListOfferingTransactions": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "offeringTransactions"
+    },
+    "ListOfferings": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "offerings"
+    },
+    "ListDeviceInstances": {
+      "input_token": "nextToken",
+      "limit_key": "maxResults",
+      "output_token": "nextToken",
+      "result_key": "deviceInstances"
+    },
+    "ListInstanceProfiles": {
+      "input_token": "nextToken",
+      "limit_key": "maxResults",
+      "output_token": "nextToken",
+      "result_key": "instanceProfiles"
+    },
+    "ListNetworkProfiles": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "networkProfiles"
+    },
+    "ListOfferingPromotions": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "offeringPromotions"
+    },
+    "ListRemoteAccessSessions": {
+      "input_token": "nextToken",
+      "output_token": "nextToken",
+      "result_key": "remoteAccessSessions"
+    },
+    "ListVPCEConfigurations": {
+      "input_token": "nextToken",
+      "limit_key": "maxResults",
+      "output_token": "nextToken",
+      "result_key": "vpceConfigurations"
     }
   }
 }

@@ -1,64 +1,34 @@
 {
   "pagination": {
-    "DescribeDomainAutoTunes": {
-      "input_token": "NextToken",
+    "ListElasticsearchInstanceTypes": {
+      "result_key": "ElasticsearchInstanceTypes",
       "output_token": "NextToken",
+      "input_token": "NextToken",
       "limit_key": "MaxResults"
     },
-    "DescribeInboundCrossClusterSearchConnections": {
-      "input_token": "NextToken",
+    "ListElasticsearchVersions": {
+      "result_key": "ElasticsearchVersions",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "DescribeOutboundCrossClusterSearchConnections": {
       "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "DescribePackages": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
       "limit_key": "MaxResults"
     },
     "DescribeReservedElasticsearchInstanceOfferings": {
       "input_token": "NextToken",
+      "limit_key": "MaxResults",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
+      "result_key": "ReservedElasticsearchInstanceOfferings"
     },
     "DescribeReservedElasticsearchInstances": {
       "input_token": "NextToken",
+      "limit_key": "MaxResults",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "GetPackageVersionHistory": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
+      "result_key": "ReservedElasticsearchInstances"
     },
     "GetUpgradeHistory": {
       "input_token": "NextToken",
+      "limit_key": "MaxResults",
       "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListDomainsForPackage": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListElasticsearchInstanceTypes": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListElasticsearchVersions": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
-    },
-    "ListPackagesForDomain": {
-      "input_token": "NextToken",
-      "output_token": "NextToken",
-      "limit_key": "MaxResults"
+      "result_key": "UpgradeHistories"
     }
   }
 }
