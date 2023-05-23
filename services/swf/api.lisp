@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/swf/api)
 (common-lisp:progn
  (common-lisp:defclass swf-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "swf"))
+                       (:default-initargs :service "swf" :protocol :json))
  (common-lisp:export 'swf-request))
 (common-lisp:progn
  (common-lisp:define-condition swf-error
@@ -8727,7 +8727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CountClosedWorkflowExecutions"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8749,7 +8749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CountOpenWorkflowExecutions"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8768,7 +8768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CountPendingActivityTasks"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8787,7 +8787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CountPendingDecisionTasks"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8805,7 +8805,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeprecateActivityType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8823,7 +8823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeprecateDomain"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8841,7 +8841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeprecateWorkflowType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8859,7 +8859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeActivityType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8877,7 +8877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDomain"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8896,7 +8896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkflowExecution"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8914,7 +8914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkflowType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8936,7 +8936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkflowExecutionHistory"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8957,7 +8957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListActivityTypes"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8982,7 +8982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListClosedWorkflowExecutions"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9003,7 +9003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDomains"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9026,7 +9026,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOpenWorkflowExecutions"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9044,7 +9044,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9065,7 +9065,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkflowTypes"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9083,7 +9083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PollForActivityTask"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9104,7 +9104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PollForDecisionTask"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9123,7 +9123,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RecordActivityTaskHeartbeat"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9151,7 +9151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterActivityType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9172,7 +9172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterDomain"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9198,7 +9198,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterWorkflowType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9217,7 +9217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RequestCancelWorkflowExecution"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9236,7 +9236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RespondActivityTaskCanceled"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9255,7 +9255,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RespondActivityTaskCompleted"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9274,7 +9274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RespondActivityTaskFailed"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9294,7 +9294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RespondDecisionTaskCompleted"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9314,7 +9314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SignalWorkflowExecution"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9338,7 +9338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartWorkflowExecution"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9356,7 +9356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9378,7 +9378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TerminateWorkflowExecution"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9396,7 +9396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UndeprecateActivityType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9414,7 +9414,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UndeprecateDomain"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9432,7 +9432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UndeprecateWorkflowType"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9450,7 +9450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'swf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2012-01-25"))
       common-lisp:nil common-lisp:nil *error-map*)))

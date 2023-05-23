@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass opensearch-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "opensearch"))
+                       (:default-initargs :service "opensearch" :protocol
+                        :rest-json))
  (common-lisp:export 'opensearch-request))
 (common-lisp:progn
  (common-lisp:define-condition opensearch-error
@@ -9178,7 +9179,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9206,7 +9207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/tags"
                                                         "AddTags"
                                                         "2021-01-01"))
@@ -9225,7 +9226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9258,7 +9259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9287,7 +9288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/serviceSoftwareUpdate/cancel"
                                                         "CancelServiceSoftwareUpdate"
                                                         "2021-01-01"))
@@ -9318,7 +9319,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/domain"
                                                         "CreateDomain"
                                                         "2021-01-01"))
@@ -9341,7 +9342,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/cc/outboundConnection"
                                                         "CreateOutboundConnection"
                                                         "2021-01-01"))
@@ -9363,7 +9364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/packages"
                                                         "CreatePackage"
                                                         "2021-01-01"))
@@ -9383,7 +9384,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/vpcEndpoints"
                                                         "CreateVpcEndpoint"
                                                         "2021-01-01"))
@@ -9402,7 +9403,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9431,7 +9432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9460,7 +9461,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9488,7 +9489,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9516,7 +9517,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9544,7 +9545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9574,7 +9575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9603,7 +9604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9631,7 +9632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9659,7 +9660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/domain-info"
                                                         "DescribeDomains"
                                                         "2021-01-01"))
@@ -9681,7 +9682,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9710,7 +9711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/cc/inboundConnection/search"
                                                         "DescribeInboundConnections"
                                                         "2021-01-01"))
@@ -9731,7 +9732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9764,7 +9765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/cc/outboundConnection/search"
                                                         "DescribeOutboundConnections"
                                                         "2021-01-01"))
@@ -9783,7 +9784,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/packages/describe"
                                                         "DescribePackages"
                                                         "2021-01-01"))
@@ -9806,7 +9807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/opensearch/reservedInstanceOfferings"
                                                         "DescribeReservedInstanceOfferings"
                                                         "2021-01-01"))
@@ -9828,7 +9829,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/opensearch/reservedInstances"
                                                         "DescribeReservedInstances"
                                                         "2021-01-01"))
@@ -9847,7 +9848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/vpcEndpoints/describe"
                                                         "DescribeVpcEndpoints"
                                                         "2021-01-01"))
@@ -9866,7 +9867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9898,7 +9899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/opensearch/compatibleVersions"
                                                         "GetCompatibleVersions"
                                                         "2021-01-01"))
@@ -9919,7 +9920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9948,7 +9949,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9976,7 +9977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10004,7 +10005,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/domain"
                                                         "ListDomainNames"
                                                         "2021-01-01"))
@@ -10024,7 +10025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10055,7 +10056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10084,7 +10085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10113,7 +10114,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10141,7 +10142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/tags/"
                                                         "ListTags"
                                                         "2021-01-01"))
@@ -10160,7 +10161,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/opensearch/versions"
                                                         "ListVersions"
                                                         "2021-01-01"))
@@ -10179,7 +10180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10207,7 +10208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/2021-01-01/opensearch/vpcEndpoints"
                                                         "ListVpcEndpoints"
                                                         "2021-01-01"))
@@ -10227,7 +10228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10259,7 +10260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/purchaseReservedInstanceOffering"
                                                         "PurchaseReservedInstanceOffering"
                                                         "2021-01-01"))
@@ -10279,7 +10280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10307,7 +10308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/tags-removal"
                                                         "RemoveTags"
                                                         "2021-01-01"))
@@ -10327,7 +10328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10358,7 +10359,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/serviceSoftwareUpdate/start"
                                                         "StartServiceSoftwareUpdate"
                                                         "2021-01-01"))
@@ -10389,7 +10390,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10420,7 +10421,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/packages/update"
                                                         "UpdatePackage"
                                                         "2021-01-01"))
@@ -10442,7 +10443,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10470,7 +10471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/vpcEndpoints/update"
                                                         "UpdateVpcEndpoint"
                                                         "2021-01-01"))
@@ -10492,7 +10493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opensearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/2021-01-01/opensearch/upgradeDomain"
                                                         "UpgradeDomain"
                                                         "2021-01-01"))

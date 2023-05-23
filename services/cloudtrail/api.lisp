@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudtrail-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudtrail"))
+                       (:default-initargs :service "cloudtrail" :protocol
+                        :json))
  (common-lisp:export 'cloudtrail-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudtrail-error
@@ -6632,7 +6633,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddTags"
+                                                        "POST" :json "/"
+                                                        "AddTags"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-tags))
@@ -6649,7 +6651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelQuery"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6667,7 +6669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateChannel"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6690,7 +6692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEventDataStore"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6716,7 +6718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrail"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6734,7 +6736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteChannel"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6752,7 +6754,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEventDataStore"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6770,7 +6772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6788,7 +6790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTrail"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6807,7 +6809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterOrganizationDelegatedAdmin"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6825,7 +6827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeQuery"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6844,7 +6846,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrails"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6862,7 +6864,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetChannel"
+                                                        "POST" :json "/"
+                                                        "GetChannel"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-channel))
@@ -6879,7 +6882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEventDataStore"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6897,7 +6900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEventSelectors"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6915,7 +6918,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetImport"
+                                                        "POST" :json "/"
+                                                        "GetImport"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-import))
@@ -6932,7 +6936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInsightSelectors"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6953,7 +6957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQueryResults"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6971,7 +6975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourcePolicy"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6989,7 +6993,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTrail"
+                                                        "POST" :json "/"
+                                                        "GetTrail"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-trail))
@@ -7006,7 +7011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTrailStatus"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7024,7 +7029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListChannels"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7042,7 +7047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEventDataStores"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7061,7 +7066,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListImportFailures"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7081,7 +7086,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListImports"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7099,7 +7104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPublicKeys"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7120,7 +7125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListQueries"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7138,7 +7143,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -7155,7 +7161,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTrails"
+                                                        "POST" :json "/"
+                                                        "ListTrails"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-trails))
@@ -7175,7 +7182,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "LookupEvents"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7196,7 +7203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutEventSelectors"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7214,7 +7221,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutInsightSelectors"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7232,7 +7239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7251,7 +7258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterOrganizationDelegatedAdmin"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7269,7 +7276,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "RemoveTags"
+                                                        "POST" :json "/"
+                                                        "RemoveTags"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'remove-tags))
@@ -7286,7 +7294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreEventDataStore"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7307,7 +7315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartImport"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7325,7 +7333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartLogging"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7343,7 +7351,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StartQuery"
+                                                        "POST" :json "/"
+                                                        "StartQuery"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-query))
@@ -7360,7 +7369,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopImport"
+                                                        "POST" :json "/"
+                                                        "StopImport"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-import))
@@ -7377,7 +7387,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopLogging"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7395,7 +7405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateChannel"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7419,7 +7429,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEventDataStore"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7445,7 +7455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudtrail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrail"
                                                         "2013-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

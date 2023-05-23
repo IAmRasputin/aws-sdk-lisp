@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sso/api)
 (common-lisp:progn
  (common-lisp:defclass sso-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sso"))
+                       (:default-initargs :service "sso" :protocol :rest-json))
  (common-lisp:export 'sso-request))
 (common-lisp:progn
  (common-lisp:define-condition sso-error
@@ -450,7 +450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/federation/credentials"
                                                         "GetRoleCredentials"
                                                         "2019-06-10"))
@@ -471,7 +471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/assignment/roles"
                                                         "ListAccountRoles"
                                                         "2019-06-10"))
@@ -491,7 +491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/assignment/accounts"
                                                         "ListAccounts"
                                                         "2019-06-10"))
@@ -510,7 +510,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/logout"
-                                                        "Logout" "2019-06-10"))
+                                                        "POST" :rest-json
+                                                        "/logout" "Logout"
+                                                        "2019-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'logout))

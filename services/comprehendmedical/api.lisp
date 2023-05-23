@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass comprehendmedical-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "comprehendmedical"))
+                       (:default-initargs :service "comprehendmedical"
+                        :protocol :json))
  (common-lisp:export 'comprehendmedical-request))
 (common-lisp:progn
  (common-lisp:define-condition comprehendmedical-error
@@ -3793,7 +3794,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeEntitiesDetectionV2Job" "2018-10-30"))
+        :json "/" "DescribeEntitiesDetectionV2Job" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-entities-detection-v2job))
 (common-lisp:progn
@@ -3810,7 +3811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeICD10CMInferenceJob" "2018-10-30"))
+        :json "/" "DescribeICD10CMInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-icd10cminference-job))
 (common-lisp:progn
@@ -3827,7 +3828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribePHIDetectionJob" "2018-10-30"))
+        :json "/" "DescribePHIDetectionJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-phidetection-job))
 (common-lisp:progn
@@ -3844,7 +3845,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeRxNormInferenceJob" "2018-10-30"))
+        :json "/" "DescribeRxNormInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-rx-norm-inference-job))
 (common-lisp:progn
@@ -3861,7 +3862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeSNOMEDCTInferenceJob" "2018-10-30"))
+        :json "/" "DescribeSNOMEDCTInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-snomedctinference-job))
 (common-lisp:progn
@@ -3877,7 +3878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DetectEntities" "2018-10-30"))
+        :json "/" "DetectEntities" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detect-entities))
 (common-lisp:progn
@@ -3893,7 +3894,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DetectEntitiesV2" "2018-10-30"))
+        :json "/" "DetectEntitiesV2" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detect-entities-v2))
 (common-lisp:progn
@@ -3909,7 +3910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "DetectPHI" "2018-10-30"))
+        :json "/" "DetectPHI" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detect-phi))
 (common-lisp:progn
@@ -3925,7 +3926,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "InferICD10CM" "2018-10-30"))
+        :json "/" "InferICD10CM" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'infer-icd10cm))
 (common-lisp:progn
@@ -3941,7 +3942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "InferRxNorm" "2018-10-30"))
+        :json "/" "InferRxNorm" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'infer-rx-norm))
 (common-lisp:progn
@@ -3957,7 +3958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "InferSNOMEDCT" "2018-10-30"))
+        :json "/" "InferSNOMEDCT" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'infer-snomedct))
 (common-lisp:progn
@@ -3974,7 +3975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "ListEntitiesDetectionV2Jobs" "2018-10-30"))
+        :json "/" "ListEntitiesDetectionV2Jobs" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-entities-detection-v2jobs))
 (common-lisp:progn
@@ -3991,7 +3992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "ListICD10CMInferenceJobs" "2018-10-30"))
+        :json "/" "ListICD10CMInferenceJobs" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-icd10cminference-jobs))
 (common-lisp:progn
@@ -4007,7 +4008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "ListPHIDetectionJobs" "2018-10-30"))
+        :json "/" "ListPHIDetectionJobs" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-phidetection-jobs))
 (common-lisp:progn
@@ -4024,7 +4025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "ListRxNormInferenceJobs" "2018-10-30"))
+        :json "/" "ListRxNormInferenceJobs" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-rx-norm-inference-jobs))
 (common-lisp:progn
@@ -4041,7 +4042,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "ListSNOMEDCTInferenceJobs" "2018-10-30"))
+        :json "/" "ListSNOMEDCTInferenceJobs" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-snomedctinference-jobs))
 (common-lisp:progn
@@ -4062,7 +4063,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StartEntitiesDetectionV2Job" "2018-10-30"))
+        :json "/" "StartEntitiesDetectionV2Job" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-entities-detection-v2job))
 (common-lisp:progn
@@ -4083,7 +4084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StartICD10CMInferenceJob" "2018-10-30"))
+        :json "/" "StartICD10CMInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-icd10cminference-job))
 (common-lisp:progn
@@ -4103,7 +4104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StartPHIDetectionJob" "2018-10-30"))
+        :json "/" "StartPHIDetectionJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-phidetection-job))
 (common-lisp:progn
@@ -4124,7 +4125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StartRxNormInferenceJob" "2018-10-30"))
+        :json "/" "StartRxNormInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-rx-norm-inference-job))
 (common-lisp:progn
@@ -4145,7 +4146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StartSNOMEDCTInferenceJob" "2018-10-30"))
+        :json "/" "StartSNOMEDCTInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-snomedctinference-job))
 (common-lisp:progn
@@ -4162,7 +4163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StopEntitiesDetectionV2Job" "2018-10-30"))
+        :json "/" "StopEntitiesDetectionV2Job" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-entities-detection-v2job))
 (common-lisp:progn
@@ -4179,7 +4180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StopICD10CMInferenceJob" "2018-10-30"))
+        :json "/" "StopICD10CMInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-icd10cminference-job))
 (common-lisp:progn
@@ -4195,7 +4196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StopPHIDetectionJob" "2018-10-30"))
+        :json "/" "StopPHIDetectionJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-phidetection-job))
 (common-lisp:progn
@@ -4212,7 +4213,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StopRxNormInferenceJob" "2018-10-30"))
+        :json "/" "StopRxNormInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-rx-norm-inference-job))
 (common-lisp:progn
@@ -4229,6 +4230,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'comprehendmedical-request aws-sdk/generator/operation::input "POST"
-        "/" "StopSNOMEDCTInferenceJob" "2018-10-30"))
+        :json "/" "StopSNOMEDCTInferenceJob" "2018-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-snomedctinference-job))

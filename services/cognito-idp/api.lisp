@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cognito-idp-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cognito-idp"))
+                       (:default-initargs :service "cognito-idp" :protocol
+                        :json))
  (common-lisp:export 'cognito-idp-request))
 (common-lisp:progn
  (common-lisp:define-condition cognito-idp-error
@@ -13507,7 +13508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddCustomAttributes"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13526,7 +13527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminAddUserToGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13545,7 +13546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminConfirmSignUp"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13568,7 +13569,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminCreateUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13586,7 +13587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminDeleteUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13607,7 +13608,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminDeleteUserAttributes"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13626,7 +13627,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminDisableProviderForUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13644,7 +13645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminDisableUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13662,7 +13663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminEnableUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13681,7 +13682,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminForgetDevice"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13700,7 +13701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminGetDevice"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13718,7 +13719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminGetUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13740,7 +13741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminInitiateAuth"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13761,7 +13762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminLinkProviderForUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13781,7 +13782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminListDevices"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13801,7 +13802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminListGroupsForUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13822,7 +13823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminListUserAuthEvents"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13842,7 +13843,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminRemoveUserFromGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13862,7 +13863,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminResetUserPassword"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13886,7 +13887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminRespondToAuthChallenge"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13908,7 +13909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminSetUserMFAPreference"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13927,7 +13928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminSetUserPassword"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13946,7 +13947,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminSetUserSettings"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13967,7 +13968,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminUpdateAuthEventFeedback"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13989,7 +13990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminUpdateDeviceStatus"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14011,7 +14012,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminUpdateUserAttributes"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14030,7 +14031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AdminUserGlobalSignOut"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14048,7 +14049,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateSoftwareToken"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14068,7 +14069,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ChangePassword"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14089,7 +14090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmDevice"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14111,7 +14112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmForgotPassword"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14134,7 +14135,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmSignUp"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14155,7 +14156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14176,7 +14177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateIdentityProvider"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14195,7 +14196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateResourceServer"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14215,7 +14216,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserImportJob"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14250,7 +14251,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserPool"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14286,7 +14287,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserPoolClient"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14305,7 +14306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserPoolDomain"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14323,7 +14324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14341,7 +14342,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteIdentityProvider"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14359,7 +14360,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourceServer"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14377,7 +14378,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -14395,7 +14397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserAttributes"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14413,7 +14415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserPool"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14431,7 +14433,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserPoolClient"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14449,7 +14451,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserPoolDomain"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14468,7 +14470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeIdentityProvider"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14486,7 +14488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeResourceServer"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14505,7 +14507,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRiskConfiguration"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14523,7 +14525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserImportJob"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14541,7 +14543,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserPool"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14560,7 +14562,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserPoolClient"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14579,7 +14581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserPoolDomain"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14597,7 +14599,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ForgetDevice"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14618,7 +14620,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ForgotPassword"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14636,7 +14638,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCSVHeader"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14654,7 +14656,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDevice"
+                                                        "POST" :json "/"
+                                                        "GetDevice"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-device))
@@ -14671,7 +14674,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetGroup"
+                                                        "POST" :json "/"
+                                                        "GetGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group))
@@ -14689,7 +14693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetIdentityProviderByIdentifier"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14707,7 +14711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSigningCertificate"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14725,7 +14729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUICustomization"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14743,7 +14747,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetUser"
+                                                        "POST" :json "/"
+                                                        "GetUser"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-user))
@@ -14763,7 +14768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUserAttributeVerificationCode"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14781,7 +14786,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUserPoolMfaConfig"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14799,7 +14804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GlobalSignOut"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14820,7 +14825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InitiateAuth"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14839,7 +14844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDevices"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14857,7 +14862,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListGroups"
+                                                        "POST" :json "/"
+                                                        "ListGroups"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-groups))
@@ -14875,7 +14881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListIdentityProviders"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14894,7 +14900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceServers"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14912,7 +14918,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14932,7 +14938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUserImportJobs"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14951,7 +14957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUserPoolClients"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14969,7 +14975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUserPools"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14990,7 +14996,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListUsers"
+                                                        "POST" :json "/"
+                                                        "ListUsers"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-users))
@@ -15008,7 +15015,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUsersInGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15029,7 +15036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResendConfirmationCode"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15052,7 +15059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RespondToAuthChallenge"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15070,7 +15077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RevokeToken"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15094,7 +15101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetRiskConfiguration"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15113,7 +15120,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetUICustomization"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15134,7 +15141,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetUserMFAPreference"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15155,7 +15162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetUserPoolMfaConfig"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15173,7 +15180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetUserSettings"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15196,8 +15203,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "SignUp"
-                                                        "2016-04-18"))
+                                                        "POST" :json "/"
+                                                        "SignUp" "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'sign-up))
 (common-lisp:progn
@@ -15213,7 +15220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartUserImportJob"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15231,7 +15238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopUserImportJob"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15249,7 +15256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15267,7 +15274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15289,7 +15296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAuthEventFeedback"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15309,7 +15316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDeviceStatus"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15330,7 +15337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGroup"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15351,7 +15358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateIdentityProvider"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15370,7 +15377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateResourceServer"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15390,7 +15397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserAttributes"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15422,7 +15429,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserPool"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15458,7 +15465,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserPoolClient"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15477,7 +15484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserPoolDomain"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15498,7 +15505,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "VerifySoftwareToken"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15517,7 +15524,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cognito-idp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "VerifyUserAttribute"
                                                         "2016-04-18"))
       common-lisp:nil common-lisp:nil *error-map*)))

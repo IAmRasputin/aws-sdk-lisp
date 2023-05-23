@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/kinesis/api)
 (common-lisp:progn
  (common-lisp:defclass kinesis-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "kinesis"))
+                       common-lisp:nil
+                       (:default-initargs :service "kinesis" :protocol :json))
  (common-lisp:export 'kinesis-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesis-error
@@ -3559,7 +3560,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddTagsToStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3579,7 +3580,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3600,7 +3601,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DecreaseStreamRetentionPeriod"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3620,7 +3621,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3639,7 +3640,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterStreamConsumer"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3649,6 +3650,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'kinesis-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeLimits"
                                 :params
                                 `(("Action" ,@"DescribeLimits")
                                   ("Version" ,@"2013-12-02"))))
@@ -3670,7 +3672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3689,7 +3691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStreamConsumer"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3707,7 +3709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStreamSummary"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3728,7 +3730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableEnhancedMonitoring"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3748,7 +3750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableEnhancedMonitoring"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3767,7 +3769,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRecords"
+                                                        "POST" :json "/"
+                                                        "GetRecords"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-records))
@@ -3787,7 +3790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetShardIterator"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3808,7 +3811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "IncreaseStreamRetentionPeriod"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3830,7 +3833,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListShards"
+                                                        "POST" :json "/"
+                                                        "ListShards"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-shards))
@@ -3850,7 +3854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStreamConsumers"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3870,7 +3874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStreams"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3891,7 +3895,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3912,7 +3916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergeShards"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3933,7 +3937,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutRecord"
+                                                        "POST" :json "/"
+                                                        "PutRecord"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-record))
@@ -3950,7 +3955,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutRecords"
+                                                        "POST" :json "/"
+                                                        "PutRecords"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-records))
@@ -3967,7 +3973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterStreamConsumer"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3986,7 +3992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveTagsFromStream"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4007,7 +4013,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "SplitShard"
+                                                        "POST" :json "/"
+                                                        "SplitShard"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'split-shard))
@@ -4026,7 +4033,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartStreamEncryption"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4046,7 +4053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopStreamEncryption"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4065,7 +4072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubscribeToShard"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4086,7 +4093,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateShardCount"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4104,7 +4111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateStreamMode"
                                                         "2013-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))

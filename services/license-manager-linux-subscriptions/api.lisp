@@ -15,7 +15,8 @@
  (common-lisp:defclass license-manager-linux-subscriptions-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "license-manager-linux-subscriptions"))
+                        "license-manager-linux-subscriptions" :protocol
+                        :rest-json))
  (common-lisp:export 'license-manager-linux-subscriptions-request))
 (common-lisp:progn
  (common-lisp:define-condition license-manager-linux-subscriptions-error
@@ -720,7 +721,9 @@
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'license-manager-linux-subscriptions-request
                                 :method "POST" :path
-                                "/subscription/GetServiceSettings" :params
+                                "/subscription/GetServiceSettings" :protocol
+                                :rest-json :operation "GetServiceSettings"
+                                :params
                                 `(("Action" ,@"GetServiceSettings")
                                   ("Version" ,@"2018-05-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -739,7 +742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-linux-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/subscription/ListLinuxSubscriptionInstances"
         "ListLinuxSubscriptionInstances" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -757,7 +760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-linux-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/subscription/ListLinuxSubscriptions" "ListLinuxSubscriptions"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -779,7 +782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-linux-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/subscription/UpdateServiceSettings" "UpdateServiceSettings"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

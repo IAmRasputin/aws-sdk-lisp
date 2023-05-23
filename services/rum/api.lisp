@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/rum/api)
 (common-lisp:progn
  (common-lisp:defclass rum-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "rum"))
+                       (:default-initargs :service "rum" :protocol :rest-json))
  (common-lisp:export 'rum-request))
 (common-lisp:progn
  (common-lisp:define-condition rum-error
@@ -2330,7 +2330,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2362,7 +2362,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2394,7 +2394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2425,7 +2425,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/appmonitor"
+                                                        "POST" :rest-json
+                                                        "/appmonitor"
                                                         "CreateAppMonitor"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2443,7 +2444,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2474,7 +2475,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2502,7 +2503,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2532,7 +2533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2560,7 +2561,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/appmonitors"
+                                                        "POST" :rest-json
+                                                        "/appmonitors"
                                                         "ListAppMonitors"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2580,7 +2582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2608,7 +2610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2639,7 +2641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2671,7 +2673,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2699,7 +2701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2727,7 +2729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2758,7 +2760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2790,7 +2792,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rum-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

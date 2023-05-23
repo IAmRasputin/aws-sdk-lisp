@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudfront-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudfront"))
+                       (:default-initargs :service "cloudfront" :protocol
+                        :rest-xml))
  (common-lisp:export 'cloudfront-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudfront-error
@@ -16479,7 +16480,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16510,7 +16511,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16538,7 +16539,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/cache-policy"
                                                         "CreateCachePolicy"
                                                         "2020-05-31"))
@@ -16560,7 +16561,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/origin-access-identity/cloudfront"
                                                         "CreateCloudFrontOriginAccessIdentity"
                                                         "2020-05-31"))
@@ -16581,7 +16582,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/continuous-deployment-policy"
                                                         "CreateContinuousDeploymentPolicy"
                                                         "2020-05-31"))
@@ -16600,7 +16601,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/distribution"
                                                         "CreateDistribution"
                                                         "2020-05-31"))
@@ -16620,7 +16621,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/distribution?WithTags"
                                                         "CreateDistributionWithTags"
                                                         "2020-05-31"))
@@ -16640,7 +16641,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/field-level-encryption"
                                                         "CreateFieldLevelEncryptionConfig"
                                                         "2020-05-31"))
@@ -16661,7 +16662,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/field-level-encryption-profile"
                                                         "CreateFieldLevelEncryptionProfile"
                                                         "2020-05-31"))
@@ -16681,7 +16682,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/function"
                                                         "CreateFunction"
                                                         "2020-05-31"))
@@ -16701,7 +16702,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16729,7 +16730,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/key-group"
                                                         "CreateKeyGroup"
                                                         "2020-05-31"))
@@ -16750,7 +16751,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16779,7 +16780,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/origin-access-control"
                                                         "CreateOriginAccessControl"
                                                         "2020-05-31"))
@@ -16799,7 +16800,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/origin-request-policy"
                                                         "CreateOriginRequestPolicy"
                                                         "2020-05-31"))
@@ -16818,7 +16819,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/public-key"
                                                         "CreatePublicKey"
                                                         "2020-05-31"))
@@ -16839,7 +16840,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/realtime-log-config"
                                                         "CreateRealtimeLogConfig"
                                                         "2020-05-31"))
@@ -16859,7 +16860,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/response-headers-policy"
                                                         "CreateResponseHeadersPolicy"
                                                         "2020-05-31"))
@@ -16879,7 +16880,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/streaming-distribution"
                                                         "CreateStreamingDistribution"
                                                         "2020-05-31"))
@@ -16900,7 +16901,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/streaming-distribution?WithTags"
                                                         "CreateStreamingDistributionWithTags"
                                                         "2020-05-31"))
@@ -16919,7 +16920,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16948,7 +16949,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -16977,7 +16978,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17005,7 +17006,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17034,7 +17035,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17063,7 +17064,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17091,7 +17092,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17119,7 +17120,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17148,7 +17149,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17177,7 +17178,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17206,7 +17207,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17234,7 +17235,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17263,7 +17264,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/delete-realtime-log-config/"
                                                         "DeleteRealtimeLogConfig"
                                                         "2020-05-31"))
@@ -17283,7 +17284,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17312,7 +17313,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17340,7 +17341,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17368,7 +17369,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17396,7 +17397,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17425,7 +17426,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17454,7 +17455,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17483,7 +17484,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17512,7 +17513,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17540,7 +17541,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17568,7 +17569,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17597,7 +17598,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17626,7 +17627,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17655,7 +17656,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17684,7 +17685,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17712,7 +17713,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17741,7 +17742,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17773,7 +17774,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17801,7 +17802,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17830,7 +17831,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17859,7 +17860,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17888,7 +17889,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17917,7 +17918,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17946,7 +17947,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -17974,7 +17975,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18002,7 +18003,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18030,7 +18031,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/get-realtime-log-config/"
                                                         "GetRealtimeLogConfig"
                                                         "2020-05-31"))
@@ -18050,7 +18051,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18079,7 +18080,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18108,7 +18109,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18137,7 +18138,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18165,7 +18166,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/cache-policy"
                                                         "ListCachePolicies"
                                                         "2020-05-31"))
@@ -18185,7 +18186,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/origin-access-identity/cloudfront"
                                                         "ListCloudFrontOriginAccessIdentities"
                                                         "2020-05-31"))
@@ -18205,7 +18206,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/conflicting-alias"
                                                         "ListConflictingAliases"
                                                         "2020-05-31"))
@@ -18225,7 +18226,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/continuous-deployment-policy"
                                                         "ListContinuousDeploymentPolicies"
                                                         "2020-05-31"))
@@ -18244,7 +18245,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/distribution"
                                                         "ListDistributions"
                                                         "2020-05-31"))
@@ -18265,7 +18266,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18294,7 +18295,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18325,7 +18326,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18357,7 +18358,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/distributionsByRealtimeLogConfig/"
                                                         "ListDistributionsByRealtimeLogConfig"
                                                         "2020-05-31"))
@@ -18379,7 +18380,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18408,7 +18409,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18437,7 +18438,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/field-level-encryption"
                                                         "ListFieldLevelEncryptionConfigs"
                                                         "2020-05-31"))
@@ -18457,7 +18458,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/field-level-encryption-profile"
                                                         "ListFieldLevelEncryptionProfiles"
                                                         "2020-05-31"))
@@ -18476,7 +18477,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/function"
                                                         "ListFunctions"
                                                         "2020-05-31"))
@@ -18496,7 +18497,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18524,7 +18525,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/key-group"
                                                         "ListKeyGroups"
                                                         "2020-05-31"))
@@ -18544,7 +18545,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/origin-access-control"
                                                         "ListOriginAccessControls"
                                                         "2020-05-31"))
@@ -18564,7 +18565,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/origin-request-policy"
                                                         "ListOriginRequestPolicies"
                                                         "2020-05-31"))
@@ -18583,7 +18584,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/public-key"
                                                         "ListPublicKeys"
                                                         "2020-05-31"))
@@ -18603,7 +18604,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/realtime-log-config"
                                                         "ListRealtimeLogConfigs"
                                                         "2020-05-31"))
@@ -18623,7 +18624,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/response-headers-policy"
                                                         "ListResponseHeadersPolicies"
                                                         "2020-05-31"))
@@ -18643,7 +18644,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/streaming-distribution"
                                                         "ListStreamingDistributions"
                                                         "2020-05-31"))
@@ -18662,7 +18663,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-xml
                                                         "/2020-05-31/tagging"
                                                         "ListTagsForResource"
                                                         "2020-05-31"))
@@ -18681,7 +18682,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18709,7 +18710,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/tagging?Operation=Tag"
                                                         "TagResource"
                                                         "2020-05-31"))
@@ -18729,7 +18730,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18757,7 +18758,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-xml
                                                         "/2020-05-31/tagging?Operation=Untag"
                                                         "UntagResource"
                                                         "2020-05-31"))
@@ -18777,7 +18778,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18809,7 +18810,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18840,7 +18841,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18869,7 +18870,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18899,7 +18900,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18930,7 +18931,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18961,7 +18962,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -18991,7 +18992,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19019,7 +19020,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19049,7 +19050,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19079,7 +19080,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19107,7 +19108,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19137,7 +19138,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         "/2020-05-31/realtime-log-config/"
                                                         "UpdateRealtimeLogConfig"
                                                         "2020-05-31"))
@@ -19159,7 +19160,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -19190,7 +19191,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudfront-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-xml
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

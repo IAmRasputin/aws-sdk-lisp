@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass wellarchitected-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "wellarchitected"))
+                       (:default-initargs :service "wellarchitected" :protocol
+                        :rest-json))
  (common-lisp:export 'wellarchitected-request))
 (common-lisp:progn
  (common-lisp:define-condition wellarchitected-error
@@ -6395,6 +6396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/associateLenses"
                               (quri.encode:url-encode
@@ -6419,6 +6421,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/shares"
                               (quri.encode:url-encode
@@ -6444,6 +6447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/versions"
                               (quri.encode:url-encode
@@ -6468,6 +6472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/milestones"
                               (quri.encode:url-encode
@@ -6498,7 +6503,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
-        "/workloads" "CreateWorkload" "2020-03-31"))
+        :rest-json "/workloads" "CreateWorkload" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-workload))
 (common-lisp:progn
@@ -6517,6 +6522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/shares"
                               (quri.encode:url-encode
@@ -6541,6 +6547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A"
                               (quri.encode:url-encode
@@ -6564,6 +6571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/shares/~A"
                               (quri.encode:url-encode
@@ -6591,6 +6599,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A"
                               (quri.encode:url-encode
@@ -6615,6 +6624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/shares/~A"
                               (quri.encode:url-encode
@@ -6641,6 +6651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/disassociateLenses"
@@ -6664,6 +6675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/export"
                               (quri.encode:url-encode
@@ -6689,6 +6701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/answers/~A"
@@ -6723,7 +6736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
-        "/consolidatedReport" "GetConsolidatedReport" "2020-03-31"))
+        :rest-json "/consolidatedReport" "GetConsolidatedReport" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-consolidated-report))
 (common-lisp:progn
@@ -6739,6 +6752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A"
                               (quri.encode:url-encode
@@ -6762,6 +6776,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/lensReviews/~A"
                               (quri.encode:url-encode
@@ -6789,6 +6804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/report"
@@ -6819,6 +6835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/versionDifference"
                               (quri.encode:url-encode
@@ -6841,6 +6858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/milestones/~A"
                               (quri.encode:url-encode
@@ -6867,6 +6885,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A"
                               (quri.encode:url-encode
@@ -6891,7 +6910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PUT"
-        "/importLens" "ImportLens" "2020-03-31"))
+        :rest-json "/importLens" "ImportLens" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-lens))
 (common-lisp:progn
@@ -6910,6 +6929,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/answers"
@@ -6940,6 +6960,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/checks"
                               (quri.encode:url-encode
@@ -6965,6 +6986,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/checkSummaries"
                               (quri.encode:url-encode
@@ -6991,6 +7013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/improvements"
@@ -7021,6 +7044,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/lensReviews"
                               (quri.encode:url-encode
@@ -7046,6 +7070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/lenses/~A/shares"
                               (quri.encode:url-encode
@@ -7071,7 +7096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
-        "/lenses" "ListLenses" "2020-03-31"))
+        :rest-json "/lenses" "ListLenses" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-lenses))
 (common-lisp:progn
@@ -7088,6 +7113,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/milestonesSummaries"
@@ -7112,7 +7138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
-        "/notifications" "ListNotifications" "2020-03-31"))
+        :rest-json "/notifications" "ListNotifications" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-notifications))
 (common-lisp:progn
@@ -7131,7 +7157,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
-        "/shareInvitations" "ListShareInvitations" "2020-03-31"))
+        :rest-json "/shareInvitations" "ListShareInvitations" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-share-invitations))
 (common-lisp:progn
@@ -7147,6 +7173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -7172,6 +7199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/shares"
                               (quri.encode:url-encode
@@ -7196,7 +7224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
-        "/workloadsSummaries" "ListWorkloads" "2020-03-31"))
+        :rest-json "/workloadsSummaries" "ListWorkloads" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-workloads))
 (common-lisp:progn
@@ -7212,6 +7240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -7234,6 +7263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -7260,6 +7290,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/answers/~A"
@@ -7291,7 +7322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
-        "/global-settings" "UpdateGlobalSettings" "2020-03-31"))
+        :rest-json "/global-settings" "UpdateGlobalSettings" "2020-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-global-settings))
 (common-lisp:progn
@@ -7309,6 +7340,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/lensReviews/~A"
                               (quri.encode:url-encode
@@ -7337,6 +7369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/shareInvitations/~A"
                               (quri.encode:url-encode
@@ -7368,6 +7401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A"
                               (quri.encode:url-encode
@@ -7391,6 +7425,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workloads/~A/shares/~A"
                               (quri.encode:url-encode
@@ -7420,6 +7455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'wellarchitected-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workloads/~A/lensReviews/~A/upgrade"

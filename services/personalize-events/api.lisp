@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass personalize-events-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "personalize-events"))
+                       (:default-initargs :service "personalize-events"
+                        :protocol :rest-json))
  (common-lisp:export 'personalize-events-request))
 (common-lisp:progn
  (common-lisp:define-condition personalize-events-error
@@ -398,7 +399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'personalize-events-request aws-sdk/generator/operation::input "POST"
-        "/events" "PutEvents" "2018-03-22"))
+        :rest-json "/events" "PutEvents" "2018-03-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-events))
 (common-lisp:progn
@@ -414,7 +415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'personalize-events-request aws-sdk/generator/operation::input "POST"
-        "/items" "PutItems" "2018-03-22"))
+        :rest-json "/items" "PutItems" "2018-03-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-items))
 (common-lisp:progn
@@ -430,6 +431,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'personalize-events-request aws-sdk/generator/operation::input "POST"
-        "/users" "PutUsers" "2018-03-22"))
+        :rest-json "/users" "PutUsers" "2018-03-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-users))

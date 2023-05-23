@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass workmailmessageflow-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "workmailmessageflow"))
+                       (:default-initargs :service "workmailmessageflow"
+                        :protocol :rest-json))
  (common-lisp:export 'workmailmessageflow-request))
 (common-lisp:progn
  (common-lisp:define-condition workmailmessageflow-error
@@ -248,6 +249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'workmailmessageflow-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/messages/~A"
                               (quri.encode:url-encode
@@ -271,6 +273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'workmailmessageflow-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/messages/~A"
                               (quri.encode:url-encode

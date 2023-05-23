@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/gamelift/api)
 (common-lisp:progn
  (common-lisp:defclass gamelift-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "gamelift"))
+                       common-lisp:nil
+                       (:default-initargs :service "gamelift" :protocol :json))
  (common-lisp:export 'gamelift-request))
 (common-lisp:progn
  (common-lisp:define-condition gamelift-error
@@ -13561,7 +13562,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptMatch"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13582,7 +13583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ClaimGameServer"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13601,7 +13602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAlias"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13622,7 +13623,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBuild"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13654,7 +13655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFleet"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13672,7 +13673,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFleetLocations"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13696,7 +13697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13720,7 +13721,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGameSession"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13744,7 +13745,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGameSessionQueue"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13762,7 +13763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocation"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13790,7 +13791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMatchmakingConfiguration"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13809,7 +13810,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMatchmakingRuleSet"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13828,7 +13829,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePlayerSession"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13848,7 +13849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePlayerSessions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13868,7 +13869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateScript"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13888,7 +13889,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVpcPeeringAuthorization"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13909,7 +13910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVpcPeeringConnection"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13927,7 +13928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAlias"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13945,7 +13946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBuild"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13963,7 +13964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFleet"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13981,7 +13982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFleetLocations"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14000,7 +14001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14018,7 +14019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGameSessionQueue"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14036,7 +14037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLocation"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14055,7 +14056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMatchmakingConfiguration"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14074,7 +14075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMatchmakingRuleSet"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14092,7 +14093,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteScalingPolicy"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14110,7 +14111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteScript"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14130,7 +14131,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVpcPeeringAuthorization"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14150,7 +14151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVpcPeeringConnection"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14168,7 +14169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterCompute"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14187,7 +14188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterGameServer"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14205,7 +14206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAlias"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14223,7 +14224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBuild"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14241,7 +14242,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCompute"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14260,7 +14261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEC2InstanceLimits"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14278,7 +14279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetAttributes"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14296,7 +14297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetCapacity"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14316,7 +14317,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetEvents"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14336,7 +14337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetLocationAttributes"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14355,7 +14356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetLocationCapacity"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14374,7 +14375,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetLocationUtilization"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14393,7 +14394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetPortSettings"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14411,7 +14412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleetUtilization"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14430,7 +14431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameServer"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14448,7 +14449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14470,7 +14471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameServerInstances"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14492,7 +14493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameSessionDetails"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14511,7 +14512,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameSessionPlacement"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14530,7 +14531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameSessionQueues"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14551,7 +14552,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGameSessions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14571,7 +14572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInstances"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14589,7 +14590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMatchmaking"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14609,7 +14610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMatchmakingConfigurations"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14628,7 +14629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMatchmakingRuleSets"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14650,7 +14651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePlayerSessions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14669,7 +14670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRuntimeConfiguration"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14689,7 +14690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeScalingPolicies"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14707,7 +14708,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeScript"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14717,7 +14718,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'gamelift-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeVpcPeeringAuthorizations" :params
                                 `(("Action"
                                    ,@"DescribeVpcPeeringAuthorizations")
                                   ("Version" ,@"2015-10-01"))))
@@ -14737,7 +14739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVpcPeeringConnections"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14755,7 +14757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComputeAccess"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14773,7 +14775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComputeAuthToken"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14791,7 +14793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetGameSessionLogUrl"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14809,7 +14811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceAccess"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14829,7 +14831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAliases"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14847,7 +14849,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListBuilds"
+                                                        "POST" :json "/"
+                                                        "ListBuilds"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-builds))
@@ -14865,7 +14868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCompute"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14884,7 +14887,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListFleets"
+                                                        "POST" :json "/"
+                                                        "ListFleets"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-fleets))
@@ -14901,7 +14905,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGameServerGroups"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14921,7 +14925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGameServers"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14939,7 +14943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLocations"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14957,7 +14961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListScripts"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14975,7 +14979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14999,7 +15003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutScalingPolicy"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15020,7 +15024,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterCompute"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15041,7 +15045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterGameServer"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15059,7 +15063,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RequestUploadCredentials"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15077,7 +15081,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResolveAlias"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15096,7 +15100,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResumeGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15117,7 +15121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchGameSessions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15135,7 +15139,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFleetActions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15160,7 +15164,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartGameSessionPlacement"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15181,7 +15185,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMatchBackfill"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15200,7 +15204,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMatchmaking"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15218,7 +15222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopFleetActions"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15237,7 +15241,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopGameSessionPlacement"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15255,7 +15259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopMatchmaking"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15274,7 +15278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SuspendGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15292,7 +15296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15310,7 +15314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15330,7 +15334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAlias"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15348,7 +15352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBuild"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15372,7 +15376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFleetAttributes"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15393,7 +15397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFleetCapacity"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15415,7 +15419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFleetPortSettings"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15436,7 +15440,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGameServer"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15458,7 +15462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGameServerGroup"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15480,7 +15484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGameSession"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15504,7 +15508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGameSessionQueue"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15532,7 +15536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMatchmakingConfiguration"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15551,7 +15555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRuntimeConfiguration"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15571,7 +15575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateScript"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15590,7 +15594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'gamelift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ValidateMatchmakingRuleSet"
                                                         "2015-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/budgets/api)
 (common-lisp:progn
  (common-lisp:defclass budgets-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "budgets"))
+                       common-lisp:nil
+                       (:default-initargs :service "budgets" :protocol :json))
  (common-lisp:export 'budgets-request))
 (common-lisp:progn
  (common-lisp:define-condition budgets-error
@@ -3560,7 +3561,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3583,7 +3584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBudgetAction"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3603,7 +3604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNotification"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3623,7 +3624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSubscriber"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3641,7 +3642,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3660,7 +3661,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBudgetAction"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3679,7 +3680,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNotification"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3699,7 +3700,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSubscriber"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3717,7 +3718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3736,7 +3737,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetAction"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3758,7 +3759,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetActionHistories"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3778,7 +3779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetActionsForAccount"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3799,7 +3800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetActionsForBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3819,7 +3820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetNotificationsForAccount"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3841,7 +3842,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgetPerformanceHistory"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3860,7 +3861,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBudgets"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3881,7 +3882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNotificationsForBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3903,7 +3904,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSubscribersForNotification"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3923,7 +3924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteBudgetAction"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3941,7 +3942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBudget"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3964,7 +3965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBudgetAction"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3985,7 +3986,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNotification"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4006,7 +4007,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'budgets-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSubscriber"
                                                         "2016-10-20"))
       common-lisp:nil common-lisp:nil *error-map*)))

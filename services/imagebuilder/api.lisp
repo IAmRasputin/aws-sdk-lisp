@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass imagebuilder-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "imagebuilder"))
+                       (:default-initargs :service "imagebuilder" :protocol
+                        :rest-json))
  (common-lisp:export 'imagebuilder-request))
 (common-lisp:progn
  (common-lisp:define-condition imagebuilder-error
@@ -11019,7 +11020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CancelImageCreation"
                                                         "CancelImageCreation"
                                                         "2019-12-02"))
@@ -11042,7 +11043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateComponent"
                                                         "CreateComponent"
                                                         "2019-12-02"))
@@ -11071,7 +11072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateContainerRecipe"
                                                         "CreateContainerRecipe"
                                                         "2019-12-02"))
@@ -11093,7 +11094,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateDistributionConfiguration"
                                                         "CreateDistributionConfiguration"
                                                         "2019-12-02"))
@@ -11120,7 +11121,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/CreateImage"
+                                                        "PUT" :rest-json
+                                                        "/CreateImage"
                                                         "CreateImage"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11147,7 +11149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateImagePipeline"
                                                         "CreateImagePipeline"
                                                         "2019-12-02"))
@@ -11172,7 +11174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateImageRecipe"
                                                         "CreateImageRecipe"
                                                         "2019-12-02"))
@@ -11199,7 +11201,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/CreateInfrastructureConfiguration"
                                                         "CreateInfrastructureConfiguration"
                                                         "2019-12-02"))
@@ -11218,7 +11220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteComponent"
                                                         "DeleteComponent"
                                                         "2019-12-02"))
@@ -11237,7 +11239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteContainerRecipe"
                                                         "DeleteContainerRecipe"
                                                         "2019-12-02"))
@@ -11257,7 +11259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteDistributionConfiguration"
                                                         "DeleteDistributionConfiguration"
                                                         "2019-12-02"))
@@ -11276,7 +11278,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/DeleteImage"
+                                                        "DELETE" :rest-json
+                                                        "/DeleteImage"
                                                         "DeleteImage"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11294,7 +11297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteImagePipeline"
                                                         "DeleteImagePipeline"
                                                         "2019-12-02"))
@@ -11313,7 +11316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteImageRecipe"
                                                         "DeleteImageRecipe"
                                                         "2019-12-02"))
@@ -11334,7 +11337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/DeleteInfrastructureConfiguration"
                                                         "DeleteInfrastructureConfiguration"
                                                         "2019-12-02"))
@@ -11353,7 +11356,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/GetComponent"
+                                                        "GET" :rest-json
+                                                        "/GetComponent"
                                                         "GetComponent"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11371,7 +11375,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetComponentPolicy"
                                                         "GetComponentPolicy"
                                                         "2019-12-02"))
@@ -11390,7 +11394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetContainerRecipe"
                                                         "GetContainerRecipe"
                                                         "2019-12-02"))
@@ -11410,7 +11414,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetContainerRecipePolicy"
                                                         "GetContainerRecipePolicy"
                                                         "2019-12-02"))
@@ -11430,7 +11434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetDistributionConfiguration"
                                                         "GetDistributionConfiguration"
                                                         "2019-12-02"))
@@ -11449,8 +11453,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/GetImage"
-                                                        "GetImage"
+                                                        "GET" :rest-json
+                                                        "/GetImage" "GetImage"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-image))
@@ -11467,7 +11471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetImagePipeline"
                                                         "GetImagePipeline"
                                                         "2019-12-02"))
@@ -11486,7 +11490,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/GetImagePolicy"
+                                                        "GET" :rest-json
+                                                        "/GetImagePolicy"
                                                         "GetImagePolicy"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11504,7 +11509,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/GetImageRecipe"
+                                                        "GET" :rest-json
+                                                        "/GetImageRecipe"
                                                         "GetImageRecipe"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11522,7 +11528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetImageRecipePolicy"
                                                         "GetImageRecipePolicy"
                                                         "2019-12-02"))
@@ -11543,7 +11549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetInfrastructureConfiguration"
                                                         "GetInfrastructureConfiguration"
                                                         "2019-12-02"))
@@ -11562,7 +11568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetWorkflowExecution"
                                                         "GetWorkflowExecution"
                                                         "2019-12-02"))
@@ -11582,7 +11588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/GetWorkflowStepExecution"
                                                         "GetWorkflowStepExecution"
                                                         "2019-12-02"))
@@ -11605,7 +11611,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/ImportComponent"
                                                         "ImportComponent"
                                                         "2019-12-02"))
@@ -11627,7 +11633,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/ImportVmImage"
+                                                        "PUT" :rest-json
+                                                        "/ImportVmImage"
                                                         "ImportVmImage"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11648,7 +11655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListComponentBuildVersions"
                                                         "ListComponentBuildVersions"
                                                         "2019-12-02"))
@@ -11669,7 +11676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListComponents"
                                                         "ListComponents"
                                                         "2019-12-02"))
@@ -11689,7 +11696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListContainerRecipes"
                                                         "ListContainerRecipes"
                                                         "2019-12-02"))
@@ -11709,7 +11716,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListDistributionConfigurations"
                                                         "ListDistributionConfigurations"
                                                         "2019-12-02"))
@@ -11731,7 +11738,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImageBuildVersions"
                                                         "ListImageBuildVersions"
                                                         "2019-12-02"))
@@ -11752,7 +11759,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImagePackages"
                                                         "ListImagePackages"
                                                         "2019-12-02"))
@@ -11774,7 +11781,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImagePipelineImages"
                                                         "ListImagePipelineImages"
                                                         "2019-12-02"))
@@ -11793,7 +11800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImagePipelines"
                                                         "ListImagePipelines"
                                                         "2019-12-02"))
@@ -11813,7 +11820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImageRecipes"
                                                         "ListImageRecipes"
                                                         "2019-12-02"))
@@ -11833,7 +11840,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImageScanFindingAggregations"
                                                         "ListImageScanFindingAggregations"
                                                         "2019-12-02"))
@@ -11852,7 +11859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImageScanFindings"
                                                         "ListImageScanFindings"
                                                         "2019-12-02"))
@@ -11874,7 +11881,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListImages"
+                                                        "POST" :rest-json
+                                                        "/ListImages"
                                                         "ListImages"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11893,7 +11901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListInfrastructureConfigurations"
                                                         "ListInfrastructureConfigurations"
                                                         "2019-12-02"))
@@ -11912,7 +11920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11942,7 +11950,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListWorkflowExecutions"
                                                         "ListWorkflowExecutions"
                                                         "2019-12-02"))
@@ -11964,7 +11972,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListWorkflowStepExecutions"
                                                         "ListWorkflowStepExecutions"
                                                         "2019-12-02"))
@@ -11983,7 +11991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/PutComponentPolicy"
                                                         "PutComponentPolicy"
                                                         "2019-12-02"))
@@ -12003,7 +12011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/PutContainerRecipePolicy"
                                                         "PutContainerRecipePolicy"
                                                         "2019-12-02"))
@@ -12022,7 +12030,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/PutImagePolicy"
+                                                        "PUT" :rest-json
+                                                        "/PutImagePolicy"
                                                         "PutImagePolicy"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12040,7 +12049,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/PutImageRecipePolicy"
                                                         "PutImageRecipePolicy"
                                                         "2019-12-02"))
@@ -12061,7 +12070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/StartImagePipelineExecution"
                                                         "StartImagePipelineExecution"
                                                         "2019-12-02"))
@@ -12080,7 +12089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12108,7 +12117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12140,7 +12149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/UpdateDistributionConfiguration"
                                                         "UpdateDistributionConfiguration"
                                                         "2019-12-02"))
@@ -12169,7 +12178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/UpdateImagePipeline"
                                                         "UpdateImagePipeline"
                                                         "2019-12-02"))
@@ -12197,7 +12206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'imagebuilder-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/UpdateInfrastructureConfiguration"
                                                         "UpdateInfrastructureConfiguration"
                                                         "2019-12-02"))

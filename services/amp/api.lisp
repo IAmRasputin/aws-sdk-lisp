@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/amp/api)
 (common-lisp:progn
  (common-lisp:defclass amp-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "amp"))
+                       (:default-initargs :service "amp" :protocol :rest-json))
  (common-lisp:export 'amp-request))
 (common-lisp:progn
  (common-lisp:define-condition amp-error
@@ -2096,7 +2096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2126,7 +2126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2156,7 +2156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2184,7 +2184,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/workspaces"
+                                                        "POST" :rest-json
+                                                        "/workspaces"
                                                         "CreateWorkspace"
                                                         "2020-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2203,7 +2204,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2232,7 +2233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2261,7 +2262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2293,7 +2294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2322,7 +2323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2351,7 +2352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2380,7 +2381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2412,7 +2413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2442,7 +2443,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2470,7 +2471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2498,7 +2499,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/workspaces"
+                                                        "GET" :rest-json
+                                                        "/workspaces"
                                                         "ListWorkspaces"
                                                         "2020-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2517,7 +2519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2547,7 +2549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2579,7 +2581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2607,7 +2609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2637,7 +2639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2666,7 +2668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'amp-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

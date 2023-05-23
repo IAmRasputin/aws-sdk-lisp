@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/dynamodb/api)
 (common-lisp:progn
  (common-lisp:defclass dynamodb-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "dynamodb"))
+                       common-lisp:nil
+                       (:default-initargs :service "dynamodb" :protocol :json))
  (common-lisp:export 'dynamodb-request))
 (common-lisp:progn
  (common-lisp:define-condition dynamodb-error
@@ -11627,7 +11628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchExecuteStatement"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11646,7 +11647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11667,7 +11668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchWriteItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11685,7 +11686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBackup"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11704,7 +11705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGlobalTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11731,7 +11732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11749,7 +11750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBackup"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11775,7 +11776,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteItem"
+                                                        "POST" :json "/"
+                                                        "DeleteItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-item))
@@ -11792,7 +11794,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11810,7 +11812,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBackup"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11829,7 +11831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContinuousBackups"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11848,7 +11850,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContributorInsights"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11858,6 +11860,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'dynamodb-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeEndpoints"
                                 :params
                                 `(("Action" ,@"DescribeEndpoints")
                                   ("Version" ,@"2012-08-10"))))
@@ -11876,7 +11879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExport"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11894,7 +11897,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGlobalTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11913,7 +11916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGlobalTableSettings"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11931,7 +11934,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImport"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11950,7 +11953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeKinesisStreamingDestination"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11960,6 +11963,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'dynamodb-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeLimits"
                                 :params
                                 `(("Action" ,@"DescribeLimits")
                                   ("Version" ,@"2012-08-10"))))
@@ -11978,7 +11982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11997,7 +12001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTableReplicaAutoScaling"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12015,7 +12019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTimeToLive"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12034,7 +12038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableKinesisStreamingDestination"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12053,7 +12057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableKinesisStreamingDestination"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12074,7 +12078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteStatement"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12095,7 +12099,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteTransaction"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12118,7 +12122,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExportTableToPointInTime"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12141,7 +12145,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetItem"
+                                                        "POST" :json "/"
+                                                        "GetItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-item))
@@ -12162,7 +12167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12184,7 +12189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBackups"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12203,7 +12208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContributorInsights"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12222,7 +12227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExports"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12243,7 +12248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGlobalTables"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12261,7 +12266,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListImports"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12280,7 +12285,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTables"
+                                                        "POST" :json "/"
+                                                        "ListTables"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tables))
@@ -12297,7 +12303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsOfResource"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12322,7 +12328,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutItem"
+                                                        "POST" :json "/"
+                                                        "PutItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-item))
@@ -12350,8 +12357,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Query"
-                                                        "2012-08-10"))
+                                                        "POST" :json "/"
+                                                        "Query" "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'query))
 (common-lisp:progn
@@ -12373,7 +12380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreTableFromBackup"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12401,7 +12408,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreTableToPointInTime"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12429,7 +12436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Scan"
+                                                        "POST" :json "/" "Scan"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'scan))
@@ -12446,7 +12453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12465,7 +12472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TransactGetItems"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12486,7 +12493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TransactWriteItems"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12504,7 +12511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12524,7 +12531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContinuousBackups"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12545,7 +12552,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContributorInsights"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12564,7 +12571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGlobalTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12593,7 +12600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGlobalTableSettings"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12619,7 +12626,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateItem"
+                                                        "POST" :json "/"
+                                                        "UpdateItem"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-item))
@@ -12643,7 +12651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTable"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12666,7 +12674,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTableReplicaAutoScaling"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12685,7 +12693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dynamodb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTimeToLive"
                                                         "2012-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/support/api)
 (common-lisp:progn
  (common-lisp:defclass support-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "support"))
+                       common-lisp:nil
+                       (:default-initargs :service "support" :protocol :json))
  (common-lisp:export 'support-request))
 (common-lisp:progn
  (common-lisp:define-condition support-error
@@ -2238,7 +2239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddAttachmentsToSet"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2260,7 +2261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddCommunicationToCase"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2283,7 +2284,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateCase"
+                                                        "POST" :json "/"
+                                                        "CreateCase"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-case))
@@ -2300,7 +2302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAttachment"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2323,7 +2325,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCases"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2344,7 +2346,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCommunications"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2362,7 +2364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServices"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2380,7 +2382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSeverityLevels"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2399,7 +2401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrustedAdvisorCheckRefreshStatuses"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2418,7 +2420,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrustedAdvisorCheckResult"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2437,7 +2439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrustedAdvisorCheckSummaries"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2456,7 +2458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrustedAdvisorChecks"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2475,7 +2477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RefreshTrustedAdvisorCheck"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2493,7 +2495,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResolveCase"
                                                         "2013-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))

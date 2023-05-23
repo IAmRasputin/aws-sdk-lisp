@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass inspector-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "inspector"))
+                       (:default-initargs :service "inspector" :protocol
+                        :json))
  (common-lisp:export 'inspector-request))
 (common-lisp:progn
  (common-lisp:define-condition inspector-error
@@ -5182,7 +5183,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddAttributesToFindings"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5202,7 +5203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAssessmentTarget"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5225,7 +5226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAssessmentTemplate"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5244,7 +5245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExclusionsPreview"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5262,7 +5263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateResourceGroup"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5280,7 +5281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAssessmentRun"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5298,7 +5299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAssessmentTarget"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5317,7 +5318,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAssessmentTemplate"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5335,7 +5336,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAssessmentRuns"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5354,7 +5355,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAssessmentTargets"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5373,7 +5374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAssessmentTemplates"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5383,7 +5384,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'inspector-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeCrossAccountAccessRole" :params
                                 `(("Action" ,@"DescribeCrossAccountAccessRole")
                                   ("Version" ,@"2016-02-16"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5401,7 +5403,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExclusions"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5419,7 +5421,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFindings"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5437,7 +5439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeResourceGroups"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5455,7 +5457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRulesPackages"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5475,7 +5477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAssessmentReport"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5496,7 +5498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetExclusionsPreview"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5514,7 +5516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTelemetryMetadata"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5535,7 +5537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssessmentRunAgents"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5556,7 +5558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssessmentRuns"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5574,7 +5576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssessmentTargets"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5596,7 +5598,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssessmentTemplates"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5615,7 +5617,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEventSubscriptions"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5635,7 +5637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExclusions"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5655,7 +5657,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFindings"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5673,7 +5675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRulesPackages"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5691,7 +5693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5711,7 +5713,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PreviewAgents"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5730,7 +5732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterCrossAccountAccessRole"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5749,7 +5751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveAttributesFromFindings"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5767,7 +5769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetTagsForResource"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5787,7 +5789,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartAssessmentRun"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5805,7 +5807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopAssessmentRun"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5823,7 +5825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubscribeToEvent"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5841,7 +5843,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UnsubscribeFromEvent"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5862,7 +5864,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAssessmentTarget"
                                                         "2016-02-16"))
       common-lisp:nil common-lisp:nil *error-map*)))

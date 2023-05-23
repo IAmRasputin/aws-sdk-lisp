@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/mgn/api)
 (common-lisp:progn
  (common-lisp:defclass mgn-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "mgn"))
+                       (:default-initargs :service "mgn" :protocol :rest-json))
  (common-lisp:export 'mgn-request))
 (common-lisp:progn
  (common-lisp:define-condition mgn-error
@@ -9002,7 +9002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ArchiveApplication"
                                                         "ArchiveApplication"
                                                         "2020-02-26"))
@@ -9021,7 +9021,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ArchiveWave"
+                                                        "POST" :rest-json
+                                                        "/ArchiveWave"
                                                         "ArchiveWave"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9039,7 +9040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/AssociateApplications"
                                                         "AssociateApplications"
                                                         "2020-02-26"))
@@ -9059,7 +9060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/AssociateSourceServers"
                                                         "AssociateSourceServers"
                                                         "2020-02-26"))
@@ -9079,7 +9080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ChangeServerLifeCycleState"
                                                         "ChangeServerLifeCycleState"
                                                         "2020-02-26"))
@@ -9098,7 +9099,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateApplication"
                                                         "CreateApplication"
                                                         "2020-02-26"))
@@ -9128,7 +9129,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateLaunchConfigurationTemplate"
                                                         "CreateLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -9160,7 +9161,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateReplicationConfigurationTemplate"
                                                         "CreateReplicationConfigurationTemplate"
                                                         "2020-02-26"))
@@ -9179,7 +9180,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateWave"
+                                                        "POST" :rest-json
+                                                        "/CreateWave"
                                                         "CreateWave"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9197,7 +9199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteApplication"
                                                         "DeleteApplication"
                                                         "2020-02-26"))
@@ -9216,7 +9218,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteJob"
+                                                        "POST" :rest-json
+                                                        "/DeleteJob"
                                                         "DeleteJob"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9236,7 +9239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteLaunchConfigurationTemplate"
                                                         "DeleteLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -9257,7 +9260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteReplicationConfigurationTemplate"
                                                         "DeleteReplicationConfigurationTemplate"
                                                         "2020-02-26"))
@@ -9276,7 +9279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteSourceServer"
                                                         "DeleteSourceServer"
                                                         "2020-02-26"))
@@ -9295,7 +9298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteVcenterClient"
                                                         "DeleteVcenterClient"
                                                         "2020-02-26"))
@@ -9314,7 +9317,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteWave"
+                                                        "POST" :rest-json
+                                                        "/DeleteWave"
                                                         "DeleteWave"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9332,7 +9336,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeJobLogItems"
                                                         "DescribeJobLogItems"
                                                         "2020-02-26"))
@@ -9351,7 +9355,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DescribeJobs"
+                                                        "POST" :rest-json
+                                                        "/DescribeJobs"
                                                         "DescribeJobs"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9373,7 +9378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeLaunchConfigurationTemplates"
                                                         "DescribeLaunchConfigurationTemplates"
                                                         "2020-02-26"))
@@ -9396,7 +9401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeReplicationConfigurationTemplates"
                                                         "DescribeReplicationConfigurationTemplates"
                                                         "2020-02-26"))
@@ -9415,7 +9420,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSourceServers"
                                                         "DescribeSourceServers"
                                                         "2020-02-26"))
@@ -9434,7 +9439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/DescribeVcenterClients"
                                                         "DescribeVcenterClients"
                                                         "2020-02-26"))
@@ -9454,7 +9459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisassociateApplications"
                                                         "DisassociateApplications"
                                                         "2020-02-26"))
@@ -9475,7 +9480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisassociateSourceServers"
                                                         "DisassociateSourceServers"
                                                         "2020-02-26"))
@@ -9494,7 +9499,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisconnectFromService"
                                                         "DisconnectFromService"
                                                         "2020-02-26"))
@@ -9513,7 +9518,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/FinalizeCutover"
                                                         "FinalizeCutover"
                                                         "2020-02-26"))
@@ -9532,7 +9537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetLaunchConfiguration"
                                                         "GetLaunchConfiguration"
                                                         "2020-02-26"))
@@ -9552,7 +9557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetReplicationConfiguration"
                                                         "GetReplicationConfiguration"
                                                         "2020-02-26"))
@@ -9563,7 +9568,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'mgn-request :method "POST" :path
-                                "/InitializeService" :params
+                                "/InitializeService" :protocol :rest-json
+                                :operation "InitializeService" :params
                                 `(("Action" ,@"InitializeService")
                                   ("Version" ,@"2020-02-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9581,7 +9587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListApplications"
                                                         "ListApplications"
                                                         "2020-02-26"))
@@ -9601,7 +9607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListExportErrors"
                                                         "ListExportErrors"
                                                         "2020-02-26"))
@@ -9620,7 +9626,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListExports"
+                                                        "POST" :rest-json
+                                                        "/ListExports"
                                                         "ListExports"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9639,7 +9646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListImportErrors"
                                                         "ListImportErrors"
                                                         "2020-02-26"))
@@ -9658,7 +9665,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListImports"
+                                                        "POST" :rest-json
+                                                        "/ListImports"
                                                         "ListImports"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9679,7 +9687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListSourceServerActions"
                                                         "ListSourceServerActions"
                                                         "2020-02-26"))
@@ -9698,7 +9706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9729,7 +9737,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTemplateActions"
                                                         "ListTemplateActions"
                                                         "2020-02-26"))
@@ -9748,7 +9756,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListWaves"
+                                                        "POST" :rest-json
+                                                        "/ListWaves"
                                                         "ListWaves"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9766,7 +9775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/MarkAsArchived"
                                                         "MarkAsArchived"
                                                         "2020-02-26"))
@@ -9792,7 +9801,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/PutSourceServerAction"
                                                         "PutSourceServerAction"
                                                         "2020-02-26"))
@@ -9819,7 +9828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/PutTemplateAction"
                                                         "PutTemplateAction"
                                                         "2020-02-26"))
@@ -9839,7 +9848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RemoveSourceServerAction"
                                                         "RemoveSourceServerAction"
                                                         "2020-02-26"))
@@ -9860,7 +9869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RemoveTemplateAction"
                                                         "RemoveTemplateAction"
                                                         "2020-02-26"))
@@ -9879,7 +9888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RetryDataReplication"
                                                         "RetryDataReplication"
                                                         "2020-02-26"))
@@ -9898,7 +9907,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StartCutover"
+                                                        "POST" :rest-json
+                                                        "/StartCutover"
                                                         "StartCutover"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9916,7 +9926,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StartExport"
+                                                        "POST" :rest-json
+                                                        "/StartExport"
                                                         "StartExport"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9934,7 +9945,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StartImport"
+                                                        "POST" :rest-json
+                                                        "/StartImport"
                                                         "StartImport"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9952,7 +9964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StartReplication"
                                                         "StartReplication"
                                                         "2020-02-26"))
@@ -9971,7 +9983,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StartTest"
+                                                        "POST" :rest-json
+                                                        "/StartTest"
                                                         "StartTest"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9989,7 +10002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10018,7 +10031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/TerminateTargetInstances"
                                                         "TerminateTargetInstances"
                                                         "2020-02-26"))
@@ -10037,7 +10050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UnarchiveApplication"
                                                         "UnarchiveApplication"
                                                         "2020-02-26"))
@@ -10056,7 +10069,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UnarchiveWave"
+                                                        "POST" :rest-json
+                                                        "/UnarchiveWave"
                                                         "UnarchiveWave"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10074,7 +10088,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10103,7 +10117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateApplication"
                                                         "UpdateApplication"
                                                         "2020-02-26"))
@@ -10130,7 +10144,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateLaunchConfiguration"
                                                         "UpdateLaunchConfiguration"
                                                         "2020-02-26"))
@@ -10161,7 +10175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateLaunchConfigurationTemplate"
                                                         "UpdateLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -10195,7 +10209,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateReplicationConfiguration"
                                                         "UpdateReplicationConfiguration"
                                                         "2020-02-26"))
@@ -10229,7 +10243,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateReplicationConfigurationTemplate"
                                                         "UpdateReplicationConfigurationTemplate"
                                                         "2020-02-26"))
@@ -10250,7 +10264,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateSourceServerReplicationType"
                                                         "UpdateSourceServerReplicationType"
                                                         "2020-02-26"))
@@ -10269,7 +10283,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mgn-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateWave"
+                                                        "POST" :rest-json
+                                                        "/UpdateWave"
                                                         "UpdateWave"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))

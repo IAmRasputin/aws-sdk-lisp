@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass chime-sdk-meetings-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "chime-sdk-meetings"))
+                       (:default-initargs :service "chime-sdk-meetings"
+                        :protocol :rest-json))
  (common-lisp:export 'chime-sdk-meetings-request))
 (common-lisp:progn
  (common-lisp:define-condition chime-sdk-meetings-error
@@ -2105,6 +2106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/meetings/~A/attendees?operation=batch-create"
@@ -2131,6 +2133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/meetings/~A/attendees/capabilities?operation=batch-update-except"
@@ -2155,6 +2158,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A/attendees"
                               (quri.encode:url-encode
@@ -2183,7 +2187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
-        "/meetings" "CreateMeeting" "2021-07-15"))
+        :rest-json "/meetings" "CreateMeeting" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-meeting))
 (common-lisp:progn
@@ -2206,8 +2210,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
-        "/meetings?operation=create-attendees" "CreateMeetingWithAttendees"
-        "2021-07-15"))
+        :rest-json "/meetings?operation=create-attendees"
+        "CreateMeetingWithAttendees" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-meeting-with-attendees))
 (common-lisp:progn
@@ -2223,6 +2227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A/attendees/~A"
                               (quri.encode:url-encode
@@ -2249,6 +2254,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A"
                               (quri.encode:url-encode
@@ -2271,6 +2277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A/attendees/~A"
                               (quri.encode:url-encode
@@ -2297,6 +2304,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A"
                               (quri.encode:url-encode
@@ -2320,6 +2328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/meetings/~A/attendees"
                               (quri.encode:url-encode
@@ -2342,7 +2351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "GET"
-        "/tags" "ListTagsForResource" "2021-07-15"))
+        :rest-json "/tags" "ListTagsForResource" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -2360,6 +2369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/meetings/~A/transcription?operation=start"
@@ -2384,6 +2394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/meetings/~A/transcription?operation=stop"
@@ -2407,7 +2418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=tag-resource" "TagResource" "2021-07-15"))
+        :rest-json "/tags?operation=tag-resource" "TagResource" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -2423,7 +2434,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=untag-resource" "UntagResource" "2021-07-15"))
+        :rest-json "/tags?operation=untag-resource" "UntagResource"
+        "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -2441,6 +2453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-meetings-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/meetings/~A/attendees/~A/capabilities"

@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/transfer/api)
 (common-lisp:progn
  (common-lisp:defclass transfer-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "transfer"))
+                       common-lisp:nil
+                       (:default-initargs :service "transfer" :protocol :json))
  (common-lisp:export 'transfer-request))
 (common-lisp:progn
  (common-lisp:define-condition transfer-error
@@ -7923,7 +7924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAccess"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7944,7 +7945,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAgreement"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7964,7 +7965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnector"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7983,7 +7984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProfile"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8010,7 +8011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8033,7 +8034,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :json "/"
+                                                        "CreateUser"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
@@ -8052,7 +8054,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkflow"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8070,7 +8072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAccess"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8088,7 +8090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAgreement"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8106,7 +8108,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCertificate"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8124,7 +8126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnector"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8142,7 +8144,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteHostKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8160,7 +8162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProfile"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8178,7 +8180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8197,7 +8199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSshPublicKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8215,7 +8217,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -8232,7 +8235,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkflow"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8250,7 +8253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccess"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8268,7 +8271,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAgreement"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8286,7 +8289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCertificate"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8304,7 +8307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnector"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8322,7 +8325,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExecution"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8340,7 +8343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHostKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8358,7 +8361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProfile"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8376,7 +8379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSecurityPolicy"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8394,7 +8397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8412,7 +8415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUser"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8430,7 +8433,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkflow"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8451,7 +8454,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportCertificate"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8470,7 +8473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportHostKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8489,7 +8492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportSshPublicKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8508,7 +8511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccesses"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8527,7 +8530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAgreements"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8545,7 +8548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCertificates"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8563,7 +8566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListConnectors"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8582,7 +8585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExecutions"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8601,7 +8604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHostKeys"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8620,7 +8623,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProfiles"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8638,7 +8641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSecurityPolicies"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8656,7 +8659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServers"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8674,7 +8677,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8693,7 +8696,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListUsers"
+                                                        "POST" :json "/"
+                                                        "ListUsers"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-users))
@@ -8710,7 +8714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkflows"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8729,7 +8733,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendWorkflowStepState"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8747,7 +8751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFileTransfer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8765,7 +8769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8783,7 +8787,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopServer"
+                                                        "POST" :json "/"
+                                                        "StopServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-server))
@@ -8800,7 +8805,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8821,7 +8826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TestIdentityProvider"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8839,7 +8844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8861,7 +8866,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAccess"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8883,7 +8888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAgreement"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8904,7 +8909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCertificate"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8925,7 +8930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConnector"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8944,7 +8949,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateHostKey"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8962,7 +8967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProfile"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8989,7 +8994,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServer"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9011,7 +9016,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transfer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateUser"
+                                                        "POST" :json "/"
+                                                        "UpdateUser"
                                                         "2018-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-user))

@@ -15,7 +15,8 @@
  (common-lisp:defclass license-manager-user-subscriptions-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "license-manager-user-subscriptions"))
+                        "license-manager-user-subscriptions" :protocol
+                        :rest-json))
  (common-lisp:export 'license-manager-user-subscriptions-request))
 (common-lisp:progn
  (common-lisp:define-condition license-manager-user-subscriptions-error
@@ -1607,8 +1608,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST" "/user/AssociateUser"
-        "AssociateUser" "2018-05-10"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/user/AssociateUser" "AssociateUser" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-user))
 (common-lisp:progn
@@ -1625,7 +1626,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/identity-provider/DeregisterIdentityProvider"
         "DeregisterIdentityProvider" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1645,8 +1646,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST" "/user/DisassociateUser"
-        "DisassociateUser" "2018-05-10"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/user/DisassociateUser" "DisassociateUser" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-user))
 (common-lisp:progn
@@ -1662,7 +1663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/identity-provider/ListIdentityProviders" "ListIdentityProviders"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1680,8 +1681,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST" "/instance/ListInstances"
-        "ListInstances" "2018-05-10"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/instance/ListInstances" "ListInstances" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-instances))
 (common-lisp:progn
@@ -1701,7 +1702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/user/ListProductSubscriptions" "ListProductSubscriptions"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1722,8 +1723,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST" "/user/ListUserAssociations"
-        "ListUserAssociations" "2018-05-10"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/user/ListUserAssociations" "ListUserAssociations" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-user-associations))
 (common-lisp:progn
@@ -1741,7 +1742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/identity-provider/RegisterIdentityProvider"
         "RegisterIdentityProvider" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1762,7 +1763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/user/StartProductSubscription" "StartProductSubscription"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1783,7 +1784,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/user/StopProductSubscription" "StopProductSubscription"
         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1804,7 +1805,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'license-manager-user-subscriptions-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         "/identity-provider/UpdateIdentityProviderSettings"
         "UpdateIdentityProviderSettings" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

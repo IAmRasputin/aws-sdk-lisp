@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ivs/api)
 (common-lisp:progn
  (common-lisp:defclass ivs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ivs"))
+                       (:default-initargs :service "ivs" :protocol :rest-json))
  (common-lisp:export 'ivs-request))
 (common-lisp:progn
  (common-lisp:define-condition ivs-error
@@ -3283,7 +3283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BatchGetChannel"
                                                         "BatchGetChannel"
                                                         "2020-07-14"))
@@ -3302,7 +3302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BatchGetStreamKey"
                                                         "BatchGetStreamKey"
                                                         "2020-07-14"))
@@ -3324,7 +3324,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateChannel"
+                                                        "POST" :rest-json
+                                                        "/CreateChannel"
                                                         "CreateChannel"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3347,7 +3348,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateRecordingConfiguration"
                                                         "CreateRecordingConfiguration"
                                                         "2020-07-14"))
@@ -3366,7 +3367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateStreamKey"
                                                         "CreateStreamKey"
                                                         "2020-07-14"))
@@ -3385,7 +3386,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteChannel"
+                                                        "POST" :rest-json
+                                                        "/DeleteChannel"
                                                         "DeleteChannel"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3403,7 +3405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeletePlaybackKeyPair"
                                                         "DeletePlaybackKeyPair"
                                                         "2020-07-14"))
@@ -3423,7 +3425,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteRecordingConfiguration"
                                                         "DeleteRecordingConfiguration"
                                                         "2020-07-14"))
@@ -3442,7 +3444,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteStreamKey"
                                                         "DeleteStreamKey"
                                                         "2020-07-14"))
@@ -3461,7 +3463,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetChannel"
+                                                        "POST" :rest-json
+                                                        "/GetChannel"
                                                         "GetChannel"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3479,7 +3482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetPlaybackKeyPair"
                                                         "GetPlaybackKeyPair"
                                                         "2020-07-14"))
@@ -3499,7 +3502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetRecordingConfiguration"
                                                         "GetRecordingConfiguration"
                                                         "2020-07-14"))
@@ -3518,7 +3521,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetStream"
+                                                        "POST" :rest-json
+                                                        "/GetStream"
                                                         "GetStream"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3536,7 +3540,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetStreamKey"
+                                                        "POST" :rest-json
+                                                        "/GetStreamKey"
                                                         "GetStreamKey"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3554,7 +3559,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetStreamSession"
                                                         "GetStreamSession"
                                                         "2020-07-14"))
@@ -3573,7 +3578,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ImportPlaybackKeyPair"
                                                         "ImportPlaybackKeyPair"
                                                         "2020-07-14"))
@@ -3596,7 +3601,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListChannels"
+                                                        "POST" :rest-json
+                                                        "/ListChannels"
                                                         "ListChannels"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3614,7 +3620,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListPlaybackKeyPairs"
                                                         "ListPlaybackKeyPairs"
                                                         "2020-07-14"))
@@ -3634,7 +3640,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListRecordingConfigurations"
                                                         "ListRecordingConfigurations"
                                                         "2020-07-14"))
@@ -3654,7 +3660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListStreamKeys"
                                                         "ListStreamKeys"
                                                         "2020-07-14"))
@@ -3674,7 +3680,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListStreamSessions"
                                                         "ListStreamSessions"
                                                         "2020-07-14"))
@@ -3694,7 +3700,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListStreams"
+                                                        "POST" :rest-json
+                                                        "/ListStreams"
                                                         "ListStreams"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3712,7 +3719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3740,7 +3747,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/PutMetadata"
+                                                        "POST" :rest-json
+                                                        "/PutMetadata"
                                                         "PutMetadata"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3758,7 +3766,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StopStream"
+                                                        "POST" :rest-json
+                                                        "/StopStream"
                                                         "StopStream"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3776,7 +3785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3804,7 +3813,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3835,7 +3844,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateChannel"
+                                                        "POST" :rest-json
+                                                        "/UpdateChannel"
                                                         "UpdateChannel"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/fis/api)
 (common-lisp:progn
  (common-lisp:defclass fis-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "fis"))
+                       (:default-initargs :service "fis" :protocol :rest-json))
  (common-lisp:export 'fis-request))
 (common-lisp:progn
  (common-lisp:define-condition fis-error
@@ -3505,7 +3505,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/experimentTemplates"
                                                         "CreateExperimentTemplate"
                                                         "2020-12-01"))
@@ -3525,7 +3525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3553,7 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3581,7 +3581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3609,7 +3609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3637,7 +3637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3665,7 +3665,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/actions"
+                                                        "GET" :rest-json
+                                                        "/actions"
                                                         "ListActions"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3684,7 +3685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/experimentTemplates"
                                                         "ListExperimentTemplates"
                                                         "2020-12-01"))
@@ -3703,7 +3704,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/experiments"
+                                                        "GET" :rest-json
+                                                        "/experiments"
                                                         "ListExperiments"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3721,7 +3723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3750,7 +3752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/targetResourceTypes"
                                                         "ListTargetResourceTypes"
                                                         "2020-12-01"))
@@ -3770,7 +3772,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/experiments"
+                                                        "POST" :rest-json
+                                                        "/experiments"
                                                         "StartExperiment"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3788,7 +3791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3816,7 +3819,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3844,7 +3847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3876,7 +3879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fis-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

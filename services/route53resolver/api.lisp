@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass route53resolver-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "route53resolver"))
+                       (:default-initargs :service "route53resolver" :protocol
+                        :json))
  (common-lisp:export 'route53resolver-request))
 (common-lisp:progn
  (common-lisp:define-condition route53resolver-error
@@ -7264,8 +7265,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateFirewallRuleGroup" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateFirewallRuleGroup" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-firewall-rule-group))
 (common-lisp:progn
@@ -7282,8 +7283,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateResolverEndpointIpAddress" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateResolverEndpointIpAddress" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-resolver-endpoint-ip-address))
 (common-lisp:progn
@@ -7300,8 +7301,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateResolverQueryLogConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateResolverQueryLogConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-resolver-query-log-config))
 (common-lisp:progn
@@ -7316,8 +7317,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-resolver-rule))
 (common-lisp:progn
@@ -7333,8 +7334,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateFirewallDomainList" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateFirewallDomainList" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-firewall-domain-list))
 (common-lisp:progn
@@ -7355,8 +7356,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateFirewallRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateFirewallRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-firewall-rule))
 (common-lisp:progn
@@ -7372,8 +7373,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateFirewallRuleGroup" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateFirewallRuleGroup" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-firewall-rule-group))
 (common-lisp:progn
@@ -7392,8 +7393,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateResolverEndpoint" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateResolverEndpoint" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-resolver-endpoint))
 (common-lisp:progn
@@ -7411,8 +7412,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateResolverQueryLogConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateResolverQueryLogConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-resolver-query-log-config))
 (common-lisp:progn
@@ -7430,8 +7431,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-resolver-rule))
 (common-lisp:progn
@@ -7447,8 +7448,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteFirewallDomainList" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteFirewallDomainList" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-firewall-domain-list))
 (common-lisp:progn
@@ -7465,8 +7466,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteFirewallRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteFirewallRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-firewall-rule))
 (common-lisp:progn
@@ -7482,8 +7483,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteFirewallRuleGroup" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteFirewallRuleGroup" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-firewall-rule-group))
 (common-lisp:progn
@@ -7498,8 +7499,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteResolverEndpoint" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteResolverEndpoint" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-resolver-endpoint))
 (common-lisp:progn
@@ -7515,8 +7516,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteResolverQueryLogConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteResolverQueryLogConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-resolver-query-log-config))
 (common-lisp:progn
@@ -7531,8 +7532,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-resolver-rule))
 (common-lisp:progn
@@ -7549,8 +7550,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateFirewallRuleGroup" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateFirewallRuleGroup" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-firewall-rule-group))
 (common-lisp:progn
@@ -7567,8 +7568,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateResolverEndpointIpAddress" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateResolverEndpointIpAddress" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-resolver-endpoint-ip-address))
 (common-lisp:progn
@@ -7585,8 +7586,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateResolverQueryLogConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateResolverQueryLogConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-resolver-query-log-config))
 (common-lisp:progn
@@ -7602,8 +7603,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-resolver-rule))
 (common-lisp:progn
@@ -7618,8 +7619,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetFirewallConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetFirewallConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-firewall-config))
 (common-lisp:progn
@@ -7634,8 +7635,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetFirewallDomainList" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetFirewallDomainList" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-firewall-domain-list))
 (common-lisp:progn
@@ -7650,8 +7651,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetFirewallRuleGroup" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetFirewallRuleGroup" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-firewall-rule-group))
 (common-lisp:progn
@@ -7668,8 +7669,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetFirewallRuleGroupAssociation" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetFirewallRuleGroupAssociation" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-firewall-rule-group-association))
 (common-lisp:progn
@@ -7685,8 +7686,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetFirewallRuleGroupPolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetFirewallRuleGroupPolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-firewall-rule-group-policy))
 (common-lisp:progn
@@ -7701,8 +7702,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-config))
 (common-lisp:progn
@@ -7718,8 +7719,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverDnssecConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverDnssecConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-dnssec-config))
 (common-lisp:progn
@@ -7734,8 +7735,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverEndpoint" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverEndpoint" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-endpoint))
 (common-lisp:progn
@@ -7751,8 +7752,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverQueryLogConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverQueryLogConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-query-log-config))
 (common-lisp:progn
@@ -7769,8 +7770,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverQueryLogConfigAssociation" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverQueryLogConfigAssociation" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-query-log-config-association))
 (common-lisp:progn
@@ -7786,8 +7787,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverQueryLogConfigPolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverQueryLogConfigPolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-query-log-config-policy))
 (common-lisp:progn
@@ -7802,8 +7803,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-rule))
 (common-lisp:progn
@@ -7819,8 +7820,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverRuleAssociation" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverRuleAssociation" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-rule-association))
 (common-lisp:progn
@@ -7835,8 +7836,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "GetResolverRulePolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetResolverRulePolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resolver-rule-policy))
 (common-lisp:progn
@@ -7853,8 +7854,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ImportFirewallDomains" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ImportFirewallDomains" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-firewall-domains))
 (common-lisp:progn
@@ -7869,8 +7870,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallConfigs" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallConfigs" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-configs))
 (common-lisp:progn
@@ -7886,8 +7887,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallDomainLists" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallDomainLists" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-domain-lists))
 (common-lisp:progn
@@ -7904,8 +7905,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallDomains" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallDomains" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-domains))
 (common-lisp:progn
@@ -7924,8 +7925,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallRuleGroupAssociations" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallRuleGroupAssociations" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-rule-group-associations))
 (common-lisp:progn
@@ -7941,8 +7942,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallRuleGroups" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallRuleGroups" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-rule-groups))
 (common-lisp:progn
@@ -7960,8 +7961,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFirewallRules" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFirewallRules" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-firewall-rules))
 (common-lisp:progn
@@ -7976,8 +7977,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverConfigs" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverConfigs" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-configs))
 (common-lisp:progn
@@ -7993,8 +7994,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverDnssecConfigs" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverDnssecConfigs" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-dnssec-configs))
 (common-lisp:progn
@@ -8012,8 +8013,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverEndpointIpAddresses" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverEndpointIpAddresses" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-endpoint-ip-addresses))
 (common-lisp:progn
@@ -8028,8 +8029,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverEndpoints" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverEndpoints" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-endpoints))
 (common-lisp:progn
@@ -8047,8 +8048,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverQueryLogConfigAssociations" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverQueryLogConfigAssociations" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-query-log-config-associations))
 (common-lisp:progn
@@ -8066,8 +8067,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverQueryLogConfigs" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverQueryLogConfigs" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-query-log-configs))
 (common-lisp:progn
@@ -8083,8 +8084,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverRuleAssociations" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverRuleAssociations" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-rule-associations))
 (common-lisp:progn
@@ -8099,8 +8100,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResolverRules" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResolverRules" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resolver-rules))
 (common-lisp:progn
@@ -8116,8 +8117,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -8133,8 +8134,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "PutFirewallRuleGroupPolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutFirewallRuleGroupPolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-firewall-rule-group-policy))
 (common-lisp:progn
@@ -8151,8 +8152,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "PutResolverQueryLogConfigPolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutResolverQueryLogConfigPolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-resolver-query-log-config-policy))
 (common-lisp:progn
@@ -8167,8 +8168,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "PutResolverRulePolicy" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutResolverRulePolicy" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-resolver-rule-policy))
 (common-lisp:progn
@@ -8183,8 +8184,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -8199,8 +8200,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -8215,8 +8216,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateFirewallConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateFirewallConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-firewall-config))
 (common-lisp:progn
@@ -8233,8 +8234,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateFirewallDomains" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateFirewallDomains" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-firewall-domains))
 (common-lisp:progn
@@ -8255,8 +8256,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateFirewallRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateFirewallRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-firewall-rule))
 (common-lisp:progn
@@ -8275,8 +8276,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateFirewallRuleGroupAssociation" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateFirewallRuleGroupAssociation" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-firewall-rule-group-association))
 (common-lisp:progn
@@ -8292,8 +8293,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateResolverConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateResolverConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-resolver-config))
 (common-lisp:progn
@@ -8309,8 +8310,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateResolverDnssecConfig" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateResolverDnssecConfig" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-resolver-dnssec-config))
 (common-lisp:progn
@@ -8328,8 +8329,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateResolverEndpoint" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateResolverEndpoint" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-resolver-endpoint))
 (common-lisp:progn
@@ -8344,7 +8345,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'route53resolver-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateResolverRule" "2018-04-01"))
+        'route53resolver-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateResolverRule" "2018-04-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-resolver-rule))

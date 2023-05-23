@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass migrationhubstrategy-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "migrationhubstrategy"))
+                       (:default-initargs :service "migrationhubstrategy"
+                        :protocol :rest-json))
  (common-lisp:export 'migrationhubstrategy-request))
 (common-lisp:progn
  (common-lisp:define-condition migrationhubstrategy-error
@@ -4799,6 +4800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/get-applicationcomponent-details/~A"
@@ -4823,6 +4825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/get-applicationcomponent-strategies/~A"
@@ -4846,6 +4849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/get-assessment/~A"
                               (quri.encode:url-encode
@@ -4867,6 +4871,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/get-import-file-task/~A"
                               (quri.encode:url-encode
@@ -4880,7 +4885,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'migrationhubstrategy-request :method "GET"
-                                :path "/get-latest-assessment-id" :params
+                                :path "/get-latest-assessment-id" :protocol
+                                :rest-json :operation "GetLatestAssessmentId"
+                                :params
                                 `(("Action" ,@"GetLatestAssessmentId")
                                   ("Version" ,@"2020-02-19"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4890,7 +4897,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'migrationhubstrategy-request :method "GET"
-                                :path "/get-portfolio-preferences" :params
+                                :path "/get-portfolio-preferences" :protocol
+                                :rest-json :operation "GetPortfolioPreferences"
+                                :params
                                 `(("Action" ,@"GetPortfolioPreferences")
                                   ("Version" ,@"2020-02-19"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4900,7 +4909,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'migrationhubstrategy-request :method "GET"
-                                :path "/get-portfolio-summary" :params
+                                :path "/get-portfolio-summary" :protocol
+                                :rest-json :operation "GetPortfolioSummary"
+                                :params
                                 `(("Action" ,@"GetPortfolioSummary")
                                   ("Version" ,@"2020-02-19"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4919,6 +4930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/get-recommendation-report-details/~A"
@@ -4942,6 +4954,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/get-server-details/~A"
                               (quri.encode:url-encode
@@ -4964,6 +4977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/get-server-strategies/~A"
                               (quri.encode:url-encode
@@ -4990,7 +5004,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/list-applicationcomponents" "ListApplicationComponents"
+        :rest-json "/list-applicationcomponents" "ListApplicationComponents"
         "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-application-components))
@@ -5007,7 +5021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
-        "/list-collectors" "ListCollectors" "2020-02-19"))
+        :rest-json "/list-collectors" "ListCollectors" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-collectors))
 (common-lisp:progn
@@ -5023,7 +5037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "GET"
-        "/list-import-file-task" "ListImportFileTask" "2020-02-19"))
+        :rest-json "/list-import-file-task" "ListImportFileTask" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-import-file-task))
 (common-lisp:progn
@@ -5042,7 +5056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/list-servers" "ListServers" "2020-02-19"))
+        :rest-json "/list-servers" "ListServers" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-servers))
 (common-lisp:progn
@@ -5062,7 +5076,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/put-portfolio-preferences" "PutPortfolioPreferences" "2020-02-19"))
+        :rest-json "/put-portfolio-preferences" "PutPortfolioPreferences"
+        "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-portfolio-preferences))
 (common-lisp:progn
@@ -5081,7 +5096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/start-assessment" "StartAssessment" "2020-02-19"))
+        :rest-json "/start-assessment" "StartAssessment" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-assessment))
 (common-lisp:progn
@@ -5100,7 +5115,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/start-import-file-task" "StartImportFileTask" "2020-02-19"))
+        :rest-json "/start-import-file-task" "StartImportFileTask"
+        "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-import-file-task))
 (common-lisp:progn
@@ -5117,7 +5133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/start-recommendation-report-generation"
+        :rest-json "/start-recommendation-report-generation"
         "StartRecommendationReportGeneration" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-recommendation-report-generation))
@@ -5134,7 +5150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/stop-assessment" "StopAssessment" "2020-02-19"))
+        :rest-json "/stop-assessment" "StopAssessment" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-assessment))
 (common-lisp:progn
@@ -5155,7 +5171,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/update-applicationcomponent-config/"
+        :rest-json "/update-applicationcomponent-config/"
         "UpdateApplicationComponentConfig" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-application-component-config))
@@ -5172,6 +5188,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhubstrategy-request aws-sdk/generator/operation::input "POST"
-        "/update-server-config/" "UpdateServerConfig" "2020-02-19"))
+        :rest-json "/update-server-config/" "UpdateServerConfig" "2020-02-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-server-config))

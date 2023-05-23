@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass rolesanywhere-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "rolesanywhere"))
+                       (:default-initargs :service "rolesanywhere" :protocol
+                        :rest-json))
  (common-lisp:export 'rolesanywhere-request))
 (common-lisp:progn
  (common-lisp:define-condition rolesanywhere-error
@@ -1711,7 +1712,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/profiles"
+                                                        "POST" :rest-json
+                                                        "/profiles"
                                                         "CreateProfile"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1729,7 +1731,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/trustanchors"
+                                                        "POST" :rest-json
+                                                        "/trustanchors"
                                                         "CreateTrustAnchor"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1747,7 +1750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1775,7 +1778,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1803,7 +1806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1831,7 +1834,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1859,7 +1862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1887,7 +1890,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1915,7 +1918,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1943,7 +1946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1971,7 +1974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1999,7 +2002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2026,7 +2029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2054,7 +2057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2082,7 +2085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2112,8 +2115,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/crls"
-                                                        "ImportCrl"
+                                                        "POST" :rest-json
+                                                        "/crls" "ImportCrl"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-crl))
@@ -2130,8 +2133,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/crls"
-                                                        "ListCrls"
+                                                        "GET" :rest-json
+                                                        "/crls" "ListCrls"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-crls))
@@ -2148,7 +2151,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/profiles"
+                                                        "GET" :rest-json
+                                                        "/profiles"
                                                         "ListProfiles"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2166,7 +2170,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/subjects"
+                                                        "GET" :rest-json
+                                                        "/subjects"
                                                         "ListSubjects"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2184,7 +2189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/ListTagsForResource"
                                                         "ListTagsForResource"
                                                         "2018-05-10"))
@@ -2203,7 +2208,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/trustanchors"
+                                                        "GET" :rest-json
+                                                        "/trustanchors"
                                                         "ListTrustAnchors"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2221,7 +2227,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TagResource"
+                                                        "POST" :rest-json
+                                                        "/TagResource"
                                                         "TagResource"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2239,7 +2246,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UntagResource"
+                                                        "POST" :rest-json
+                                                        "/UntagResource"
                                                         "UntagResource"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2257,7 +2265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2288,7 +2296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2316,7 +2324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rolesanywhere-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

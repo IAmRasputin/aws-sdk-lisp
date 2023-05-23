@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sns/api)
 (common-lisp:progn
  (common-lisp:defclass sns-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sns"))
+                       (:default-initargs :service "sns" :protocol :query))
  (common-lisp:export 'sns-request))
 (common-lisp:progn
  (common-lisp:define-condition sns-error
@@ -3619,7 +3619,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddPermission"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3638,7 +3638,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CheckIfPhoneNumberIsOptedOut"
                                                         "2010-03-31"))
       common-lisp:nil "CheckIfPhoneNumberIsOptedOutResult" *error-map*)))
@@ -3658,7 +3658,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ConfirmSubscription"
                                                         "2010-03-31"))
       common-lisp:nil "ConfirmSubscriptionResult" *error-map*)))
@@ -3677,7 +3677,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreatePlatformApplication"
                                                         "2010-03-31"))
       common-lisp:nil "CreatePlatformApplicationResult" *error-map*)))
@@ -3698,7 +3698,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreatePlatformEndpoint"
                                                         "2010-03-31"))
       common-lisp:nil "CreatePlatformEndpointResult" *error-map*)))
@@ -3717,7 +3717,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateSMSSandboxPhoneNumber"
                                                         "2010-03-31"))
       common-lisp:nil "CreateSMSSandboxPhoneNumberResult" *error-map*)))
@@ -3737,7 +3737,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateTopic"
                                                         "2010-03-31"))
       common-lisp:nil "CreateTopicResult" *error-map*)))
@@ -3755,7 +3755,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteEndpoint"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3774,7 +3774,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeletePlatformApplication"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3793,7 +3793,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSMSSandboxPhoneNumber"
                                                         "2010-03-31"))
       common-lisp:nil "DeleteSMSSandboxPhoneNumberResult" *error-map*)))
@@ -3811,7 +3811,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteTopic"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3829,7 +3829,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetDataProtectionPolicy"
                                                         "2010-03-31"))
       common-lisp:nil "GetDataProtectionPolicyResult" *error-map*)))
@@ -3847,7 +3847,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetEndpointAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "GetEndpointAttributesResult" *error-map*)))
@@ -3866,7 +3866,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetPlatformApplicationAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "GetPlatformApplicationAttributesResult" *error-map*)))
@@ -3884,7 +3884,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetSMSAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "GetSMSAttributesResult" *error-map*)))
@@ -3893,7 +3893,9 @@ common-lisp:nil
  (common-lisp:defun get-smssandbox-account-status ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'sns-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'sns-request :method "POST" :path "/" :protocol
+                                :query :operation "GetSMSSandboxAccountStatus"
+                                :params
                                 `(("Action" ,@"GetSMSSandboxAccountStatus")
                                   ("Version" ,@"2010-03-31"))))
     common-lisp:nil "GetSMSSandboxAccountStatusResult" *error-map*))
@@ -3912,7 +3914,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetSubscriptionAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "GetSubscriptionAttributesResult" *error-map*)))
@@ -3930,7 +3932,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetTopicAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "GetTopicAttributesResult" *error-map*)))
@@ -3950,7 +3952,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListEndpointsByPlatformApplication"
                                                         "2010-03-31"))
       common-lisp:nil "ListEndpointsByPlatformApplicationResult" *error-map*)))
@@ -3968,7 +3970,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListOriginationNumbers"
                                                         "2010-03-31"))
       common-lisp:nil "ListOriginationNumbersResult" *error-map*)))
@@ -3987,7 +3989,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPhoneNumbersOptedOut"
                                                         "2010-03-31"))
       common-lisp:nil "ListPhoneNumbersOptedOutResult" *error-map*)))
@@ -4005,7 +4007,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPlatformApplications"
                                                         "2010-03-31"))
       common-lisp:nil "ListPlatformApplicationsResult" *error-map*)))
@@ -4024,7 +4026,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSMSSandboxPhoneNumbers"
                                                         "2010-03-31"))
       common-lisp:nil "ListSMSSandboxPhoneNumbersResult" *error-map*)))
@@ -4042,7 +4044,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSubscriptions"
                                                         "2010-03-31"))
       common-lisp:nil "ListSubscriptionsResult" *error-map*)))
@@ -4061,7 +4063,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSubscriptionsByTopic"
                                                         "2010-03-31"))
       common-lisp:nil "ListSubscriptionsByTopicResult" *error-map*)))
@@ -4079,7 +4081,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTagsForResource"
                                                         "2010-03-31"))
       common-lisp:nil "ListTagsForResourceResult" *error-map*)))
@@ -4097,7 +4099,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTopics"
+                                                        "POST" :query "/"
+                                                        "ListTopics"
                                                         "2010-03-31"))
       common-lisp:nil "ListTopicsResult" *error-map*)))
  (common-lisp:export 'list-topics))
@@ -4114,7 +4117,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "OptInPhoneNumber"
                                                         "2010-03-31"))
       common-lisp:nil "OptInPhoneNumberResult" *error-map*)))
@@ -4137,7 +4140,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Publish"
+                                                        "POST" :query "/"
+                                                        "Publish"
                                                         "2010-03-31"))
       common-lisp:nil "PublishResult" *error-map*)))
  (common-lisp:export 'publish))
@@ -4155,7 +4159,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PublishBatch"
                                                         "2010-03-31"))
       common-lisp:nil "PublishBatchResult" *error-map*)))
@@ -4174,7 +4178,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutDataProtectionPolicy"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4192,7 +4196,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemovePermission"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4210,7 +4214,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetEndpointAttributes"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4230,7 +4234,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetPlatformApplicationAttributes"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4248,7 +4252,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetSMSAttributes"
                                                         "2010-03-31"))
       common-lisp:nil "SetSMSAttributesResult" *error-map*)))
@@ -4269,7 +4273,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetSubscriptionAttributes"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4288,7 +4292,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetTopicAttributes"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4309,7 +4313,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Subscribe"
+                                                        "POST" :query "/"
+                                                        "Subscribe"
                                                         "2010-03-31"))
       common-lisp:nil "SubscribeResult" *error-map*)))
  (common-lisp:export 'subscribe))
@@ -4326,7 +4331,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagResource"
                                                         "2010-03-31"))
       common-lisp:nil "TagResourceResult" *error-map*)))
@@ -4344,7 +4349,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "Unsubscribe"
                                                         "2010-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4362,7 +4367,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagResource"
                                                         "2010-03-31"))
       common-lisp:nil "UntagResourceResult" *error-map*)))
@@ -4381,7 +4386,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sns-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "VerifySMSSandboxPhoneNumber"
                                                         "2010-03-31"))
       common-lisp:nil "VerifySMSSandboxPhoneNumberResult" *error-map*)))

@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/ssm-sap/api)
 (common-lisp:progn
  (common-lisp:defclass ssm-sap-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "ssm-sap"))
+                       common-lisp:nil
+                       (:default-initargs :service "ssm-sap" :protocol
+                        :rest-json))
  (common-lisp:export 'ssm-sap-request))
 (common-lisp:progn
  (common-lisp:define-condition ssm-sap-error
@@ -2164,7 +2166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-resource-permission"
                                                         "DeleteResourcePermission"
                                                         "2018-05-10"))
@@ -2183,7 +2185,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deregister-application"
                                                         "DeregisterApplication"
                                                         "2018-05-10"))
@@ -2204,7 +2206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/get-application"
                                                         "GetApplication"
                                                         "2018-05-10"))
@@ -2223,7 +2225,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/get-component"
+                                                        "POST" :rest-json
+                                                        "/get-component"
                                                         "GetComponent"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2244,7 +2247,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/get-database"
+                                                        "POST" :rest-json
+                                                        "/get-database"
                                                         "GetDatabase"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2262,7 +2266,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/get-operation"
+                                                        "POST" :rest-json
+                                                        "/get-operation"
                                                         "GetOperation"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2280,7 +2285,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/get-resource-permission"
                                                         "GetResourcePermission"
                                                         "2018-05-10"))
@@ -2299,7 +2304,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-applications"
                                                         "ListApplications"
                                                         "2018-05-10"))
@@ -2319,7 +2324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-components"
                                                         "ListComponents"
                                                         "2018-05-10"))
@@ -2340,7 +2345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-databases"
                                                         "ListDatabases"
                                                         "2018-05-10"))
@@ -2361,7 +2366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-operations"
                                                         "ListOperations"
                                                         "2018-05-10"))
@@ -2380,7 +2385,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2410,7 +2415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/put-resource-permission"
                                                         "PutResourcePermission"
                                                         "2018-05-10"))
@@ -2432,7 +2437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/register-application"
                                                         "RegisterApplication"
                                                         "2018-05-10"))
@@ -2451,7 +2456,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2479,7 +2484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2511,7 +2516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-sap-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-application-settings"
                                                         "UpdateApplicationSettings"
                                                         "2018-05-10"))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass route53domains-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "route53domains"))
+                       (:default-initargs :service "route53domains" :protocol
+                        :json))
  (common-lisp:export 'route53domains-request))
 (common-lisp:progn
  (common-lisp:define-condition route53domains-error
@@ -3880,7 +3881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptDomainTransferFromAnotherAwsAccount"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3899,7 +3900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateDelegationSignerToDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3918,7 +3919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelDomainTransferToAnotherAwsAccount"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3937,7 +3938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CheckDomainAvailability"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3956,7 +3957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CheckDomainTransferability"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3974,7 +3975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3992,7 +3993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTagsForDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4011,7 +4012,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableDomainAutoRenew"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4030,7 +4031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableDomainTransferLock"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4049,7 +4050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateDelegationSignerFromDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4067,7 +4068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableDomainAutoRenew"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4086,7 +4087,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableDomainTransferLock"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4105,7 +4106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContactReachabilityStatus"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4123,7 +4124,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDomainDetail"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4143,7 +4144,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDomainSuggestions"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4161,7 +4162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOperationDetail"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4181,7 +4182,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDomains"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4202,7 +4203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOperations"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4220,7 +4221,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListPrices"
+                                                        "POST" :json "/"
+                                                        "ListPrices"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-prices))
@@ -4237,7 +4239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4255,7 +4257,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PushDomain"
+                                                        "POST" :json "/"
+                                                        "PushDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'push-domain))
@@ -4281,7 +4284,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4300,7 +4303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RejectDomainTransferFromAnotherAwsAccount"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4320,7 +4323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RenewDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4339,7 +4342,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResendContactReachabilityEmail"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4358,7 +4361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResendOperationAuthorization"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4377,7 +4380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetrieveDomainAuthCode"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4404,7 +4407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TransferDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4423,7 +4426,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TransferDomainToAnotherAwsAccount"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4444,7 +4447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomainContact"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4466,7 +4469,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomainContactPrivacy"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4486,7 +4489,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomainNameservers"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4504,7 +4507,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTagsForDomain"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4522,7 +4525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'route53domains-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ViewBilling"
                                                         "2014-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))

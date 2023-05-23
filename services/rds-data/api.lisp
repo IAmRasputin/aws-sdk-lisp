@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/rds-data/api)
 (common-lisp:progn
  (common-lisp:defclass rds-data-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "rds-data"))
+                       common-lisp:nil
+                       (:default-initargs :service "rds-data" :protocol
+                        :rest-json))
  (common-lisp:export 'rds-data-request))
 (common-lisp:progn
  (common-lisp:define-condition rds-data-error
@@ -1464,7 +1466,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/BatchExecute"
+                                                        "POST" :rest-json
+                                                        "/BatchExecute"
                                                         "BatchExecuteStatement"
                                                         "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1483,7 +1486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BeginTransaction"
                                                         "BeginTransaction"
                                                         "2018-08-01"))
@@ -1503,7 +1506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CommitTransaction"
                                                         "CommitTransaction"
                                                         "2018-08-01"))
@@ -1525,7 +1528,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ExecuteSql"
+                                                        "POST" :rest-json
+                                                        "/ExecuteSql"
                                                         "ExecuteSql"
                                                         "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1549,7 +1553,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/Execute"
+                                                        "POST" :rest-json
+                                                        "/Execute"
                                                         "ExecuteStatement"
                                                         "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1568,7 +1573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RollbackTransaction"
                                                         "RollbackTransaction"
                                                         "2018-08-01"))

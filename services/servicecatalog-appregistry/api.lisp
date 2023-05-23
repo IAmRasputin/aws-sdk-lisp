@@ -12,8 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass servicecatalog-appregistry-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service
-                        "servicecatalog-appregistry"))
+                       (:default-initargs :service "servicecatalog-appregistry"
+                        :protocol :rest-json))
  (common-lisp:export 'servicecatalog-appregistry-request))
 (common-lisp:progn
  (common-lisp:define-condition servicecatalog-appregistry-error
@@ -2438,7 +2438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "PUT"
+        "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/attribute-groups/~A"
@@ -2467,7 +2467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "PUT"
+        "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/resources/~A/~A"
@@ -2500,7 +2500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "POST" "/applications" "CreateApplication" "2020-06-24"))
+        "POST" :rest-json "/applications" "CreateApplication" "2020-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-application))
 (common-lisp:progn
@@ -2518,7 +2518,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "POST" "/attribute-groups" "CreateAttributeGroup" "2020-06-24"))
+        "POST" :rest-json "/attribute-groups" "CreateAttributeGroup"
+        "2020-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-attribute-group))
 (common-lisp:progn
@@ -2534,7 +2535,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/applications/~A"
                               (quri.encode:url-encode
@@ -2557,7 +2558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/attribute-groups/~A"
                               (quri.encode:url-encode
@@ -2581,7 +2582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/attribute-groups/~A"
@@ -2610,7 +2611,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/resources/~A/~A"
@@ -2642,7 +2643,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/applications/~A"
                               (quri.encode:url-encode
@@ -2666,7 +2667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/resources/~A/~A"
@@ -2698,7 +2699,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/attribute-groups/~A"
                               (quri.encode:url-encode
@@ -2713,7 +2714,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'servicecatalog-appregistry-request :method
-                                "GET" :path "/configuration" :params
+                                "GET" :path "/configuration" :protocol
+                                :rest-json :operation "GetConfiguration"
+                                :params
                                 `(("Action" ,@"GetConfiguration")
                                   ("Version" ,@"2020-06-24"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -2731,7 +2734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET" "/applications" "ListApplications" "2020-06-24"))
+        "GET" :rest-json "/applications" "ListApplications" "2020-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-applications))
 (common-lisp:progn
@@ -2749,7 +2752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/attribute-groups"
@@ -2775,7 +2778,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/applications/~A/resources"
                               (quri.encode:url-encode
@@ -2798,7 +2801,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET" "/attribute-groups" "ListAttributeGroups" "2020-06-24"))
+        "GET" :rest-json "/attribute-groups" "ListAttributeGroups"
+        "2020-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-attribute-groups))
 (common-lisp:progn
@@ -2816,7 +2820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/applications/~A/attribute-group-details"
@@ -2840,7 +2844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2863,7 +2867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "PUT" "/configuration" "PutConfiguration" "2020-06-24"))
+        "PUT" :rest-json "/configuration" "PutConfiguration" "2020-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-configuration))
 (common-lisp:progn
@@ -2879,7 +2883,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sync/~A/~A"
                               (quri.encode:url-encode
@@ -2906,7 +2910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2929,7 +2933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2952,7 +2956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "PATCH"
+        "PATCH" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/applications/~A"
                               (quri.encode:url-encode
@@ -2977,7 +2981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'servicecatalog-appregistry-request aws-sdk/generator/operation::input
-        "PATCH"
+        "PATCH" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/attribute-groups/~A"
                               (quri.encode:url-encode

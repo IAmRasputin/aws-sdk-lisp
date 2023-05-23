@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/panorama/api)
 (common-lisp:progn
  (common-lisp:defclass panorama-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "panorama"))
+                       common-lisp:nil
+                       (:default-initargs :service "panorama" :protocol
+                        :rest-json))
  (common-lisp:export 'panorama-request))
 (common-lisp:progn
  (common-lisp:define-condition panorama-error
@@ -5589,7 +5591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/application-instances"
                                                         "CreateApplicationInstance"
                                                         "2019-07-24"))
@@ -5609,7 +5611,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobs"
+                                                        "POST" :rest-json
+                                                        "/jobs"
                                                         "CreateJobForDevices"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5633,7 +5636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/packages/template-job"
                                                         "CreateNodeFromTemplateJob"
                                                         "2019-07-24"))
@@ -5652,7 +5655,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/packages"
+                                                        "POST" :rest-json
+                                                        "/packages"
                                                         "CreatePackage"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5674,7 +5678,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/packages/import-jobs"
                                                         "CreatePackageImportJob"
                                                         "2019-07-24"))
@@ -5693,7 +5697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5721,7 +5725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5753,7 +5757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5790,7 +5794,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5819,7 +5823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5847,7 +5851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5875,7 +5879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5903,7 +5907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5932,7 +5936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5960,7 +5964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5989,7 +5993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6020,7 +6024,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6055,7 +6059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6086,7 +6090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6117,7 +6121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/application-instances"
                                                         "ListApplicationInstances"
                                                         "2019-07-24"))
@@ -6139,7 +6143,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/devices"
+                                                        "GET" :rest-json
+                                                        "/devices"
                                                         "ListDevices"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6158,7 +6163,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/jobs"
+                                                        "GET" :rest-json
+                                                        "/jobs"
                                                         "ListDevicesJobs"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6177,7 +6183,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/packages/template-job"
                                                         "ListNodeFromTemplateJobs"
                                                         "2019-07-24"))
@@ -6199,8 +6205,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/nodes"
-                                                        "ListNodes"
+                                                        "GET" :rest-json
+                                                        "/nodes" "ListNodes"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-nodes))
@@ -6217,7 +6223,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/packages/import-jobs"
                                                         "ListPackageImportJobs"
                                                         "2019-07-24"))
@@ -6236,7 +6242,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/packages"
+                                                        "GET" :rest-json
+                                                        "/packages"
                                                         "ListPackages"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6254,7 +6261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6284,7 +6291,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/devices"
+                                                        "POST" :rest-json
+                                                        "/devices"
                                                         "ProvisionDevice"
                                                         "2019-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6305,7 +6313,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6342,7 +6350,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6372,7 +6380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6400,7 +6408,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6428,7 +6436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6456,7 +6464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'panorama-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

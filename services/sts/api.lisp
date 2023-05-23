@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sts/api)
 (common-lisp:progn
  (common-lisp:defclass sts-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sts"))
+                       (:default-initargs :service "sts" :protocol :query))
  (common-lisp:export 'sts-request))
 (common-lisp:progn
  (common-lisp:define-condition sts-error
@@ -1246,7 +1246,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AssumeRole"
+                                                        "POST" :query "/"
+                                                        "AssumeRole"
                                                         "2011-06-15"))
       common-lisp:nil "AssumeRoleResult" *error-map*)))
  (common-lisp:export 'assume-role))
@@ -1266,7 +1267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AssumeRoleWithSAML"
                                                         "2011-06-15"))
       common-lisp:nil "AssumeRoleWithSAMLResult" *error-map*)))
@@ -1289,7 +1290,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AssumeRoleWithWebIdentity"
                                                         "2011-06-15"))
       common-lisp:nil "AssumeRoleWithWebIdentityResult" *error-map*)))
@@ -1308,7 +1309,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DecodeAuthorizationMessage"
                                                         "2011-06-15"))
       common-lisp:nil "DecodeAuthorizationMessageResult" *error-map*)))
@@ -1326,7 +1327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetAccessKeyInfo"
                                                         "2011-06-15"))
       common-lisp:nil "GetAccessKeyInfoResult" *error-map*)))
@@ -1335,7 +1336,8 @@
  (common-lisp:defun get-caller-identity ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'sts-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'sts-request :method "POST" :path "/" :protocol
+                                :query :operation "GetCallerIdentity" :params
                                 `(("Action" ,@"GetCallerIdentity")
                                   ("Version" ,@"2011-06-15"))))
     common-lisp:nil "GetCallerIdentityResult" *error-map*))
@@ -1355,7 +1357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetFederationToken"
                                                         "2011-06-15"))
       common-lisp:nil "GetFederationTokenResult" *error-map*)))
@@ -1375,7 +1377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetSessionToken"
                                                         "2011-06-15"))
       common-lisp:nil "GetSessionTokenResult" *error-map*)))

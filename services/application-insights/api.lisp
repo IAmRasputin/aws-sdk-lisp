@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass application-insights-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "application-insights"))
+                       (:default-initargs :service "application-insights"
+                        :protocol :json))
  (common-lisp:export 'application-insights-request))
 (common-lisp:progn
  (common-lisp:define-condition application-insights-error
@@ -3444,7 +3445,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateApplication" "2018-11-25"))
+        :json "/" "CreateApplication" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-application))
 (common-lisp:progn
@@ -3462,7 +3463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateComponent" "2018-11-25"))
+        :json "/" "CreateComponent" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-component))
 (common-lisp:progn
@@ -3481,7 +3482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateLogPattern" "2018-11-25"))
+        :json "/" "CreateLogPattern" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-log-pattern))
 (common-lisp:progn
@@ -3497,7 +3498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteApplication" "2018-11-25"))
+        :json "/" "DeleteApplication" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-application))
 (common-lisp:progn
@@ -3514,7 +3515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteComponent" "2018-11-25"))
+        :json "/" "DeleteComponent" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-component))
 (common-lisp:progn
@@ -3532,7 +3533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteLogPattern" "2018-11-25"))
+        :json "/" "DeleteLogPattern" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-log-pattern))
 (common-lisp:progn
@@ -3548,7 +3549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeApplication" "2018-11-25"))
+        :json "/" "DescribeApplication" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-application))
 (common-lisp:progn
@@ -3565,7 +3566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeComponent" "2018-11-25"))
+        :json "/" "DescribeComponent" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-component))
 (common-lisp:progn
@@ -3583,7 +3584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeComponentConfiguration" "2018-11-25"))
+        :json "/" "DescribeComponentConfiguration" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-component-configuration))
 (common-lisp:progn
@@ -3601,7 +3602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeComponentConfigurationRecommendation" "2018-11-25"))
+        :json "/" "DescribeComponentConfigurationRecommendation" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-component-configuration-recommendation))
 (common-lisp:progn
@@ -3619,7 +3620,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeLogPattern" "2018-11-25"))
+        :json "/" "DescribeLogPattern" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-log-pattern))
 (common-lisp:progn
@@ -3635,7 +3636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeObservation" "2018-11-25"))
+        :json "/" "DescribeObservation" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-observation))
 (common-lisp:progn
@@ -3651,7 +3652,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeProblem" "2018-11-25"))
+        :json "/" "DescribeProblem" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-problem))
 (common-lisp:progn
@@ -3668,7 +3669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeProblemObservations" "2018-11-25"))
+        :json "/" "DescribeProblemObservations" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-problem-observations))
 (common-lisp:progn
@@ -3684,7 +3685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListApplications" "2018-11-25"))
+        :json "/" "ListApplications" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-applications))
 (common-lisp:progn
@@ -3702,7 +3703,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListComponents" "2018-11-25"))
+        :json "/" "ListComponents" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-components))
 (common-lisp:progn
@@ -3722,7 +3723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListConfigurationHistory" "2018-11-25"))
+        :json "/" "ListConfigurationHistory" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-configuration-history))
 (common-lisp:progn
@@ -3740,7 +3741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListLogPatternSets" "2018-11-25"))
+        :json "/" "ListLogPatternSets" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-log-pattern-sets))
 (common-lisp:progn
@@ -3759,7 +3760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListLogPatterns" "2018-11-25"))
+        :json "/" "ListLogPatterns" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-log-patterns))
 (common-lisp:progn
@@ -3778,7 +3779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListProblems" "2018-11-25"))
+        :json "/" "ListProblems" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-problems))
 (common-lisp:progn
@@ -3794,7 +3795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTagsForResource" "2018-11-25"))
+        :json "/" "ListTagsForResource" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -3810,7 +3811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "TagResource" "2018-11-25"))
+        :json "/" "TagResource" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -3826,7 +3827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "UntagResource" "2018-11-25"))
+        :json "/" "UntagResource" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -3847,7 +3848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateApplication" "2018-11-25"))
+        :json "/" "UpdateApplication" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-application))
 (common-lisp:progn
@@ -3866,7 +3867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateComponent" "2018-11-25"))
+        :json "/" "UpdateComponent" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-component))
 (common-lisp:progn
@@ -3886,7 +3887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateComponentConfiguration" "2018-11-25"))
+        :json "/" "UpdateComponentConfiguration" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-component-configuration))
 (common-lisp:progn
@@ -3905,6 +3906,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'application-insights-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateLogPattern" "2018-11-25"))
+        :json "/" "UpdateLogPattern" "2018-11-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-log-pattern))

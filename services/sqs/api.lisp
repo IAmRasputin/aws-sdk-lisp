@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sqs/api)
 (common-lisp:progn
  (common-lisp:defclass sqs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sqs"))
+                       (:default-initargs :service "sqs" :protocol :query))
  (common-lisp:export 'sqs-request))
 (common-lisp:progn
  (common-lisp:define-condition sqs-error
@@ -2148,7 +2148,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddPermission"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2169,7 +2169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ChangeMessageVisibility"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2188,7 +2188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ChangeMessageVisibilityBatch"
                                                         "2012-11-05"))
       common-lisp:nil "ChangeMessageVisibilityBatchResult" *error-map*)))
@@ -2206,7 +2206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateQueue"
                                                         "2012-11-05"))
       common-lisp:nil "CreateQueueResult" *error-map*)))
@@ -2224,7 +2224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteMessage"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2242,7 +2242,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteMessageBatch"
                                                         "2012-11-05"))
       common-lisp:nil "DeleteMessageBatchResult" *error-map*)))
@@ -2260,7 +2260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteQueue"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2278,7 +2278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetQueueAttributes"
                                                         "2012-11-05"))
       common-lisp:nil "GetQueueAttributesResult" *error-map*)))
@@ -2297,7 +2297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetQueueUrl"
                                                         "2012-11-05"))
       common-lisp:nil "GetQueueUrlResult" *error-map*)))
@@ -2317,7 +2317,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListDeadLetterSourceQueues"
                                                         "2012-11-05"))
       common-lisp:nil "ListDeadLetterSourceQueuesResult" *error-map*)))
@@ -2335,7 +2335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListQueueTags"
                                                         "2012-11-05"))
       common-lisp:nil "ListQueueTagsResult" *error-map*)))
@@ -2354,7 +2354,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListQueues"
+                                                        "POST" :query "/"
+                                                        "ListQueues"
                                                         "2012-11-05"))
       common-lisp:nil "ListQueuesResult" *error-map*)))
  (common-lisp:export 'list-queues))
@@ -2371,7 +2372,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PurgeQueue"
+                                                        "POST" :query "/"
+                                                        "PurgeQueue"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'purge-queue))
@@ -2394,7 +2396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ReceiveMessage"
                                                         "2012-11-05"))
       common-lisp:nil "ReceiveMessageResult" *error-map*)))
@@ -2412,7 +2414,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemovePermission"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2435,7 +2437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SendMessage"
                                                         "2012-11-05"))
       common-lisp:nil "SendMessageResult" *error-map*)))
@@ -2453,7 +2455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SendMessageBatch"
                                                         "2012-11-05"))
       common-lisp:nil "SendMessageBatchResult" *error-map*)))
@@ -2471,7 +2473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetQueueAttributes"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2489,7 +2491,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TagQueue"
+                                                        "POST" :query "/"
+                                                        "TagQueue"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-queue))
@@ -2506,7 +2509,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sqs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UntagQueue"
+                                                        "POST" :query "/"
+                                                        "UntagQueue"
                                                         "2012-11-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-queue))

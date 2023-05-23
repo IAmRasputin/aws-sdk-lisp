@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/health/api)
 (common-lisp:progn
  (common-lisp:defclass health-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "health"))
+                       (:default-initargs :service "health" :protocol :json))
  (common-lisp:export 'health-request))
 (common-lisp:progn
  (common-lisp:define-condition health-error
@@ -2416,7 +2416,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAffectedAccountsForOrganization"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2436,7 +2436,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAffectedEntities"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2458,7 +2458,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAffectedEntitiesForOrganization"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2477,7 +2477,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEntityAggregates"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2498,7 +2498,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventAggregates"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2516,7 +2516,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventDetails"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2536,7 +2536,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventDetailsForOrganization"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2555,7 +2555,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventTypes"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2574,7 +2574,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEvents"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2594,7 +2594,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'health-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventsForOrganization"
                                                         "2016-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2604,6 +2604,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "DescribeHealthServiceStatusForOrganization"
                                 :params
                                 `(("Action"
                                    ,@"DescribeHealthServiceStatusForOrganization")
@@ -2615,6 +2617,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "DisableHealthServiceAccessForOrganization"
                                 :params
                                 `(("Action"
                                    ,@"DisableHealthServiceAccessForOrganization")
@@ -2626,6 +2630,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'health-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "EnableHealthServiceAccessForOrganization"
                                 :params
                                 `(("Action"
                                    ,@"EnableHealthServiceAccessForOrganization")

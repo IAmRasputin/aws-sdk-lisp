@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass forecastquery-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "forecastquery"))
+                       (:default-initargs :service "forecastquery" :protocol
+                        :json))
  (common-lisp:export 'forecastquery-request))
 (common-lisp:progn
  (common-lisp:define-condition forecastquery-error
@@ -356,7 +357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecastquery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "QueryForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -377,7 +378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecastquery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "QueryWhatIfForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))

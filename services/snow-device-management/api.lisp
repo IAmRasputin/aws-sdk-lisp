@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass snow-device-management-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "snow-device-management"))
+                       (:default-initargs :service "snow-device-management"
+                        :protocol :rest-json))
  (common-lisp:export 'snow-device-management-request))
 (common-lisp:progn
  (common-lisp:define-condition snow-device-management-error
@@ -1878,7 +1879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/task/~A/cancel"
                               (quri.encode:url-encode
@@ -1902,7 +1903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST" "/task" "CreateTask" "2021-08-04"))
+        "POST" :rest-json "/task" "CreateTask" "2021-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-task))
 (common-lisp:progn
@@ -1918,7 +1919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/managed-device/~A/describe"
                               (quri.encode:url-encode
@@ -1941,7 +1942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/managed-device/~A/resources/ec2/describe"
@@ -1965,7 +1966,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/task/~A/execution/~A"
                               (quri.encode:url-encode
@@ -1991,7 +1992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/task/~A"
                               (quri.encode:url-encode
@@ -2015,7 +2016,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/managed-device/~A/resources"
                               (quri.encode:url-encode
@@ -2038,7 +2039,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "GET" "/managed-devices" "ListDevices" "2021-08-04"))
+        "GET" :rest-json "/managed-devices" "ListDevices" "2021-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-devices))
 (common-lisp:progn
@@ -2055,7 +2056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "GET" "/executions" "ListExecutions" "2021-08-04"))
+        "GET" :rest-json "/executions" "ListExecutions" "2021-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-executions))
 (common-lisp:progn
@@ -2071,7 +2072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2094,7 +2095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "GET" "/tasks" "ListTasks" "2021-08-04"))
+        "GET" :rest-json "/tasks" "ListTasks" "2021-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tasks))
 (common-lisp:progn
@@ -2110,7 +2111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2133,7 +2134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'snow-device-management-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode

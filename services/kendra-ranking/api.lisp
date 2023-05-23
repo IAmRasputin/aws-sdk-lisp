@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass kendra-ranking-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "kendra-ranking"))
+                       (:default-initargs :service "kendra-ranking" :protocol
+                        :json))
  (common-lisp:export 'kendra-ranking-request))
 (common-lisp:progn
  (common-lisp:define-condition kendra-ranking-error
@@ -1078,7 +1079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRescoreExecutionPlan"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1097,7 +1098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRescoreExecutionPlan"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1116,7 +1117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRescoreExecutionPlan"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1135,7 +1136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRescoreExecutionPlans"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1153,7 +1154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1173,7 +1174,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Rescore"
+                                                        "POST" :json "/"
+                                                        "Rescore"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'rescore))
@@ -1190,7 +1192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1208,7 +1210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1228,7 +1230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-ranking-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRescoreExecutionPlan"
                                                         "2022-10-19"))
       common-lisp:nil common-lisp:nil *error-map*)))

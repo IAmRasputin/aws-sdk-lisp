@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/datasync/api)
 (common-lisp:progn
  (common-lisp:defclass datasync-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "datasync"))
+                       common-lisp:nil
+                       (:default-initargs :service "datasync" :protocol :json))
  (common-lisp:export 'datasync-request))
 (common-lisp:progn
  (common-lisp:define-condition datasync-error
@@ -8049,7 +8050,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddStorageSystem"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8067,7 +8068,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelTaskExecution"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8088,7 +8089,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAgent"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8110,7 +8111,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationEfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8132,7 +8133,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationFsxLustre"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8154,7 +8155,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationFsxOntap"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8176,7 +8177,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationFsxOpenZfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8198,7 +8199,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationFsxWindows"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8223,7 +8224,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationHdfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8244,7 +8245,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationNfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8268,7 +8269,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationObjectStorage"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8289,7 +8290,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationS3"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8310,7 +8311,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLocationSmb"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8332,7 +8333,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateTask"
+                                                        "POST" :json "/"
+                                                        "CreateTask"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-task))
@@ -8349,7 +8351,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAgent"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8367,7 +8369,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLocation"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8385,7 +8387,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTask"
+                                                        "POST" :json "/"
+                                                        "DeleteTask"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-task))
@@ -8402,7 +8405,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAgent"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8420,7 +8423,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDiscoveryJob"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8438,7 +8441,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationEfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8457,7 +8460,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationFsxLustre"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8476,7 +8479,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationFsxOntap"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8495,7 +8498,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationFsxOpenZfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8514,7 +8517,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationFsxWindows"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8532,7 +8535,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationHdfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8550,7 +8553,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationNfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8569,7 +8572,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationObjectStorage"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8587,7 +8590,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationS3"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8605,7 +8608,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLocationSmb"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8623,7 +8626,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStorageSystem"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8645,7 +8648,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStorageSystemResourceMetrics"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8667,7 +8670,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStorageSystemResources"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8685,7 +8688,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTask"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8703,7 +8706,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTaskExecution"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8723,7 +8726,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateRecommendations"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8741,7 +8744,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListAgents"
+                                                        "POST" :json "/"
+                                                        "ListAgents"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-agents))
@@ -8760,7 +8764,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDiscoveryJobs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8778,7 +8782,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLocations"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8796,7 +8800,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStorageSystems"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8815,7 +8819,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8834,7 +8838,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTaskExecutions"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8852,7 +8856,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTasks"
+                                                        "POST" :json "/"
+                                                        "ListTasks"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tasks))
@@ -8869,7 +8874,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveStorageSystem"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8890,7 +8895,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDiscoveryJob"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8910,7 +8915,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTaskExecution"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8928,7 +8933,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopDiscoveryJob"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8946,7 +8951,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8964,7 +8969,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8982,7 +8987,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAgent"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9002,7 +9007,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDiscoveryJob"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9028,7 +9033,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLocationHdfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9049,7 +9054,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLocationNfs"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9072,7 +9077,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLocationObjectStorage"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9093,7 +9098,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLocationSmb"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9114,7 +9119,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateStorageSystem"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9135,7 +9140,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateTask"
+                                                        "POST" :json "/"
+                                                        "UpdateTask"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-task))
@@ -9152,7 +9158,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datasync-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTaskExecution"
                                                         "2018-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))

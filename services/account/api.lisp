@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/account/api)
 (common-lisp:progn
  (common-lisp:defclass account-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "account"))
+                       common-lisp:nil
+                       (:default-initargs :service "account" :protocol
+                        :rest-json))
  (common-lisp:export 'account-request))
 (common-lisp:progn
  (common-lisp:define-condition account-error
@@ -935,7 +937,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteAlternateContact"
                                                         "DeleteAlternateContact"
                                                         "2021-02-01"))
@@ -954,7 +956,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/disableRegion"
+                                                        "POST" :rest-json
+                                                        "/disableRegion"
                                                         "DisableRegion"
                                                         "2021-02-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -972,7 +975,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/enableRegion"
+                                                        "POST" :rest-json
+                                                        "/enableRegion"
                                                         "EnableRegion"
                                                         "2021-02-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -991,7 +995,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getAlternateContact"
                                                         "GetAlternateContact"
                                                         "2021-02-01"))
@@ -1010,7 +1014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getContactInformation"
                                                         "GetContactInformation"
                                                         "2021-02-01"))
@@ -1029,7 +1033,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getRegionOptStatus"
                                                         "GetRegionOptStatus"
                                                         "2021-02-01"))
@@ -1051,7 +1055,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listRegions"
+                                                        "POST" :rest-json
+                                                        "/listRegions"
                                                         "ListRegions"
                                                         "2021-02-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1072,7 +1077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/putAlternateContact"
                                                         "PutAlternateContact"
                                                         "2021-02-01"))
@@ -1091,7 +1096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'account-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/putContactInformation"
                                                         "PutContactInformation"
                                                         "2021-02-01"))

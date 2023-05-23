@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/forecast/api)
 (common-lisp:progn
  (common-lisp:defclass forecast-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "forecast"))
+                       common-lisp:nil
+                       (:default-initargs :service "forecast" :protocol :json))
  (common-lisp:export 'forecast-request))
 (common-lisp:progn
  (common-lisp:define-condition forecast-error
@@ -9617,7 +9618,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAutoPredictor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9638,7 +9639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataset"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9658,7 +9659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatasetGroup"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9683,7 +9684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatasetImportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9706,7 +9707,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExplainability"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9728,7 +9729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExplainabilityExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9749,7 +9750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9771,7 +9772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateForecastExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9789,7 +9790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMonitor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9816,7 +9817,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePredictor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9838,7 +9839,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePredictorBacktestExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9859,7 +9860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWhatIfAnalysis"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9881,7 +9882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWhatIfForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9903,7 +9904,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWhatIfForecastExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9921,7 +9922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataset"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9939,7 +9940,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDatasetGroup"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9958,7 +9959,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDatasetImportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9976,7 +9977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteExplainability"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9995,7 +9996,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteExplainabilityExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10013,7 +10014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10032,7 +10033,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteForecastExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10050,7 +10051,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMonitor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10068,7 +10069,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePredictor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10088,7 +10089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePredictorBacktestExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10106,7 +10107,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourceTree"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10124,7 +10125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWhatIfAnalysis"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10142,7 +10143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWhatIfForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10161,7 +10162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWhatIfForecastExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10179,7 +10180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAutoPredictor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10197,7 +10198,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataset"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10215,7 +10216,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDatasetGroup"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10234,7 +10235,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDatasetImportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10252,7 +10253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExplainability"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10271,7 +10272,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExplainabilityExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10289,7 +10290,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10308,7 +10309,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeForecastExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10326,7 +10327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMonitor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10344,7 +10345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePredictor"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10364,7 +10365,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePredictorBacktestExportJob"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10383,7 +10384,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWhatIfAnalysis"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10402,7 +10403,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWhatIfForecast"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10421,7 +10422,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWhatIfForecastExport"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10439,7 +10440,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAccuracyMetrics"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10457,7 +10458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetGroups"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10475,7 +10476,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetImportJobs"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10493,7 +10494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasets"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10511,7 +10512,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExplainabilities"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10530,7 +10531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExplainabilityExports"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10549,7 +10550,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListForecastExportJobs"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10567,7 +10568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListForecasts"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10587,7 +10588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitorEvaluations"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10605,7 +10606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitors"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10624,7 +10625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPredictorBacktestExportJobs"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10642,7 +10643,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPredictors"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10660,7 +10661,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10678,7 +10679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWhatIfAnalyses"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10697,7 +10698,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWhatIfForecastExports"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10715,7 +10716,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWhatIfForecasts"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10733,7 +10734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResumeResource"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10751,7 +10752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopResource"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10769,7 +10770,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10787,7 +10788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10805,7 +10806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'forecast-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDatasetGroup"
                                                         "2018-06-26"))
       common-lisp:nil common-lisp:nil *error-map*)))

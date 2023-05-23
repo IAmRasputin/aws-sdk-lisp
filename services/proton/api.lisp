@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/proton/api)
 (common-lisp:progn
  (common-lisp:defclass proton-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "proton"))
+                       (:default-initargs :service "proton" :protocol :json))
  (common-lisp:export 'proton-request))
 (common-lisp:progn
  (common-lisp:define-condition proton-error
@@ -11314,7 +11314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11333,7 +11333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelComponentDeployment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11352,7 +11352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelEnvironmentDeployment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11372,7 +11372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelServiceInstanceDeployment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11391,7 +11391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelServicePipelineDeployment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11413,7 +11413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateComponent"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11439,7 +11439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11462,7 +11462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11484,7 +11484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironmentTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11506,7 +11506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironmentTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11526,7 +11526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRepository"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11550,7 +11550,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateService"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11571,7 +11571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServiceInstance"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11592,7 +11592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServiceSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11613,7 +11613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServiceTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11637,7 +11637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServiceTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11660,7 +11660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTemplateSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11678,7 +11678,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteComponent"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11696,7 +11696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11715,7 +11715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11734,7 +11734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironmentTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11755,7 +11755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironmentTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11773,7 +11773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepository"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11791,7 +11791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteService"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11809,7 +11809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServiceSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11827,7 +11827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServiceTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11848,7 +11848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServiceTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11867,7 +11867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTemplateSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11877,6 +11877,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'proton-request :method "POST" :path "/"
+                                :protocol :json :operation "GetAccountSettings"
                                 :params
                                 `(("Action" ,@"GetAccountSettings")
                                   ("Version" ,@"2020-07-20"))))
@@ -11895,7 +11896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComponent"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11913,7 +11914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEnvironment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11932,7 +11933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11950,7 +11951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEnvironmentTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11971,7 +11972,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEnvironmentTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11989,7 +11990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepository"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12010,7 +12011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepositorySyncStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12020,7 +12021,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'proton-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetResourcesSummary" :params
                                 `(("Action" ,@"GetResourcesSummary")
                                   ("Version" ,@"2020-07-20"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -12038,7 +12040,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetService"
+                                                        "POST" :json "/"
+                                                        "GetService"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-service))
@@ -12055,7 +12058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceInstance"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12075,7 +12078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceInstanceSyncStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12095,7 +12098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceSyncBlockerSummary"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12113,7 +12116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12131,7 +12134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12152,7 +12155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12170,7 +12173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTemplateSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12190,7 +12193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTemplateSyncStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12208,7 +12211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListComponentOutputs"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12227,7 +12230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListComponentProvisionedResources"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12248,7 +12251,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListComponents"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12270,7 +12273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironmentAccountConnections"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12288,7 +12291,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironmentOutputs"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12307,7 +12310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironmentProvisionedResources"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12328,7 +12331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironmentTemplateVersions"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12346,7 +12349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironmentTemplates"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12366,7 +12369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironments"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12384,7 +12387,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRepositories"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12406,7 +12409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRepositorySyncDefinitions"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12427,7 +12430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceInstanceOutputs"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12448,7 +12451,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceInstanceProvisionedResources"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12469,7 +12472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceInstances"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12488,7 +12491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServicePipelineOutputs"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12507,7 +12510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServicePipelineProvisionedResources"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12528,7 +12531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceTemplateVersions"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12546,7 +12549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceTemplates"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12564,7 +12567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServices"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12583,7 +12586,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12605,7 +12608,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyResourceDeploymentStatusChange"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12624,7 +12627,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RejectEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12642,7 +12645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12660,7 +12663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12684,7 +12687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAccountSettings"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12706,7 +12709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateComponent"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12732,7 +12735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12753,7 +12756,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironmentAccountConnection"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12772,7 +12775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironmentTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12794,7 +12797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironmentTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12812,7 +12815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateService"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12834,7 +12837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceInstance"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12855,7 +12858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServicePipeline"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12874,7 +12877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceSyncBlocker"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12895,7 +12898,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12913,7 +12916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceTemplate"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12937,7 +12940,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceTemplateVersion"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12960,7 +12963,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'proton-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTemplateSyncConfig"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))

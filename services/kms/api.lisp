@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/kms/api)
 (common-lisp:progn
  (common-lisp:defclass kms-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "kms"))
+                       (:default-initargs :service "kms" :protocol :json))
  (common-lisp:export 'kms-request))
 (common-lisp:progn
  (common-lisp:define-condition kms-error
@@ -5363,7 +5363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelKeyDeletion"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5381,7 +5381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConnectCustomKeyStore"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5399,7 +5399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAlias"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5428,7 +5428,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCustomKeyStore"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5450,7 +5450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGrant"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5474,7 +5474,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateKey"
+                                                        "POST" :json "/"
+                                                        "CreateKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-key))
@@ -5494,7 +5495,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Decrypt"
+                                                        "POST" :json "/"
+                                                        "Decrypt"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'decrypt))
@@ -5511,7 +5513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAlias"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5529,7 +5531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCustomKeyStore"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5548,7 +5550,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImportedKeyMaterial"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5570,7 +5572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCustomKeyStores"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5588,7 +5590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5606,7 +5608,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DisableKey"
+                                                        "POST" :json "/"
+                                                        "DisableKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disable-key))
@@ -5623,7 +5626,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableKeyRotation"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5642,7 +5645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisconnectCustomKeyStore"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5660,7 +5663,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "EnableKey"
+                                                        "POST" :json "/"
+                                                        "EnableKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable-key))
@@ -5677,7 +5681,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableKeyRotation"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5698,7 +5702,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Encrypt"
+                                                        "POST" :json "/"
+                                                        "Encrypt"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'encrypt))
@@ -5718,7 +5723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateDataKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5739,7 +5744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateDataKeyPair"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5761,7 +5766,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateDataKeyPairWithoutPlaintext"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5783,7 +5788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateDataKeyWithoutPlaintext"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5803,7 +5808,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateMac"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5822,7 +5827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateRandom"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5840,7 +5845,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetKeyPolicy"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5858,7 +5863,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetKeyRotationStatus"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5879,7 +5884,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetParametersForImport"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5897,7 +5902,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPublicKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5918,7 +5923,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportKeyMaterial"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5936,7 +5941,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAliases"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5956,7 +5961,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListGrants"
+                                                        "POST" :json "/"
+                                                        "ListGrants"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-grants))
@@ -5973,7 +5979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListKeyPolicies"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5991,7 +5997,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListKeys"
+                                                        "POST" :json "/"
+                                                        "ListKeys"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-keys))
@@ -6008,7 +6015,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceTags"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6027,7 +6034,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRetirableGrants"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6048,7 +6055,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutKeyPolicy"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6073,7 +6080,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ReEncrypt"
+                                                        "POST" :json "/"
+                                                        "ReEncrypt"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 're-encrypt))
@@ -6093,7 +6101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReplicateKey"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6111,7 +6119,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetireGrant"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6129,7 +6137,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RevokeGrant"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6147,7 +6155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ScheduleKeyDeletion"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6168,7 +6176,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Sign"
+                                                        "POST" :json "/" "Sign"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'sign))
@@ -6185,7 +6193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6203,7 +6211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6221,7 +6229,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAlias"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6248,7 +6256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCustomKeyStore"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6266,7 +6274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateKeyDescription"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6284,7 +6292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePrimaryRegion"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6305,8 +6313,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Verify"
-                                                        "2014-11-01"))
+                                                        "POST" :json "/"
+                                                        "Verify" "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'verify))
 (common-lisp:progn
@@ -6324,7 +6332,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "VerifyMac"
+                                                        "POST" :json "/"
+                                                        "VerifyMac"
                                                         "2014-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'verify-mac))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass sagemaker-metrics-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "sagemaker-metrics"))
+                       (:default-initargs :service "sagemaker-metrics"
+                        :protocol :rest-json))
  (common-lisp:export 'sagemaker-metrics-request))
 (common-lisp:progn
  (common-lisp:define-condition sagemaker-metrics-error
@@ -218,6 +219,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-metrics-request aws-sdk/generator/operation::input "PUT"
-        "/BatchPutMetrics" "BatchPutMetrics" "2022-09-30"))
+        :rest-json "/BatchPutMetrics" "BatchPutMetrics" "2022-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-put-metrics))

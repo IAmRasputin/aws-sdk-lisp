@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/workmail/api)
 (common-lisp:progn
  (common-lisp:defclass workmail-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "workmail"))
+                       common-lisp:nil
+                       (:default-initargs :service "workmail" :protocol :json))
  (common-lisp:export 'workmail-request))
 (common-lisp:progn
  (common-lisp:define-condition workmail-error
@@ -8941,7 +8942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateDelegateToResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8961,7 +8962,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateMemberToGroup"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8981,7 +8982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssumeImpersonationRole"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9001,7 +9002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelMailboxExportJob"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9020,7 +9021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAlias"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9042,7 +9043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAvailabilityConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9060,7 +9061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGroup"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9082,7 +9083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateImpersonationRole"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9109,7 +9110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMobileDeviceAccessRule"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9130,7 +9131,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateOrganization"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9148,7 +9149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9168,7 +9169,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :json "/"
+                                                        "CreateUser"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
@@ -9186,7 +9188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAccessControlRule"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9205,7 +9207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAlias"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9224,7 +9226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAvailabilityConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9243,7 +9245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEmailMonitoringConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9261,7 +9263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGroup"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9281,7 +9283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImpersonationRole"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9301,7 +9303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMailboxPermissions"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9321,7 +9323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMobileDeviceAccessOverride"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9342,7 +9344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMobileDeviceAccessRule"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9362,7 +9364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteOrganization"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9380,7 +9382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9398,7 +9400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRetentionPolicy"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9416,7 +9418,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -9434,7 +9437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterFromWorkMail"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9452,7 +9455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterMailDomain"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9471,7 +9474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEmailMonitoringConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9489,7 +9492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGroup"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9508,7 +9511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInboundDmarcSettings"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9527,7 +9530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMailboxExportJob"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9545,7 +9548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganization"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9563,7 +9566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9581,7 +9584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUser"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9601,7 +9604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateDelegateFromResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9621,7 +9624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateMemberFromGroup"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9643,7 +9646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAccessControlEffect"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9662,7 +9665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDefaultRetentionPolicy"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9681,7 +9684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetImpersonationRole"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9702,7 +9705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetImpersonationRoleEffect"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9720,7 +9723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMailDomain"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9738,7 +9741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMailboxDetails"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9760,7 +9763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMobileDeviceAccessEffect"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9780,7 +9783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMobileDeviceAccessOverride"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9799,7 +9802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccessControlRules"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9819,7 +9822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAliases"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9839,7 +9842,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAvailabilityConfigurations"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9859,7 +9862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGroupMembers"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9878,7 +9881,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListGroups"
+                                                        "POST" :json "/"
+                                                        "ListGroups"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-groups))
@@ -9896,7 +9900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListImpersonationRoles"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9915,7 +9919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMailDomains"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9934,7 +9938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMailboxExportJobs"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9954,7 +9958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMailboxPermissions"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9976,7 +9980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMobileDeviceAccessOverrides"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9995,7 +9999,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMobileDeviceAccessRules"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10013,7 +10017,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOrganizations"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10033,7 +10037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceDelegates"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10052,7 +10056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResources"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10070,7 +10074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10089,7 +10093,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListUsers"
+                                                        "POST" :json "/"
+                                                        "ListUsers"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-users))
@@ -10112,7 +10117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAccessControlRule"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10132,7 +10137,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutEmailMonitoringConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10151,7 +10156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutInboundDmarcSettings"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10172,7 +10177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutMailboxPermissions"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10194,7 +10199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutMobileDeviceAccessOverride"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10215,7 +10220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRetentionPolicy"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10234,7 +10239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterMailDomain"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10253,7 +10258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterToWorkMail"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10272,7 +10277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResetPassword"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10293,7 +10298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMailboxExportJob"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10311,7 +10316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10333,7 +10338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TestAvailabilityConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10351,7 +10356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10373,7 +10378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAvailabilityConfiguration"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10392,7 +10397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDefaultMailDomain"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10414,7 +10419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateImpersonationRole"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10433,7 +10438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMailboxQuota"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10461,7 +10466,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMobileDeviceAccessRule"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10481,7 +10486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePrimaryEmailAddress"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10501,7 +10506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workmail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateResource"
                                                         "2017-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

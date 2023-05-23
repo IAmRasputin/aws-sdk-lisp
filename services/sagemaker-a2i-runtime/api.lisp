@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass sagemaker-a2i-runtime-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "sagemaker-a2i-runtime"))
+                       (:default-initargs :service "sagemaker-a2i-runtime"
+                        :protocol :rest-json))
  (common-lisp:export 'sagemaker-a2i-runtime-request))
 (common-lisp:progn
  (common-lisp:define-condition sagemaker-a2i-runtime-error
@@ -629,7 +630,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-a2i-runtime-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/human-loops/~A"
                               (quri.encode:url-encode
@@ -652,6 +653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-a2i-runtime-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/human-loops/~A"
                               (quri.encode:url-encode
@@ -677,7 +679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-a2i-runtime-request aws-sdk/generator/operation::input "GET"
-        "/human-loops" "ListHumanLoops" "2019-11-07"))
+        :rest-json "/human-loops" "ListHumanLoops" "2019-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-human-loops))
 (common-lisp:progn
@@ -696,7 +698,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-a2i-runtime-request aws-sdk/generator/operation::input
-        "POST" "/human-loops" "StartHumanLoop" "2019-11-07"))
+        "POST" :rest-json "/human-loops" "StartHumanLoop" "2019-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-human-loop))
 (common-lisp:progn
@@ -712,6 +714,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-a2i-runtime-request aws-sdk/generator/operation::input
-        "POST" "/human-loops/stop" "StopHumanLoop" "2019-11-07"))
+        "POST" :rest-json "/human-loops/stop" "StopHumanLoop" "2019-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-human-loop))

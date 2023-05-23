@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass sagemaker-edge-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "sagemaker-edge"))
+                       (:default-initargs :service "sagemaker-edge" :protocol
+                        :rest-json))
  (common-lisp:export 'sagemaker-edge-request))
 (common-lisp:progn
  (common-lisp:define-condition sagemaker-edge-error
@@ -714,7 +715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-edge-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetDeployments"
                                                         "GetDeployments"
                                                         "2020-09-23"))
@@ -733,7 +734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-edge-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetDeviceRegistration"
                                                         "GetDeviceRegistration"
                                                         "2020-09-23"))
@@ -755,7 +756,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-edge-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/SendHeartbeat"
+                                                        "POST" :rest-json
+                                                        "/SendHeartbeat"
                                                         "SendHeartbeat"
                                                         "2020-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))

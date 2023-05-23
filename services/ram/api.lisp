@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ram/api)
 (common-lisp:progn
  (common-lisp:defclass ram-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ram"))
+                       (:default-initargs :service "ram" :protocol :rest-json))
  (common-lisp:export 'ram-request))
 (common-lisp:progn
  (common-lisp:define-condition ram-error
@@ -4696,7 +4696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/acceptresourceshareinvitation"
                                                         "AcceptResourceShareInvitation"
                                                         "2018-01-04"))
@@ -4718,7 +4718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associateresourceshare"
                                                         "AssociateResourceShare"
                                                         "2018-01-04"))
@@ -4741,7 +4741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associateresourcesharepermission"
                                                         "AssociateResourceSharePermission"
                                                         "2018-01-04"))
@@ -4763,7 +4763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createpermission"
                                                         "CreatePermission"
                                                         "2018-01-04"))
@@ -4785,7 +4785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createpermissionversion"
                                                         "CreatePermissionVersion"
                                                         "2018-01-04"))
@@ -4807,7 +4807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createresourceshare"
                                                         "CreateResourceShare"
                                                         "2018-01-04"))
@@ -4826,7 +4826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/deletepermission"
                                                         "DeletePermission"
                                                         "2018-01-04"))
@@ -4848,7 +4848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/deletepermissionversion"
                                                         "DeletePermissionVersion"
                                                         "2018-01-04"))
@@ -4868,7 +4868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/deleteresourceshare"
                                                         "DeleteResourceShare"
                                                         "2018-01-04"))
@@ -4891,7 +4891,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disassociateresourceshare"
                                                         "DisassociateResourceShare"
                                                         "2018-01-04"))
@@ -4913,7 +4913,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disassociateresourcesharepermission"
                                                         "DisassociateResourceSharePermission"
                                                         "2018-01-04"))
@@ -4924,7 +4924,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'ram-request :method "POST" :path
-                                "/enablesharingwithawsorganization" :params
+                                "/enablesharingwithawsorganization" :protocol
+                                :rest-json :operation
+                                "EnableSharingWithAwsOrganization" :params
                                 `(("Action"
                                    ,@"EnableSharingWithAwsOrganization")
                                   ("Version" ,@"2018-01-04"))))
@@ -4944,7 +4946,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/getpermission"
+                                                        "POST" :rest-json
+                                                        "/getpermission"
                                                         "GetPermission"
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4964,7 +4967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getresourcepolicies"
                                                         "GetResourcePolicies"
                                                         "2018-01-04"))
@@ -4988,7 +4991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getresourceshareassociations"
                                                         "GetResourceShareAssociations"
                                                         "2018-01-04"))
@@ -5011,7 +5014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getresourceshareinvitations"
                                                         "GetResourceShareInvitations"
                                                         "2018-01-04"))
@@ -5035,7 +5038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getresourceshares"
                                                         "GetResourceShares"
                                                         "2018-01-04"))
@@ -5058,7 +5061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listpendinginvitationresources"
                                                         "ListPendingInvitationResources"
                                                         "2018-01-04"))
@@ -5082,7 +5085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listpermissionassociations"
                                                         "ListPermissionAssociations"
                                                         "2018-01-04"))
@@ -5102,7 +5105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listpermissionversions"
                                                         "ListPermissionVersions"
                                                         "2018-01-04"))
@@ -5124,7 +5127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listpermissions"
                                                         "ListPermissions"
                                                         "2018-01-04"))
@@ -5146,7 +5149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listprincipals"
                                                         "ListPrincipals"
                                                         "2018-01-04"))
@@ -5167,7 +5170,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listreplacepermissionassociationswork"
                                                         "ListReplacePermissionAssociationsWork"
                                                         "2018-01-04"))
@@ -5189,7 +5192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listresourcesharepermissions"
                                                         "ListResourceSharePermissions"
                                                         "2018-01-04"))
@@ -5210,7 +5213,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listresourcetypes"
                                                         "ListResourceTypes"
                                                         "2018-01-04"))
@@ -5233,7 +5236,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listresources"
+                                                        "POST" :rest-json
+                                                        "/listresources"
                                                         "ListResources"
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5253,7 +5257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/promotepermissioncreatedfrompolicy"
                                                         "PromotePermissionCreatedFromPolicy"
                                                         "2018-01-04"))
@@ -5273,7 +5277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/promoteresourcesharecreatedfrompolicy"
                                                         "PromoteResourceShareCreatedFromPolicy"
                                                         "2018-01-04"))
@@ -5295,7 +5299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/rejectresourceshareinvitation"
                                                         "RejectResourceShareInvitation"
                                                         "2018-01-04"))
@@ -5318,7 +5322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/replacepermissionassociations"
                                                         "ReplacePermissionAssociations"
                                                         "2018-01-04"))
@@ -5340,7 +5344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/setdefaultpermissionversion"
                                                         "SetDefaultPermissionVersion"
                                                         "2018-01-04"))
@@ -5360,7 +5364,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/tagresource"
+                                                        "POST" :rest-json
+                                                        "/tagresource"
                                                         "TagResource"
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5379,7 +5384,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/untagresource"
+                                                        "POST" :rest-json
+                                                        "/untagresource"
                                                         "UntagResource"
                                                         "2018-01-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5400,7 +5406,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ram-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateresourceshare"
                                                         "UpdateResourceShare"
                                                         "2018-01-04"))

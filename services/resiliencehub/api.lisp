@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass resiliencehub-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "resiliencehub"))
+                       (:default-initargs :service "resiliencehub" :protocol
+                        :rest-json))
  (common-lisp:export 'resiliencehub-request))
 (common-lisp:progn
  (common-lisp:define-condition resiliencehub-error
@@ -7673,7 +7674,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/add-draft-app-version-resource-mappings"
                                                         "AddDraftAppVersionResourceMappings"
                                                         "2020-04-30"))
@@ -7695,7 +7696,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/create-app"
+                                                        "POST" :rest-json
+                                                        "/create-app"
                                                         "CreateApp"
                                                         "2020-04-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7716,7 +7718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/create-app-version-app-component"
                                                         "CreateAppVersionAppComponent"
                                                         "2020-04-30"))
@@ -7741,7 +7743,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/create-app-version-resource"
                                                         "CreateAppVersionResource"
                                                         "2020-04-30"))
@@ -7764,7 +7766,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/create-recommendation-template"
                                                         "CreateRecommendationTemplate"
                                                         "2020-04-30"))
@@ -7786,7 +7788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/create-resiliency-policy"
                                                         "CreateResiliencyPolicy"
                                                         "2020-04-30"))
@@ -7806,7 +7808,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/delete-app"
+                                                        "POST" :rest-json
+                                                        "/delete-app"
                                                         "DeleteApp"
                                                         "2020-04-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7824,7 +7827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-app-assessment"
                                                         "DeleteAppAssessment"
                                                         "2020-04-30"))
@@ -7846,7 +7849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-app-input-source"
                                                         "DeleteAppInputSource"
                                                         "2020-04-30"))
@@ -7866,7 +7869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-app-version-app-component"
                                                         "DeleteAppVersionAppComponent"
                                                         "2020-04-30"))
@@ -7890,7 +7893,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-app-version-resource"
                                                         "DeleteAppVersionResource"
                                                         "2020-04-30"))
@@ -7911,7 +7914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-recommendation-template"
                                                         "DeleteRecommendationTemplate"
                                                         "2020-04-30"))
@@ -7930,7 +7933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-resiliency-policy"
                                                         "DeleteResiliencyPolicy"
                                                         "2020-04-30"))
@@ -7949,7 +7952,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/describe-app"
+                                                        "POST" :rest-json
+                                                        "/describe-app"
                                                         "DescribeApp"
                                                         "2020-04-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7967,7 +7971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-assessment"
                                                         "DescribeAppAssessment"
                                                         "2020-04-30"))
@@ -7986,7 +7990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-version"
                                                         "DescribeAppVersion"
                                                         "2020-04-30"))
@@ -8006,7 +8010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-version-app-component"
                                                         "DescribeAppVersionAppComponent"
                                                         "2020-04-30"))
@@ -8030,7 +8034,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-version-resource"
                                                         "DescribeAppVersionResource"
                                                         "2020-04-30"))
@@ -8051,7 +8055,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-version-resources-resolution-status"
                                                         "DescribeAppVersionResourcesResolutionStatus"
                                                         "2020-04-30"))
@@ -8071,7 +8075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-app-version-template"
                                                         "DescribeAppVersionTemplate"
                                                         "2020-04-30"))
@@ -8091,7 +8095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-draft-app-version-resources-import-status"
                                                         "DescribeDraftAppVersionResourcesImportStatus"
                                                         "2020-04-30"))
@@ -8111,7 +8115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-resiliency-policy"
                                                         "DescribeResiliencyPolicy"
                                                         "2020-04-30"))
@@ -8134,7 +8138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/import-resources-to-draft-app-version"
                                                         "ImportResourcesToDraftAppVersion"
                                                         "2020-04-30"))
@@ -8155,7 +8159,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-alarm-recommendations"
                                                         "ListAlarmRecommendations"
                                                         "2020-04-30"))
@@ -8178,7 +8182,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/list-app-assessments"
                                                         "ListAppAssessments"
                                                         "2020-04-30"))
@@ -8199,7 +8203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-component-compliances"
                                                         "ListAppComponentCompliances"
                                                         "2020-04-30"))
@@ -8220,7 +8224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-component-recommendations"
                                                         "ListAppComponentRecommendations"
                                                         "2020-04-30"))
@@ -8241,7 +8245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-input-sources"
                                                         "ListAppInputSources"
                                                         "2020-04-30"))
@@ -8263,7 +8267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-version-app-components"
                                                         "ListAppVersionAppComponents"
                                                         "2020-04-30"))
@@ -8285,7 +8289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-version-resource-mappings"
                                                         "ListAppVersionResourceMappings"
                                                         "2020-04-30"))
@@ -8308,7 +8312,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-version-resources"
                                                         "ListAppVersionResources"
                                                         "2020-04-30"))
@@ -8327,7 +8331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-app-versions"
                                                         "ListAppVersions"
                                                         "2020-04-30"))
@@ -8347,8 +8351,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/list-apps"
-                                                        "ListApps"
+                                                        "GET" :rest-json
+                                                        "/list-apps" "ListApps"
                                                         "2020-04-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-apps))
@@ -8370,7 +8374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/list-recommendation-templates"
                                                         "ListRecommendationTemplates"
                                                         "2020-04-30"))
@@ -8390,7 +8394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/list-resiliency-policies"
                                                         "ListResiliencyPolicies"
                                                         "2020-04-30"))
@@ -8410,7 +8414,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-sop-recommendations"
                                                         "ListSopRecommendations"
                                                         "2020-04-30"))
@@ -8430,7 +8434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/list-suggested-resiliency-policies"
                                                         "ListSuggestedResiliencyPolicies"
                                                         "2020-04-30"))
@@ -8449,7 +8453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8479,7 +8483,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-test-recommendations"
                                                         "ListTestRecommendations"
                                                         "2020-04-30"))
@@ -8502,7 +8506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-unsupported-app-version-resources"
                                                         "ListUnsupportedAppVersionResources"
                                                         "2020-04-30"))
@@ -8521,7 +8525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/publish-app-version"
                                                         "PublishAppVersion"
                                                         "2020-04-30"))
@@ -8541,7 +8545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/put-draft-app-version-template"
                                                         "PutDraftAppVersionTemplate"
                                                         "2020-04-30"))
@@ -8566,7 +8570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/remove-draft-app-version-resource-mappings"
                                                         "RemoveDraftAppVersionResourceMappings"
                                                         "2020-04-30"))
@@ -8586,7 +8590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/resolve-app-version-resources"
                                                         "ResolveAppVersionResources"
                                                         "2020-04-30"))
@@ -8608,7 +8612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/start-app-assessment"
                                                         "StartAppAssessment"
                                                         "2020-04-30"))
@@ -8627,7 +8631,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8655,7 +8659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8686,7 +8690,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/update-app"
+                                                        "POST" :rest-json
+                                                        "/update-app"
                                                         "UpdateApp"
                                                         "2020-04-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8704,7 +8709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-app-version"
                                                         "UpdateAppVersion"
                                                         "2020-04-30"))
@@ -8725,7 +8730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-app-version-app-component"
                                                         "UpdateAppVersionAppComponent"
                                                         "2020-04-30"))
@@ -8750,7 +8755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-app-version-resource"
                                                         "UpdateAppVersionResource"
                                                         "2020-04-30"))
@@ -8772,7 +8777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'resiliencehub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-resiliency-policy"
                                                         "UpdateResiliencyPolicy"
                                                         "2020-04-30"))

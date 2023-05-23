@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codecommit-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codecommit"))
+                       (:default-initargs :service "codecommit" :protocol
+                        :json))
  (common-lisp:export 'codecommit-request))
 (common-lisp:progn
  (common-lisp:define-condition codecommit-error
@@ -11700,7 +11701,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateApprovalRuleTemplateWithRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11721,7 +11722,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchAssociateApprovalRuleTemplateWithRepositories"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11747,7 +11748,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDescribeMergeConflicts"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11768,7 +11769,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDisassociateApprovalRuleTemplateFromRepositories"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11787,7 +11788,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetCommits"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11805,7 +11806,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetRepositories"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11828,7 +11829,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateApprovalRuleTemplate"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11847,7 +11848,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBranch"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11870,7 +11871,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11890,7 +11891,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePullRequest"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11912,7 +11913,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePullRequestApprovalRule"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11932,7 +11933,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11959,7 +11960,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUnreferencedMergeCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11978,7 +11979,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteApprovalRuleTemplate"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11996,7 +11997,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBranch"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12014,7 +12015,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCommentContent"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12036,7 +12037,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteFile"
+                                                        "POST" :json "/"
+                                                        "DeleteFile"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-file))
@@ -12055,7 +12057,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePullRequestApprovalRule"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12073,7 +12075,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12098,7 +12100,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMergeConflicts"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12120,7 +12122,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePullRequestEvents"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12141,7 +12143,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateApprovalRuleTemplateFromRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12160,7 +12162,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EvaluatePullRequestApprovalRules"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12178,7 +12180,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetApprovalRuleTemplate"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12196,7 +12198,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetBlob"
+                                                        "POST" :json "/"
+                                                        "GetBlob"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-blob))
@@ -12213,7 +12216,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetBranch"
+                                                        "POST" :json "/"
+                                                        "GetBranch"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-branch))
@@ -12230,7 +12234,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetComment"
+                                                        "POST" :json "/"
+                                                        "GetComment"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-comment))
@@ -12250,7 +12255,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCommentReactions"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12272,7 +12277,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCommentsForComparedCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12294,7 +12299,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCommentsForPullRequest"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12312,7 +12317,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetCommit"
+                                                        "POST" :json "/"
+                                                        "GetCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-commit))
@@ -12333,7 +12339,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDifferences"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12353,7 +12359,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetFile"
+                                                        "POST" :json "/"
+                                                        "GetFile"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-file))
@@ -12372,7 +12379,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetFolder"
+                                                        "POST" :json "/"
+                                                        "GetFolder"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-folder))
@@ -12394,7 +12402,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMergeCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12418,7 +12426,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMergeConflicts"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12441,7 +12449,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMergeOptions"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12459,7 +12467,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPullRequest"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12478,7 +12486,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPullRequestApprovalStates"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12497,7 +12505,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPullRequestOverrideState"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12515,7 +12523,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12533,7 +12541,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepositoryTriggers"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12552,7 +12560,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListApprovalRuleTemplates"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12572,7 +12580,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssociatedApprovalRuleTemplatesForRepository"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12590,7 +12598,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBranches"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12611,7 +12619,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPullRequests"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12629,7 +12637,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRepositories"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12650,7 +12658,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRepositoriesForApprovalRuleTemplate"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12668,7 +12676,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12690,7 +12698,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergeBranchesByFastForward"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12716,7 +12724,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergeBranchesBySquash"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12743,7 +12751,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergeBranchesByThreeWay"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12764,7 +12772,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergePullRequestByFastForward"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12789,7 +12797,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergePullRequestBySquash"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12814,7 +12822,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MergePullRequestByThreeWay"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12835,7 +12843,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "OverridePullRequestApprovalRules"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12857,7 +12865,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PostCommentForComparedCommit"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12880,7 +12888,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PostCommentForPullRequest"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12899,7 +12907,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PostCommentReply"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12917,7 +12925,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutCommentReaction"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12939,7 +12947,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutFile"
+                                                        "POST" :json "/"
+                                                        "PutFile"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-file))
@@ -12956,7 +12965,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRepositoryTriggers"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12974,7 +12983,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12992,7 +13001,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TestRepositoryTriggers"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13010,7 +13019,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13032,7 +13041,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApprovalRuleTemplateContent"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13054,7 +13063,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApprovalRuleTemplateDescription"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13076,7 +13085,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApprovalRuleTemplateName"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13094,7 +13103,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateComment"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13113,7 +13122,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDefaultBranch"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13135,7 +13144,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePullRequestApprovalRuleContent"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13156,7 +13165,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePullRequestApprovalState"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13175,7 +13184,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePullRequestDescription"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13194,7 +13203,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePullRequestStatus"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13212,7 +13221,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePullRequestTitle"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13232,7 +13241,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRepositoryDescription"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13250,7 +13259,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codecommit-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRepositoryName"
                                                         "2015-04-13"))
       common-lisp:nil common-lisp:nil *error-map*)))

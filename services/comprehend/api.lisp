@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass comprehend-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "comprehend"))
+                       (:default-initargs :service "comprehend" :protocol
+                        :json))
  (common-lisp:export 'comprehend-request))
 (common-lisp:progn
  (common-lisp:define-condition comprehend-error
@@ -14461,7 +14462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectDominantLanguage"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14479,7 +14480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectEntities"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14497,7 +14498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectKeyPhrases"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14515,7 +14516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectSentiment"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14533,7 +14534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectSyntax"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14552,7 +14553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDetectTargetedSentiment"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14572,7 +14573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ClassifyDocument"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14590,7 +14591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ContainsPiiEntities"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14611,7 +14612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataset"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14638,7 +14639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDocumentClassifier"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14660,7 +14661,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEndpoint"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14684,7 +14685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEntityRecognizer"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14708,7 +14709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFlywheel"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14727,7 +14728,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDocumentClassifier"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14745,7 +14746,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEndpoint"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14763,7 +14764,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEntityRecognizer"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14781,7 +14782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFlywheel"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14800,7 +14801,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14818,7 +14819,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataset"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14837,7 +14838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDocumentClassificationJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14856,7 +14857,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDocumentClassifier"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14875,7 +14876,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDominantLanguageDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14893,7 +14894,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEndpoint"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14912,7 +14913,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14931,7 +14932,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEntityRecognizer"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14950,7 +14951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventsDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14968,7 +14969,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFlywheel"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14988,7 +14989,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFlywheelIteration"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15007,7 +15008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeKeyPhrasesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15026,7 +15027,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePiiEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15044,7 +15045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeResourcePolicy"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15063,7 +15064,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15082,7 +15083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTargetedSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15101,7 +15102,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTopicsDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15119,7 +15120,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectDominantLanguage"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15140,7 +15141,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectEntities"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15158,7 +15159,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectKeyPhrases"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15176,7 +15177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectPiiEntities"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15194,7 +15195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectSentiment"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15212,7 +15213,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectSyntax"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15231,7 +15232,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectTargetedSentiment"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15252,7 +15253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportModel"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15272,7 +15273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasets"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15291,7 +15292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDocumentClassificationJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15310,7 +15311,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDocumentClassifierSummaries"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15329,7 +15330,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDocumentClassifiers"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15348,7 +15349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDominantLanguageDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15366,7 +15367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEndpoints"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15385,7 +15386,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEntitiesDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15404,7 +15405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEntityRecognizerSummaries"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15422,7 +15423,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEntityRecognizers"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15441,7 +15442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEventsDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15462,7 +15463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFlywheelIterationHistory"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15480,7 +15481,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFlywheels"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15499,7 +15500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListKeyPhrasesDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15518,7 +15519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPiiEntitiesDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15537,7 +15538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSentimentDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15555,7 +15556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15574,7 +15575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTargetedSentimentDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15593,7 +15594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTopicsDetectionJobs"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15613,7 +15614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15638,7 +15639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDocumentClassificationJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15662,7 +15663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDominantLanguageDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15687,7 +15688,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15711,7 +15712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartEventsDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15730,7 +15731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFlywheelIteration"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15754,7 +15755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartKeyPhrasesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15778,7 +15779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartPiiEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15802,7 +15803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15826,7 +15827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTargetedSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15850,7 +15851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTopicsDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15869,7 +15870,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopDominantLanguageDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15888,7 +15889,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15907,7 +15908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopEventsDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15926,7 +15927,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopKeyPhrasesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15945,7 +15946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopPiiEntitiesDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15964,7 +15965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15983,7 +15984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTargetedSentimentDetectionJob"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16002,7 +16003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTrainingDocumentClassifier"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16021,7 +16022,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTrainingEntityRecognizer"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16039,7 +16040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16057,7 +16058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16079,7 +16080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEndpoint"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16100,7 +16101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'comprehend-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFlywheel"
                                                         "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))

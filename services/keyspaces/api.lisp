@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass keyspaces-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "keyspaces"))
+                       (:default-initargs :service "keyspaces" :protocol
+                        :json))
  (common-lisp:export 'keyspaces-request))
 (common-lisp:progn
  (common-lisp:define-condition keyspaces-error
@@ -1895,7 +1896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateKeyspace"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1919,7 +1920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTable"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1937,7 +1938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteKeyspace"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1955,7 +1956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTable"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1973,7 +1974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetKeyspace"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1991,7 +1992,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTable"
+                                                        "POST" :json "/"
+                                                        "GetTable"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-table))
@@ -2008,7 +2010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListKeyspaces"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2027,7 +2029,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTables"
+                                                        "POST" :json "/"
+                                                        "ListTables"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tables))
@@ -2045,7 +2048,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2071,7 +2074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreTable"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2089,7 +2092,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2107,7 +2110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2131,7 +2134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'keyspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTable"
                                                         "2022-02-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

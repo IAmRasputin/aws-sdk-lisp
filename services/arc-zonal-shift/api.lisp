@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass arc-zonal-shift-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "arc-zonal-shift"))
+                       (:default-initargs :service "arc-zonal-shift" :protocol
+                        :rest-json))
  (common-lisp:export 'arc-zonal-shift-request))
 (common-lisp:progn
  (common-lisp:define-condition arc-zonal-shift-error
@@ -769,6 +770,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/zonalshifts/~A"
                               (quri.encode:url-encode
@@ -791,6 +793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/managedresources/~A"
                               (quri.encode:url-encode
@@ -813,7 +816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "GET"
-        "/managedresources" "ListManagedResources" "2022-10-30"))
+        :rest-json "/managedresources" "ListManagedResources" "2022-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-managed-resources))
 (common-lisp:progn
@@ -829,7 +832,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "GET"
-        "/zonalshifts" "ListZonalShifts" "2022-10-30"))
+        :rest-json "/zonalshifts" "ListZonalShifts" "2022-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-zonal-shifts))
 (common-lisp:progn
@@ -847,7 +850,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "POST"
-        "/zonalshifts" "StartZonalShift" "2022-10-30"))
+        :rest-json "/zonalshifts" "StartZonalShift" "2022-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-zonal-shift))
 (common-lisp:progn
@@ -864,6 +867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'arc-zonal-shift-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/zonalshifts/~A"
                               (quri.encode:url-encode

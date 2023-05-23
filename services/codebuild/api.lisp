@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codebuild-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codebuild"))
+                       (:default-initargs :service "codebuild" :protocol
+                        :json))
  (common-lisp:export 'codebuild-request))
 (common-lisp:progn
  (common-lisp:define-condition codebuild-error
@@ -8155,7 +8156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteBuilds"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8173,7 +8174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetBuildBatches"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8191,7 +8192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetBuilds"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8209,7 +8210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetProjects"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8227,7 +8228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetReportGroups"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8245,7 +8246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetReports"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8275,7 +8276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProject"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8293,7 +8294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateReportGroup"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8314,7 +8315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWebhook"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8332,7 +8333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBuildBatch"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8350,7 +8351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProject"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8368,7 +8369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteReport"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8386,7 +8387,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteReportGroup"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8404,7 +8405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8422,7 +8423,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSourceCredentials"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8440,7 +8441,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWebhook"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8462,7 +8463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCodeCoverages"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8481,7 +8482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTestCases"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8501,7 +8502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReportGroupTrend"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8519,7 +8520,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourcePolicy"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8540,7 +8541,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportSourceCredentials"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8558,7 +8559,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InvalidateProjectCache"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8577,7 +8578,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBuildBatches"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8599,7 +8600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBuildBatchesForProject"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8617,7 +8618,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListBuilds"
+                                                        "POST" :json "/"
+                                                        "ListBuilds"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-builds))
@@ -8635,7 +8637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBuildsForProject"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8645,7 +8647,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'codebuild-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "ListCuratedEnvironmentImages" :params
                                 `(("Action" ,@"ListCuratedEnvironmentImages")
                                   ("Version" ,@"2016-10-06"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8663,7 +8666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProjects"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8683,7 +8686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListReportGroups"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8702,7 +8705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListReports"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8724,7 +8727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListReportsForReportGroup"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8744,7 +8747,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSharedProjects"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8764,7 +8767,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSharedReportGroups"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8774,7 +8777,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'codebuild-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "ListSourceCredentials" :params
                                 `(("Action" ,@"ListSourceCredentials")
                                   ("Version" ,@"2016-10-06"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8792,7 +8796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8810,7 +8814,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "RetryBuild"
+                                                        "POST" :json "/"
+                                                        "RetryBuild"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'retry-build))
@@ -8828,7 +8833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetryBuildBatch"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8874,7 +8879,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StartBuild"
+                                                        "POST" :json "/"
+                                                        "StartBuild"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-build))
@@ -8920,7 +8926,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartBuildBatch"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8938,7 +8944,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopBuild"
+                                                        "POST" :json "/"
+                                                        "StopBuild"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-build))
@@ -8955,7 +8962,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopBuildBatch"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8985,7 +8992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProject"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9006,7 +9013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProjectVisibility"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9024,7 +9031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateReportGroup"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9045,7 +9052,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codebuild-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWebhook"
                                                         "2016-10-06"))
       common-lisp:nil common-lisp:nil *error-map*)))

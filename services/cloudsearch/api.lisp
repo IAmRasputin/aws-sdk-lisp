@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudsearch-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudsearch"))
+                       (:default-initargs :service "cloudsearch" :protocol
+                        :query))
  (common-lisp:export 'cloudsearch-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudsearch-error
@@ -3675,7 +3676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BuildSuggesters"
                                                         "2013-01-01"))
       common-lisp:nil "BuildSuggestersResult" *error-map*)))
@@ -3693,7 +3694,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDomain"
                                                         "2013-01-01"))
       common-lisp:nil "CreateDomainResult" *error-map*)))
@@ -3711,7 +3712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DefineAnalysisScheme"
                                                         "2013-01-01"))
       common-lisp:nil "DefineAnalysisSchemeResult" *error-map*)))
@@ -3729,7 +3730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DefineExpression"
                                                         "2013-01-01"))
       common-lisp:nil "DefineExpressionResult" *error-map*)))
@@ -3747,7 +3748,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DefineIndexField"
                                                         "2013-01-01"))
       common-lisp:nil "DefineIndexFieldResult" *error-map*)))
@@ -3765,7 +3766,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DefineSuggester"
                                                         "2013-01-01"))
       common-lisp:nil "DefineSuggesterResult" *error-map*)))
@@ -3784,7 +3785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAnalysisScheme"
                                                         "2013-01-01"))
       common-lisp:nil "DeleteAnalysisSchemeResult" *error-map*)))
@@ -3802,7 +3803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDomain"
                                                         "2013-01-01"))
       common-lisp:nil "DeleteDomainResult" *error-map*)))
@@ -3820,7 +3821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteExpression"
                                                         "2013-01-01"))
       common-lisp:nil "DeleteExpressionResult" *error-map*)))
@@ -3838,7 +3839,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteIndexField"
                                                         "2013-01-01"))
       common-lisp:nil "DeleteIndexFieldResult" *error-map*)))
@@ -3856,7 +3857,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSuggester"
                                                         "2013-01-01"))
       common-lisp:nil "DeleteSuggesterResult" *error-map*)))
@@ -3877,7 +3878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAnalysisSchemes"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeAnalysisSchemesResult" *error-map*)))
@@ -3896,7 +3897,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAvailabilityOptions"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeAvailabilityOptionsResult" *error-map*)))
@@ -3915,7 +3916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDomainEndpointOptions"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeDomainEndpointOptionsResult" *error-map*)))
@@ -3933,7 +3934,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDomains"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeDomainsResult" *error-map*)))
@@ -3952,7 +3953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeExpressions"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeExpressionsResult" *error-map*)))
@@ -3971,7 +3972,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeIndexFields"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeIndexFieldsResult" *error-map*)))
@@ -3990,7 +3991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeScalingParameters"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeScalingParametersResult" *error-map*)))
@@ -4009,7 +4010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeServiceAccessPolicies"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeServiceAccessPoliciesResult" *error-map*)))
@@ -4028,7 +4029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeSuggesters"
                                                         "2013-01-01"))
       common-lisp:nil "DescribeSuggestersResult" *error-map*)))
@@ -4046,7 +4047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "IndexDocuments"
                                                         "2013-01-01"))
       common-lisp:nil "IndexDocumentsResult" *error-map*)))
@@ -4056,6 +4057,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'cloudsearch-request :method "POST" :path "/"
+                                :protocol :query :operation "ListDomainNames"
                                 :params
                                 `(("Action" ,@"ListDomainNames")
                                   ("Version" ,@"2013-01-01"))))
@@ -4075,7 +4077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateAvailabilityOptions"
                                                         "2013-01-01"))
       common-lisp:nil "UpdateAvailabilityOptionsResult" *error-map*)))
@@ -4095,7 +4097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateDomainEndpointOptions"
                                                         "2013-01-01"))
       common-lisp:nil "UpdateDomainEndpointOptionsResult" *error-map*)))
@@ -4114,7 +4116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateScalingParameters"
                                                         "2013-01-01"))
       common-lisp:nil "UpdateScalingParametersResult" *error-map*)))
@@ -4133,7 +4135,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudsearch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateServiceAccessPolicies"
                                                         "2013-01-01"))
       common-lisp:nil "UpdateServiceAccessPoliciesResult" *error-map*)))

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/cloud9/api)
 (common-lisp:progn
  (common-lisp:defclass cloud9-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "cloud9"))
+                       (:default-initargs :service "cloud9" :protocol :json))
  (common-lisp:export 'cloud9-request))
 (common-lisp:progn
  (common-lisp:define-condition cloud9-error
@@ -1393,7 +1393,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironmentEC2"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1413,7 +1413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEnvironmentMembership"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1431,7 +1431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironment"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1450,7 +1450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEnvironmentMembership"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1472,7 +1472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEnvironmentMemberships"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1491,7 +1491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEnvironmentStatus"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1509,7 +1509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEnvironments"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1527,7 +1527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEnvironments"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1545,7 +1545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1563,7 +1563,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1581,7 +1581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1602,7 +1602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironment"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1622,7 +1622,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloud9-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEnvironmentMembership"
                                                         "2017-09-23"))
       common-lisp:nil common-lisp:nil *error-map*)))

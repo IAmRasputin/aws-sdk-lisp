@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotthingsgraph-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotthingsgraph"))
+                       (:default-initargs :service "iotthingsgraph" :protocol
+                        :json))
  (common-lisp:export 'iotthingsgraph-request))
 (common-lisp:progn
  (common-lisp:define-condition iotthingsgraph-error
@@ -3924,7 +3925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateEntityToThing"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3943,7 +3944,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFlowTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3965,7 +3966,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSystemInstance"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3984,7 +3985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSystemTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4002,7 +4003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFlowTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4012,7 +4013,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotthingsgraph-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "DeleteNamespace" :params
                                 `(("Action" ,@"DeleteNamespace")
                                   ("Version" ,@"2018-09-06"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4030,7 +4032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSystemInstance"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4048,7 +4050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSystemTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4066,7 +4068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeploySystemInstance"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4084,7 +4086,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeprecateFlowTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4103,7 +4105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeprecateSystemTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4121,7 +4123,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNamespace"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4140,7 +4142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DissociateEntityFromThing"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4158,7 +4160,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEntities"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4176,7 +4178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetFlowTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4195,7 +4197,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetFlowTemplateRevisions"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4205,7 +4207,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotthingsgraph-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetNamespaceDeletionStatus" :params
                                 `(("Action" ,@"GetNamespaceDeletionStatus")
                                   ("Version" ,@"2018-09-06"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4223,7 +4226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSystemInstance"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4241,7 +4244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSystemTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4260,7 +4263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSystemTemplateRevisions"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4278,7 +4281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUploadStatus"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4298,7 +4301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFlowExecutionMessages"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4317,7 +4320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4338,7 +4341,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchEntities"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4359,7 +4362,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchFlowExecutions"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4377,7 +4380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchFlowTemplates"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4395,7 +4398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchSystemInstances"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4413,7 +4416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchSystemTemplates"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4433,7 +4436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchThings"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4451,7 +4454,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4469,7 +4472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UndeploySystemInstance"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4487,7 +4490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4507,7 +4510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFlowTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4527,7 +4530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSystemTemplate"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4549,7 +4552,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotthingsgraph-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UploadEntityDefinitions"
                                                         "2018-09-06"))
       common-lisp:nil common-lisp:nil *error-map*)))

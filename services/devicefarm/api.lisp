@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass devicefarm-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "devicefarm"))
+                       (:default-initargs :service "devicefarm" :protocol
+                        :json))
  (common-lisp:export 'devicefarm-request))
 (common-lisp:progn
  (common-lisp:define-condition devicefarm-error
@@ -9705,7 +9706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDevicePool"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9726,7 +9727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInstanceProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9752,7 +9753,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNetworkProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9772,7 +9773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9797,7 +9798,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRemoteAccessSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9815,7 +9816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTestGridProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9833,7 +9834,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTestGridUrl"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9852,7 +9853,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUpload"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9873,7 +9874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVPCEConfiguration"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9891,7 +9892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDevicePool"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9909,7 +9910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInstanceProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9927,7 +9928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNetworkProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9945,7 +9946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9964,7 +9965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRemoteAccessSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9982,7 +9983,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteRun"
+                                                        "POST" :json "/"
+                                                        "DeleteRun"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-run))
@@ -9999,7 +10001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTestGridProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10017,7 +10019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUpload"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10035,7 +10037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVPCEConfiguration"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10045,6 +10047,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'devicefarm-request :method "POST" :path "/"
+                                :protocol :json :operation "GetAccountSettings"
                                 :params
                                 `(("Action" ,@"GetAccountSettings")
                                   ("Version" ,@"2015-06-23"))))
@@ -10063,7 +10066,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDevice"
+                                                        "POST" :json "/"
+                                                        "GetDevice"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-device))
@@ -10080,7 +10084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDeviceInstance"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10098,7 +10102,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDevicePool"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10120,7 +10124,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDevicePoolCompatibility"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10138,7 +10142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10156,8 +10160,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetJob"
-                                                        "2015-06-23"))
+                                                        "POST" :json "/"
+                                                        "GetJob" "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-job))
 (common-lisp:progn
@@ -10173,7 +10177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetNetworkProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10191,7 +10195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOfferingStatus"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10209,7 +10213,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetProject"
+                                                        "POST" :json "/"
+                                                        "GetProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-project))
@@ -10227,7 +10232,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRemoteAccessSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10245,8 +10250,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRun"
-                                                        "2015-06-23"))
+                                                        "POST" :json "/"
+                                                        "GetRun" "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-run))
 (common-lisp:progn
@@ -10262,7 +10267,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetSuite"
+                                                        "POST" :json "/"
+                                                        "GetSuite"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-suite))
@@ -10279,7 +10285,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTest"
+                                                        "POST" :json "/"
+                                                        "GetTest"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-test))
@@ -10296,7 +10303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTestGridProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10315,7 +10322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTestGridSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10333,7 +10340,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetUpload"
+                                                        "POST" :json "/"
+                                                        "GetUpload"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-upload))
@@ -10350,7 +10358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVPCEConfiguration"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10370,7 +10378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InstallToRemoteAccessSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10388,7 +10396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListArtifacts"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10406,7 +10414,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDeviceInstances"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10424,7 +10432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDevicePools"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10442,7 +10450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDevices"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10460,7 +10468,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListInstanceProfiles"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10478,7 +10486,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListJobs"
+                                                        "POST" :json "/"
+                                                        "ListJobs"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-jobs))
@@ -10495,7 +10504,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNetworkProfiles"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10513,7 +10522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOfferingPromotions"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10532,7 +10541,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOfferingTransactions"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10550,7 +10559,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOfferings"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10568,7 +10577,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProjects"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10587,7 +10596,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRemoteAccessSessions"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10605,7 +10614,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListRuns"
+                                                        "POST" :json "/"
+                                                        "ListRuns"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-runs))
@@ -10622,7 +10632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSamples"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10640,7 +10650,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListSuites"
+                                                        "POST" :json "/"
+                                                        "ListSuites"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-suites))
@@ -10657,7 +10668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10675,7 +10686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTestGridProjects"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10695,7 +10706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTestGridSessionActions"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10715,7 +10726,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTestGridSessionArtifacts"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10738,7 +10749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTestGridSessions"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10756,7 +10767,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTests"
+                                                        "POST" :json "/"
+                                                        "ListTests"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tests))
@@ -10773,7 +10785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUniqueProblems"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10791,7 +10803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUploads"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10809,7 +10821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVPCEConfigurations"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10829,7 +10841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PurchaseOffering"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10847,7 +10859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RenewOffering"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10870,7 +10882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ScheduleRun"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10888,7 +10900,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopJob"
+                                                        "POST" :json "/"
+                                                        "StopJob"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-job))
@@ -10906,7 +10919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopRemoteAccessSession"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10924,7 +10937,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopRun"
+                                                        "POST" :json "/"
+                                                        "StopRun"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-run))
@@ -10941,7 +10955,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10959,7 +10973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10977,7 +10991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDeviceInstance"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10998,7 +11012,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDevicePool"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11019,7 +11033,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateInstanceProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11044,7 +11058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNetworkProfile"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11064,7 +11078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11083,7 +11097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTestGridProject"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11102,7 +11116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUpload"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11124,7 +11138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devicefarm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVPCEConfiguration"
                                                         "2015-06-23"))
       common-lisp:nil common-lisp:nil *error-map*)))

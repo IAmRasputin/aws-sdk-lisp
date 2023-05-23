@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass customer-profiles-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "customer-profiles"))
+                       (:default-initargs :service "customer-profiles"
+                        :protocol :rest-json))
  (common-lisp:export 'customer-profiles-request))
 (common-lisp:progn
  (common-lisp:define-condition customer-profiles-error
@@ -7142,6 +7143,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles/keys"
                               (quri.encode:url-encode
@@ -7168,6 +7170,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A"
                               (quri.encode:url-encode
@@ -7194,6 +7197,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/workflows/integrations"
@@ -7230,6 +7234,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles"
                               (quri.encode:url-encode
@@ -7252,6 +7257,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A"
                               (quri.encode:url-encode
@@ -7274,6 +7280,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/integrations/delete"
                               (quri.encode:url-encode
@@ -7296,6 +7303,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles/delete"
                               (quri.encode:url-encode
@@ -7319,6 +7327,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/profiles/keys/delete"
@@ -7345,6 +7354,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/profiles/objects/delete"
@@ -7369,6 +7379,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/object-types/~A"
                               (quri.encode:url-encode
@@ -7395,6 +7406,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/workflows/~A"
                               (quri.encode:url-encode
@@ -7425,6 +7437,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/identity-resolution-jobs/auto-merging-preview"
@@ -7448,6 +7461,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A"
                               (quri.encode:url-encode
@@ -7471,6 +7485,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/identity-resolution-jobs/~A"
@@ -7497,6 +7512,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/integrations"
                               (quri.encode:url-encode
@@ -7520,6 +7536,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/matches"
                               (quri.encode:url-encode
@@ -7542,6 +7559,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/object-types/~A"
                               (quri.encode:url-encode
@@ -7569,6 +7587,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/templates/~A"
                               (quri.encode:url-encode
@@ -7591,6 +7610,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/workflows/~A"
                               (quri.encode:url-encode
@@ -7619,6 +7639,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/workflows/~A/steps"
                               (quri.encode:url-encode
@@ -7648,7 +7669,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
-        "/integrations" "ListAccountIntegrations" "2020-08-15"))
+        :rest-json "/integrations" "ListAccountIntegrations" "2020-08-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-account-integrations))
 (common-lisp:progn
@@ -7664,7 +7685,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
-        "/domains" "ListDomains" "2020-08-15"))
+        :rest-json "/domains" "ListDomains" "2020-08-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-domains))
 (common-lisp:progn
@@ -7682,6 +7703,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/identity-resolution-jobs"
@@ -7707,6 +7729,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/integrations"
                               (quri.encode:url-encode
@@ -7730,7 +7753,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
-        "/templates" "ListProfileObjectTypeTemplates" "2020-08-15"))
+        :rest-json "/templates" "ListProfileObjectTypeTemplates" "2020-08-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-profile-object-type-templates))
 (common-lisp:progn
@@ -7748,6 +7771,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/object-types"
                               (quri.encode:url-encode
@@ -7773,6 +7797,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles/objects"
                               (quri.encode:url-encode
@@ -7795,6 +7820,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -7820,6 +7846,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/workflows"
                               (quri.encode:url-encode
@@ -7845,6 +7872,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/domains/~A/profiles/objects/merge"
@@ -7871,6 +7899,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/integrations"
                               (quri.encode:url-encode
@@ -7894,6 +7923,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles/objects"
                               (quri.encode:url-encode
@@ -7922,6 +7952,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/object-types/~A"
                               (quri.encode:url-encode
@@ -7951,6 +7982,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles/search"
                               (quri.encode:url-encode
@@ -7973,6 +8005,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -7995,6 +8028,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -8021,6 +8055,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A"
                               (quri.encode:url-encode
@@ -8056,6 +8091,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'customer-profiles-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/domains/~A/profiles"
                               (quri.encode:url-encode

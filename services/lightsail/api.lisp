@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass lightsail-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "lightsail"))
+                       (:default-initargs :service "lightsail" :protocol
+                        :json))
  (common-lisp:export 'lightsail-request))
 (common-lisp:progn
  (common-lisp:define-condition lightsail-error
@@ -21272,7 +21273,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocateStaticIp"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21292,7 +21293,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachCertificateToDistribution"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21312,7 +21313,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AttachDisk"
+                                                        "POST" :json "/"
+                                                        "AttachDisk"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'attach-disk))
@@ -21331,7 +21333,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachInstancesToLoadBalancer"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21351,7 +21353,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachLoadBalancerTlsCertificate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21369,7 +21371,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachStaticIp"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21388,7 +21390,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CloseInstancePublicPorts"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21411,7 +21413,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopySnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21432,7 +21434,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBucket"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21450,7 +21452,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBucketAccessKey"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21471,7 +21473,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCertificate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21490,7 +21492,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCloudFormationStack"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21508,7 +21510,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContactMethod"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21529,7 +21531,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContainerService"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21549,7 +21551,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContainerServiceDeployment"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21559,7 +21561,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "CreateContainerServiceRegistryLogin" :params
                                 `(("Action"
                                    ,@"CreateContainerServiceRegistryLogin")
                                   ("Version" ,@"2016-11-28"))))
@@ -21581,7 +21584,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateDisk"
+                                                        "POST" :json "/"
+                                                        "CreateDisk"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-disk))
@@ -21604,7 +21608,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDiskFromSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21624,7 +21628,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDiskSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21646,7 +21650,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDistribution"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21664,7 +21668,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDomain"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21682,7 +21686,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDomainEntry"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21701,7 +21705,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGUISessionAccessDetails"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21721,7 +21725,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInstanceSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21744,7 +21748,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInstances"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21771,7 +21775,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInstancesFromSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21789,7 +21793,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateKeyPair"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21813,7 +21817,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLoadBalancer"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21836,7 +21840,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLoadBalancerTlsCertificate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21865,7 +21869,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21893,7 +21897,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRelationalDatabaseFromSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21915,7 +21919,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRelationalDatabaseSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21933,7 +21937,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAlarm"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21951,7 +21955,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAutoSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21969,7 +21973,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBucket"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -21987,7 +21991,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBucketAccessKey"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22005,7 +22009,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCertificate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22023,7 +22027,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContactMethod"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22041,7 +22045,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContainerImage"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22059,7 +22063,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContainerService"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22077,7 +22081,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteDisk"
+                                                        "POST" :json "/"
+                                                        "DeleteDisk"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-disk))
@@ -22094,7 +22099,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDiskSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22112,7 +22117,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDistribution"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22130,7 +22135,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDomain"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22148,7 +22153,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDomainEntry"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22167,7 +22172,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInstance"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22185,7 +22190,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInstanceSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22204,7 +22209,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteKeyPair"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22222,7 +22227,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteKnownHostKeys"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22240,7 +22245,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLoadBalancer"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22261,7 +22266,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLoadBalancerTlsCertificate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22284,7 +22289,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22304,7 +22309,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRelationalDatabaseSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22323,7 +22328,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachCertificateFromDistribution"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22341,7 +22346,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DetachDisk"
+                                                        "POST" :json "/"
+                                                        "DetachDisk"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detach-disk))
@@ -22360,7 +22366,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachInstancesFromLoadBalancer"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22378,7 +22384,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachStaticIp"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22396,7 +22402,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableAddOn"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22406,7 +22412,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DownloadDefaultKeyPair" :params
                                 `(("Action" ,@"DownloadDefaultKeyPair")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -22424,7 +22431,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableAddOn"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22442,7 +22449,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExportSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22460,7 +22467,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetActiveNames"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22480,7 +22487,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetAlarms"
+                                                        "POST" :json "/"
+                                                        "GetAlarms"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-alarms))
@@ -22497,7 +22505,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAutoSnapshots"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22516,7 +22524,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBlueprints"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22534,7 +22542,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBucketAccessKeys"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22552,7 +22560,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBucketBundles"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22573,7 +22581,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBucketMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22593,7 +22601,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetBuckets"
+                                                        "POST" :json "/"
+                                                        "GetBuckets"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-buckets))
@@ -22611,7 +22620,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetBundles"
+                                                        "POST" :json "/"
+                                                        "GetBundles"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-bundles))
@@ -22631,7 +22641,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCertificates"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22650,7 +22660,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCloudFormationStackRecords"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22668,7 +22678,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContactMethods"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22678,7 +22688,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetContainerAPIMetadata" :params
                                 `(("Action" ,@"GetContainerAPIMetadata")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -22696,7 +22707,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerImages"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22717,7 +22728,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerLog"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22736,7 +22747,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerServiceDeployments"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22758,7 +22769,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerServiceMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22768,7 +22779,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetContainerServicePowers" :params
                                 `(("Action" ,@"GetContainerServicePowers")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -22786,7 +22798,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerServices"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22805,7 +22817,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCostEstimate"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22823,7 +22835,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDisk"
+                                                        "POST" :json "/"
+                                                        "GetDisk"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-disk))
@@ -22840,7 +22853,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDiskSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22858,7 +22871,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDiskSnapshots"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22876,7 +22889,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDisks"
+                                                        "POST" :json "/"
+                                                        "GetDisks"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-disks))
@@ -22885,7 +22899,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetDistributionBundles" :params
                                 `(("Action" ,@"GetDistributionBundles")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -22904,7 +22919,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDistributionLatestCacheReset"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22926,7 +22941,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDistributionMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22944,7 +22959,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDistributions"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -22962,7 +22977,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDomain"
+                                                        "POST" :json "/"
+                                                        "GetDomain"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-domain))
@@ -22979,7 +22995,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetDomains"
+                                                        "POST" :json "/"
+                                                        "GetDomains"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-domains))
@@ -22997,7 +23014,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetExportSnapshotRecords"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23015,7 +23032,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstance"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23034,7 +23051,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceAccessDetails"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23055,7 +23072,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23073,7 +23090,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstancePortStates"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23091,7 +23108,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23109,7 +23126,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceSnapshots"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23127,7 +23144,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstanceState"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23145,7 +23162,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInstances"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23163,7 +23180,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetKeyPair"
+                                                        "POST" :json "/"
+                                                        "GetKeyPair"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-key-pair))
@@ -23181,7 +23199,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetKeyPairs"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23199,7 +23217,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoadBalancer"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23221,7 +23239,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoadBalancerMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23240,7 +23258,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoadBalancerTlsCertificates"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23259,7 +23277,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoadBalancerTlsPolicies"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23277,7 +23295,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoadBalancers"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23295,7 +23313,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOperation"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23313,7 +23331,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOperations"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23332,7 +23350,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOperationsForResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23353,7 +23371,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRegions"
+                                                        "POST" :json "/"
+                                                        "GetRegions"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-regions))
@@ -23370,7 +23389,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23389,7 +23408,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseBlueprints"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23408,7 +23427,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseBundles"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23430,7 +23449,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseEvents"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23452,7 +23471,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseLogEvents"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23471,7 +23490,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseLogStreams"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23492,7 +23511,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseMasterUserPassword"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23514,7 +23533,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseMetricData"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23534,7 +23553,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseParameters"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23554,7 +23573,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseSnapshot"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23573,7 +23592,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabaseSnapshots"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23591,7 +23610,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRelationalDatabases"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23609,7 +23628,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetStaticIp"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23627,7 +23646,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetStaticIps"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23646,7 +23665,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportKeyPair"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23656,6 +23675,7 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
+                                :protocol :json :operation "IsVpcPeered"
                                 :params
                                 `(("Action" ,@"IsVpcPeered")
                                   ("Version" ,@"2016-11-28"))))
@@ -23675,7 +23695,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "OpenInstancePublicPorts"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23685,7 +23705,7 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation "PeerVpc" :params
                                 `(("Action" ,@"PeerVpc")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -23711,7 +23731,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutAlarm"
+                                                        "POST" :json "/"
+                                                        "PutAlarm"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-alarm))
@@ -23729,7 +23750,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutInstancePublicPorts"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23747,7 +23768,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RebootInstance"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23766,7 +23787,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RebootRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23784,7 +23805,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterContainerImage"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23802,7 +23823,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReleaseStaticIp"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23820,7 +23841,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResetDistributionCache"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23839,7 +23860,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendContactMethodVerification"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23859,7 +23880,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetIpAddressType"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23879,7 +23900,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetResourceAccessForBucket"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23897,7 +23918,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartGUISession"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23915,7 +23936,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartInstance"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23934,7 +23955,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23952,7 +23973,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopGUISession"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23970,7 +23991,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopInstance"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -23991,7 +24012,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24010,7 +24031,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24028,7 +24049,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TestAlarm"
+                                                        "POST" :json "/"
+                                                        "TestAlarm"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'test-alarm))
@@ -24037,7 +24059,7 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'lightsail-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation "UnpeerVpc" :params
                                 `(("Action" ,@"UnpeerVpc")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -24056,7 +24078,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24077,7 +24099,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBucket"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24095,7 +24117,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBucketBundle"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24116,7 +24138,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContainerService"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24138,7 +24160,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDistribution"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24157,7 +24179,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDistributionBundle"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24175,7 +24197,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomainEntry"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24197,7 +24219,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateInstanceMetadataOptions"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24218,7 +24240,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLoadBalancerAttribute"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24247,7 +24269,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRelationalDatabase"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -24267,7 +24289,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lightsail-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRelationalDatabaseParameters"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))

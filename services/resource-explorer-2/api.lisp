@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass resource-explorer-2-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "resource-explorer-2"))
+                       (:default-initargs :service "resource-explorer-2"
+                        :protocol :rest-json))
  (common-lisp:export 'resource-explorer-2-request))
 (common-lisp:progn
  (common-lisp:define-condition resource-explorer-2-error
@@ -1832,7 +1833,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/AssociateDefaultView" "AssociateDefaultView" "2022-07-28"))
+        :rest-json "/AssociateDefaultView" "AssociateDefaultView"
+        "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-default-view))
 (common-lisp:progn
@@ -1848,7 +1850,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/BatchGetView" "BatchGetView" "2022-07-28"))
+        :rest-json "/BatchGetView" "BatchGetView" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-get-view))
 (common-lisp:progn
@@ -1864,7 +1866,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/CreateIndex" "CreateIndex" "2022-07-28"))
+        :rest-json "/CreateIndex" "CreateIndex" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-index))
 (common-lisp:progn
@@ -1883,7 +1885,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/CreateView" "CreateView" "2022-07-28"))
+        :rest-json "/CreateView" "CreateView" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-view))
 (common-lisp:progn
@@ -1899,7 +1901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/DeleteIndex" "DeleteIndex" "2022-07-28"))
+        :rest-json "/DeleteIndex" "DeleteIndex" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-index))
 (common-lisp:progn
@@ -1915,7 +1917,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/DeleteView" "DeleteView" "2022-07-28"))
+        :rest-json "/DeleteView" "DeleteView" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-view))
 (common-lisp:progn
@@ -1923,7 +1925,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'resource-explorer-2-request :method "POST"
-                                :path "/DisassociateDefaultView" :params
+                                :path "/DisassociateDefaultView" :protocol
+                                :rest-json :operation "DisassociateDefaultView"
+                                :params
                                 `(("Action" ,@"DisassociateDefaultView")
                                   ("Version" ,@"2022-07-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1933,7 +1937,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'resource-explorer-2-request :method "POST"
-                                :path "/GetDefaultView" :params
+                                :path "/GetDefaultView" :protocol :rest-json
+                                :operation "GetDefaultView" :params
                                 `(("Action" ,@"GetDefaultView")
                                   ("Version" ,@"2022-07-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1943,7 +1948,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'resource-explorer-2-request :method "POST"
-                                :path "/GetIndex" :params
+                                :path "/GetIndex" :protocol :rest-json
+                                :operation "GetIndex" :params
                                 `(("Action" ,@"GetIndex")
                                   ("Version" ,@"2022-07-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1961,7 +1967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/GetView" "GetView" "2022-07-28"))
+        :rest-json "/GetView" "GetView" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-view))
 (common-lisp:progn
@@ -1978,7 +1984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/ListIndexes" "ListIndexes" "2022-07-28"))
+        :rest-json "/ListIndexes" "ListIndexes" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-indexes))
 (common-lisp:progn
@@ -1995,7 +2001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/ListSupportedResourceTypes" "ListSupportedResourceTypes"
+        :rest-json "/ListSupportedResourceTypes" "ListSupportedResourceTypes"
         "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-supported-resource-types))
@@ -2012,6 +2018,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2034,7 +2041,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/ListViews" "ListViews" "2022-07-28"))
+        :rest-json "/ListViews" "ListViews" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-views))
 (common-lisp:progn
@@ -2052,7 +2059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/Search" "Search" "2022-07-28"))
+        :rest-json "/Search" "Search" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search))
 (common-lisp:progn
@@ -2068,6 +2075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2090,7 +2098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2113,7 +2121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/UpdateIndexType" "UpdateIndexType" "2022-07-28"))
+        :rest-json "/UpdateIndexType" "UpdateIndexType" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-index-type))
 (common-lisp:progn
@@ -2130,6 +2138,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-explorer-2-request aws-sdk/generator/operation::input "POST"
-        "/UpdateView" "UpdateView" "2022-07-28"))
+        :rest-json "/UpdateView" "UpdateView" "2022-07-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-view))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass securityhub-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "securityhub"))
+                       (:default-initargs :service "securityhub" :protocol
+                        :rest-json))
  (common-lisp:export 'securityhub-request))
 (common-lisp:progn
  (common-lisp:define-condition securityhub-error
@@ -43339,7 +43340,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/administrator"
+                                                        "POST" :rest-json
+                                                        "/administrator"
                                                         "AcceptAdministratorInvitation"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43357,7 +43359,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/master"
+                                                        "POST" :rest-json
+                                                        "/master"
                                                         "AcceptInvitation"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43375,7 +43378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/standards/deregister"
                                                         "BatchDisableStandards"
                                                         "2018-10-26"))
@@ -43395,7 +43398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/standards/register"
                                                         "BatchEnableStandards"
                                                         "2018-10-26"))
@@ -43415,7 +43418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/securityControls/batchGet"
                                                         "BatchGetSecurityControls"
                                                         "2018-10-26"))
@@ -43436,7 +43439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associations/batchGet"
                                                         "BatchGetStandardsControlAssociations"
                                                         "2018-10-26"))
@@ -43455,7 +43458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findings/import"
                                                         "BatchImportFindings"
                                                         "2018-10-26"))
@@ -43479,7 +43482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         "/findings/batchupdate"
                                                         "BatchUpdateFindings"
                                                         "2018-10-26"))
@@ -43500,7 +43503,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH" "/associations"
+                                                        "PATCH" :rest-json
+                                                        "/associations"
                                                         "BatchUpdateStandardsControlAssociations"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43518,7 +43522,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/actionTargets"
+                                                        "POST" :rest-json
+                                                        "/actionTargets"
                                                         "CreateActionTarget"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43537,7 +43542,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findingAggregator/create"
                                                         "CreateFindingAggregator"
                                                         "2018-10-26"))
@@ -43557,7 +43562,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/insights"
+                                                        "POST" :rest-json
+                                                        "/insights"
                                                         "CreateInsight"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43575,7 +43581,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/members"
+                                                        "POST" :rest-json
+                                                        "/members"
                                                         "CreateMembers"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43593,7 +43600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/decline"
                                                         "DeclineInvitations"
                                                         "2018-10-26"))
@@ -43612,7 +43619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -43640,7 +43647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -43667,7 +43674,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -43694,7 +43701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/delete"
                                                         "DeleteInvitations"
                                                         "2018-10-26"))
@@ -43713,7 +43720,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/members/delete"
                                                         "DeleteMembers"
                                                         "2018-10-26"))
@@ -43734,7 +43741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/actionTargets/get"
                                                         "DescribeActionTargets"
                                                         "2018-10-26"))
@@ -43753,7 +43760,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/accounts"
+                                                        "GET" :rest-json
+                                                        "/accounts"
                                                         "DescribeHub"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43763,7 +43771,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "GET" :path
-                                "/organization/configuration" :params
+                                "/organization/configuration" :protocol
+                                :rest-json :operation
+                                "DescribeOrganizationConfiguration" :params
                                 `(("Action"
                                    ,@"DescribeOrganizationConfiguration")
                                   ("Version" ,@"2018-10-26"))))
@@ -43783,7 +43793,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/products"
+                                                        "GET" :rest-json
+                                                        "/products"
                                                         "DescribeProducts"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43801,7 +43812,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/standards"
+                                                        "GET" :rest-json
+                                                        "/standards"
                                                         "DescribeStandards"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -43822,7 +43834,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -43850,7 +43862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -43878,7 +43890,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/admin/disable"
                                                         "DisableOrganizationAdminAccount"
                                                         "2018-10-26"))
@@ -43889,7 +43901,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "DELETE" :path
-                                "/accounts" :params
+                                "/accounts" :protocol :rest-json :operation
+                                "DisableSecurityHub" :params
                                 `(("Action" ,@"DisableSecurityHub")
                                   ("Version" ,@"2018-10-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -43899,7 +43912,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "POST" :path
-                                "/administrator/disassociate" :params
+                                "/administrator/disassociate" :protocol
+                                :rest-json :operation
+                                "DisassociateFromAdministratorAccount" :params
                                 `(("Action"
                                    ,@"DisassociateFromAdministratorAccount")
                                   ("Version" ,@"2018-10-26"))))
@@ -43910,7 +43925,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "POST" :path
-                                "/master/disassociate" :params
+                                "/master/disassociate" :protocol :rest-json
+                                :operation "DisassociateFromMasterAccount"
+                                :params
                                 `(("Action" ,@"DisassociateFromMasterAccount")
                                   ("Version" ,@"2018-10-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -43928,7 +43945,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/members/disassociate"
                                                         "DisassociateMembers"
                                                         "2018-10-26"))
@@ -43948,7 +43965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/productSubscriptions"
                                                         "EnableImportFindingsForProduct"
                                                         "2018-10-26"))
@@ -43968,7 +43985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/admin/enable"
                                                         "EnableOrganizationAdminAccount"
                                                         "2018-10-26"))
@@ -43990,7 +44007,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/accounts"
+                                                        "POST" :rest-json
+                                                        "/accounts"
                                                         "EnableSecurityHub"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44000,7 +44018,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "GET" :path
-                                "/administrator" :params
+                                "/administrator" :protocol :rest-json
+                                :operation "GetAdministratorAccount" :params
                                 `(("Action" ,@"GetAdministratorAccount")
                                   ("Version" ,@"2018-10-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -44020,7 +44039,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/standards/get"
+                                                        "POST" :rest-json
+                                                        "/standards/get"
                                                         "GetEnabledStandards"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44038,7 +44058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44067,7 +44087,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/findings"
+                                                        "POST" :rest-json
+                                                        "/findings"
                                                         "GetFindings"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44085,7 +44106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44113,7 +44134,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/insights/get"
+                                                        "POST" :rest-json
+                                                        "/insights/get"
                                                         "GetInsights"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44123,7 +44145,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "GET" :path
-                                "/invitations/count" :params
+                                "/invitations/count" :protocol :rest-json
+                                :operation "GetInvitationsCount" :params
                                 `(("Action" ,@"GetInvitationsCount")
                                   ("Version" ,@"2018-10-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -44133,7 +44156,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securityhub-request :method "GET" :path
-                                "/master" :params
+                                "/master" :protocol :rest-json :operation
+                                "GetMasterAccount" :params
                                 `(("Action" ,@"GetMasterAccount")
                                   ("Version" ,@"2018-10-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -44151,7 +44175,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/members/get"
+                                                        "POST" :rest-json
+                                                        "/members/get"
                                                         "GetMembers"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44169,7 +44194,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/members/invite"
                                                         "InviteMembers"
                                                         "2018-10-26"))
@@ -44189,7 +44214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/productSubscriptions"
                                                         "ListEnabledProductsForImport"
                                                         "2018-10-26"))
@@ -44208,7 +44233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/findingAggregator/list"
                                                         "ListFindingAggregators"
                                                         "2018-10-26"))
@@ -44227,7 +44252,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/invitations"
+                                                        "GET" :rest-json
+                                                        "/invitations"
                                                         "ListInvitations"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44246,7 +44272,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/members"
+                                                        "GET" :rest-json
+                                                        "/members"
                                                         "ListMembers"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44265,7 +44292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/organization/admin"
                                                         "ListOrganizationAdminAccounts"
                                                         "2018-10-26"))
@@ -44286,7 +44313,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/securityControls/definitions"
                                                         "ListSecurityControlDefinitions"
                                                         "2018-10-26"))
@@ -44308,7 +44335,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/associations"
+                                                        "GET" :rest-json
+                                                        "/associations"
                                                         "ListStandardsControlAssociations"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44326,7 +44354,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44354,7 +44382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44382,7 +44410,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44411,7 +44439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44441,7 +44469,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         "/findingAggregator/update"
                                                         "UpdateFindingAggregator"
                                                         "2018-10-26"))
@@ -44460,7 +44488,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH" "/findings"
+                                                        "PATCH" :rest-json
+                                                        "/findings"
                                                         "UpdateFindings"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44480,7 +44509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -44509,7 +44538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/configuration"
                                                         "UpdateOrganizationConfiguration"
                                                         "2018-10-26"))
@@ -44531,7 +44560,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH" "/accounts"
+                                                        "PATCH" :rest-json
+                                                        "/accounts"
                                                         "UpdateSecurityHubConfiguration"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -44552,7 +44582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securityhub-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

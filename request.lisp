@@ -25,7 +25,7 @@
             :initform (error ":service is required")
             :reader request-service)
    (method :initarg :method
-           :initform ":method is required"
+           :initform (error ":method is required")
            :reader request-method)
    (path :initarg :path
          :initform "/"
@@ -33,6 +33,12 @@
    (params :initarg :params
            :initform nil
            :reader request-params)
+   (operation :initarg :operation
+              :initform nil
+              :reader request-operation)
+   (protocol :initarg :protocol
+             :initform (error ":protocol is required")
+             :reader request-protocol)
    (headers :initarg :headers
             :initform nil
             :reader request-headers)

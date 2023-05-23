@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass apprunner-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "apprunner"))
+                       (:default-initargs :service "apprunner" :protocol
+                        :json))
  (common-lisp:export 'apprunner-request))
 (common-lisp:progn
  (common-lisp:define-condition apprunner-error
@@ -5027,7 +5028,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateCustomDomain"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5049,7 +5050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAutoScalingConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5068,7 +5069,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5090,7 +5091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateObservabilityConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5115,7 +5116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5135,7 +5136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVpcConnector"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5157,7 +5158,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVpcIngressConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5176,7 +5177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAutoScalingConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5194,7 +5195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5214,7 +5215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteObservabilityConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5232,7 +5233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5250,7 +5251,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVpcConnector"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5269,7 +5270,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVpcIngressConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5288,7 +5289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAutoScalingConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5307,7 +5308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCustomDomains"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5327,7 +5328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeObservabilityConfiguration"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5345,7 +5346,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5363,7 +5364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVpcConnector"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5382,7 +5383,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVpcIngressConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5401,7 +5402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateCustomDomain"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5423,7 +5424,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAutoScalingConfigurations"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5442,7 +5443,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListConnections"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5464,7 +5465,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListObservabilityConfigurations"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5483,7 +5484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOperations"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5501,7 +5502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServices"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5519,7 +5520,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5537,7 +5538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVpcConnectors"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5556,7 +5557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVpcIngressConnections"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5574,7 +5575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PauseService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5592,7 +5593,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResumeService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5610,7 +5611,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDeployment"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5628,7 +5629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5646,7 +5647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5671,7 +5672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateService"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5693,7 +5694,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apprunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVpcIngressConnection"
                                                         "2020-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))

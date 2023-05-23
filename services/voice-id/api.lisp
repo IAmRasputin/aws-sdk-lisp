@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/voice-id/api)
 (common-lisp:progn
  (common-lisp:defclass voice-id-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "voice-id"))
+                       common-lisp:nil
+                       (:default-initargs :service "voice-id" :protocol :json))
  (common-lisp:export 'voice-id-request))
 (common-lisp:progn
  (common-lisp:define-condition voice-id-error
@@ -4233,7 +4234,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateFraudster"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4254,7 +4255,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDomain"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4273,7 +4274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWatchlist"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4291,7 +4292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDomain"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4309,7 +4310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFraudster"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4327,7 +4328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSpeaker"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4345,7 +4346,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWatchlist"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4363,7 +4364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDomain"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4381,7 +4382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFraudster"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4400,7 +4401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFraudsterRegistrationJob"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4418,7 +4419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSpeaker"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4437,7 +4438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSpeakerEnrollmentJob"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4455,7 +4456,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWatchlist"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4474,7 +4475,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateFraudster"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4492,7 +4493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EvaluateSession"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4510,7 +4511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDomains"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4531,7 +4532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFraudsterRegistrationJobs"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4551,7 +4552,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFraudsters"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4572,7 +4573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSpeakerEnrollmentJobs"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4591,7 +4592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSpeakers"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4609,7 +4610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4628,7 +4629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWatchlists"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4646,7 +4647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "OptOutSpeaker"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4669,7 +4670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFraudsterRegistrationJob"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4692,7 +4693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartSpeakerEnrollmentJob"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4710,7 +4711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4728,7 +4729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4749,7 +4750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomain"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4768,7 +4769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'voice-id-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWatchlist"
                                                         "2021-09-27"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass elastictranscoder-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "elastictranscoder"))
+                       (:default-initargs :service "elastictranscoder"
+                        :protocol :rest-json))
  (common-lisp:export 'elastictranscoder-request))
 (common-lisp:progn
  (common-lisp:define-condition elastictranscoder-error
@@ -3650,6 +3651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/jobs/~A"
                               (quri.encode:url-encode
@@ -3674,7 +3676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
-        "/2012-09-25/jobs" "CreateJob" "2012-09-25"))
+        :rest-json "/2012-09-25/jobs" "CreateJob" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-job))
 (common-lisp:progn
@@ -3694,7 +3696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
-        "/2012-09-25/pipelines" "CreatePipeline" "2012-09-25"))
+        :rest-json "/2012-09-25/pipelines" "CreatePipeline" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-pipeline))
 (common-lisp:progn
@@ -3712,7 +3714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
-        "/2012-09-25/presets" "CreatePreset" "2012-09-25"))
+        :rest-json "/2012-09-25/presets" "CreatePreset" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-preset))
 (common-lisp:progn
@@ -3728,6 +3730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/pipelines/~A"
                               (quri.encode:url-encode
@@ -3749,6 +3752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/presets/~A"
                               (quri.encode:url-encode
@@ -3771,6 +3775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/jobsByPipeline/~A"
                               (quri.encode:url-encode
@@ -3793,6 +3798,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/jobsByStatus/~A"
                               (quri.encode:url-encode
@@ -3814,7 +3820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
-        "/2012-09-25/pipelines" "ListPipelines" "2012-09-25"))
+        :rest-json "/2012-09-25/pipelines" "ListPipelines" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pipelines))
 (common-lisp:progn
@@ -3830,7 +3836,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
-        "/2012-09-25/presets" "ListPresets" "2012-09-25"))
+        :rest-json "/2012-09-25/presets" "ListPresets" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-presets))
 (common-lisp:progn
@@ -3846,6 +3852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/jobs/~A"
                               (quri.encode:url-encode
@@ -3867,6 +3874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/pipelines/~A"
                               (quri.encode:url-encode
@@ -3888,6 +3896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/presets/~A"
                               (quri.encode:url-encode
@@ -3910,7 +3919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
-        "/2012-09-25/roleTests" "TestRole" "2012-09-25"))
+        :rest-json "/2012-09-25/roleTests" "TestRole" "2012-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'test-role))
 (common-lisp:progn
@@ -3929,6 +3938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/pipelines/~A"
                               (quri.encode:url-encode
@@ -3951,6 +3961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/2012-09-25/pipelines/~A/notifications"
@@ -3973,6 +3984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastictranscoder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/2012-09-25/pipelines/~A/status"
                               (quri.encode:url-encode

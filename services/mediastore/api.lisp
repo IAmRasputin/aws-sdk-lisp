@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass mediastore-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "mediastore"))
+                       (:default-initargs :service "mediastore" :protocol
+                        :json))
  (common-lisp:export 'mediastore-request))
 (common-lisp:progn
  (common-lisp:define-condition mediastore-error
@@ -1620,7 +1621,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContainer"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1638,7 +1639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContainer"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1656,7 +1657,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContainerPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1674,7 +1675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCorsPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1692,7 +1693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLifecyclePolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1710,7 +1711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMetricPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1728,7 +1729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContainer"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1746,7 +1747,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContainerPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1764,7 +1765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCorsPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1782,7 +1783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLifecyclePolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1800,7 +1801,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMetricPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1818,7 +1819,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContainers"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1836,7 +1837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1854,7 +1855,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutContainerPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1872,7 +1873,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutCorsPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1891,7 +1892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutLifecyclePolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1909,7 +1910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutMetricPolicy"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1927,7 +1928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartAccessLogging"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1945,7 +1946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopAccessLogging"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1963,7 +1964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1981,7 +1982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediastore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

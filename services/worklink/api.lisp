@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/worklink/api)
 (common-lisp:progn
  (common-lisp:defclass worklink-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "worklink"))
+                       common-lisp:nil
+                       (:default-initargs :service "worklink" :protocol
+                        :rest-json))
  (common-lisp:export 'worklink-request))
 (common-lisp:progn
  (common-lisp:define-condition worklink-error
@@ -2956,7 +2958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associateDomain"
                                                         "AssociateDomain"
                                                         "2018-09-25"))
@@ -2978,7 +2980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associateWebsiteAuthorizationProvider"
                                                         "AssociateWebsiteAuthorizationProvider"
                                                         "2018-09-25"))
@@ -2999,7 +3001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/associateWebsiteCertificateAuthority"
                                                         "AssociateWebsiteCertificateAuthority"
                                                         "2018-09-25"))
@@ -3021,7 +3023,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createFleet"
+                                                        "POST" :rest-json
+                                                        "/createFleet"
                                                         "CreateFleet"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3039,7 +3042,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteFleet"
+                                                        "POST" :rest-json
+                                                        "/deleteFleet"
                                                         "DeleteFleet"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3058,7 +3062,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeAuditStreamConfiguration"
                                                         "DescribeAuditStreamConfiguration"
                                                         "2018-09-25"))
@@ -3078,7 +3082,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeCompanyNetworkConfiguration"
                                                         "DescribeCompanyNetworkConfiguration"
                                                         "2018-09-25"))
@@ -3097,7 +3101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeDevice"
                                                         "DescribeDevice"
                                                         "2018-09-25"))
@@ -3117,7 +3121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeDevicePolicyConfiguration"
                                                         "DescribeDevicePolicyConfiguration"
                                                         "2018-09-25"))
@@ -3136,7 +3140,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeDomain"
                                                         "DescribeDomain"
                                                         "2018-09-25"))
@@ -3155,7 +3159,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeFleetMetadata"
                                                         "DescribeFleetMetadata"
                                                         "2018-09-25"))
@@ -3175,7 +3179,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeIdentityProviderConfiguration"
                                                         "DescribeIdentityProviderConfiguration"
                                                         "2018-09-25"))
@@ -3195,7 +3199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeWebsiteCertificateAuthority"
                                                         "DescribeWebsiteCertificateAuthority"
                                                         "2018-09-25"))
@@ -3214,7 +3218,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disassociateDomain"
                                                         "DisassociateDomain"
                                                         "2018-09-25"))
@@ -3235,7 +3239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disassociateWebsiteAuthorizationProvider"
                                                         "DisassociateWebsiteAuthorizationProvider"
                                                         "2018-09-25"))
@@ -3255,7 +3259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disassociateWebsiteCertificateAuthority"
                                                         "DisassociateWebsiteCertificateAuthority"
                                                         "2018-09-25"))
@@ -3275,7 +3279,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listDevices"
+                                                        "POST" :rest-json
+                                                        "/listDevices"
                                                         "ListDevices"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3294,7 +3299,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listDomains"
+                                                        "POST" :rest-json
+                                                        "/listDomains"
                                                         "ListDomains"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3312,7 +3318,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listFleets"
+                                                        "POST" :rest-json
+                                                        "/listFleets"
                                                         "ListFleets"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3330,7 +3337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3360,7 +3367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listWebsiteAuthorizationProviders"
                                                         "ListWebsiteAuthorizationProviders"
                                                         "2018-09-25"))
@@ -3381,7 +3388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listWebsiteCertificateAuthorities"
                                                         "ListWebsiteCertificateAuthorities"
                                                         "2018-09-25"))
@@ -3400,7 +3407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/restoreDomainAccess"
                                                         "RestoreDomainAccess"
                                                         "2018-09-25"))
@@ -3419,7 +3426,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/revokeDomainAccess"
                                                         "RevokeDomainAccess"
                                                         "2018-09-25"))
@@ -3438,7 +3445,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/signOutUser"
+                                                        "POST" :rest-json
+                                                        "/signOutUser"
                                                         "SignOutUser"
                                                         "2018-09-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3456,7 +3464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3484,7 +3492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3513,7 +3521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateAuditStreamConfiguration"
                                                         "UpdateAuditStreamConfiguration"
                                                         "2018-09-25"))
@@ -3535,7 +3543,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateCompanyNetworkConfiguration"
                                                         "UpdateCompanyNetworkConfiguration"
                                                         "2018-09-25"))
@@ -3556,7 +3564,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateDevicePolicyConfiguration"
                                                         "UpdateDevicePolicyConfiguration"
                                                         "2018-09-25"))
@@ -3576,7 +3584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateDomainMetadata"
                                                         "UpdateDomainMetadata"
                                                         "2018-09-25"))
@@ -3598,7 +3606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateFleetMetadata"
                                                         "UpdateFleetMetadata"
                                                         "2018-09-25"))
@@ -3621,7 +3629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'worklink-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateIdentityProviderConfiguration"
                                                         "UpdateIdentityProviderConfiguration"
                                                         "2018-09-25"))

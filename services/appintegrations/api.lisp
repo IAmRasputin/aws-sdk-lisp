@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass appintegrations-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "appintegrations"))
+                       (:default-initargs :service "appintegrations" :protocol
+                        :rest-json))
  (common-lisp:export 'appintegrations-request))
 (common-lisp:progn
  (common-lisp:define-condition appintegrations-error
@@ -1747,7 +1748,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "POST"
-        "/dataIntegrations" "CreateDataIntegration" "2020-07-29"))
+        :rest-json "/dataIntegrations" "CreateDataIntegration" "2020-07-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-data-integration))
 (common-lisp:progn
@@ -1766,7 +1767,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "POST"
-        "/eventIntegrations" "CreateEventIntegration" "2020-07-29"))
+        :rest-json "/eventIntegrations" "CreateEventIntegration" "2020-07-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-event-integration))
 (common-lisp:progn
@@ -1782,6 +1783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/dataIntegrations/~A"
                               (quri.encode:url-encode
@@ -1804,6 +1806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/eventIntegrations/~A"
                               (quri.encode:url-encode
@@ -1825,6 +1828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/dataIntegrations/~A"
                               (quri.encode:url-encode
@@ -1847,6 +1851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/eventIntegrations/~A"
                               (quri.encode:url-encode
@@ -1871,6 +1876,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/dataIntegrations/~A/associations"
@@ -1894,7 +1900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
-        "/dataIntegrations" "ListDataIntegrations" "2020-07-29"))
+        :rest-json "/dataIntegrations" "ListDataIntegrations" "2020-07-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-data-integrations))
 (common-lisp:progn
@@ -1913,6 +1919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/eventIntegrations/~A/associations"
@@ -1935,7 +1942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
-        "/eventIntegrations" "ListEventIntegrations" "2020-07-29"))
+        :rest-json "/eventIntegrations" "ListEventIntegrations" "2020-07-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-event-integrations))
 (common-lisp:progn
@@ -1951,6 +1958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1973,6 +1981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1995,6 +2004,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2017,6 +2027,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/dataIntegrations/~A"
                               (quri.encode:url-encode
@@ -2039,6 +2050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'appintegrations-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/eventIntegrations/~A"
                               (quri.encode:url-encode

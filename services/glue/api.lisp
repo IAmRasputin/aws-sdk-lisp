@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/glue/api)
 (common-lisp:progn
  (common-lisp:defclass glue-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "glue"))
+                       (:default-initargs :service "glue" :protocol :json))
  (common-lisp:export 'glue-request))
 (common-lisp:progn
  (common-lisp:define-condition glue-error
@@ -37186,7 +37186,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchCreatePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37205,7 +37205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteConnection"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37226,7 +37226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeletePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37247,7 +37247,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37268,7 +37268,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteTableVersion"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37288,7 +37288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetBlueprints"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37306,7 +37306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetCrawlers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37325,7 +37325,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetCustomEntityTypes"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37344,7 +37344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetDataQualityResult"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37362,7 +37362,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetDevEndpoints"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37380,7 +37380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetJobs"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37401,7 +37401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetPartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37419,7 +37419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetTriggers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37437,7 +37437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetWorkflows"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37455,7 +37455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchStopJobRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37475,7 +37475,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchUpdatePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37494,7 +37494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelDataQualityRuleRecommendationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37513,7 +37513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelDataQualityRulesetEvaluationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37531,7 +37531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelMLTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37549,7 +37549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelStatement"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37568,7 +37568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CheckSchemaVersionValidity"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37587,7 +37587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBlueprint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37608,7 +37608,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateClassifier"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37627,7 +37627,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnection"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37653,7 +37653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37673,7 +37673,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCustomEntityType"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37695,7 +37695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataQualityRuleset"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37713,7 +37713,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatabase"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37739,7 +37739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDevEndpoint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37769,7 +37769,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateJob"
+                                                        "POST" :json "/"
+                                                        "CreateJob"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-job))
@@ -37792,7 +37793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMLTransform"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37813,7 +37814,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37834,7 +37835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePartitionIndex"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37852,7 +37853,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRegistry"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37873,7 +37874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSchema"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37891,7 +37892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateScript"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37910,7 +37911,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSecurityConfiguration"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37934,7 +37935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSession"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37955,7 +37956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37977,7 +37978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -37997,7 +37998,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserDefinedFunction"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38018,7 +38019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkflow"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38036,7 +38037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBlueprint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38054,7 +38055,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteClassifier"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38076,7 +38077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteColumnStatisticsForPartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38097,7 +38098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteColumnStatisticsForTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38115,7 +38116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnection"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38133,7 +38134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38152,7 +38153,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCustomEntityType"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38171,7 +38172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataQualityRuleset"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38189,7 +38190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDatabase"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38207,7 +38208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDevEndpoint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38225,7 +38226,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteJob"
+                                                        "POST" :json "/"
+                                                        "DeleteJob"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-job))
@@ -38242,7 +38244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMLTransform"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38263,7 +38265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38283,7 +38285,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePartitionIndex"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38301,7 +38303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRegistry"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38320,7 +38322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38338,7 +38340,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSchema"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38356,7 +38358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSchemaVersions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38375,7 +38377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSecurityConfiguration"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38393,7 +38395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSession"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38413,7 +38415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38433,7 +38435,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTableVersion"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38451,7 +38453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38471,7 +38473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserDefinedFunction"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38489,7 +38491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkflow"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38509,7 +38511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBlueprint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38527,7 +38529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBlueprintRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38546,7 +38548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBlueprintRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38565,7 +38567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCatalogImportStatus"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38583,7 +38585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetClassifier"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38601,7 +38603,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetClassifiers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38623,7 +38625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetColumnStatisticsForPartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38644,7 +38646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetColumnStatisticsForTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38662,7 +38664,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetConnection"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38683,7 +38685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetConnections"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38701,7 +38703,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetCrawler"
+                                                        "POST" :json "/"
+                                                        "GetCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-crawler))
@@ -38719,7 +38722,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCrawlerMetrics"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38737,7 +38740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCrawlers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38755,7 +38758,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCustomEntityType"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38774,7 +38777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataCatalogEncryptionSettings"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38792,7 +38795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataQualityResult"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38811,7 +38814,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataQualityRuleRecommendationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38829,7 +38832,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataQualityRuleset"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38848,7 +38851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataQualityRulesetEvaluationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38866,7 +38869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDatabase"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38887,7 +38890,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDatabases"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38905,7 +38908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataflowGraph"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38923,7 +38926,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDevEndpoint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38941,7 +38944,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDevEndpoints"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38959,8 +38962,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetJob"
-                                                        "2017-03-31"))
+                                                        "POST" :json "/"
+                                                        "GetJob" "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-job))
 (common-lisp:progn
@@ -38976,7 +38979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetJobBookmark"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -38995,7 +38998,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetJobRun"
+                                                        "POST" :json "/"
+                                                        "GetJobRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-job-run))
@@ -39013,7 +39017,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetJobRuns"
+                                                        "POST" :json "/"
+                                                        "GetJobRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-job-runs))
@@ -39030,7 +39035,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetJobs"
+                                                        "POST" :json "/"
+                                                        "GetJobs"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-jobs))
@@ -39047,7 +39053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMLTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39067,7 +39073,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMLTaskRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39085,7 +39091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMLTransform"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39104,7 +39110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMLTransforms"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39122,7 +39128,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetMapping"
+                                                        "POST" :json "/"
+                                                        "GetMapping"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-mapping))
@@ -39142,7 +39149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39162,7 +39169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPartitionIndexes"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39185,7 +39192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPartitions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39206,7 +39213,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetPlan"
+                                                        "POST" :json "/"
+                                                        "GetPlan"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-plan))
@@ -39223,7 +39231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRegistry"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39241,7 +39249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourcePolicies"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39259,7 +39267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourcePolicy"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39277,7 +39285,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetSchema"
+                                                        "POST" :json "/"
+                                                        "GetSchema"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-schema))
@@ -39294,7 +39303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSchemaByDefinition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39314,7 +39323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSchemaVersion"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39335,7 +39344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSchemaVersionsDiff"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39354,7 +39363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSecurityConfiguration"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39373,7 +39382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSecurityConfigurations"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39391,7 +39400,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetSession"
+                                                        "POST" :json "/"
+                                                        "GetSession"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-session))
@@ -39408,7 +39418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetStatement"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39429,7 +39439,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTable"
+                                                        "POST" :json "/"
+                                                        "GetTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-table))
@@ -39448,7 +39459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTableVersion"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39469,7 +39480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTableVersions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39490,7 +39501,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTables"
+                                                        "POST" :json "/"
+                                                        "GetTables"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-tables))
@@ -39507,7 +39519,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTags"
+                                                        "POST" :json "/"
+                                                        "GetTags"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-tags))
@@ -39524,7 +39537,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTrigger"
+                                                        "POST" :json "/"
+                                                        "GetTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-trigger))
@@ -39543,7 +39557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTriggers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39565,7 +39579,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUnfilteredPartitionMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39588,7 +39602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUnfilteredPartitionsMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39610,7 +39624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUnfilteredTableMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39630,7 +39644,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUserDefinedFunction"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39652,7 +39666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUserDefinedFunctions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39670,7 +39684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkflow"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39688,7 +39702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkflowRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39707,7 +39721,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkflowRunProperties"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39727,7 +39741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkflowRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39745,7 +39759,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportCatalogToGlue"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39763,7 +39777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBlueprints"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39781,7 +39795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCrawlers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39801,7 +39815,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListCrawls"
+                                                        "POST" :json "/"
+                                                        "ListCrawls"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-crawls))
@@ -39818,7 +39833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCustomEntityTypes"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39837,7 +39852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataQualityResults"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39856,7 +39871,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataQualityRuleRecommendationRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39875,7 +39890,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataQualityRulesetEvaluationRuns"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39895,7 +39910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataQualityRulesets"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39913,7 +39928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDevEndpoints"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39931,7 +39946,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListJobs"
+                                                        "POST" :json "/"
+                                                        "ListJobs"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-jobs))
@@ -39949,7 +39965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMLTransforms"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39967,7 +39983,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRegistries"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -39986,7 +40002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSchemaVersions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40005,7 +40021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSchemas"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40025,7 +40041,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSessions"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40044,7 +40060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStatements"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40064,7 +40080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTriggers"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40082,7 +40098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkflows"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40103,7 +40119,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDataCatalogEncryptionSettings"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40125,7 +40141,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40147,7 +40163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutSchemaVersionMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40166,7 +40182,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutWorkflowRunProperties"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40188,7 +40204,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "QuerySchemaVersionMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40206,7 +40222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterSchemaVersion"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40228,7 +40244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveSchemaVersionMetadata"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40246,7 +40262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResetJobBookmark"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40264,7 +40280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResumeWorkflowRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40282,7 +40298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RunStatement"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40303,7 +40319,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchTables"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40322,7 +40338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartBlueprintRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40340,7 +40356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40358,7 +40374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartCrawlerSchedule"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40380,7 +40396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDataQualityRuleRecommendationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40402,7 +40418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDataQualityRulesetEvaluationRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40421,7 +40437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartExportLabelsTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40442,7 +40458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartImportLabelsTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40466,7 +40482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartJobRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40485,7 +40501,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMLEvaluationTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40504,7 +40520,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMLLabelingSetGenerationTaskRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40522,7 +40538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40540,7 +40556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartWorkflowRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40558,7 +40574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40576,7 +40592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopCrawlerSchedule"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40594,7 +40610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopSession"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40612,7 +40628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40630,7 +40646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopWorkflowRun"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40648,7 +40664,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40666,7 +40682,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40685,7 +40701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBlueprint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40706,7 +40722,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateClassifier"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40728,7 +40744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateColumnStatisticsForPartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40750,7 +40766,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateColumnStatisticsForTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40769,7 +40785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConnection"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40795,7 +40811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCrawler"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40813,7 +40829,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCrawlerSchedule"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40832,7 +40848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDataQualityRuleset"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40850,7 +40866,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDatabase"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40873,7 +40889,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDevEndpoint"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40891,7 +40907,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateJob"
+                                                        "POST" :json "/"
+                                                        "UpdateJob"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-job))
@@ -40913,7 +40930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateJobFromSourceControl"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40936,7 +40953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMLTransform"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40957,7 +40974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePartition"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40975,7 +40992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRegistry"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -40996,7 +41013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSchema"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -41019,7 +41036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSourceControlFromJob"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -41040,7 +41057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTable"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -41058,7 +41075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrigger"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -41080,7 +41097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserDefinedFunction"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -41101,7 +41118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'glue-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkflow"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))

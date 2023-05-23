@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass chime-sdk-voice-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "chime-sdk-voice"))
+                       (:default-initargs :service "chime-sdk-voice" :protocol
+                        :rest-json))
  (common-lisp:export 'chime-sdk-voice-request))
 (common-lisp:progn
  (common-lisp:define-condition chime-sdk-voice-error
@@ -8631,6 +8632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A?operation=associate-phone-numbers"
@@ -8658,6 +8660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connector-groups/~A?operation=associate-phone-numbers"
@@ -8682,8 +8685,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/phone-numbers?operation=batch-delete" "BatchDeletePhoneNumber"
-        "2022-08-03"))
+        :rest-json "/phone-numbers?operation=batch-delete"
+        "BatchDeletePhoneNumber" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-delete-phone-number))
 (common-lisp:progn
@@ -8701,8 +8704,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/phone-numbers?operation=batch-update" "BatchUpdatePhoneNumber"
-        "2022-08-03"))
+        :rest-json "/phone-numbers?operation=batch-update"
+        "BatchUpdatePhoneNumber" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-update-phone-number))
 (common-lisp:progn
@@ -8719,7 +8722,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/phone-number-orders" "CreatePhoneNumberOrder" "2022-08-03"))
+        :rest-json "/phone-number-orders" "CreatePhoneNumberOrder"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-phone-number-order))
 (common-lisp:progn
@@ -8741,6 +8745,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/proxy-sessions"
@@ -8765,7 +8770,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/sip-media-applications" "CreateSipMediaApplication" "2022-08-03"))
+        :rest-json "/sip-media-applications" "CreateSipMediaApplication"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-sip-media-application))
 (common-lisp:progn
@@ -8785,6 +8791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/calls"
@@ -8811,7 +8818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/sip-rules" "CreateSipRule" "2022-08-03"))
+        :rest-json "/sip-rules" "CreateSipRule" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-sip-rule))
 (common-lisp:progn
@@ -8828,7 +8835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/voice-connectors" "CreateVoiceConnector" "2022-08-03"))
+        :rest-json "/voice-connectors" "CreateVoiceConnector" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-voice-connector))
 (common-lisp:progn
@@ -8845,7 +8852,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/voice-connector-groups" "CreateVoiceConnectorGroup" "2022-08-03"))
+        :rest-json "/voice-connector-groups" "CreateVoiceConnectorGroup"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-voice-connector-group))
 (common-lisp:progn
@@ -8861,7 +8869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/voice-profiles" "CreateVoiceProfile" "2022-08-03"))
+        :rest-json "/voice-profiles" "CreateVoiceProfile" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-voice-profile))
 (common-lisp:progn
@@ -8882,7 +8890,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/voice-profile-domains" "CreateVoiceProfileDomain" "2022-08-03"))
+        :rest-json "/voice-profile-domains" "CreateVoiceProfileDomain"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-voice-profile-domain))
 (common-lisp:progn
@@ -8898,6 +8907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/phone-numbers/~A"
                               (quri.encode:url-encode
@@ -8921,6 +8931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/proxy-sessions/~A"
@@ -8949,6 +8960,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-media-applications/~A"
                               (quri.encode:url-encode
@@ -8971,6 +8983,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-rules/~A"
                               (quri.encode:url-encode
@@ -8993,6 +9006,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connectors/~A"
                               (quri.encode:url-encode
@@ -9016,6 +9030,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/emergency-calling-configuration"
@@ -9040,6 +9055,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connector-groups/~A"
                               (quri.encode:url-encode
@@ -9063,6 +9079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/origination"
@@ -9087,6 +9104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/programmable-numbers/proxy"
@@ -9111,6 +9129,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/streaming-configuration"
@@ -9135,6 +9154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination"
@@ -9159,6 +9179,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination/credentials?operation=delete"
@@ -9182,6 +9203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profiles/~A"
                               (quri.encode:url-encode
@@ -9205,6 +9227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
                               (quri.encode:url-encode
@@ -9229,6 +9252,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A?operation=disassociate-phone-numbers"
@@ -9255,6 +9279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connector-groups/~A?operation=disassociate-phone-numbers"
@@ -9270,7 +9295,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'chime-sdk-voice-request :method "GET" :path
-                                "/settings" :params
+                                "/settings" :protocol :rest-json :operation
+                                "GetGlobalSettings" :params
                                 `(("Action" ,@"GetGlobalSettings")
                                   ("Version" ,@"2022-08-03"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9288,6 +9314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/phone-numbers/~A"
                               (quri.encode:url-encode
@@ -9310,6 +9337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/phone-number-orders/~A"
                               (quri.encode:url-encode
@@ -9324,7 +9352,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'chime-sdk-voice-request :method "GET" :path
-                                "/settings/phone-number" :params
+                                "/settings/phone-number" :protocol :rest-json
+                                :operation "GetPhoneNumberSettings" :params
                                 `(("Action" ,@"GetPhoneNumberSettings")
                                   ("Version" ,@"2022-08-03"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9343,6 +9372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/proxy-sessions/~A"
@@ -9371,6 +9401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-media-applications/~A"
                               (quri.encode:url-encode
@@ -9394,6 +9425,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/alexa-skill-configuration"
@@ -9418,6 +9450,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/logging-configuration"
@@ -9441,6 +9474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-rules/~A"
                               (quri.encode:url-encode
@@ -9465,6 +9499,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/speaker-search-tasks/~A"
@@ -9492,6 +9527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connectors/~A"
                               (quri.encode:url-encode
@@ -9515,6 +9551,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/emergency-calling-configuration"
@@ -9539,6 +9576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connector-groups/~A"
                               (quri.encode:url-encode
@@ -9562,6 +9600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/logging-configuration"
@@ -9586,6 +9625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/origination"
@@ -9610,6 +9650,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/programmable-numbers/proxy"
@@ -9634,6 +9675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/streaming-configuration"
@@ -9658,6 +9700,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination"
@@ -9682,6 +9725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination/health"
@@ -9705,6 +9749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profiles/~A"
                               (quri.encode:url-encode
@@ -9727,6 +9772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
                               (quri.encode:url-encode
@@ -9753,6 +9799,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/voice-tone-analysis-tasks/~A"
@@ -9772,7 +9819,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'chime-sdk-voice-request :method "GET" :path
-                                "/voice-connector-regions" :params
+                                "/voice-connector-regions" :protocol :rest-json
+                                :operation "ListAvailableVoiceConnectorRegions"
+                                :params
                                 `(("Action"
                                    ,@"ListAvailableVoiceConnectorRegions")
                                   ("Version" ,@"2022-08-03"))))
@@ -9791,7 +9840,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/phone-number-orders" "ListPhoneNumberOrders" "2022-08-03"))
+        :rest-json "/phone-number-orders" "ListPhoneNumberOrders"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-phone-number-orders))
 (common-lisp:progn
@@ -9810,7 +9860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/phone-numbers" "ListPhoneNumbers" "2022-08-03"))
+        :rest-json "/phone-numbers" "ListPhoneNumbers" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-phone-numbers))
 (common-lisp:progn
@@ -9828,6 +9878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/proxy-sessions"
@@ -9852,7 +9903,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/sip-media-applications" "ListSipMediaApplications" "2022-08-03"))
+        :rest-json "/sip-media-applications" "ListSipMediaApplications"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-sip-media-applications))
 (common-lisp:progn
@@ -9870,7 +9922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/sip-rules" "ListSipRules" "2022-08-03"))
+        :rest-json "/sip-rules" "ListSipRules" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-sip-rules))
 (common-lisp:progn
@@ -9887,8 +9939,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/phone-number-countries" "ListSupportedPhoneNumberCountries"
-        "2022-08-03"))
+        :rest-json "/phone-number-countries"
+        "ListSupportedPhoneNumberCountries" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-supported-phone-number-countries))
 (common-lisp:progn
@@ -9904,7 +9956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/tags" "ListTagsForResource" "2022-08-03"))
+        :rest-json "/tags" "ListTagsForResource" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -9921,7 +9973,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/voice-connector-groups" "ListVoiceConnectorGroups" "2022-08-03"))
+        :rest-json "/voice-connector-groups" "ListVoiceConnectorGroups"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-voice-connector-groups))
 (common-lisp:progn
@@ -9938,6 +9991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination/credentials"
@@ -9961,7 +10015,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/voice-connectors" "ListVoiceConnectors" "2022-08-03"))
+        :rest-json "/voice-connectors" "ListVoiceConnectors" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-voice-connectors))
 (common-lisp:progn
@@ -9978,7 +10032,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/voice-profile-domains" "ListVoiceProfileDomains" "2022-08-03"))
+        :rest-json "/voice-profile-domains" "ListVoiceProfileDomains"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-voice-profile-domains))
 (common-lisp:progn
@@ -9996,7 +10051,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/voice-profiles" "ListVoiceProfiles" "2022-08-03"))
+        :rest-json "/voice-profiles" "ListVoiceProfiles" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-voice-profiles))
 (common-lisp:progn
@@ -10016,6 +10071,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/alexa-skill-configuration"
@@ -10043,6 +10099,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/logging-configuration"
@@ -10069,6 +10126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/emergency-calling-configuration"
@@ -10094,6 +10152,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/logging-configuration"
@@ -10118,6 +10177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/origination"
@@ -10146,6 +10206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/programmable-numbers/proxy"
@@ -10172,6 +10233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/streaming-configuration"
@@ -10196,6 +10258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination"
@@ -10220,6 +10283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/termination/credentials?operation=put"
@@ -10243,6 +10307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/phone-numbers/~A?operation=restore"
@@ -10270,7 +10335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "GET"
-        "/search?type=phone-numbers" "SearchAvailablePhoneNumbers"
+        :rest-json "/search?type=phone-numbers" "SearchAvailablePhoneNumbers"
         "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-available-phone-numbers))
@@ -10291,6 +10356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/speaker-search-tasks"
@@ -10318,6 +10384,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/voice-tone-analysis-tasks"
@@ -10343,6 +10410,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/speaker-search-tasks/~A?operation=stop"
@@ -10373,6 +10441,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/voice-tone-analysis-tasks/~A?operation=stop"
@@ -10400,7 +10469,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=tag-resource" "TagResource" "2022-08-03"))
+        :rest-json "/tags?operation=tag-resource" "TagResource" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -10416,7 +10485,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=untag-resource" "UntagResource" "2022-08-03"))
+        :rest-json "/tags?operation=untag-resource" "UntagResource"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -10432,7 +10502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
-        "/settings" "UpdateGlobalSettings" "2022-08-03"))
+        :rest-json "/settings" "UpdateGlobalSettings" "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-global-settings))
 (common-lisp:progn
@@ -10450,6 +10520,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/phone-numbers/~A"
                               (quri.encode:url-encode
@@ -10473,7 +10544,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
-        "/settings/phone-number" "UpdatePhoneNumberSettings" "2022-08-03"))
+        :rest-json "/settings/phone-number" "UpdatePhoneNumberSettings"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-phone-number-settings))
 (common-lisp:progn
@@ -10492,6 +10564,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/voice-connectors/~A/proxy-sessions/~A"
@@ -10521,6 +10594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-media-applications/~A"
                               (quri.encode:url-encode
@@ -10546,6 +10620,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/sip-media-applications/~A/calls/~A"
@@ -10575,6 +10650,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sip-rules/~A"
                               (quri.encode:url-encode
@@ -10599,6 +10675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connectors/~A"
                               (quri.encode:url-encode
@@ -10625,6 +10702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-connector-groups/~A"
                               (quri.encode:url-encode
@@ -10648,6 +10726,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profiles/~A"
                               (quri.encode:url-encode
@@ -10672,6 +10751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/voice-profile-domains/~A"
                               (quri.encode:url-encode
@@ -10697,6 +10777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-voice-request aws-sdk/generator/operation::input "POST"
-        "/emergency-calling/address" "ValidateE911Address" "2022-08-03"))
+        :rest-json "/emergency-calling/address" "ValidateE911Address"
+        "2022-08-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'validate-e911address))

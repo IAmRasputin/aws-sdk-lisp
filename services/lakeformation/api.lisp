@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass lakeformation-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "lakeformation"))
+                       (:default-initargs :service "lakeformation" :protocol
+                        :rest-json))
  (common-lisp:export 'lakeformation-request))
 (common-lisp:progn
  (common-lisp:define-condition lakeformation-error
@@ -6328,7 +6329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/AddLFTagsToResource"
                                                         "AddLFTagsToResource"
                                                         "2017-03-31"))
@@ -6351,7 +6352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/AssumeDecoratedRoleWithSAML"
                                                         "AssumeDecoratedRoleWithSAML"
                                                         "2017-03-31"))
@@ -6370,7 +6371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BatchGrantPermissions"
                                                         "BatchGrantPermissions"
                                                         "2017-03-31"))
@@ -6389,7 +6390,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BatchRevokePermissions"
                                                         "BatchRevokePermissions"
                                                         "2017-03-31"))
@@ -6408,7 +6409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CancelTransaction"
                                                         "CancelTransaction"
                                                         "2017-03-31"))
@@ -6427,7 +6428,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CommitTransaction"
                                                         "CommitTransaction"
                                                         "2017-03-31"))
@@ -6446,7 +6447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateDataCellsFilter"
                                                         "CreateDataCellsFilter"
                                                         "2017-03-31"))
@@ -6465,7 +6466,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateLFTag"
+                                                        "POST" :rest-json
+                                                        "/CreateLFTag"
                                                         "CreateLFTag"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6485,7 +6487,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteDataCellsFilter"
                                                         "DeleteDataCellsFilter"
                                                         "2017-03-31"))
@@ -6504,7 +6506,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteLFTag"
+                                                        "POST" :rest-json
+                                                        "/DeleteLFTag"
                                                         "DeleteLFTag"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6525,7 +6528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteObjectsOnCancel"
                                                         "DeleteObjectsOnCancel"
                                                         "2017-03-31"))
@@ -6544,7 +6547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeregisterResource"
                                                         "DeregisterResource"
                                                         "2017-03-31"))
@@ -6563,7 +6566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeResource"
                                                         "DescribeResource"
                                                         "2017-03-31"))
@@ -6582,7 +6585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeTransaction"
                                                         "DescribeTransaction"
                                                         "2017-03-31"))
@@ -6601,7 +6604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ExtendTransaction"
                                                         "ExtendTransaction"
                                                         "2017-03-31"))
@@ -6622,7 +6625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetDataCellsFilter"
                                                         "GetDataCellsFilter"
                                                         "2017-03-31"))
@@ -6641,7 +6644,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetDataLakeSettings"
                                                         "GetDataLakeSettings"
                                                         "2017-03-31"))
@@ -6663,7 +6666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetEffectivePermissionsForPath"
                                                         "GetEffectivePermissionsForPath"
                                                         "2017-03-31"))
@@ -6682,8 +6685,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetLFTag"
-                                                        "GetLFTag"
+                                                        "POST" :rest-json
+                                                        "/GetLFTag" "GetLFTag"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-lftag))
@@ -6700,7 +6703,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetQueryState"
+                                                        "POST" :rest-json
+                                                        "/GetQueryState"
                                                         "GetQueryState"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6718,7 +6722,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetQueryStatistics"
                                                         "GetQueryStatistics"
                                                         "2017-03-31"))
@@ -6738,7 +6742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetResourceLFTags"
                                                         "GetResourceLFTags"
                                                         "2017-03-31"))
@@ -6761,7 +6765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetTableObjects"
                                                         "GetTableObjects"
                                                         "2017-03-31"))
@@ -6784,7 +6788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetTemporaryGluePartitionCredentials"
                                                         "GetTemporaryGluePartitionCredentials"
                                                         "2017-03-31"))
@@ -6807,7 +6811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetTemporaryGlueTableCredentials"
                                                         "GetTemporaryGlueTableCredentials"
                                                         "2017-03-31"))
@@ -6827,7 +6831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetWorkUnitResults"
                                                         "GetWorkUnitResults"
                                                         "2017-03-31")
@@ -6847,7 +6851,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetWorkUnits"
+                                                        "POST" :rest-json
+                                                        "/GetWorkUnits"
                                                         "GetWorkUnits"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6868,7 +6873,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GrantPermissions"
                                                         "GrantPermissions"
                                                         "2017-03-31"))
@@ -6887,7 +6892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListDataCellsFilter"
                                                         "ListDataCellsFilter"
                                                         "2017-03-31"))
@@ -6909,7 +6914,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListLFTags"
+                                                        "POST" :rest-json
+                                                        "/ListLFTags"
                                                         "ListLFTags"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6930,7 +6936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListPermissions"
                                                         "ListPermissions"
                                                         "2017-03-31"))
@@ -6951,7 +6957,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListResources"
+                                                        "POST" :rest-json
+                                                        "/ListResources"
                                                         "ListResources"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6973,7 +6980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTableStorageOptimizers"
                                                         "ListTableStorageOptimizers"
                                                         "2017-03-31"))
@@ -6994,7 +7001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTransactions"
                                                         "ListTransactions"
                                                         "2017-03-31"))
@@ -7013,7 +7020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/PutDataLakeSettings"
                                                         "PutDataLakeSettings"
                                                         "2017-03-31"))
@@ -7035,7 +7042,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RegisterResource"
                                                         "RegisterResource"
                                                         "2017-03-31"))
@@ -7055,7 +7062,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RemoveLFTagsFromResource"
                                                         "RemoveLFTagsFromResource"
                                                         "2017-03-31"))
@@ -7077,7 +7084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RevokePermissions"
                                                         "RevokePermissions"
                                                         "2017-03-31"))
@@ -7099,7 +7106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/SearchDatabasesByLFTags"
                                                         "SearchDatabasesByLFTags"
                                                         "2017-03-31"))
@@ -7120,7 +7127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/SearchTablesByLFTags"
                                                         "SearchTablesByLFTags"
                                                         "2017-03-31"))
@@ -7140,7 +7147,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StartQueryPlanning"
                                                         "StartQueryPlanning"
                                                         "2017-03-31"))
@@ -7159,7 +7166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StartTransaction"
                                                         "StartTransaction"
                                                         "2017-03-31"))
@@ -7178,7 +7185,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateDataCellsFilter"
                                                         "UpdateDataCellsFilter"
                                                         "2017-03-31"))
@@ -7200,7 +7207,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateLFTag"
+                                                        "POST" :rest-json
+                                                        "/UpdateLFTag"
                                                         "UpdateLFTag"
                                                         "2017-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7219,7 +7227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateResource"
                                                         "UpdateResource"
                                                         "2017-03-31"))
@@ -7241,7 +7249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateTableObjects"
                                                         "UpdateTableObjects"
                                                         "2017-03-31"))
@@ -7264,7 +7272,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lakeformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateTableStorageOptimizer"
                                                         "UpdateTableStorageOptimizer"
                                                         "2017-03-31"))

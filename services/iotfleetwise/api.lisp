@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotfleetwise-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotfleetwise"))
+                       (:default-initargs :service "iotfleetwise" :protocol
+                        :json))
  (common-lisp:export 'iotfleetwise-request))
 (common-lisp:progn
  (common-lisp:define-condition iotfleetwise-error
@@ -7400,7 +7401,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateVehicleFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7418,7 +7419,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchCreateVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7436,7 +7437,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchUpdateVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7462,7 +7463,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCampaign"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7483,7 +7484,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDecoderManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7503,7 +7504,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7523,7 +7524,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7541,7 +7542,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSignalCatalog"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7562,7 +7563,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7580,7 +7581,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCampaign"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7598,7 +7599,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDecoderManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7616,7 +7617,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7634,7 +7635,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7652,7 +7653,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSignalCatalog"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7670,7 +7671,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7689,7 +7690,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateVehicleFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7707,7 +7708,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCampaign"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7725,7 +7726,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDecoderManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7743,7 +7744,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetFleet"
+                                                        "POST" :json "/"
+                                                        "GetFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-fleet))
@@ -7752,6 +7754,7 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotfleetwise-request :method "POST" :path "/"
+                                :protocol :json :operation "GetLoggingOptions"
                                 :params
                                 `(("Action" ,@"GetLoggingOptions")
                                   ("Version" ,@"2021-06-17"))))
@@ -7770,7 +7773,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetModelManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7780,7 +7783,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotfleetwise-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetRegisterAccountStatus" :params
                                 `(("Action" ,@"GetRegisterAccountStatus")
                                   ("Version" ,@"2021-06-17"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7798,7 +7802,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSignalCatalog"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7816,7 +7820,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetVehicle"
+                                                        "POST" :json "/"
+                                                        "GetVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-vehicle))
@@ -7834,7 +7839,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVehicleStatus"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7852,7 +7857,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportDecoderManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7870,7 +7875,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportSignalCatalog"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7888,7 +7893,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCampaigns"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7907,7 +7912,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDecoderManifestNetworkInterfaces"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7926,7 +7931,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDecoderManifestSignals"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7946,7 +7951,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDecoderManifests"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7964,7 +7969,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListFleets"
+                                                        "POST" :json "/"
+                                                        "ListFleets"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-fleets))
@@ -7982,7 +7988,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFleetsForVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8001,7 +8007,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelManifestNodes"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8021,7 +8027,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelManifests"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8040,7 +8046,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSignalCatalogNodes"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8058,7 +8064,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSignalCatalogs"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8076,7 +8082,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8096,7 +8102,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVehicles"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8115,7 +8121,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVehiclesInFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8133,7 +8139,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutLoggingOptions"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8152,7 +8158,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterAccount"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8170,7 +8176,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8188,7 +8194,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8208,7 +8214,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCampaign"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8233,7 +8239,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDecoderManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8251,7 +8257,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFleet"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8272,7 +8278,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModelManifest"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8293,7 +8299,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSignalCatalog"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8314,7 +8320,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotfleetwise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVehicle"
                                                         "2021-06-17"))
       common-lisp:nil common-lisp:nil *error-map*)))

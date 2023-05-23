@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass route53-recovery-cluster-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "route53-recovery-cluster"))
+                       (:default-initargs :service "route53-recovery-cluster"
+                        :protocol :json))
  (common-lisp:export 'route53-recovery-cluster-request))
 (common-lisp:progn
  (common-lisp:define-condition route53-recovery-cluster-error
@@ -635,7 +636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-cluster-request aws-sdk/generator/operation::input
-        "POST" "/" "GetRoutingControlState" "2019-12-02"))
+        "POST" :json "/" "GetRoutingControlState" "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-routing-control-state))
 (common-lisp:progn
@@ -652,7 +653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-cluster-request aws-sdk/generator/operation::input
-        "POST" "/" "ListRoutingControls" "2019-12-02"))
+        "POST" :json "/" "ListRoutingControls" "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-routing-controls))
 (common-lisp:progn
@@ -672,7 +673,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-cluster-request aws-sdk/generator/operation::input
-        "POST" "/" "UpdateRoutingControlState" "2019-12-02"))
+        "POST" :json "/" "UpdateRoutingControlState" "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-routing-control-state))
 (common-lisp:progn
@@ -692,6 +693,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-cluster-request aws-sdk/generator/operation::input
-        "POST" "/" "UpdateRoutingControlStates" "2019-12-02"))
+        "POST" :json "/" "UpdateRoutingControlStates" "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-routing-control-states))

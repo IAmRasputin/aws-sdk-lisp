@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/fsx/api)
 (common-lisp:progn
  (common-lisp:defclass fsx-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "fsx"))
+                       (:default-initargs :service "fsx" :protocol :json))
  (common-lisp:export 'fsx-request))
 (common-lisp:progn
  (common-lisp:define-condition fsx-error
@@ -11061,7 +11061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateFileSystemAliases"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11080,7 +11080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelDataRepositoryTask"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11101,7 +11101,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CopyBackup"
+                                                        "POST" :json "/"
+                                                        "CopyBackup"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'copy-backup))
@@ -11120,7 +11121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBackup"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11144,7 +11145,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataRepositoryAssociation"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11166,7 +11167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataRepositoryTask"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11192,7 +11193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFileCache"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11218,7 +11219,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFileSystem"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11245,7 +11246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFileSystemFromBackup"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11264,7 +11265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSnapshot"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11287,7 +11288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStorageVirtualMachine"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11308,7 +11309,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVolume"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11330,7 +11331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVolumeFromBackup"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11348,7 +11349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBackup"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11370,7 +11371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataRepositoryAssociation"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11389,7 +11390,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFileCache"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11411,7 +11412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFileSystem"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11430,7 +11431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSnapshot"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11451,7 +11452,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStorageVirtualMachine"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11472,7 +11473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVolume"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11492,7 +11493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBackups"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11513,7 +11514,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataRepositoryAssociations"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11533,7 +11534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataRepositoryTasks"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11552,7 +11553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFileCaches"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11574,7 +11575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFileSystemAliases"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11593,7 +11594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFileSystems"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11613,7 +11614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSnapshots"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11635,7 +11636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStorageVirtualMachines"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11655,7 +11656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVolumes"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11676,7 +11677,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateFileSystemAliases"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11695,7 +11696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11715,7 +11716,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReleaseFileSystemNfsV3Locks"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11736,7 +11737,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreVolumeFromSnapshot"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11754,7 +11755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11772,7 +11773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11794,7 +11795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDataRepositoryAssociation"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11815,7 +11816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFileCache"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11839,7 +11840,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFileSystem"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11858,7 +11859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSnapshot"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11881,7 +11882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateStorageVirtualMachine"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11902,7 +11903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fsx-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVolume"
                                                         "2018-03-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

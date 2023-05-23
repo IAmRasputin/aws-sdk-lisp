@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass elastic-inference-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "elastic-inference"))
+                       (:default-initargs :service "elastic-inference"
+                        :protocol :rest-json))
  (common-lisp:export 'elastic-inference-request))
 (common-lisp:progn
  (common-lisp:define-condition elastic-inference-error
@@ -792,8 +793,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastic-inference-request aws-sdk/generator/operation::input "POST"
-        "/describe-accelerator-offerings" "DescribeAcceleratorOfferings"
-        "2017-07-25"))
+        :rest-json "/describe-accelerator-offerings"
+        "DescribeAcceleratorOfferings" "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-accelerator-offerings))
 (common-lisp:progn
@@ -801,7 +802,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'elastic-inference-request :method "GET" :path
-                                "/describe-accelerator-types" :params
+                                "/describe-accelerator-types" :protocol
+                                :rest-json :operation
+                                "DescribeAcceleratorTypes" :params
                                 `(("Action" ,@"DescribeAcceleratorTypes")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -821,7 +824,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastic-inference-request aws-sdk/generator/operation::input "POST"
-        "/describe-accelerators" "DescribeAccelerators" "2017-07-25"))
+        :rest-json "/describe-accelerators" "DescribeAccelerators"
+        "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-accelerators))
 (common-lisp:progn
@@ -837,6 +841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastic-inference-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -859,6 +864,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastic-inference-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -881,6 +887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'elastic-inference-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode

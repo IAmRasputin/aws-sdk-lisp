@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass detective-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "detective"))
+                       (:default-initargs :service "detective" :protocol
+                        :rest-json))
  (common-lisp:export 'detective-request))
 (common-lisp:progn
  (common-lisp:define-condition detective-error
@@ -2105,7 +2106,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/invitation"
+                                                        "PUT" :rest-json
+                                                        "/invitation"
                                                         "AcceptInvitation"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2124,7 +2126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/datasources/get"
                                                         "BatchGetGraphMemberDatasources"
                                                         "2018-10-26"))
@@ -2144,7 +2146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/membership/datasources/get"
                                                         "BatchGetMembershipDatasources"
                                                         "2018-10-26"))
@@ -2163,8 +2165,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/graph"
-                                                        "CreateGraph"
+                                                        "POST" :rest-json
+                                                        "/graph" "CreateGraph"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-graph))
@@ -2184,7 +2186,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/graph/members"
+                                                        "POST" :rest-json
+                                                        "/graph/members"
                                                         "CreateMembers"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2202,7 +2205,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/graph/removal"
+                                                        "POST" :rest-json
+                                                        "/graph/removal"
                                                         "DeleteGraph"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2220,7 +2224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/members/removal"
                                                         "DeleteMembers"
                                                         "2018-10-26"))
@@ -2240,7 +2244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/orgs/describeOrganizationConfiguration"
                                                         "DescribeOrganizationConfiguration"
                                                         "2018-10-26"))
@@ -2251,7 +2255,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'detective-request :method "POST" :path
-                                "/orgs/disableAdminAccount" :params
+                                "/orgs/disableAdminAccount" :protocol
+                                :rest-json :operation
+                                "DisableOrganizationAdminAccount" :params
                                 `(("Action"
                                    ,@"DisableOrganizationAdminAccount")
                                   ("Version" ,@"2018-10-26"))))
@@ -2270,7 +2276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/membership/removal"
                                                         "DisassociateMembership"
                                                         "2018-10-26"))
@@ -2290,7 +2296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/orgs/enableAdminAccount"
                                                         "EnableOrganizationAdminAccount"
                                                         "2018-10-26"))
@@ -2309,7 +2315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/members/get"
                                                         "GetMembers"
                                                         "2018-10-26"))
@@ -2329,7 +2335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/datasources/list"
                                                         "ListDatasourcePackages"
                                                         "2018-10-26"))
@@ -2348,7 +2354,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/graphs/list"
+                                                        "POST" :rest-json
+                                                        "/graphs/list"
                                                         "ListGraphs"
                                                         "2018-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2366,7 +2373,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/list"
                                                         "ListInvitations"
                                                         "2018-10-26"))
@@ -2386,7 +2393,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/members/list"
                                                         "ListMembers"
                                                         "2018-10-26"))
@@ -2406,7 +2413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/orgs/adminAccountslist"
                                                         "ListOrganizationAdminAccounts"
                                                         "2018-10-26"))
@@ -2425,7 +2432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2453,7 +2460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitation/removal"
                                                         "RejectInvitation"
                                                         "2018-10-26"))
@@ -2472,7 +2479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/member/monitoringstate"
                                                         "StartMonitoringMember"
                                                         "2018-10-26"))
@@ -2491,7 +2498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2519,7 +2526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2548,7 +2555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/graph/datasources/update"
                                                         "UpdateDatasourcePackages"
                                                         "2018-10-26"))
@@ -2568,7 +2575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'detective-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/orgs/updateOrganizationConfiguration"
                                                         "UpdateOrganizationConfiguration"
                                                         "2018-10-26"))

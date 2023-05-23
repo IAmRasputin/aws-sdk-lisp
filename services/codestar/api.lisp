@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/codestar/api)
 (common-lisp:progn
  (common-lisp:defclass codestar-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "codestar"))
+                       common-lisp:nil
+                       (:default-initargs :service "codestar" :protocol :json))
  (common-lisp:export 'codestar-request))
 (common-lisp:progn
  (common-lisp:define-condition codestar-error
@@ -2348,7 +2349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateTeamMember"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2369,7 +2370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2389,7 +2390,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserProfile"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2408,7 +2409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2426,7 +2427,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserProfile"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2444,7 +2445,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2462,7 +2463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserProfile"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2480,7 +2481,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateTeamMember"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2498,7 +2499,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProjects"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2517,7 +2518,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResources"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2535,7 +2536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2554,7 +2555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTeamMembers"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2572,7 +2573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUserProfiles"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2590,7 +2591,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TagProject"
+                                                        "POST" :json "/"
+                                                        "TagProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-project))
@@ -2607,7 +2609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2625,7 +2627,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProject"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2646,7 +2648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTeamMember"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2666,7 +2668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codestar-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserProfile"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))

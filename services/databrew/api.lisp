@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/databrew/api)
 (common-lisp:progn
  (common-lisp:defclass databrew-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "databrew"))
+                       common-lisp:nil
+                       (:default-initargs :service "databrew" :protocol
+                        :rest-json))
  (common-lisp:export 'databrew-request))
 (common-lisp:progn
  (common-lisp:define-condition databrew-error
@@ -7162,7 +7164,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7192,7 +7194,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/datasets"
+                                                        "POST" :rest-json
+                                                        "/datasets"
                                                         "CreateDataset"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7217,7 +7220,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/profileJobs"
+                                                        "POST" :rest-json
+                                                        "/profileJobs"
                                                         "CreateProfileJob"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7237,7 +7241,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/projects"
+                                                        "POST" :rest-json
+                                                        "/projects"
                                                         "CreateProject"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7255,7 +7260,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/recipes"
+                                                        "POST" :rest-json
+                                                        "/recipes"
                                                         "CreateRecipe"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7279,7 +7285,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/recipeJobs"
+                                                        "POST" :rest-json
+                                                        "/recipeJobs"
                                                         "CreateRecipeJob"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7298,7 +7305,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/rulesets"
+                                                        "POST" :rest-json
+                                                        "/rulesets"
                                                         "CreateRuleset"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7317,7 +7325,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/schedules"
+                                                        "POST" :rest-json
+                                                        "/schedules"
                                                         "CreateSchedule"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7335,7 +7344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7363,7 +7372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7391,7 +7400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7419,7 +7428,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7451,7 +7460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7479,7 +7488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7507,7 +7516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7535,7 +7544,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7563,7 +7572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7595,7 +7604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7623,7 +7632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7651,7 +7660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7679,7 +7688,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7707,7 +7716,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/datasets"
+                                                        "GET" :rest-json
+                                                        "/datasets"
                                                         "ListDatasets"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7725,7 +7735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7755,8 +7765,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/jobs"
-                                                        "ListJobs"
+                                                        "GET" :rest-json
+                                                        "/jobs" "ListJobs"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-jobs))
@@ -7773,7 +7783,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/projects"
+                                                        "GET" :rest-json
+                                                        "/projects"
                                                         "ListProjects"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7791,7 +7802,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/recipeVersions"
+                                                        "GET" :rest-json
+                                                        "/recipeVersions"
                                                         "ListRecipeVersions"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7810,7 +7822,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/recipes"
+                                                        "GET" :rest-json
+                                                        "/recipes"
                                                         "ListRecipes"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7829,7 +7842,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/rulesets"
+                                                        "GET" :rest-json
+                                                        "/rulesets"
                                                         "ListRulesets"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7848,7 +7862,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/schedules"
+                                                        "GET" :rest-json
+                                                        "/schedules"
                                                         "ListSchedules"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7866,7 +7881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7894,7 +7909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7926,7 +7941,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7954,7 +7969,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7982,7 +7997,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8010,7 +8025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8042,7 +8057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8070,7 +8085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8100,7 +8115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8134,7 +8149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8162,7 +8177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8190,7 +8205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8223,7 +8238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8251,7 +8266,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8279,7 +8294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'databrew-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

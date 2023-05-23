@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sdb/api)
 (common-lisp:progn
  (common-lisp:defclass sdb-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sdb"))
+                       (:default-initargs :service "sdb" :protocol :query))
  (common-lisp:export 'sdb-request))
 (common-lisp:progn
  (common-lisp:define-condition sdb-error
@@ -1076,7 +1076,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchDeleteAttributes"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1094,7 +1094,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchPutAttributes"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1112,7 +1112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDomain"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1132,7 +1132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAttributes"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1150,7 +1150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDomain"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1168,7 +1168,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DomainMetadata"
                                                         "2009-04-15"))
       common-lisp:nil "DomainMetadataResult" *error-map*)))
@@ -1189,7 +1189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetAttributes"
                                                         "2009-04-15"))
       common-lisp:nil "GetAttributesResult" *error-map*)))
@@ -1208,7 +1208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListDomains"
                                                         "2009-04-15"))
       common-lisp:nil "ListDomainsResult" *error-map*)))
@@ -1228,7 +1228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutAttributes"
                                                         "2009-04-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1248,7 +1248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Select"
-                                                        "2009-04-15"))
+                                                        "POST" :query "/"
+                                                        "Select" "2009-04-15"))
       common-lisp:nil "SelectResult" *error-map*)))
  (common-lisp:export 'select))

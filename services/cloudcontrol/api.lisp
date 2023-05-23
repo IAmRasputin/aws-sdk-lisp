@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudcontrol-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudcontrol"))
+                       (:default-initargs :service "cloudcontrol" :protocol
+                        :json))
  (common-lisp:export 'cloudcontrol-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudcontrol-error
@@ -1154,7 +1155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelResourceRequest"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1175,7 +1176,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateResource"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1196,7 +1197,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResource"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1216,7 +1217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResource"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1235,7 +1236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceRequestStatus"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1256,7 +1257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceRequests"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1277,7 +1278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResources"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1298,7 +1299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudcontrol-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateResource"
                                                         "2021-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))

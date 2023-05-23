@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/batch/api)
 (common-lisp:progn
  (common-lisp:defclass batch-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "batch"))
+                       (:default-initargs :service "batch" :protocol
+                        :rest-json))
  (common-lisp:export 'batch-request))
 (common-lisp:progn
  (common-lisp:define-condition batch-error
@@ -6812,7 +6813,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/canceljob"
+                                                        "POST" :rest-json
+                                                        "/v1/canceljob"
                                                         "CancelJob"
                                                         "2016-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6835,7 +6837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/createcomputeenvironment"
                                                         "CreateComputeEnvironment"
                                                         "2016-08-10"))
@@ -6858,7 +6860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/createjobqueue"
                                                         "CreateJobQueue"
                                                         "2016-08-10"))
@@ -6877,7 +6879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/createschedulingpolicy"
                                                         "CreateSchedulingPolicy"
                                                         "2016-08-10"))
@@ -6897,7 +6899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/deletecomputeenvironment"
                                                         "DeleteComputeEnvironment"
                                                         "2016-08-10"))
@@ -6916,7 +6918,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/deletejobqueue"
                                                         "DeleteJobQueue"
                                                         "2016-08-10"))
@@ -6935,7 +6937,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/deleteschedulingpolicy"
                                                         "DeleteSchedulingPolicy"
                                                         "2016-08-10"))
@@ -6955,7 +6957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/deregisterjobdefinition"
                                                         "DeregisterJobDefinition"
                                                         "2016-08-10"))
@@ -6977,7 +6979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/describecomputeenvironments"
                                                         "DescribeComputeEnvironments"
                                                         "2016-08-10"))
@@ -6999,7 +7001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/describejobdefinitions"
                                                         "DescribeJobDefinitions"
                                                         "2016-08-10"))
@@ -7019,7 +7021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/describejobqueues"
                                                         "DescribeJobQueues"
                                                         "2016-08-10"))
@@ -7038,7 +7040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/describejobs"
                                                         "DescribeJobs"
                                                         "2016-08-10"))
@@ -7058,7 +7060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/describeschedulingpolicies"
                                                         "DescribeSchedulingPolicies"
                                                         "2016-08-10"))
@@ -7080,7 +7082,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/listjobs"
+                                                        "POST" :rest-json
+                                                        "/v1/listjobs"
                                                         "ListJobs"
                                                         "2016-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7098,7 +7101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/listschedulingpolicies"
                                                         "ListSchedulingPolicies"
                                                         "2016-08-10"))
@@ -7117,7 +7120,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7151,7 +7154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/registerjobdefinition"
                                                         "RegisterJobDefinition"
                                                         "2016-08-10"))
@@ -7178,7 +7181,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/submitjob"
+                                                        "POST" :rest-json
+                                                        "/v1/submitjob"
                                                         "SubmitJob"
                                                         "2016-08-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7196,7 +7200,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7224,7 +7228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/terminatejob"
                                                         "TerminateJob"
                                                         "2016-08-10"))
@@ -7243,7 +7247,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7275,7 +7279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/updatecomputeenvironment"
                                                         "UpdateComputeEnvironment"
                                                         "2016-08-10"))
@@ -7297,7 +7301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/updatejobqueue"
                                                         "UpdateJobQueue"
                                                         "2016-08-10"))
@@ -7316,7 +7320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'batch-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/updateschedulingpolicy"
                                                         "UpdateSchedulingPolicy"
                                                         "2016-08-10"))

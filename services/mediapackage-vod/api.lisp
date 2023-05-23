@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass mediapackage-vod-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "mediapackage-vod"))
+                       (:default-initargs :service "mediapackage-vod" :protocol
+                        :rest-json))
  (common-lisp:export 'mediapackage-vod-request))
 (common-lisp:progn
  (common-lisp:define-condition mediapackage-vod-error
@@ -3229,6 +3230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/packaging_groups/~A/configure_logs"
@@ -3254,7 +3256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "POST"
-        "/assets" "CreateAsset" "2018-11-07"))
+        :rest-json "/assets" "CreateAsset" "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-asset))
 (common-lisp:progn
@@ -3274,7 +3276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "POST"
-        "/packaging_configurations" "CreatePackagingConfiguration"
+        :rest-json "/packaging_configurations" "CreatePackagingConfiguration"
         "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-packaging-configuration))
@@ -3292,7 +3294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "POST"
-        "/packaging_groups" "CreatePackagingGroup" "2018-11-07"))
+        :rest-json "/packaging_groups" "CreatePackagingGroup" "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-packaging-group))
 (common-lisp:progn
@@ -3308,6 +3310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/assets/~A"
                               (quri.encode:url-encode
@@ -3330,6 +3333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/packaging_configurations/~A"
                               (quri.encode:url-encode
@@ -3351,6 +3355,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/packaging_groups/~A"
                               (quri.encode:url-encode
@@ -3372,6 +3377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/assets/~A"
                               (quri.encode:url-encode
@@ -3394,6 +3400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/packaging_configurations/~A"
                               (quri.encode:url-encode
@@ -3415,6 +3422,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/packaging_groups/~A"
                               (quri.encode:url-encode
@@ -3438,7 +3446,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
-        "/assets" "ListAssets" "2018-11-07"))
+        :rest-json "/assets" "ListAssets" "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-assets))
 (common-lisp:progn
@@ -3457,7 +3465,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
-        "/packaging_configurations" "ListPackagingConfigurations"
+        :rest-json "/packaging_configurations" "ListPackagingConfigurations"
         "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-packaging-configurations))
@@ -3474,7 +3482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
-        "/packaging_groups" "ListPackagingGroups" "2018-11-07"))
+        :rest-json "/packaging_groups" "ListPackagingGroups" "2018-11-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-packaging-groups))
 (common-lisp:progn
@@ -3490,6 +3498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3512,6 +3521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3534,6 +3544,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3556,6 +3567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediapackage-vod-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/packaging_groups/~A"
                               (quri.encode:url-encode

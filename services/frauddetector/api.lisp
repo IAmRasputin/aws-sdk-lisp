@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass frauddetector-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "frauddetector"))
+                       (:default-initargs :service "frauddetector" :protocol
+                        :json))
  (common-lisp:export 'frauddetector-request))
 (common-lisp:progn
  (common-lisp:define-condition frauddetector-error
@@ -10268,7 +10269,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchCreateVariable"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10286,7 +10287,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetVariable"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10304,7 +10305,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelBatchImportJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10323,7 +10324,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelBatchPredictionJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10344,7 +10345,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBatchImportJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10367,7 +10368,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBatchPredictionJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10389,7 +10390,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDetectorVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10409,7 +10410,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateList"
+                                                        "POST" :json "/"
+                                                        "CreateList"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-list))
@@ -10429,7 +10431,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10451,7 +10453,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10472,7 +10474,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateRule"
+                                                        "POST" :json "/"
+                                                        "CreateRule"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-rule))
@@ -10492,7 +10495,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVariable"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10510,7 +10513,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBatchImportJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10529,7 +10532,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBatchPredictionJob"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10547,7 +10550,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDetector"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10566,7 +10569,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDetectorVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10584,7 +10587,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEntityType"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10604,7 +10607,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEvent"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10622,7 +10625,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEventType"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10641,7 +10644,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEventsByEventType"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10659,7 +10662,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteExternalModel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10677,7 +10680,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLabel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10695,7 +10698,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteList"
+                                                        "POST" :json "/"
+                                                        "DeleteList"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-list))
@@ -10712,7 +10716,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10731,7 +10735,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10749,7 +10753,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteOutcome"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10767,7 +10771,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteRule"
+                                                        "POST" :json "/"
+                                                        "DeleteRule"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-rule))
@@ -10784,7 +10789,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVariable"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10803,7 +10808,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDetector"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10824,7 +10829,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelVersions"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10842,7 +10847,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBatchImportJobs"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10861,7 +10866,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBatchPredictionJobs"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10880,7 +10885,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDeleteEventsByEventTypeStatus"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10899,7 +10904,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDetectorVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10918,7 +10923,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDetectors"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10936,7 +10941,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEntityTypes"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10954,7 +10959,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetEvent"
+                                                        "POST" :json "/"
+                                                        "GetEvent"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-event))
@@ -10976,7 +10982,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEventPrediction"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10998,7 +11004,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEventPredictionMetadata"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11016,7 +11022,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetEventTypes"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11035,7 +11041,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetExternalModels"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11045,7 +11051,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'frauddetector-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetKMSEncryptionKey" :params
                                 `(("Action" ,@"GetKMSEncryptionKey")
                                   ("Version" ,@"2019-11-15"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -11063,7 +11070,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetLabels"
+                                                        "POST" :json "/"
+                                                        "GetLabels"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-labels))
@@ -11080,7 +11088,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetListElements"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11098,7 +11106,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetListsMetadata"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11117,7 +11125,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetModelVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11137,7 +11145,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetModels"
+                                                        "POST" :json "/"
+                                                        "GetModels"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-models))
@@ -11154,7 +11163,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOutcomes"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11175,7 +11184,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRules"
+                                                        "POST" :json "/"
+                                                        "GetRules"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-rules))
@@ -11192,7 +11202,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVariables"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11214,7 +11224,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEventPredictions"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11233,7 +11243,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11253,7 +11263,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDetector"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11271,7 +11281,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutEntityType"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11292,7 +11302,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutEventType"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11315,7 +11325,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutExternalModel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11333,7 +11343,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutKMSEncryptionKey"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11351,7 +11361,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutLabel"
+                                                        "POST" :json "/"
+                                                        "PutLabel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-label))
@@ -11368,7 +11379,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutOutcome"
+                                                        "POST" :json "/"
+                                                        "PutOutcome"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-outcome))
@@ -11388,7 +11400,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "SendEvent"
+                                                        "POST" :json "/"
+                                                        "SendEvent"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-event))
@@ -11405,7 +11418,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11423,7 +11436,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11446,7 +11459,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDetectorVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11467,7 +11480,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDetectorVersionMetadata"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11487,7 +11500,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDetectorVersionStatus"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11508,7 +11521,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEventLabel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11529,7 +11542,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateList"
+                                                        "POST" :json "/"
+                                                        "UpdateList"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-list))
@@ -11547,7 +11561,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModel"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11568,7 +11582,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModelVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11589,7 +11603,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModelVersionStatus"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11607,7 +11621,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRuleMetadata"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11627,7 +11641,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRuleVersion"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11647,7 +11661,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'frauddetector-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVariable"
                                                         "2019-11-15"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotevents-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotevents"))
+                       (:default-initargs :service "iotevents" :protocol
+                        :rest-json))
  (common-lisp:export 'iotevents-request))
 (common-lisp:progn
  (common-lisp:define-condition iotevents-error
@@ -4987,7 +4988,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/alarm-models"
+                                                        "POST" :rest-json
+                                                        "/alarm-models"
                                                         "CreateAlarmModel"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5009,7 +5011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/detector-models"
                                                         "CreateDetectorModel"
                                                         "2018-07-27"))
@@ -5030,8 +5032,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/inputs"
-                                                        "CreateInput"
+                                                        "POST" :rest-json
+                                                        "/inputs" "CreateInput"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-input))
@@ -5048,7 +5050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5076,7 +5078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5104,7 +5106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5133,7 +5135,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5163,7 +5165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5192,7 +5194,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5220,7 +5222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5240,7 +5242,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotevents-request :method "GET" :path
-                                "/logging" :params
+                                "/logging" :protocol :rest-json :operation
+                                "DescribeLoggingOptions" :params
                                 `(("Action" ,@"DescribeLoggingOptions")
                                   ("Version" ,@"2018-07-27"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5260,7 +5263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5290,7 +5293,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5318,7 +5321,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/alarm-models"
+                                                        "GET" :rest-json
+                                                        "/alarm-models"
                                                         "ListAlarmModels"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5339,7 +5343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5367,7 +5371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/detector-models"
                                                         "ListDetectorModels"
                                                         "2018-07-27"))
@@ -5387,7 +5391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/input-routings"
                                                         "ListInputRoutings"
                                                         "2018-07-27"))
@@ -5406,8 +5410,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/inputs"
-                                                        "ListInputs"
+                                                        "GET" :rest-json
+                                                        "/inputs" "ListInputs"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-inputs))
@@ -5424,7 +5428,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/tags"
+                                                        "GET" :rest-json
+                                                        "/tags"
                                                         "ListTagsForResource"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5442,7 +5447,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/logging"
+                                                        "PUT" :rest-json
+                                                        "/logging"
                                                         "PutLoggingOptions"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5461,7 +5467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/analysis/detector-models/"
                                                         "StartDetectorModelAnalysis"
                                                         "2018-07-27"))
@@ -5480,8 +5486,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/tags"
-                                                        "TagResource"
+                                                        "POST" :rest-json
+                                                        "/tags" "TagResource"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
@@ -5498,8 +5504,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/tags"
-                                                        "UntagResource"
+                                                        "DELETE" :rest-json
+                                                        "/tags" "UntagResource"
                                                         "2018-07-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
@@ -5521,7 +5527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5553,7 +5559,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5583,7 +5589,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass billingconductor-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "billingconductor"))
+                       (:default-initargs :service "billingconductor" :protocol
+                        :rest-json))
  (common-lisp:export 'billingconductor-request))
 (common-lisp:progn
  (common-lisp:define-condition billingconductor-error
@@ -5342,7 +5343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/associate-accounts" "AssociateAccounts" "2021-07-30"))
+        :rest-json "/associate-accounts" "AssociateAccounts" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-accounts))
 (common-lisp:progn
@@ -5358,7 +5359,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/associate-pricing-rules" "AssociatePricingRules" "2021-07-30"))
+        :rest-json "/associate-pricing-rules" "AssociatePricingRules"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-pricing-rules))
 (common-lisp:progn
@@ -5377,7 +5379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/batch-associate-resources-to-custom-line-item"
+        :rest-json "/batch-associate-resources-to-custom-line-item"
         "BatchAssociateResourcesToCustomLineItem" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-associate-resources-to-custom-line-item))
@@ -5397,7 +5399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/batch-disassociate-resources-from-custom-line-item"
+        :rest-json "/batch-disassociate-resources-from-custom-line-item"
         "BatchDisassociateResourcesFromCustomLineItem" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-disassociate-resources-from-custom-line-item))
@@ -5418,7 +5420,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/create-billing-group" "CreateBillingGroup" "2021-07-30"))
+        :rest-json "/create-billing-group" "CreateBillingGroup" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-billing-group))
 (common-lisp:progn
@@ -5438,7 +5440,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/create-custom-line-item" "CreateCustomLineItem" "2021-07-30"))
+        :rest-json "/create-custom-line-item" "CreateCustomLineItem"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-custom-line-item))
 (common-lisp:progn
@@ -5457,7 +5460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/create-pricing-plan" "CreatePricingPlan" "2021-07-30"))
+        :rest-json "/create-pricing-plan" "CreatePricingPlan" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-pricing-plan))
 (common-lisp:progn
@@ -5478,7 +5481,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/create-pricing-rule" "CreatePricingRule" "2021-07-30"))
+        :rest-json "/create-pricing-rule" "CreatePricingRule" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-pricing-rule))
 (common-lisp:progn
@@ -5494,7 +5497,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/delete-billing-group" "DeleteBillingGroup" "2021-07-30"))
+        :rest-json "/delete-billing-group" "DeleteBillingGroup" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-billing-group))
 (common-lisp:progn
@@ -5510,7 +5513,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/delete-custom-line-item" "DeleteCustomLineItem" "2021-07-30"))
+        :rest-json "/delete-custom-line-item" "DeleteCustomLineItem"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-custom-line-item))
 (common-lisp:progn
@@ -5526,7 +5530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/delete-pricing-plan" "DeletePricingPlan" "2021-07-30"))
+        :rest-json "/delete-pricing-plan" "DeletePricingPlan" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-pricing-plan))
 (common-lisp:progn
@@ -5542,7 +5546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/delete-pricing-rule" "DeletePricingRule" "2021-07-30"))
+        :rest-json "/delete-pricing-rule" "DeletePricingRule" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-pricing-rule))
 (common-lisp:progn
@@ -5558,7 +5562,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/disassociate-accounts" "DisassociateAccounts" "2021-07-30"))
+        :rest-json "/disassociate-accounts" "DisassociateAccounts"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-accounts))
 (common-lisp:progn
@@ -5574,7 +5579,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/disassociate-pricing-rules" "DisassociatePricingRules" "2021-07-30"))
+        :rest-json "/disassociate-pricing-rules" "DisassociatePricingRules"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-pricing-rules))
 (common-lisp:progn
@@ -5591,7 +5597,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-account-associations" "ListAccountAssociations" "2021-07-30"))
+        :rest-json "/list-account-associations" "ListAccountAssociations"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-account-associations))
 (common-lisp:progn
@@ -5610,8 +5617,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-billing-group-cost-reports" "ListBillingGroupCostReports"
-        "2021-07-30"))
+        :rest-json "/list-billing-group-cost-reports"
+        "ListBillingGroupCostReports" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-billing-group-cost-reports))
 (common-lisp:progn
@@ -5629,7 +5636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-billing-groups" "ListBillingGroups" "2021-07-30"))
+        :rest-json "/list-billing-groups" "ListBillingGroups" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-billing-groups))
 (common-lisp:progn
@@ -5647,8 +5654,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-custom-line-item-versions" "ListCustomLineItemVersions"
-        "2021-07-30"))
+        :rest-json "/list-custom-line-item-versions"
+        "ListCustomLineItemVersions" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-custom-line-item-versions))
 (common-lisp:progn
@@ -5666,7 +5673,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-custom-line-items" "ListCustomLineItems" "2021-07-30"))
+        :rest-json "/list-custom-line-items" "ListCustomLineItems"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-custom-line-items))
 (common-lisp:progn
@@ -5684,7 +5692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-pricing-plans" "ListPricingPlans" "2021-07-30"))
+        :rest-json "/list-pricing-plans" "ListPricingPlans" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pricing-plans))
 (common-lisp:progn
@@ -5704,7 +5712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-pricing-plans-associated-with-pricing-rule"
+        :rest-json "/list-pricing-plans-associated-with-pricing-rule"
         "ListPricingPlansAssociatedWithPricingRule" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pricing-plans-associated-with-pricing-rule))
@@ -5723,7 +5731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-pricing-rules" "ListPricingRules" "2021-07-30"))
+        :rest-json "/list-pricing-rules" "ListPricingRules" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pricing-rules))
 (common-lisp:progn
@@ -5743,7 +5751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-pricing-rules-associated-to-pricing-plan"
+        :rest-json "/list-pricing-rules-associated-to-pricing-plan"
         "ListPricingRulesAssociatedToPricingPlan" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pricing-rules-associated-to-pricing-plan))
@@ -5763,7 +5771,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/list-resources-associated-to-custom-line-item"
+        :rest-json "/list-resources-associated-to-custom-line-item"
         "ListResourcesAssociatedToCustomLineItem" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resources-associated-to-custom-line-item))
@@ -5780,6 +5788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -5802,6 +5811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -5824,6 +5834,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -5848,7 +5859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/update-billing-group" "UpdateBillingGroup" "2021-07-30"))
+        :rest-json "/update-billing-group" "UpdateBillingGroup" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-billing-group))
 (common-lisp:progn
@@ -5867,7 +5878,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "POST"
-        "/update-custom-line-item" "UpdateCustomLineItem" "2021-07-30"))
+        :rest-json "/update-custom-line-item" "UpdateCustomLineItem"
+        "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-custom-line-item))
 (common-lisp:progn
@@ -5883,7 +5895,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/update-pricing-plan" "UpdatePricingPlan" "2021-07-30"))
+        :rest-json "/update-pricing-plan" "UpdatePricingPlan" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-pricing-plan))
 (common-lisp:progn
@@ -5902,6 +5914,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'billingconductor-request aws-sdk/generator/operation::input "PUT"
-        "/update-pricing-rule" "UpdatePricingRule" "2021-07-30"))
+        :rest-json "/update-pricing-rule" "UpdatePricingRule" "2021-07-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-pricing-rule))

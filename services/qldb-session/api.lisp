@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass qldb-session-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "qldb-session"))
+                       (:default-initargs :service "qldb-session" :protocol
+                        :json))
  (common-lisp:export 'qldb-session-request))
 (common-lisp:progn
  (common-lisp:define-condition qldb-session-error
@@ -891,7 +892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'qldb-session-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendCommand"
                                                         "2019-07-11"))
       common-lisp:nil common-lisp:nil *error-map*)))

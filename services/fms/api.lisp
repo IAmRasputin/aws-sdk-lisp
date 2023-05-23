@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/fms/api)
 (common-lisp:progn
  (common-lisp:defclass fms-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "fms"))
+                       (:default-initargs :service "fms" :protocol :json))
  (common-lisp:export 'fms-request))
 (common-lisp:progn
  (common-lisp:define-condition fms-error
@@ -8147,7 +8147,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateAdminAccount"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8166,7 +8166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateThirdPartyFirewall"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8184,7 +8184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchAssociateResource"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8203,7 +8203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDisassociateResource"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8221,7 +8221,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8230,7 +8230,9 @@
  (common-lisp:defun delete-notification-channel ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :protocol
+                                :json :operation "DeleteNotificationChannel"
+                                :params
                                 `(("Action" ,@"DeleteNotificationChannel")
                                   ("Version" ,@"2018-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8249,7 +8251,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePolicy"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8267,7 +8269,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProtocolsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8285,7 +8287,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourceSet"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8294,7 +8296,9 @@
  (common-lisp:defun disassociate-admin-account ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :protocol
+                                :json :operation "DisassociateAdminAccount"
+                                :params
                                 `(("Action" ,@"DisassociateAdminAccount")
                                   ("Version" ,@"2018-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8313,7 +8317,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateThirdPartyFirewall"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8322,7 +8326,8 @@
  (common-lisp:defun get-admin-account ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :protocol
+                                :json :operation "GetAdminAccount" :params
                                 `(("Action" ,@"GetAdminAccount")
                                   ("Version" ,@"2018-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8340,7 +8345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAdminScope"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8358,7 +8363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAppsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8376,7 +8381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComplianceDetail"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8385,7 +8390,9 @@
  (common-lisp:defun get-notification-channel ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'fms-request :method "POST" :path "/" :protocol
+                                :json :operation "GetNotificationChannel"
+                                :params
                                 `(("Action" ,@"GetNotificationChannel")
                                   ("Version" ,@"2018-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8403,7 +8410,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetPolicy"
+                                                        "POST" :json "/"
+                                                        "GetPolicy"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-policy))
@@ -8423,7 +8431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetProtectionStatus"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8441,7 +8449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetProtocolsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8459,7 +8467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceSet"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8478,7 +8486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetThirdPartyFirewallAssociationStatus"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8498,7 +8506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetViolationDetails"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8517,7 +8525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAdminAccountsForOrganization"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8536,7 +8544,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAdminsManagingAccount"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8555,7 +8563,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAppsLists"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8574,7 +8582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListComplianceStatus"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8596,7 +8604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDiscoveredResources"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8614,7 +8622,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMemberAccounts"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8632,7 +8640,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPolicies"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8651,7 +8659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProtocolsLists"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8671,7 +8679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceSetResources"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8689,7 +8697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceSets"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8707,7 +8715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8728,7 +8736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListThirdPartyFirewallFirewallPolicies"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8746,7 +8754,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAdminAccount"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8764,7 +8772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAppsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8782,7 +8790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutNotificationChannel"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8800,7 +8808,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutPolicy"
+                                                        "POST" :json "/"
+                                                        "PutPolicy"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-policy))
@@ -8817,7 +8826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutProtocolsList"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8835,7 +8844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourceSet"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8853,7 +8862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8871,7 +8880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'fms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

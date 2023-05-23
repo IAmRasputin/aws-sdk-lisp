@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/kendra/api)
 (common-lisp:progn
  (common-lisp:defclass kendra-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "kendra"))
+                       (:default-initargs :service "kendra" :protocol :json))
  (common-lisp:export 'kendra-request))
 (common-lisp:progn
  (common-lisp:define-condition kendra-error
@@ -15657,7 +15657,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateEntitiesToExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15676,7 +15676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociatePersonasToEntities"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15697,7 +15697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteDocument"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15717,7 +15717,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteFeaturedResultsSet"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15736,7 +15736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetDocumentStatus"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15757,7 +15757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchPutDocument"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15775,7 +15775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ClearQuerySuggestions"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15798,7 +15798,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAccessControlConfiguration"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15822,7 +15822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataSource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15843,7 +15843,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15864,7 +15864,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateFaq"
+                                                        "POST" :json "/"
+                                                        "CreateFaq"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-faq))
@@ -15886,7 +15887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFeaturedResultsSet"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15911,7 +15912,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateIndex"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15933,7 +15934,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateQuerySuggestionsBlockList"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15954,7 +15955,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateThesaurus"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15973,7 +15974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAccessControlConfiguration"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15991,7 +15992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataSource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16009,7 +16010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16027,7 +16028,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteFaq"
+                                                        "POST" :json "/"
+                                                        "DeleteFaq"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-faq))
@@ -16044,7 +16046,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteIndex"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16064,7 +16066,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePrincipalMapping"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16083,7 +16085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteQuerySuggestionsBlockList"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16101,7 +16103,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteThesaurus"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16120,7 +16122,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccessControlConfiguration"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16138,7 +16140,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataSource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16156,7 +16158,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16174,7 +16176,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFaq"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16194,7 +16196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFeaturedResultsSet"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16212,7 +16214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeIndex"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16232,7 +16234,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePrincipalMapping"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16251,7 +16253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeQuerySuggestionsBlockList"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16270,7 +16272,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeQuerySuggestionsConfig"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16288,7 +16290,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeThesaurus"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16307,7 +16309,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateEntitiesFromExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16326,7 +16328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociatePersonasFromEntities"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16346,7 +16348,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQuerySuggestions"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16367,7 +16369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSnapshots"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16387,7 +16389,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccessControlConfigurations"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16409,7 +16411,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataSourceSyncJobs"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16428,7 +16430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataSources"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16447,7 +16449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEntityPersonas"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16465,7 +16467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExperienceEntities"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16484,7 +16486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExperiences"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16503,7 +16505,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListFaqs"
+                                                        "POST" :json "/"
+                                                        "ListFaqs"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-faqs))
@@ -16522,7 +16525,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFeaturedResultsSets"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16544,7 +16547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGroupsOlderThanOrderingId"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16562,7 +16565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListIndices"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16582,7 +16585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListQuerySuggestionsBlockLists"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16600,7 +16603,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16619,7 +16622,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListThesauri"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16640,7 +16643,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutPrincipalMapping"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16668,8 +16671,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Query"
-                                                        "2019-02-03"))
+                                                        "POST" :json "/"
+                                                        "Query" "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'query))
 (common-lisp:progn
@@ -16686,7 +16689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDataSourceSyncJob"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16705,7 +16708,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopDataSourceSyncJob"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16726,7 +16729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubmitFeedback"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16744,7 +16747,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16762,7 +16765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16784,7 +16787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAccessControlConfiguration"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16807,7 +16810,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDataSource"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16828,7 +16831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateExperience"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16852,7 +16855,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFeaturedResultsSet"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16877,7 +16880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateIndex"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16899,7 +16902,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateQuerySuggestionsBlockList"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16924,7 +16927,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateQuerySuggestionsConfig"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16945,7 +16948,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kendra-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateThesaurus"
                                                         "2019-02-03"))
       common-lisp:nil common-lisp:nil *error-map*)))

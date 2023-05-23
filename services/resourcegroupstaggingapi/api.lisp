@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass resourcegroupstaggingapi-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "resourcegroupstaggingapi"))
+                       (:default-initargs :service "resourcegroupstaggingapi"
+                        :protocol :json))
  (common-lisp:export 'resourcegroupstaggingapi-request))
 (common-lisp:progn
  (common-lisp:define-condition resourcegroupstaggingapi-error
@@ -1116,7 +1117,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'resourcegroupstaggingapi-request :method
-                                "POST" :path "/" :params
+                                "POST" :path "/" :protocol :json :operation
+                                "DescribeReportCreation" :params
                                 `(("Action" ,@"DescribeReportCreation")
                                   ("Version" ,@"2017-01-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1139,7 +1141,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "GetComplianceSummary" "2017-01-26"))
+        "POST" :json "/" "GetComplianceSummary" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-compliance-summary))
 (common-lisp:progn
@@ -1161,7 +1163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "GetResources" "2017-01-26"))
+        "POST" :json "/" "GetResources" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resources))
 (common-lisp:progn
@@ -1177,7 +1179,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "GetTagKeys" "2017-01-26"))
+        "POST" :json "/" "GetTagKeys" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-tag-keys))
 (common-lisp:progn
@@ -1193,7 +1195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "GetTagValues" "2017-01-26"))
+        "POST" :json "/" "GetTagValues" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-tag-values))
 (common-lisp:progn
@@ -1209,7 +1211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "StartReportCreation" "2017-01-26"))
+        "POST" :json "/" "StartReportCreation" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-report-creation))
 (common-lisp:progn
@@ -1225,7 +1227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "TagResources" "2017-01-26"))
+        "POST" :json "/" "TagResources" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resources))
 (common-lisp:progn
@@ -1241,6 +1243,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resourcegroupstaggingapi-request aws-sdk/generator/operation::input
-        "POST" "/" "UntagResources" "2017-01-26"))
+        "POST" :json "/" "UntagResources" "2017-01-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resources))

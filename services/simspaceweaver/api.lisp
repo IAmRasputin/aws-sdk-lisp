@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass simspaceweaver-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "simspaceweaver"))
+                       (:default-initargs :service "simspaceweaver" :protocol
+                        :rest-json))
  (common-lisp:export 'simspaceweaver-request))
 (common-lisp:progn
  (common-lisp:define-condition simspaceweaver-error
@@ -1665,7 +1666,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/deleteapp"
+                                                        "DELETE" :rest-json
+                                                        "/deleteapp"
                                                         "DeleteApp"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1683,7 +1685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/deletesimulation"
                                                         "DeleteSimulation"
                                                         "2022-10-28"))
@@ -1702,7 +1704,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/describeapp"
+                                                        "GET" :rest-json
+                                                        "/describeapp"
                                                         "DescribeApp"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1720,7 +1723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/describesimulation"
                                                         "DescribeSimulation"
                                                         "2022-10-28"))
@@ -1740,8 +1743,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/listapps"
-                                                        "ListApps"
+                                                        "GET" :rest-json
+                                                        "/listapps" "ListApps"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-apps))
@@ -1758,7 +1761,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/listsimulations"
                                                         "ListSimulations"
                                                         "2022-10-28"))
@@ -1777,7 +1780,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1808,8 +1811,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/startapp"
-                                                        "StartApp"
+                                                        "POST" :rest-json
+                                                        "/startapp" "StartApp"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-app))
@@ -1826,7 +1829,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/startclock"
+                                                        "POST" :rest-json
+                                                        "/startclock"
                                                         "StartClock"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1847,7 +1851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/startsimulation"
                                                         "StartSimulation"
                                                         "2022-10-28"))
@@ -1866,8 +1870,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/stopapp"
-                                                        "StopApp"
+                                                        "POST" :rest-json
+                                                        "/stopapp" "StopApp"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-app))
@@ -1884,7 +1888,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/stopclock"
+                                                        "POST" :rest-json
+                                                        "/stopclock"
                                                         "StopClock"
                                                         "2022-10-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1902,7 +1907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/stopsimulation"
                                                         "StopSimulation"
                                                         "2022-10-28"))
@@ -1921,7 +1926,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1949,7 +1954,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'simspaceweaver-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

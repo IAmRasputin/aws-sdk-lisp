@@ -12,8 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass chime-sdk-media-pipelines-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service
-                        "chime-sdk-media-pipelines"))
+                       (:default-initargs :service "chime-sdk-media-pipelines"
+                        :protocol :rest-json))
  (common-lisp:export 'chime-sdk-media-pipelines-request))
 (common-lisp:progn
  (common-lisp:define-condition chime-sdk-media-pipelines-error
@@ -4715,8 +4715,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/sdk-media-capture-pipelines" "CreateMediaCapturePipeline"
-        "2021-07-15"))
+        "POST" :rest-json "/sdk-media-capture-pipelines"
+        "CreateMediaCapturePipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-capture-pipeline))
 (common-lisp:progn
@@ -4734,7 +4734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/sdk-media-concatenation-pipelines"
+        "POST" :rest-json "/sdk-media-concatenation-pipelines"
         "CreateMediaConcatenationPipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-concatenation-pipeline))
@@ -4762,8 +4762,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/media-insights-pipelines" "CreateMediaInsightsPipeline"
-        "2021-07-15"))
+        "POST" :rest-json "/media-insights-pipelines"
+        "CreateMediaInsightsPipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-insights-pipeline))
 (common-lisp:progn
@@ -4786,7 +4786,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/media-insights-pipeline-configurations"
+        "POST" :rest-json "/media-insights-pipeline-configurations"
         "CreateMediaInsightsPipelineConfiguration" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-insights-pipeline-configuration))
@@ -4805,7 +4805,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/sdk-media-live-connector-pipelines"
+        "POST" :rest-json "/sdk-media-live-connector-pipelines"
         "CreateMediaLiveConnectorPipeline" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-media-live-connector-pipeline))
@@ -4823,7 +4823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sdk-media-capture-pipelines/~A"
                               (quri.encode:url-encode
@@ -4847,7 +4847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/media-insights-pipeline-configurations/~A"
@@ -4871,7 +4871,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sdk-media-pipelines/~A"
                               (quri.encode:url-encode
@@ -4895,7 +4895,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sdk-media-capture-pipelines/~A"
                               (quri.encode:url-encode
@@ -4919,7 +4919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/media-insights-pipeline-configurations/~A"
@@ -4943,7 +4943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/sdk-media-pipelines/~A"
                               (quri.encode:url-encode
@@ -4967,8 +4967,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET" "/sdk-media-capture-pipelines" "ListMediaCapturePipelines"
-        "2021-07-15"))
+        "GET" :rest-json "/sdk-media-capture-pipelines"
+        "ListMediaCapturePipelines" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-media-capture-pipelines))
 (common-lisp:progn
@@ -4985,7 +4985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET" "/media-insights-pipeline-configurations"
+        "GET" :rest-json "/media-insights-pipeline-configurations"
         "ListMediaInsightsPipelineConfigurations" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-media-insights-pipeline-configurations))
@@ -5002,7 +5002,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET" "/sdk-media-pipelines" "ListMediaPipelines" "2021-07-15"))
+        "GET" :rest-json "/sdk-media-pipelines" "ListMediaPipelines"
+        "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-media-pipelines))
 (common-lisp:progn
@@ -5018,7 +5019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "GET" "/tags" "ListTagsForResource" "2021-07-15"))
+        "GET" :rest-json "/tags" "ListTagsForResource" "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -5034,7 +5035,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/tags?operation=tag-resource" "TagResource" "2021-07-15"))
+        "POST" :rest-json "/tags?operation=tag-resource" "TagResource"
+        "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -5050,7 +5052,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "POST" "/tags?operation=untag-resource" "UntagResource" "2021-07-15"))
+        "POST" :rest-json "/tags?operation=untag-resource" "UntagResource"
+        "2021-07-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -5070,7 +5073,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "PUT"
+        "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/media-insights-pipeline-configurations/~A"
@@ -5095,7 +5098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-media-pipelines-request aws-sdk/generator/operation::input
-        "PUT"
+        "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/media-insights-pipeline-status/~A"

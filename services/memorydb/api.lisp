@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/memorydb/api)
 (common-lisp:progn
  (common-lisp:defclass memorydb-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "memorydb"))
+                       common-lisp:nil
+                       (:default-initargs :service "memorydb" :protocol :json))
  (common-lisp:export 'memorydb-request))
 (common-lisp:progn
  (common-lisp:define-condition memorydb-error
@@ -5968,7 +5969,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchUpdateCluster"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5989,7 +5990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopySnapshot"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6007,7 +6008,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateACL"
+                                                        "POST" :json "/"
+                                                        "CreateACL"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-acl))
@@ -6036,7 +6038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCluster"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6056,7 +6058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateParameterGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6076,7 +6078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSnapshot"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6096,7 +6098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSubnetGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6116,7 +6118,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :json "/"
+                                                        "CreateUser"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
@@ -6133,7 +6136,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteACL"
+                                                        "POST" :json "/"
+                                                        "DeleteACL"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-acl))
@@ -6151,7 +6155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCluster"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6169,7 +6173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteParameterGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6187,7 +6191,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSnapshot"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6205,7 +6209,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSubnetGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6223,7 +6227,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -6240,7 +6245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeACLs"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6261,7 +6266,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClusters"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6282,7 +6287,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEngineVersions"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6303,7 +6308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEvents"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6324,7 +6329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeParameterGroups"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6344,7 +6349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeParameters"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6365,7 +6370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeReservedNodes"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6387,7 +6392,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeReservedNodesOfferings"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6408,7 +6413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServiceUpdates"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6429,7 +6434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSnapshots"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6448,7 +6453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSubnetGroups"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6467,7 +6472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUsers"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6485,7 +6490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "FailoverShard"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6504,7 +6509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAllowedNodeTypeUpdates"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6522,7 +6527,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -6543,7 +6549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PurchaseReservedNodesOffering"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6564,7 +6570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResetParameterGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6582,7 +6588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6600,7 +6606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6620,7 +6626,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateACL"
+                                                        "POST" :json "/"
+                                                        "UpdateACL"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-acl))
@@ -6645,7 +6652,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCluster"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6665,7 +6672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateParameterGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6684,7 +6691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSubnetGroup"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6704,7 +6711,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'memorydb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateUser"
+                                                        "POST" :json "/"
+                                                        "UpdateUser"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-user))

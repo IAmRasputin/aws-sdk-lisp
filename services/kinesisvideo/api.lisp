@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass kinesisvideo-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "kinesisvideo"))
+                       (:default-initargs :service "kinesisvideo" :protocol
+                        :rest-json))
  (common-lisp:export 'kinesisvideo-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesisvideo-error
@@ -3390,7 +3391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createSignalingChannel"
                                                         "CreateSignalingChannel"
                                                         "2017-09-30"))
@@ -3412,7 +3413,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createStream"
+                                                        "POST" :rest-json
+                                                        "/createStream"
                                                         "CreateStream"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3430,7 +3432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteSignalingChannel"
                                                         "DeleteSignalingChannel"
                                                         "2017-09-30"))
@@ -3449,7 +3451,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteStream"
+                                                        "POST" :rest-json
+                                                        "/deleteStream"
                                                         "DeleteStream"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3468,7 +3471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeEdgeConfiguration"
                                                         "DescribeEdgeConfiguration"
                                                         "2017-09-30"))
@@ -3488,7 +3491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeImageGenerationConfiguration"
                                                         "DescribeImageGenerationConfiguration"
                                                         "2017-09-30"))
@@ -3510,7 +3513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeMappedResourceConfiguration"
                                                         "DescribeMappedResourceConfiguration"
                                                         "2017-09-30"))
@@ -3530,7 +3533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeMediaStorageConfiguration"
                                                         "DescribeMediaStorageConfiguration"
                                                         "2017-09-30"))
@@ -3550,7 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeNotificationConfiguration"
                                                         "DescribeNotificationConfiguration"
                                                         "2017-09-30"))
@@ -3569,7 +3572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeSignalingChannel"
                                                         "DescribeSignalingChannel"
                                                         "2017-09-30"))
@@ -3588,7 +3591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeStream"
                                                         "DescribeStream"
                                                         "2017-09-30"))
@@ -3607,7 +3610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getDataEndpoint"
                                                         "GetDataEndpoint"
                                                         "2017-09-30"))
@@ -3630,7 +3633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getSignalingChannelEndpoint"
                                                         "GetSignalingChannelEndpoint"
                                                         "2017-09-30"))
@@ -3651,7 +3654,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listSignalingChannels"
                                                         "ListSignalingChannels"
                                                         "2017-09-30"))
@@ -3672,7 +3675,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listStreams"
+                                                        "POST" :rest-json
+                                                        "/listStreams"
                                                         "ListStreams"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3690,7 +3694,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTagsForResource"
                                                         "ListTagsForResource"
                                                         "2017-09-30"))
@@ -3710,7 +3714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listTagsForStream"
                                                         "ListTagsForStream"
                                                         "2017-09-30"))
@@ -3731,7 +3735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/startEdgeConfigurationUpdate"
                                                         "StartEdgeConfigurationUpdate"
                                                         "2017-09-30"))
@@ -3750,7 +3754,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TagResource"
+                                                        "POST" :rest-json
+                                                        "/TagResource"
                                                         "TagResource"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3768,7 +3773,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/tagStream"
+                                                        "POST" :rest-json
+                                                        "/tagStream"
                                                         "TagStream"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3786,7 +3792,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UntagResource"
+                                                        "POST" :rest-json
+                                                        "/UntagResource"
                                                         "UntagResource"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3805,7 +3812,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/untagStream"
+                                                        "POST" :rest-json
+                                                        "/untagStream"
                                                         "UntagStream"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3826,7 +3834,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateDataRetention"
                                                         "UpdateDataRetention"
                                                         "2017-09-30"))
@@ -3849,7 +3857,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateImageGenerationConfiguration"
                                                         "UpdateImageGenerationConfiguration"
                                                         "2017-09-30"))
@@ -3870,7 +3878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateMediaStorageConfiguration"
                                                         "UpdateMediaStorageConfiguration"
                                                         "2017-09-30"))
@@ -3892,7 +3900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateNotificationConfiguration"
                                                         "UpdateNotificationConfiguration"
                                                         "2017-09-30"))
@@ -3914,7 +3922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateSignalingChannel"
                                                         "UpdateSignalingChannel"
                                                         "2017-09-30"))
@@ -3936,7 +3944,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'kinesisvideo-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/updateStream"
+                                                        "POST" :rest-json
+                                                        "/updateStream"
                                                         "UpdateStream"
                                                         "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))

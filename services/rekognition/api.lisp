@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass rekognition-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "rekognition"))
+                       (:default-initargs :service "rekognition" :protocol
+                        :json))
  (common-lisp:export 'rekognition-request))
 (common-lisp:progn
  (common-lisp:define-condition rekognition-error
@@ -11768,7 +11769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CompareFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11790,7 +11791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopyProjectVersion"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11808,7 +11809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCollection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11827,7 +11828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataset"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11847,7 +11848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFaceLivenessSession"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11865,7 +11866,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProject"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11886,7 +11887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProjectVersion"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11909,7 +11910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11927,7 +11928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCollection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11945,7 +11946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataset"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11963,7 +11964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11981,7 +11982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProject"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12001,7 +12002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProjectPolicy"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12019,7 +12020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProjectVersion"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12037,7 +12038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12055,7 +12056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCollection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12073,7 +12074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataset"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12094,7 +12095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProjectVersions"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12113,7 +12114,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProjects"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12132,7 +12133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12153,7 +12154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectCustomLabels"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12171,7 +12172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12191,7 +12192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectLabels"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12210,7 +12211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectModerationLabels"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12229,7 +12230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectProtectiveEquipment"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12247,7 +12248,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DetectText"
+                                                        "POST" :json "/"
+                                                        "DetectText"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'detect-text))
@@ -12265,7 +12267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DistributeDatasetEntries"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12283,7 +12285,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCelebrityInfo"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12303,7 +12305,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCelebrityRecognition"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12322,7 +12324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContentModeration"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12340,7 +12342,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetFaceDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12359,7 +12361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetFaceLivenessSessionResults"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12378,7 +12380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetFaceSearch"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12398,7 +12400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLabelDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12417,7 +12419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPersonTracking"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12435,7 +12437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSegmentDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12453,7 +12455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTextDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12474,7 +12476,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "IndexFaces"
+                                                        "POST" :json "/"
+                                                        "IndexFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'index-faces))
@@ -12491,7 +12494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCollections"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12512,7 +12515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetEntries"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12531,7 +12534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetLabels"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12550,7 +12553,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListFaces"
+                                                        "POST" :json "/"
+                                                        "ListFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-faces))
@@ -12568,7 +12572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProjectPolicies"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12586,7 +12590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStreamProcessors"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12604,7 +12608,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12625,7 +12629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutProjectPolicy"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12643,7 +12647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RecognizeCelebrities"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12664,7 +12668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchFaces"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12685,7 +12689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchFacesByImage"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12707,7 +12711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartCelebrityRecognition"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12728,7 +12732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartContentModeration"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12749,7 +12753,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFaceDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12771,7 +12775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFaceSearch"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12792,7 +12796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartLabelDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12813,7 +12817,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartPersonTracking"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12834,7 +12838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartProjectVersion"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12855,7 +12859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartSegmentDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12874,7 +12878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12895,7 +12899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTextDetection"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12913,7 +12917,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopProjectVersion"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12931,7 +12935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12949,7 +12953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12967,7 +12971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12985,7 +12989,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDatasetEntries"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13008,7 +13012,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rekognition-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateStreamProcessor"
                                                         "2016-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))

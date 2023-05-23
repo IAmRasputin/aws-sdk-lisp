@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/macie/api)
 (common-lisp:progn
  (common-lisp:defclass macie-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "macie"))
+                       (:default-initargs :service "macie" :protocol :json))
  (common-lisp:export 'macie-request))
 (common-lisp:progn
  (common-lisp:define-condition macie-error
@@ -847,7 +847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateMemberAccount"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -865,7 +865,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateS3Resources"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -884,7 +884,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateMemberAccount"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -903,7 +903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateS3Resources"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -921,7 +921,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMemberAccounts"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -940,7 +940,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListS3Resources"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -959,7 +959,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateS3Resources"
                                                         "2017-12-19"))
       common-lisp:nil common-lisp:nil *error-map*)))

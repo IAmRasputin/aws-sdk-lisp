@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass translate-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "translate"))
+                       (:default-initargs :service "translate" :protocol
+                        :json))
  (common-lisp:export 'translate-request))
 (common-lisp:progn
  (common-lisp:define-condition translate-error
@@ -2899,7 +2900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateParallelData"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2917,7 +2918,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteParallelData"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2935,7 +2936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTerminology"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2954,7 +2955,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTextTranslationJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2972,7 +2973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetParallelData"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2990,7 +2991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTerminology"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3011,7 +3012,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportTerminology"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3031,7 +3032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLanguages"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3049,7 +3050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListParallelData"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3067,7 +3068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3085,7 +3086,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTerminologies"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3104,7 +3105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTextTranslationJobs"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3130,7 +3131,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTextTranslationJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3149,7 +3150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTextTranslationJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3167,7 +3168,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3188,7 +3189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TranslateText"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3206,7 +3207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3226,7 +3227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'translate-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateParallelData"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

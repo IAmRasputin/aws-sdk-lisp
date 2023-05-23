@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotsitewise-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotsitewise"))
+                       (:default-initargs :service "iotsitewise" :protocol
+                        :rest-json))
  (common-lisp:export 'iotsitewise-request))
 (common-lisp:progn
  (common-lisp:define-condition iotsitewise-error
@@ -11183,7 +11184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11213,7 +11214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/timeseries/associate/"
                                                         "AssociateTimeSeriesToAssetProperty"
                                                         "2019-12-02"))
@@ -11234,7 +11235,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11264,7 +11265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11293,7 +11294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/properties/batch/aggregates"
                                                         "BatchGetAssetPropertyAggregates"
                                                         "2019-12-02"))
@@ -11313,7 +11314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/properties/batch/latest"
                                                         "BatchGetAssetPropertyValue"
                                                         "2019-12-02"))
@@ -11333,7 +11334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/properties/batch/history"
                                                         "BatchGetAssetPropertyValueHistory"
                                                         "2019-12-02"))
@@ -11353,7 +11354,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/properties"
+                                                        "POST" :rest-json
+                                                        "/properties"
                                                         "BatchPutAssetPropertyValue"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11375,7 +11377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/access-policies"
                                                         "CreateAccessPolicy"
                                                         "2019-12-02"))
@@ -11397,8 +11399,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/assets"
-                                                        "CreateAsset"
+                                                        "POST" :rest-json
+                                                        "/assets" "CreateAsset"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-asset))
@@ -11420,7 +11422,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/asset-models"
+                                                        "POST" :rest-json
+                                                        "/asset-models"
                                                         "CreateAssetModel"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11441,7 +11444,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobs"
+                                                        "POST" :rest-json
+                                                        "/jobs"
                                                         "CreateBulkImportJob"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11463,7 +11467,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/dashboards"
+                                                        "POST" :rest-json
+                                                        "/dashboards"
                                                         "CreateDashboard"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11482,7 +11487,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/20200301/gateways"
                                                         "CreateGateway"
                                                         "2019-12-02"))
@@ -11507,7 +11512,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/portals"
+                                                        "POST" :rest-json
+                                                        "/portals"
                                                         "CreatePortal"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11528,7 +11534,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/projects"
+                                                        "POST" :rest-json
+                                                        "/projects"
                                                         "CreateProject"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11546,7 +11553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11574,7 +11581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11602,7 +11609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11630,7 +11637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11658,7 +11665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11686,7 +11693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11714,7 +11721,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11743,7 +11750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/timeseries/delete/"
                                                         "DeleteTimeSeries"
                                                         "2019-12-02"))
@@ -11762,7 +11769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11790,7 +11797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11819,7 +11826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11847,7 +11854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11879,7 +11886,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11907,7 +11914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11927,7 +11934,10 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotsitewise-request :method "GET" :path
-                                "/configuration/account/encryption" :params
+                                "/configuration/account/encryption" :protocol
+                                :rest-json :operation
+                                "DescribeDefaultEncryptionConfiguration"
+                                :params
                                 `(("Action"
                                    ,@"DescribeDefaultEncryptionConfiguration")
                                   ("Version" ,@"2019-12-02"))))
@@ -11946,7 +11956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -11976,7 +11986,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12000,7 +12010,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotsitewise-request :method "GET" :path
-                                "/logging" :params
+                                "/logging" :protocol :rest-json :operation
+                                "DescribeLoggingOptions" :params
                                 `(("Action" ,@"DescribeLoggingOptions")
                                   ("Version" ,@"2019-12-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -12018,7 +12029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12046,7 +12057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12066,7 +12077,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'iotsitewise-request :method "GET" :path
-                                "/configuration/account/storage" :params
+                                "/configuration/account/storage" :protocol
+                                :rest-json :operation
+                                "DescribeStorageConfiguration" :params
                                 `(("Action" ,@"DescribeStorageConfiguration")
                                   ("Version" ,@"2019-12-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -12084,7 +12097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/timeseries/describe/"
                                                         "DescribeTimeSeries"
                                                         "2019-12-02"))
@@ -12105,7 +12118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12135,7 +12148,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/timeseries/disassociate/"
                                                         "DisassociateTimeSeriesFromAssetProperty"
                                                         "2019-12-02"))
@@ -12160,7 +12173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/properties/aggregates"
                                                         "GetAssetPropertyAggregates"
                                                         "2019-12-02"))
@@ -12180,7 +12193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/properties/latest"
                                                         "GetAssetPropertyValue"
                                                         "2019-12-02"))
@@ -12204,7 +12217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/properties/history"
                                                         "GetAssetPropertyValueHistory"
                                                         "2019-12-02"))
@@ -12232,7 +12245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/properties/interpolated"
                                                         "GetInterpolatedAssetPropertyValues"
                                                         "2019-12-02"))
@@ -12254,7 +12267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/access-policies"
                                                         "ListAccessPolicies"
                                                         "2019-12-02"))
@@ -12276,7 +12289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12304,7 +12317,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/asset-models"
+                                                        "GET" :rest-json
+                                                        "/asset-models"
                                                         "ListAssetModels"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12323,7 +12337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12353,7 +12367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12383,8 +12397,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/assets"
-                                                        "ListAssets"
+                                                        "GET" :rest-json
+                                                        "/assets" "ListAssets"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-assets))
@@ -12404,7 +12418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12432,7 +12446,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/jobs"
+                                                        "GET" :rest-json
+                                                        "/jobs"
                                                         "ListBulkImportJobs"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12451,7 +12466,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/dashboards"
+                                                        "GET" :rest-json
+                                                        "/dashboards"
                                                         "ListDashboards"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12469,7 +12485,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/20200301/gateways"
                                                         "ListGateways"
                                                         "2019-12-02"))
@@ -12488,7 +12504,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/portals"
+                                                        "GET" :rest-json
+                                                        "/portals"
                                                         "ListPortals"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12507,7 +12524,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12536,7 +12553,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/projects"
+                                                        "GET" :rest-json
+                                                        "/projects"
                                                         "ListProjects"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12554,7 +12572,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/tags"
+                                                        "GET" :rest-json
+                                                        "/tags"
                                                         "ListTagsForResource"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12575,7 +12594,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/timeseries/"
+                                                        "GET" :rest-json
+                                                        "/timeseries/"
                                                         "ListTimeSeries"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12594,7 +12614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/configuration/account/encryption"
                                                         "PutDefaultEncryptionConfiguration"
                                                         "2019-12-02"))
@@ -12613,7 +12633,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/logging"
+                                                        "PUT" :rest-json
+                                                        "/logging"
                                                         "PutLoggingOptions"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12635,7 +12656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/configuration/account/storage"
                                                         "PutStorageConfiguration"
                                                         "2019-12-02"))
@@ -12654,8 +12675,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/tags"
-                                                        "TagResource"
+                                                        "POST" :rest-json
+                                                        "/tags" "TagResource"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
@@ -12672,8 +12693,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/tags"
-                                                        "UntagResource"
+                                                        "DELETE" :rest-json
+                                                        "/tags" "UntagResource"
                                                         "2019-12-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
@@ -12694,7 +12715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12724,7 +12745,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12758,7 +12779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12789,7 +12810,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12824,7 +12845,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12852,7 +12873,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12884,7 +12905,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12917,7 +12938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12948,7 +12969,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotsitewise-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

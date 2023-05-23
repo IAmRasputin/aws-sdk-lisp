@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/xray/api)
 (common-lisp:progn
  (common-lisp:defclass xray-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "xray"))
+                       (:default-initargs :service "xray" :protocol
+                        :rest-json))
  (common-lisp:export 'xray-request))
 (common-lisp:progn
  (common-lisp:define-condition xray-error
@@ -6130,7 +6131,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/Traces"
+                                                        "POST" :rest-json
+                                                        "/Traces"
                                                         "BatchGetTraces"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6151,7 +6153,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateGroup"
+                                                        "POST" :rest-json
+                                                        "/CreateGroup"
                                                         "CreateGroup"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6169,7 +6172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateSamplingRule"
                                                         "CreateSamplingRule"
                                                         "2016-04-12"))
@@ -6188,7 +6191,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteGroup"
+                                                        "POST" :rest-json
+                                                        "/DeleteGroup"
                                                         "DeleteGroup"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6206,7 +6210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteResourcePolicy"
                                                         "DeleteResourcePolicy"
                                                         "2016-04-12"))
@@ -6225,7 +6229,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteSamplingRule"
                                                         "DeleteSamplingRule"
                                                         "2016-04-12"))
@@ -6236,7 +6240,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'xray-request :method "POST" :path
-                                "/EncryptionConfig" :params
+                                "/EncryptionConfig" :protocol :rest-json
+                                :operation "GetEncryptionConfig" :params
                                 `(("Action" ,@"GetEncryptionConfig")
                                   ("Version" ,@"2016-04-12"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -6254,8 +6259,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetGroup"
-                                                        "GetGroup"
+                                                        "POST" :rest-json
+                                                        "/GetGroup" "GetGroup"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group))
@@ -6272,8 +6277,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/Groups"
-                                                        "GetGroups"
+                                                        "POST" :rest-json
+                                                        "/Groups" "GetGroups"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-groups))
@@ -6290,8 +6295,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/Insight"
-                                                        "GetInsight"
+                                                        "POST" :rest-json
+                                                        "/Insight" "GetInsight"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-insight))
@@ -6309,7 +6314,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/InsightEvents"
+                                                        "POST" :rest-json
+                                                        "/InsightEvents"
                                                         "GetInsightEvents"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6329,7 +6335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/InsightImpactGraph"
                                                         "GetInsightImpactGraph"
                                                         "2016-04-12"))
@@ -6351,7 +6357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/InsightSummaries"
                                                         "GetInsightSummaries"
                                                         "2016-04-12"))
@@ -6370,7 +6376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetSamplingRules"
                                                         "GetSamplingRules"
                                                         "2016-04-12"))
@@ -6390,7 +6396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/SamplingStatisticSummaries"
                                                         "GetSamplingStatisticSummaries"
                                                         "2016-04-12"))
@@ -6409,7 +6415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/SamplingTargets"
                                                         "GetSamplingTargets"
                                                         "2016-04-12"))
@@ -6431,7 +6437,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ServiceGraph"
+                                                        "POST" :rest-json
+                                                        "/ServiceGraph"
                                                         "GetServiceGraph"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6454,7 +6461,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/TimeSeriesServiceStatistics"
                                                         "GetTimeSeriesServiceStatistics"
                                                         "2016-04-12"))
@@ -6473,7 +6480,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TraceGraph"
+                                                        "POST" :rest-json
+                                                        "/TraceGraph"
                                                         "GetTraceGraph"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6494,7 +6502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/TraceSummaries"
                                                         "GetTraceSummaries"
                                                         "2016-04-12"))
@@ -6513,7 +6521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListResourcePolicies"
                                                         "ListResourcePolicies"
                                                         "2016-04-12"))
@@ -6532,7 +6540,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTagsForResource"
                                                         "ListTagsForResource"
                                                         "2016-04-12"))
@@ -6551,7 +6559,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/PutEncryptionConfig"
                                                         "PutEncryptionConfig"
                                                         "2016-04-12"))
@@ -6573,7 +6581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/PutResourcePolicy"
                                                         "PutResourcePolicy"
                                                         "2016-04-12"))
@@ -6595,7 +6603,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/TelemetryRecords"
                                                         "PutTelemetryRecords"
                                                         "2016-04-12"))
@@ -6614,7 +6622,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TraceSegments"
+                                                        "POST" :rest-json
+                                                        "/TraceSegments"
                                                         "PutTraceSegments"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6632,7 +6641,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TagResource"
+                                                        "POST" :rest-json
+                                                        "/TagResource"
                                                         "TagResource"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6650,7 +6660,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UntagResource"
+                                                        "POST" :rest-json
+                                                        "/UntagResource"
                                                         "UntagResource"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6671,7 +6682,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateGroup"
+                                                        "POST" :rest-json
+                                                        "/UpdateGroup"
                                                         "UpdateGroup"
                                                         "2016-04-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6689,7 +6701,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'xray-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateSamplingRule"
                                                         "UpdateSamplingRule"
                                                         "2016-04-12"))

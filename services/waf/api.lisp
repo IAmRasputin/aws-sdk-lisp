@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/waf/api)
 (common-lisp:progn
  (common-lisp:defclass waf-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "waf"))
+                       (:default-initargs :service "waf" :protocol :json))
  (common-lisp:export 'waf-request))
 (common-lisp:progn
  (common-lisp:define-condition waf-error
@@ -8481,7 +8481,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateByteMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8499,7 +8499,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGeoMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8517,7 +8517,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateIPSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8538,7 +8538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRateBasedRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8556,7 +8556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRegexMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8574,7 +8574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRegexPatternSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8593,7 +8593,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateRule"
+                                                        "POST" :json "/"
+                                                        "CreateRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-rule))
@@ -8611,7 +8612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRuleGroup"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8630,7 +8631,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSizeConstraintSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8649,7 +8650,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSqlInjectionMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8669,7 +8670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWebACL"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8690,7 +8691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWebACLMigrationStack"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8708,7 +8709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateXssMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8726,7 +8727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteByteMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8744,7 +8745,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGeoMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8762,7 +8763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteIPSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8781,7 +8782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLoggingConfiguration"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8799,7 +8800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePermissionPolicy"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8817,7 +8818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRateBasedRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8836,7 +8837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRegexMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8855,7 +8856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRegexPatternSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8873,7 +8874,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteRule"
+                                                        "POST" :json "/"
+                                                        "DeleteRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-rule))
@@ -8890,7 +8892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRuleGroup"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8910,7 +8912,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSizeConstraintSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8930,7 +8932,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSqlInjectionMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8948,7 +8950,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWebACL"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8966,7 +8968,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteXssMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8984,7 +8986,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetByteMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8993,7 +8995,8 @@
  (common-lisp:defun get-change-token ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'waf-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'waf-request :method "POST" :path "/" :protocol
+                                :json :operation "GetChangeToken" :params
                                 `(("Action" ,@"GetChangeToken")
                                   ("Version" ,@"2015-08-24"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9011,7 +9014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetChangeTokenStatus"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9029,7 +9032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetGeoMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9047,7 +9050,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetIPSet"
+                                                        "POST" :json "/"
+                                                        "GetIPSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ipset))
@@ -9065,7 +9069,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLoggingConfiguration"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9083,7 +9087,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPermissionPolicy"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9101,7 +9105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRateBasedRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9120,7 +9124,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRateBasedRuleManagedKeys"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9138,7 +9142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRegexMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9156,7 +9160,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRegexPatternSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9174,7 +9178,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRule"
+                                                        "POST" :json "/"
+                                                        "GetRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-rule))
@@ -9191,7 +9196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRuleGroup"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9210,7 +9215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSampledRequests"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9228,7 +9233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSizeConstraintSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9247,7 +9252,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSqlInjectionMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9265,7 +9270,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetWebACL"
+                                                        "POST" :json "/"
+                                                        "GetWebACL"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-web-acl))
@@ -9282,7 +9288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetXssMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9302,7 +9308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListActivatedRulesInRuleGroup"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9320,7 +9326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListByteMatchSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9338,7 +9344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGeoMatchSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9356,7 +9362,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListIPSets"
+                                                        "POST" :json "/"
+                                                        "ListIPSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-ipsets))
@@ -9374,7 +9381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLoggingConfigurations"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9392,7 +9399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRateBasedRules"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9410,7 +9417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRegexMatchSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9428,7 +9435,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRegexPatternSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9446,7 +9453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRuleGroups"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9464,7 +9471,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListRules"
+                                                        "POST" :json "/"
+                                                        "ListRules"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-rules))
@@ -9482,7 +9490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSizeConstraintSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9501,7 +9509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSqlInjectionMatchSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9520,7 +9528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSubscribedRuleGroups"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9538,7 +9546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9556,7 +9564,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWebACLs"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9574,7 +9582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListXssMatchSets"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9593,7 +9601,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutLoggingConfiguration"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9611,7 +9619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutPermissionPolicy"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9629,7 +9637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9647,7 +9655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9666,7 +9674,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateByteMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9685,7 +9693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGeoMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9703,7 +9711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateIPSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9722,7 +9730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRateBasedRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9741,7 +9749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRegexMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9761,7 +9769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRegexPatternSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9779,7 +9787,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateRule"
+                                                        "POST" :json "/"
+                                                        "UpdateRule"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-rule))
@@ -9797,7 +9806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRuleGroup"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9818,7 +9827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSizeConstraintSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9839,7 +9848,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSqlInjectionMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9859,7 +9868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWebACL"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9878,7 +9887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'waf-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateXssMatchSet"
                                                         "2015-08-24"))
       common-lisp:nil common-lisp:nil *error-map*)))

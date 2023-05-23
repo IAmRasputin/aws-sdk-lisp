@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/drs/api)
 (common-lisp:progn
  (common-lisp:defclass drs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "drs"))
+                       (:default-initargs :service "drs" :protocol :rest-json))
  (common-lisp:export 'drs-request))
 (common-lisp:progn
  (common-lisp:define-condition drs-error
@@ -6434,7 +6434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateExtendedSourceServer"
                                                         "CreateExtendedSourceServer"
                                                         "2020-02-26"))
@@ -6458,7 +6458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateLaunchConfigurationTemplate"
                                                         "CreateLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -6492,7 +6492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateReplicationConfigurationTemplate"
                                                         "CreateReplicationConfigurationTemplate"
                                                         "2020-02-26"))
@@ -6511,7 +6511,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteJob"
+                                                        "POST" :rest-json
+                                                        "/DeleteJob"
                                                         "DeleteJob"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6531,7 +6532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteLaunchConfigurationTemplate"
                                                         "DeleteLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -6550,7 +6551,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteRecoveryInstance"
                                                         "DeleteRecoveryInstance"
                                                         "2020-02-26"))
@@ -6571,7 +6572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteReplicationConfigurationTemplate"
                                                         "DeleteReplicationConfigurationTemplate"
                                                         "2020-02-26"))
@@ -6590,7 +6591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteSourceServer"
                                                         "DeleteSourceServer"
                                                         "2020-02-26"))
@@ -6609,7 +6610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeJobLogItems"
                                                         "DescribeJobLogItems"
                                                         "2020-02-26"))
@@ -6628,7 +6629,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DescribeJobs"
+                                                        "POST" :rest-json
+                                                        "/DescribeJobs"
                                                         "DescribeJobs"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6650,7 +6652,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeLaunchConfigurationTemplates"
                                                         "DescribeLaunchConfigurationTemplates"
                                                         "2020-02-26"))
@@ -6670,7 +6672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeRecoveryInstances"
                                                         "DescribeRecoveryInstances"
                                                         "2020-02-26"))
@@ -6693,7 +6695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeRecoverySnapshots"
                                                         "DescribeRecoverySnapshots"
                                                         "2020-02-26"))
@@ -6716,7 +6718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeReplicationConfigurationTemplates"
                                                         "DescribeReplicationConfigurationTemplates"
                                                         "2020-02-26"))
@@ -6735,7 +6737,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSourceServers"
                                                         "DescribeSourceServers"
                                                         "2020-02-26"))
@@ -6755,7 +6757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisconnectRecoveryInstance"
                                                         "DisconnectRecoveryInstance"
                                                         "2020-02-26"))
@@ -6774,7 +6776,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisconnectSourceServer"
                                                         "DisconnectSourceServer"
                                                         "2020-02-26"))
@@ -6794,7 +6796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetFailbackReplicationConfiguration"
                                                         "GetFailbackReplicationConfiguration"
                                                         "2020-02-26"))
@@ -6813,7 +6815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetLaunchConfiguration"
                                                         "GetLaunchConfiguration"
                                                         "2020-02-26"))
@@ -6833,7 +6835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetReplicationConfiguration"
                                                         "GetReplicationConfiguration"
                                                         "2020-02-26"))
@@ -6844,7 +6846,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'drs-request :method "POST" :path
-                                "/InitializeService" :params
+                                "/InitializeService" :protocol :rest-json
+                                :operation "InitializeService" :params
                                 `(("Action" ,@"InitializeService")
                                   ("Version" ,@"2020-02-26"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -6865,7 +6868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListExtensibleSourceServers"
                                                         "ListExtensibleSourceServers"
                                                         "2020-02-26"))
@@ -6884,7 +6887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/ListStagingAccounts"
                                                         "ListStagingAccounts"
                                                         "2020-02-26"))
@@ -6903,7 +6906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6931,7 +6934,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/RetryDataReplication"
                                                         "RetryDataReplication"
                                                         "2020-02-26"))
@@ -6950,7 +6953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ReverseReplication"
                                                         "ReverseReplication"
                                                         "2020-02-26"))
@@ -6969,7 +6972,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StartFailbackLaunch"
                                                         "StartFailbackLaunch"
                                                         "2020-02-26"))
@@ -6988,7 +6991,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StartRecovery"
+                                                        "POST" :rest-json
+                                                        "/StartRecovery"
                                                         "StartRecovery"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7006,7 +7010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StartReplication"
                                                         "StartReplication"
                                                         "2020-02-26"))
@@ -7025,7 +7029,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/StopFailback"
+                                                        "POST" :rest-json
+                                                        "/StopFailback"
                                                         "StopFailback"
                                                         "2020-02-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7043,7 +7048,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/StopReplication"
                                                         "StopReplication"
                                                         "2020-02-26"))
@@ -7062,7 +7067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7091,7 +7096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/TerminateRecoveryInstances"
                                                         "TerminateRecoveryInstances"
                                                         "2020-02-26"))
@@ -7110,7 +7115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7142,7 +7147,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateFailbackReplicationConfiguration"
                                                         "UpdateFailbackReplicationConfiguration"
                                                         "2020-02-26"))
@@ -7166,7 +7171,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateLaunchConfiguration"
                                                         "UpdateLaunchConfiguration"
                                                         "2020-02-26"))
@@ -7191,7 +7196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateLaunchConfigurationTemplate"
                                                         "UpdateLaunchConfigurationTemplate"
                                                         "2020-02-26"))
@@ -7226,7 +7231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateReplicationConfiguration"
                                                         "UpdateReplicationConfiguration"
                                                         "2020-02-26"))
@@ -7262,7 +7267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'drs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateReplicationConfigurationTemplate"
                                                         "UpdateReplicationConfigurationTemplate"
                                                         "2020-02-26"))

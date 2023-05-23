@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass amplifyuibuilder-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "amplifyuibuilder"))
+                       (:default-initargs :service "amplifyuibuilder" :protocol
+                        :rest-json))
  (common-lisp:export 'amplifyuibuilder-request))
 (common-lisp:progn
  (common-lisp:define-condition amplifyuibuilder-error
@@ -4569,6 +4570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/components"
@@ -4598,6 +4600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/forms"
                               (quri.encode:url-encode
@@ -4626,6 +4629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/themes"
                               (quri.encode:url-encode
@@ -4651,6 +4655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/components/~A"
@@ -4680,6 +4685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/forms/~A"
                               (quri.encode:url-encode
@@ -4708,6 +4714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/themes/~A"
@@ -4737,6 +4744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tokens/~A"
                               (quri.encode:url-encode
@@ -4760,6 +4768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/export/app/~A/environment/~A/components"
@@ -4787,6 +4796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/export/app/~A/environment/~A/forms"
@@ -4814,6 +4824,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/export/app/~A/environment/~A/themes"
@@ -4840,6 +4851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/components/~A"
@@ -4869,6 +4881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/forms/~A"
                               (quri.encode:url-encode
@@ -4897,6 +4910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/metadata"
                               (quri.encode:url-encode
@@ -4922,6 +4936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/themes/~A"
@@ -4953,6 +4968,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/components"
@@ -4981,6 +4997,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/forms"
                               (quri.encode:url-encode
@@ -5008,6 +5025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/themes"
                               (quri.encode:url-encode
@@ -5035,6 +5053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/metadata/features/~A"
@@ -5065,6 +5084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tokens/~A/refresh"
                               (quri.encode:url-encode
@@ -5090,6 +5110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/components/~A"
@@ -5122,6 +5143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app/~A/environment/~A/forms/~A"
                               (quri.encode:url-encode
@@ -5153,6 +5175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'amplifyuibuilder-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app/~A/environment/~A/themes/~A"

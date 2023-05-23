@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ds/api)
 (common-lisp:progn
  (common-lisp:defclass ds-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ds"))
+                       (:default-initargs :service "ds" :protocol :json))
  (common-lisp:export 'ds-request))
 (common-lisp:progn
  (common-lisp:define-condition ds-error
@@ -8141,7 +8141,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptSharedDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8162,7 +8162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddIpRoutes"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8181,7 +8181,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddRegion"
+                                                        "POST" :json "/"
+                                                        "AddRegion"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-region))
@@ -8198,7 +8199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddTagsToResource"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8217,7 +8218,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelSchemaExtension"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8238,7 +8239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConnectDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8256,7 +8257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAlias"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8278,7 +8279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateComputer"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8299,7 +8300,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConditionalForwarder"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8320,7 +8321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8338,7 +8339,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLogSubscription"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8359,7 +8360,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMicrosoftAD"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8377,7 +8378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSnapshot"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8399,7 +8400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrust"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8419,7 +8420,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConditionalForwarder"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8437,7 +8438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8455,7 +8456,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLogSubscription"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8473,7 +8474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSnapshot"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8493,7 +8494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTrust"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8511,7 +8512,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterCertificate"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8529,7 +8530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterEventTopic"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8547,7 +8548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCertificate"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8567,7 +8568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClientAuthenticationSettings"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8587,7 +8588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConditionalForwarders"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8605,7 +8606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectories"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8627,7 +8628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDomainControllers"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8645,7 +8646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventTopics"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8664,7 +8665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLDAPSSettings"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8683,7 +8684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRegions"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8701,7 +8702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSettings"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8723,7 +8724,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSharedDirectories"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8743,7 +8744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSnapshots"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8762,7 +8763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrusts"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8783,7 +8784,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUpdateDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8802,7 +8803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableClientAuthentication"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8820,7 +8821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableLDAPS"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8838,7 +8839,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableRadius"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8857,7 +8858,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DisableSso"
+                                                        "POST" :json "/"
+                                                        "DisableSso"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disable-sso))
@@ -8875,7 +8877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableClientAuthentication"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8893,7 +8895,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableLDAPS"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8911,7 +8913,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableRadius"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8930,7 +8932,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "EnableSso"
+                                                        "POST" :json "/"
+                                                        "EnableSso"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable-sso))
@@ -8938,7 +8941,8 @@
  (common-lisp:defun get-directory-limits ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ds-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ds-request :method "POST" :path "/" :protocol
+                                :json :operation "GetDirectoryLimits" :params
                                 `(("Action" ,@"GetDirectoryLimits")
                                   ("Version" ,@"2015-04-16"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8956,7 +8960,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSnapshotLimits"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8974,7 +8978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCertificates"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8992,7 +8996,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListIpRoutes"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9010,7 +9014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLogSubscriptions"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9028,7 +9032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSchemaExtensions"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9046,7 +9050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9067,7 +9071,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterCertificate"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9085,7 +9089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterEventTopic"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9103,7 +9107,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RejectSharedDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9121,7 +9125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveIpRoutes"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9139,7 +9143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveRegion"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9158,7 +9162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveTagsFromResource"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9177,7 +9181,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResetUserPassword"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9195,7 +9199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreFromSnapshot"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9215,7 +9219,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ShareDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9237,7 +9241,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartSchemaExtension"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9255,7 +9259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UnshareDirectory"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9276,7 +9280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConditionalForwarder"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9297,7 +9301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDirectorySetup"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9316,7 +9320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNumberOfDomainControllers"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9334,7 +9338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRadius"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9352,7 +9356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSettings"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9370,7 +9374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrust"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9388,7 +9392,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "VerifyTrust"
                                                         "2015-04-16"))
       common-lisp:nil common-lisp:nil *error-map*)))

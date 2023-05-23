@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass servicecatalog-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "servicecatalog"))
+                       (:default-initargs :service "servicecatalog" :protocol
+                        :json))
  (common-lisp:export 'servicecatalog-request))
 (common-lisp:progn
  (common-lisp:define-condition servicecatalog-error
@@ -13067,7 +13068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptPortfolioShare"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13086,7 +13087,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateBudgetWithResource"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13108,7 +13109,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociatePrincipalWithPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13130,7 +13131,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateProductWithPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13152,7 +13153,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateServiceActionWithProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13171,7 +13172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateTagOptionWithResource"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13192,7 +13193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchAssociateServiceActionWithProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13214,7 +13215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDisassociateServiceActionFromProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13239,7 +13240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopyProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13260,7 +13261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConstraint"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13281,7 +13282,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13302,7 +13303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePortfolioShare"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13326,7 +13327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13351,7 +13352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProvisionedProductPlan"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13373,7 +13374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13394,7 +13395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13412,7 +13413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTagOption"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13430,7 +13431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConstraint"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13448,7 +13449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13469,7 +13470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePortfolioShare"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13487,7 +13488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13507,7 +13508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProvisionedProductPlan"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13529,7 +13530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13547,7 +13548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13565,7 +13566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTagOption"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13583,7 +13584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConstraint"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13603,7 +13604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCopyProductStatus"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13621,7 +13622,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13640,7 +13641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePortfolioShareStatus"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13659,7 +13660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePortfolioShares"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13677,7 +13678,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13697,7 +13698,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProductAsAdmin"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13715,7 +13716,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProductView"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13734,7 +13735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProvisionedProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13755,7 +13756,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProvisionedProductPlan"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13778,7 +13779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13801,7 +13802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProvisioningParameters"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13820,7 +13821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRecord"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13838,7 +13839,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13860,7 +13861,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServiceActionExecutionParameters"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13878,7 +13879,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTagOption"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13888,7 +13889,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'servicecatalog-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "DisableAWSOrganizationsAccess" :params
                                 `(("Action" ,@"DisableAWSOrganizationsAccess")
                                   ("Version" ,@"2015-12-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13907,7 +13909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateBudgetFromResource"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13929,7 +13931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociatePrincipalFromPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13949,7 +13951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateProductFromPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13971,7 +13973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateServiceActionFromProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13990,7 +13992,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateTagOptionFromResource"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14000,7 +14002,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'servicecatalog-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "EnableAWSOrganizationsAccess" :params
                                 `(("Action" ,@"EnableAWSOrganizationsAccess")
                                   ("Version" ,@"2015-12-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -14021,7 +14024,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteProvisionedProductPlan"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14043,7 +14046,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteProvisionedProductServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14053,7 +14056,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'servicecatalog-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetAWSOrganizationsAccessStatus" :params
                                 `(("Action"
                                    ,@"GetAWSOrganizationsAccessStatus")
                                   ("Version" ,@"2015-12-10"))))
@@ -14076,7 +14080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetProvisionedProductOutputs"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14099,7 +14103,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportAsProvisionedProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14121,7 +14125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAcceptedPortfolioShares"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14141,7 +14145,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBudgetsForResource"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14163,7 +14167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListConstraintsForPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14183,7 +14187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLaunchPaths"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14205,7 +14209,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOrganizationPortfolioAccess"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14226,7 +14230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPortfolioAccess"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14245,7 +14249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPortfolios"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14266,7 +14270,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPortfoliosForProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14287,7 +14291,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPrincipalsForPortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14309,7 +14313,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProvisionedProductPlans"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14328,7 +14332,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProvisioningArtifacts"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14350,7 +14354,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProvisioningArtifactsForServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14371,7 +14375,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRecordHistory"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14392,7 +14396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourcesForTagOption"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14411,7 +14415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceActions"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14433,7 +14437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceActionsForProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14455,7 +14459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStackInstancesForProvisionedProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14473,7 +14477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagOptions"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14496,7 +14500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyProvisionProductEngineWorkflowResult"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14518,7 +14522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyTerminateProvisionedProductEngineWorkflowResult"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14541,7 +14545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyUpdateProvisionedProductEngineWorkflowResult"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14567,7 +14571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ProvisionProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14587,7 +14591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RejectPortfolioShare"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14608,7 +14612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ScanProvisionedProducts"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14629,7 +14633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchProducts"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14650,7 +14654,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchProductsAsAdmin"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14672,7 +14676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SearchProvisionedProducts"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14695,7 +14699,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TerminateProvisionedProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14715,7 +14719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConstraint"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14736,7 +14740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePortfolio"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14757,7 +14761,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePortfolioShare"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14780,7 +14784,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14806,7 +14810,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProvisionedProduct"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14828,7 +14832,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProvisionedProductProperties"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14850,7 +14854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProvisioningArtifact"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14870,7 +14874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServiceAction"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14888,7 +14892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'servicecatalog-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTagOption"
                                                         "2015-12-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass backup-gateway-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "backup-gateway"))
+                       (:default-initargs :service "backup-gateway" :protocol
+                        :json))
  (common-lisp:export 'backup-gateway-request))
 (common-lisp:progn
  (common-lisp:define-condition backup-gateway-error
@@ -2716,7 +2717,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateGatewayToServer"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2737,7 +2738,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGateway"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2755,7 +2756,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGateway"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2773,7 +2774,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteHypervisor"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2792,7 +2793,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateGatewayFromServer"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2811,7 +2812,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetBandwidthRateLimitSchedule"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2829,7 +2830,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetGateway"
+                                                        "POST" :json "/"
+                                                        "GetGateway"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-gateway))
@@ -2846,7 +2848,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetHypervisor"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2865,7 +2867,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetHypervisorPropertyMappings"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2883,7 +2885,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVirtualMachine"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2904,7 +2906,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportHypervisorConfiguration"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2922,7 +2924,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGateways"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2940,7 +2942,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHypervisors"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2958,7 +2960,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2977,7 +2979,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVirtualMachines"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2998,7 +3000,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutBandwidthRateLimitSchedule"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3020,7 +3022,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutHypervisorPropertyMappings"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3041,7 +3043,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutMaintenanceStartTime"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3060,7 +3062,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartVirtualMachinesMetadataSync"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3078,7 +3080,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3098,7 +3100,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TestHypervisorConfiguration"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3116,7 +3118,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3135,7 +3137,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGatewayInformation"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3154,7 +3156,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGatewaySoftwareNow"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3175,7 +3177,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'backup-gateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateHypervisor"
                                                         "2021-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

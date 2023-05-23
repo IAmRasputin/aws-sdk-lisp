@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass personalize-runtime-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "personalize-runtime"))
+                       (:default-initargs :service "personalize-runtime"
+                        :protocol :rest-json))
  (common-lisp:export 'personalize-runtime-request))
 (common-lisp:progn
  (common-lisp:define-condition personalize-runtime-error
@@ -442,7 +443,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'personalize-runtime-request aws-sdk/generator/operation::input "POST"
-        "/personalize-ranking" "GetPersonalizedRanking" "2018-05-22"))
+        :rest-json "/personalize-ranking" "GetPersonalizedRanking"
+        "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-personalized-ranking))
 (common-lisp:progn
@@ -462,6 +464,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'personalize-runtime-request aws-sdk/generator/operation::input "POST"
-        "/recommendations" "GetRecommendations" "2018-05-22"))
+        :rest-json "/recommendations" "GetRecommendations" "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-recommendations))

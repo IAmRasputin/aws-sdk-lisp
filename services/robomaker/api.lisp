@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass robomaker-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "robomaker"))
+                       (:default-initargs :service "robomaker" :protocol
+                        :rest-json))
  (common-lisp:export 'robomaker-request))
 (common-lisp:progn
  (common-lisp:define-condition robomaker-error
@@ -9675,7 +9676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/batchDeleteWorlds"
                                                         "BatchDeleteWorlds"
                                                         "2018-06-29"))
@@ -9695,7 +9696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/batchDescribeSimulationJob"
                                                         "BatchDescribeSimulationJob"
                                                         "2018-06-29"))
@@ -9714,7 +9715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cancelDeploymentJob"
                                                         "CancelDeploymentJob"
                                                         "2018-06-29"))
@@ -9733,7 +9734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cancelSimulationJob"
                                                         "CancelSimulationJob"
                                                         "2018-06-29"))
@@ -9753,7 +9754,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cancelSimulationJobBatch"
                                                         "CancelSimulationJobBatch"
                                                         "2018-06-29"))
@@ -9772,7 +9773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cancelWorldExportJob"
                                                         "CancelWorldExportJob"
                                                         "2018-06-29"))
@@ -9792,7 +9793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cancelWorldGenerationJob"
                                                         "CancelWorldGenerationJob"
                                                         "2018-06-29"))
@@ -9814,7 +9815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createDeploymentJob"
                                                         "CreateDeploymentJob"
                                                         "2018-06-29"))
@@ -9833,7 +9834,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createFleet"
+                                                        "POST" :rest-json
+                                                        "/createFleet"
                                                         "CreateFleet"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9853,7 +9855,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createRobot"
+                                                        "POST" :rest-json
+                                                        "/createRobot"
                                                         "CreateRobot"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9873,7 +9876,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createRobotApplication"
                                                         "CreateRobotApplication"
                                                         "2018-06-29"))
@@ -9896,7 +9899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createRobotApplicationVersion"
                                                         "CreateRobotApplicationVersion"
                                                         "2018-06-29"))
@@ -9919,7 +9922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createSimulationApplication"
                                                         "CreateSimulationApplication"
                                                         "2018-06-29"))
@@ -9942,7 +9945,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createSimulationApplicationVersion"
                                                         "CreateSimulationApplicationVersion"
                                                         "2018-06-29"))
@@ -9968,7 +9971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createSimulationJob"
                                                         "CreateSimulationJob"
                                                         "2018-06-29"))
@@ -9990,7 +9993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createWorldExportJob"
                                                         "CreateWorldExportJob"
                                                         "2018-06-29"))
@@ -10013,7 +10016,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createWorldGenerationJob"
                                                         "CreateWorldGenerationJob"
                                                         "2018-06-29"))
@@ -10035,7 +10038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createWorldTemplate"
                                                         "CreateWorldTemplate"
                                                         "2018-06-29"))
@@ -10054,7 +10057,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteFleet"
+                                                        "POST" :rest-json
+                                                        "/deleteFleet"
                                                         "DeleteFleet"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10072,7 +10076,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteRobot"
+                                                        "POST" :rest-json
+                                                        "/deleteRobot"
                                                         "DeleteRobot"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10091,7 +10096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteRobotApplication"
                                                         "DeleteRobotApplication"
                                                         "2018-06-29"))
@@ -10112,7 +10117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteSimulationApplication"
                                                         "DeleteSimulationApplication"
                                                         "2018-06-29"))
@@ -10131,7 +10136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteWorldTemplate"
                                                         "DeleteWorldTemplate"
                                                         "2018-06-29"))
@@ -10150,7 +10155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deregisterRobot"
                                                         "DeregisterRobot"
                                                         "2018-06-29"))
@@ -10169,7 +10174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeDeploymentJob"
                                                         "DescribeDeploymentJob"
                                                         "2018-06-29"))
@@ -10188,7 +10193,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/describeFleet"
+                                                        "POST" :rest-json
+                                                        "/describeFleet"
                                                         "DescribeFleet"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10206,7 +10212,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/describeRobot"
+                                                        "POST" :rest-json
+                                                        "/describeRobot"
                                                         "DescribeRobot"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10226,7 +10233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeRobotApplication"
                                                         "DescribeRobotApplication"
                                                         "2018-06-29"))
@@ -10247,7 +10254,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeSimulationApplication"
                                                         "DescribeSimulationApplication"
                                                         "2018-06-29"))
@@ -10266,7 +10273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeSimulationJob"
                                                         "DescribeSimulationJob"
                                                         "2018-06-29"))
@@ -10286,7 +10293,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeSimulationJobBatch"
                                                         "DescribeSimulationJobBatch"
                                                         "2018-06-29"))
@@ -10305,7 +10312,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/describeWorld"
+                                                        "POST" :rest-json
+                                                        "/describeWorld"
                                                         "DescribeWorld"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10324,7 +10332,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeWorldExportJob"
                                                         "DescribeWorldExportJob"
                                                         "2018-06-29"))
@@ -10344,7 +10352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeWorldGenerationJob"
                                                         "DescribeWorldGenerationJob"
                                                         "2018-06-29"))
@@ -10363,7 +10371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describeWorldTemplate"
                                                         "DescribeWorldTemplate"
                                                         "2018-06-29"))
@@ -10382,7 +10390,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getWorldTemplateBody"
                                                         "GetWorldTemplateBody"
                                                         "2018-06-29"))
@@ -10401,7 +10409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listDeploymentJobs"
                                                         "ListDeploymentJobs"
                                                         "2018-06-29"))
@@ -10420,7 +10428,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listFleets"
+                                                        "POST" :rest-json
+                                                        "/listFleets"
                                                         "ListFleets"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10440,7 +10449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listRobotApplications"
                                                         "ListRobotApplications"
                                                         "2018-06-29"))
@@ -10459,7 +10468,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listRobots"
+                                                        "POST" :rest-json
+                                                        "/listRobots"
                                                         "ListRobots"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10480,7 +10490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listSimulationApplications"
                                                         "ListSimulationApplications"
                                                         "2018-06-29"))
@@ -10500,7 +10510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listSimulationJobBatches"
                                                         "ListSimulationJobBatches"
                                                         "2018-06-29"))
@@ -10519,7 +10529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listSimulationJobs"
                                                         "ListSimulationJobs"
                                                         "2018-06-29"))
@@ -10538,7 +10548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10566,7 +10576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listWorldExportJobs"
                                                         "ListWorldExportJobs"
                                                         "2018-06-29"))
@@ -10586,7 +10596,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listWorldGenerationJobs"
                                                         "ListWorldGenerationJobs"
                                                         "2018-06-29"))
@@ -10605,7 +10615,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listWorldTemplates"
                                                         "ListWorldTemplates"
                                                         "2018-06-29"))
@@ -10624,7 +10634,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/listWorlds"
+                                                        "POST" :rest-json
+                                                        "/listWorlds"
                                                         "ListWorlds"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10642,7 +10653,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/registerRobot"
+                                                        "POST" :rest-json
+                                                        "/registerRobot"
                                                         "RegisterRobot"
                                                         "2018-06-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10660,7 +10672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/restartSimulationJob"
                                                         "RestartSimulationJob"
                                                         "2018-06-29"))
@@ -10683,7 +10695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/startSimulationJobBatch"
                                                         "StartSimulationJobBatch"
                                                         "2018-06-29"))
@@ -10702,7 +10714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/syncDeploymentJob"
                                                         "SyncDeploymentJob"
                                                         "2018-06-29"))
@@ -10721,7 +10733,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10749,7 +10761,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10780,7 +10792,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateRobotApplication"
                                                         "UpdateRobotApplication"
                                                         "2018-06-29"))
@@ -10804,7 +10816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateSimulationApplication"
                                                         "UpdateSimulationApplication"
                                                         "2018-06-29"))
@@ -10825,7 +10837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'robomaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateWorldTemplate"
                                                         "UpdateWorldTemplate"
                                                         "2018-06-29"))

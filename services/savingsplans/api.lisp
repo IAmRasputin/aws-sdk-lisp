@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass savingsplans-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "savingsplans"))
+                       (:default-initargs :service "savingsplans" :protocol
+                        :rest-json))
  (common-lisp:export 'savingsplans-request))
 (common-lisp:progn
  (common-lisp:define-condition savingsplans-error
@@ -2084,7 +2085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateSavingsPlan"
                                                         "CreateSavingsPlan"
                                                         "2019-06-28"))
@@ -2104,7 +2105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteQueuedSavingsPlan"
                                                         "DeleteQueuedSavingsPlan"
                                                         "2019-06-28"))
@@ -2126,7 +2127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSavingsPlanRates"
                                                         "DescribeSavingsPlanRates"
                                                         "2019-06-28"))
@@ -2148,7 +2149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSavingsPlans"
                                                         "DescribeSavingsPlans"
                                                         "2019-06-28"))
@@ -2174,7 +2175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSavingsPlansOfferingRates"
                                                         "DescribeSavingsPlansOfferingRates"
                                                         "2019-06-28"))
@@ -2199,7 +2200,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeSavingsPlansOfferings"
                                                         "DescribeSavingsPlansOfferings"
                                                         "2019-06-28"))
@@ -2218,7 +2219,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListTagsForResource"
                                                         "ListTagsForResource"
                                                         "2019-06-28"))
@@ -2237,7 +2238,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/TagResource"
+                                                        "POST" :rest-json
+                                                        "/TagResource"
                                                         "TagResource"
                                                         "2019-06-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2255,7 +2257,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'savingsplans-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UntagResource"
+                                                        "POST" :rest-json
+                                                        "/UntagResource"
                                                         "UntagResource"
                                                         "2019-06-28"))
       common-lisp:nil common-lisp:nil *error-map*)))

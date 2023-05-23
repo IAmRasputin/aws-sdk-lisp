@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass servicediscovery-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "servicediscovery"))
+                       (:default-initargs :service "servicediscovery" :protocol
+                        :json))
  (common-lisp:export 'servicediscovery-request))
 (common-lisp:progn
  (common-lisp:define-condition servicediscovery-error
@@ -3848,8 +3849,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateHttpNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateHttpNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-http-namespace))
 (common-lisp:progn
@@ -3868,8 +3869,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "CreatePrivateDnsNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreatePrivateDnsNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-private-dns-namespace))
 (common-lisp:progn
@@ -3888,8 +3889,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "CreatePublicDnsNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreatePublicDnsNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-public-dns-namespace))
 (common-lisp:progn
@@ -3908,8 +3909,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateService" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateService" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-service))
 (common-lisp:progn
@@ -3924,8 +3925,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-namespace))
 (common-lisp:progn
@@ -3940,8 +3941,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteService" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteService" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-service))
 (common-lisp:progn
@@ -3956,8 +3957,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "DeregisterInstance" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeregisterInstance" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'deregister-instance))
 (common-lisp:progn
@@ -3975,8 +3976,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "DiscoverInstances" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DiscoverInstances" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'discover-instances))
 (common-lisp:progn
@@ -3991,8 +3992,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "GetInstance" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetInstance" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-instance))
 (common-lisp:progn
@@ -4010,8 +4011,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "GetInstancesHealthStatus" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetInstancesHealthStatus" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-instances-health-status))
 (common-lisp:progn
@@ -4026,8 +4027,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "GetNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-namespace))
 (common-lisp:progn
@@ -4042,8 +4043,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "GetOperation" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetOperation" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-operation))
 (common-lisp:progn
@@ -4058,8 +4059,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "GetService" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetService" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-service))
 (common-lisp:progn
@@ -4075,8 +4076,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "ListInstances" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListInstances" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-instances))
 (common-lisp:progn
@@ -4091,8 +4092,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "ListNamespaces" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListNamespaces" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-namespaces))
 (common-lisp:progn
@@ -4107,8 +4108,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "ListOperations" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListOperations" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-operations))
 (common-lisp:progn
@@ -4123,8 +4124,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "ListServices" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListServices" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-services))
 (common-lisp:progn
@@ -4139,8 +4140,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -4158,8 +4159,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "RegisterInstance" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "RegisterInstance" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'register-instance))
 (common-lisp:progn
@@ -4174,8 +4175,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -4190,8 +4191,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -4207,8 +4208,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateHttpNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateHttpNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-http-namespace))
 (common-lisp:progn
@@ -4224,8 +4225,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateInstanceCustomHealthStatus" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateInstanceCustomHealthStatus" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-instance-custom-health-status))
 (common-lisp:progn
@@ -4242,8 +4243,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdatePrivateDnsNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdatePrivateDnsNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-private-dns-namespace))
 (common-lisp:progn
@@ -4260,8 +4261,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdatePublicDnsNamespace" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdatePublicDnsNamespace" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-public-dns-namespace))
 (common-lisp:progn
@@ -4276,7 +4277,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'servicediscovery-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateService" "2017-03-14"))
+        'servicediscovery-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateService" "2017-03-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-service))

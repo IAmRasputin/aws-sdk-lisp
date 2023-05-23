@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/shield/api)
 (common-lisp:progn
  (common-lisp:defclass shield-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "shield"))
+                       (:default-initargs :service "shield" :protocol :json))
  (common-lisp:export 'shield-request))
 (common-lisp:progn
  (common-lisp:define-condition shield-error
@@ -3985,7 +3985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateDRTLogBucket"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4003,7 +4003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateDRTRole"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4021,7 +4021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateHealthCheck"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4040,7 +4040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateProactiveEngagementDetails"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4058,7 +4058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProtection"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4079,7 +4079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProtectionGroup"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4089,6 +4089,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
+                                :protocol :json :operation "CreateSubscription"
                                 :params
                                 `(("Action" ,@"CreateSubscription")
                                   ("Version" ,@"2016-06-02"))))
@@ -4107,7 +4108,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProtection"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4125,7 +4126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProtectionGroup"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4135,6 +4136,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
+                                :protocol :json :operation "DeleteSubscription"
                                 :params
                                 `(("Action" ,@"DeleteSubscription")
                                   ("Version" ,@"2016-06-02"))))
@@ -4153,7 +4155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAttack"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4163,7 +4165,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeAttackStatistics" :params
                                 `(("Action" ,@"DescribeAttackStatistics")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4173,6 +4176,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeDRTAccess"
                                 :params
                                 `(("Action" ,@"DescribeDRTAccess")
                                   ("Version" ,@"2016-06-02"))))
@@ -4183,7 +4187,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeEmergencyContactSettings" :params
                                 `(("Action"
                                    ,@"DescribeEmergencyContactSettings")
                                   ("Version" ,@"2016-06-02"))))
@@ -4202,7 +4207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProtection"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4221,7 +4226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProtectionGroup"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4231,7 +4236,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeSubscription" :params
                                 `(("Action" ,@"DescribeSubscription")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4250,7 +4256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableApplicationLayerAutomaticResponse"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4260,7 +4266,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DisableProactiveEngagement" :params
                                 `(("Action" ,@"DisableProactiveEngagement")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4279,7 +4286,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateDRTLogBucket"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4289,7 +4296,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DisassociateDRTRole" :params
                                 `(("Action" ,@"DisassociateDRTRole")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4308,7 +4316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateHealthCheck"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4327,7 +4335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableApplicationLayerAutomaticResponse"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4337,7 +4345,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "EnableProactiveEngagement" :params
                                 `(("Action" ,@"EnableProactiveEngagement")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4347,7 +4356,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'shield-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetSubscriptionState" :params
                                 `(("Action" ,@"GetSubscriptionState")
                                   ("Version" ,@"2016-06-02"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4368,7 +4378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAttacks"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4387,7 +4397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProtectionGroups"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4406,7 +4416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProtections"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4427,7 +4437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourcesInProtectionGroup"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4445,7 +4455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4463,7 +4473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4481,7 +4491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4500,7 +4510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApplicationLayerAutomaticResponse"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4519,7 +4529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEmergencyContactSettings"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4540,7 +4550,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProtectionGroup"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4558,7 +4568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'shield-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSubscription"
                                                         "2016-06-02"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass service-quotas-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "service-quotas"))
+                       (:default-initargs :service "service-quotas" :protocol
+                        :json))
  (common-lisp:export 'service-quotas-request))
 (common-lisp:progn
  (common-lisp:define-condition service-quotas-error
@@ -2254,7 +2255,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'service-quotas-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "AssociateServiceQuotaTemplate" :params
                                 `(("Action" ,@"AssociateServiceQuotaTemplate")
                                   ("Version" ,@"2019-06-24"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -2274,7 +2276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServiceQuotaIncreaseRequestFromTemplate"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2284,7 +2286,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'service-quotas-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "DisassociateServiceQuotaTemplate" :params
                                 `(("Action"
                                    ,@"DisassociateServiceQuotaTemplate")
                                   ("Version" ,@"2019-06-24"))))
@@ -2304,7 +2307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAWSDefaultServiceQuota"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2314,7 +2317,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'service-quotas-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetAssociationForServiceQuotaTemplate" :params
                                 `(("Action"
                                    ,@"GetAssociationForServiceQuotaTemplate")
                                   ("Version" ,@"2019-06-24"))))
@@ -2334,7 +2338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRequestedServiceQuotaChange"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2352,7 +2356,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceQuota"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2372,7 +2376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetServiceQuotaIncreaseRequestFromTemplate"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2392,7 +2396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAWSDefaultServiceQuotas"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2413,7 +2417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRequestedServiceQuotaChangeHistory"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2435,7 +2439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRequestedServiceQuotaChangeHistoryByQuota"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2456,7 +2460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceQuotaIncreaseRequestsInTemplate"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2475,7 +2479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceQuotas"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2493,7 +2497,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServices"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2511,7 +2515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2532,7 +2536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutServiceQuotaIncreaseRequestIntoTemplate"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2552,7 +2556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RequestServiceQuotaIncrease"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2570,7 +2574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2588,7 +2592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'service-quotas-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2019-06-24"))
       common-lisp:nil common-lisp:nil *error-map*)))

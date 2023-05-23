@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/oam/api)
 (common-lisp:progn
  (common-lisp:defclass oam-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "oam"))
+                       (:default-initargs :service "oam" :protocol :rest-json))
  (common-lisp:export 'oam-request))
 (common-lisp:progn
  (common-lisp:define-condition oam-error
@@ -1405,7 +1405,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateLink"
+                                                        "POST" :rest-json
+                                                        "/CreateLink"
                                                         "CreateLink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1423,7 +1424,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateSink"
+                                                        "POST" :rest-json
+                                                        "/CreateSink"
                                                         "CreateSink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1441,7 +1443,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteLink"
+                                                        "POST" :rest-json
+                                                        "/DeleteLink"
                                                         "DeleteLink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1459,7 +1462,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteSink"
+                                                        "POST" :rest-json
+                                                        "/DeleteSink"
                                                         "DeleteSink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1477,8 +1481,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetLink"
-                                                        "GetLink"
+                                                        "POST" :rest-json
+                                                        "/GetLink" "GetLink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-link))
@@ -1495,8 +1499,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetSink"
-                                                        "GetSink"
+                                                        "POST" :rest-json
+                                                        "/GetSink" "GetSink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-sink))
@@ -1513,7 +1517,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetSinkPolicy"
+                                                        "POST" :rest-json
+                                                        "/GetSinkPolicy"
                                                         "GetSinkPolicy"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1532,7 +1537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListAttachedLinks"
                                                         "ListAttachedLinks"
                                                         "2022-06-10"))
@@ -1551,7 +1556,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListLinks"
+                                                        "POST" :rest-json
+                                                        "/ListLinks"
                                                         "ListLinks"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1569,7 +1575,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListSinks"
+                                                        "POST" :rest-json
+                                                        "/ListSinks"
                                                         "ListSinks"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1587,7 +1594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1615,7 +1622,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/PutSinkPolicy"
+                                                        "POST" :rest-json
+                                                        "/PutSinkPolicy"
                                                         "PutSinkPolicy"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1633,7 +1641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1661,7 +1669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1689,7 +1697,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'oam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateLink"
+                                                        "POST" :rest-json
+                                                        "/UpdateLink"
                                                         "UpdateLink"
                                                         "2022-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass ec2-instance-connect-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "ec2-instance-connect"))
+                       (:default-initargs :service "ec2-instance-connect"
+                        :protocol :json))
  (common-lisp:export 'ec2-instance-connect-request))
 (common-lisp:progn
  (common-lisp:define-condition ec2-instance-connect-error
@@ -327,7 +328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'ec2-instance-connect-request aws-sdk/generator/operation::input "POST"
-        "/" "SendSSHPublicKey" "2018-04-02"))
+        :json "/" "SendSSHPublicKey" "2018-04-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-sshpublic-key))
 (common-lisp:progn
@@ -345,6 +346,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'ec2-instance-connect-request aws-sdk/generator/operation::input "POST"
-        "/" "SendSerialConsoleSSHPublicKey" "2018-04-02"))
+        :json "/" "SendSerialConsoleSSHPublicKey" "2018-04-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-serial-console-sshpublic-key))

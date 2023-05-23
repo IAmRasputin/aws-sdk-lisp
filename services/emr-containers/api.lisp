@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass emr-containers-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "emr-containers"))
+                       (:default-initargs :service "emr-containers" :protocol
+                        :rest-json))
  (common-lisp:export 'emr-containers-request))
 (common-lisp:progn
  (common-lisp:define-condition emr-containers-error
@@ -21,6 +22,7 @@
  (common-lisp:export 'emr-containers-error))
 (common-lisp:defvar *error-map*
   '(("InternalServerException" . internal-server-exception)
+    ("RequestThrottledException" . request-throttled-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:deftype acmcert-arn () 'common-lisp:string)
@@ -701,6 +703,29 @@
                          (aws-sdk/generator/shape::input
                           create-virtual-cluster-response))
    common-lisp:nil))
+(common-lisp:deftype credential-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (credentials (:copier common-lisp:nil)
+      (:conc-name "struct-shape-credentials-"))
+   (token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'credentials 'make-credentials))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        ((aws-sdk/generator/shape::input credentials))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        ((aws-sdk/generator/shape::input credentials))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'token))
+      (common-lisp:list
+       (common-lisp:cons "token"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        ((aws-sdk/generator/shape::input credentials))
+   common-lisp:nil))
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1331,6 +1356,130 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype entry-point-path () 'common-lisp:string)
 (common-lisp:deftype failure-reason () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-managed-endpoint-session-credentials-request
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-managed-endpoint-session-credentials-request-"))
+   (endpoint-identifier (common-lisp:error ":endpointidentifier is required")
+    :type (common-lisp:or string2048 common-lisp:null))
+   (virtual-cluster-identifier
+    (common-lisp:error ":virtualclusteridentifier is required") :type
+    (common-lisp:or string2048 common-lisp:null))
+   (execution-role-arn (common-lisp:error ":executionrolearn is required")
+    :type (common-lisp:or iamrole-arn common-lisp:null))
+   (credential-type (common-lisp:error ":credentialtype is required") :type
+    (common-lisp:or credential-type common-lisp:null))
+   (duration-in-seconds common-lisp:nil :type
+    (common-lisp:or java-integer common-lisp:null))
+   (log-context common-lisp:nil :type
+    (common-lisp:or log-context common-lisp:null))
+   (client-token common-lisp:nil :type
+    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-managed-endpoint-session-credentials-request
+                    'make-get-managed-endpoint-session-credentials-request))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-request))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-request))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'execution-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "executionRoleArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'credential-type))
+      (common-lisp:list
+       (common-lisp:cons "credentialType"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'duration-in-seconds))
+      (common-lisp:list
+       (common-lisp:cons "durationInSeconds"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'log-context))
+      (common-lisp:list
+       (common-lisp:cons "logContext"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'client-token))
+      (common-lisp:list
+       (common-lisp:cons "clientToken"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-request))
+   common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-managed-endpoint-session-credentials-response
+      (:copier common-lisp:nil)
+      (:conc-name
+       "struct-shape-get-managed-endpoint-session-credentials-response-"))
+   (id common-lisp:nil :type
+    (common-lisp:or resource-id-string common-lisp:null))
+   (credentials common-lisp:nil :type
+    (common-lisp:or credentials common-lisp:null))
+   (expires-at common-lisp:nil :type (common-lisp:or date common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-managed-endpoint-session-credentials-response
+                    'make-get-managed-endpoint-session-credentials-response))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-headers
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-response))
+   (common-lisp:append))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-params
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-response))
+   (common-lisp:append
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'id))
+      (common-lisp:list
+       (common-lisp:cons "id"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'credentials))
+      (common-lisp:list
+       (common-lisp:cons "credentials"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'expires-at))
+      (common-lisp:list
+       (common-lisp:cons "expiresAt"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))))
+ (common-lisp:defmethod aws-sdk/generator/shape::input-payload
+                        (
+                         (aws-sdk/generator/shape::input
+                          get-managed-endpoint-session-credentials-response))
+   common-lisp:nil))
 (common-lisp:deftype iamrole-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
@@ -2085,6 +2234,7 @@
                          (aws-sdk/generator/shape::input
                           list-virtual-clusters-response))
    common-lisp:nil))
+(common-lisp:deftype log-context () 'common-lisp:string)
 (common-lisp:deftype log-group-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -2309,6 +2459,14 @@
 (common-lisp:deftype persistent-app-ui () 'common-lisp:string)
 (common-lisp:deftype release-label () 'common-lisp:string)
 (common-lisp:deftype request-identity-user-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:define-condition request-throttled-exception
+     (emr-containers-error)
+     ((message :initarg :message :initform common-lisp:nil :reader
+       request-throttled-exception-message)))
+ (common-lisp:export
+  (common-lisp:list 'request-throttled-exception
+                    'request-throttled-exception-message)))
 (common-lisp:deftype resource-id-string () 'common-lisp:string)
 (common-lisp:deftype resource-name-string () 'common-lisp:string)
 (common-lisp:progn
@@ -2812,6 +2970,7 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype template-parameter-name () 'common-lisp:string)
+(common-lisp:deftype token () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (untag-resource-request (:copier common-lisp:nil)
@@ -2972,7 +3131,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3007,7 +3166,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobtemplates"
+                                                        "POST" :rest-json
+                                                        "/jobtemplates"
                                                         "CreateJobTemplate"
                                                         "2020-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3030,7 +3190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3060,7 +3220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/virtualclusters"
                                                         "CreateVirtualCluster"
                                                         "2020-10-01"))
@@ -3079,7 +3239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3107,7 +3267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3139,7 +3299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3167,7 +3327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3199,7 +3359,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3228,7 +3388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3260,7 +3420,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3275,6 +3435,45 @@
                                                         "2020-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-virtual-cluster))
+(common-lisp:progn
+ (common-lisp:defun get-managed-endpoint-session-credentials
+                    (
+                     common-lisp:&rest aws-sdk/generator/operation::args
+                     common-lisp:&key endpoint-identifier
+                     virtual-cluster-identifier execution-role-arn
+                     credential-type duration-in-seconds log-context
+                     client-token)
+   (common-lisp:declare
+    (common-lisp:ignorable endpoint-identifier virtual-cluster-identifier
+     execution-role-arn credential-type duration-in-seconds log-context
+     client-token))
+   (common-lisp:let ((aws-sdk/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-managed-endpoint-session-credentials-request
+                       aws-sdk/generator/operation::args)))
+     (aws-sdk/generator/operation::parse-response
+      (aws-sdk/api:aws-request
+       (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
+                                                        aws-sdk/generator/operation::input
+                                                        "POST" :rest-json
+                                                        (common-lisp:lambda
+                                                            (
+                                                             aws-sdk/generator/operation::input)
+                                                          (common-lisp:format
+                                                           common-lisp:nil
+                                                           "/virtualclusters/~A/endpoints/~A/credentials"
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'virtual-cluster-id))
+                                                           (quri.encode:url-encode
+                                                            (common-lisp:slot-value
+                                                             aws-sdk/generator/operation::input
+                                                             'endpoint-id))))
+                                                        "GetManagedEndpointSessionCredentials"
+                                                        "2020-10-01"))
+      common-lisp:nil common-lisp:nil *error-map*)))
+ (common-lisp:export 'get-managed-endpoint-session-credentials))
 (common-lisp:progn
  (common-lisp:defun list-job-runs
                     (
@@ -3291,7 +3490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3322,7 +3521,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/jobtemplates"
+                                                        "GET" :rest-json
+                                                        "/jobtemplates"
                                                         "ListJobTemplates"
                                                         "2020-10-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3343,7 +3543,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3371,7 +3571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3403,7 +3603,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/virtualclusters"
                                                         "ListVirtualClusters"
                                                         "2020-10-01"))
@@ -3428,7 +3628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3456,7 +3656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3484,7 +3684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'emr-containers-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

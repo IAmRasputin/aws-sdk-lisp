@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass connect-contact-lens-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "connect-contact-lens"))
+                       (:default-initargs :service "connect-contact-lens"
+                        :protocol :rest-json))
  (common-lisp:export 'connect-contact-lens-request))
 (common-lisp:progn
  (common-lisp:define-condition connect-contact-lens-error
@@ -505,7 +506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connect-contact-lens-request aws-sdk/generator/operation::input "POST"
-        "/realtime-contact-analysis/analysis-segments"
+        :rest-json "/realtime-contact-analysis/analysis-segments"
         "ListRealtimeContactAnalysisSegments" "2020-08-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-realtime-contact-analysis-segments))

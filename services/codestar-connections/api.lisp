@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codestar-connections-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codestar-connections"))
+                       (:default-initargs :service "codestar-connections"
+                        :protocol :json))
  (common-lisp:export 'codestar-connections-request))
 (common-lisp:progn
  (common-lisp:define-condition codestar-connections-error
@@ -1154,7 +1155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateConnection" "2019-12-01"))
+        :json "/" "CreateConnection" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-connection))
 (common-lisp:progn
@@ -1173,7 +1174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateHost" "2019-12-01"))
+        :json "/" "CreateHost" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-host))
 (common-lisp:progn
@@ -1189,7 +1190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteConnection" "2019-12-01"))
+        :json "/" "DeleteConnection" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-connection))
 (common-lisp:progn
@@ -1205,7 +1206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteHost" "2019-12-01"))
+        :json "/" "DeleteHost" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-host))
 (common-lisp:progn
@@ -1221,7 +1222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "GetConnection" "2019-12-01"))
+        :json "/" "GetConnection" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-connection))
 (common-lisp:progn
@@ -1237,7 +1238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "GetHost" "2019-12-01"))
+        :json "/" "GetHost" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-host))
 (common-lisp:progn
@@ -1256,7 +1257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "ListConnections" "2019-12-01"))
+        :json "/" "ListConnections" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-connections))
 (common-lisp:progn
@@ -1272,7 +1273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "ListHosts" "2019-12-01"))
+        :json "/" "ListHosts" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-hosts))
 (common-lisp:progn
@@ -1288,7 +1289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTagsForResource" "2019-12-01"))
+        :json "/" "ListTagsForResource" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -1304,7 +1305,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "TagResource" "2019-12-01"))
+        :json "/" "TagResource" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -1320,7 +1321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "UntagResource" "2019-12-01"))
+        :json "/" "UntagResource" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -1338,6 +1339,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codestar-connections-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateHost" "2019-12-01"))
+        :json "/" "UpdateHost" "2019-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-host))

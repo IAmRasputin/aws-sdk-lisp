@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass apigatewayv2-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "apigatewayv2"))
+                       (:default-initargs :service "apigatewayv2" :protocol
+                        :rest-json))
  (common-lisp:export 'apigatewayv2-request))
 (common-lisp:progn
  (common-lisp:define-condition apigatewayv2-error
@@ -355,12 +356,16 @@
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
    (authorizer-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -368,11 +373,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export (common-lisp:list 'authorizer 'make-authorizer))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input authorizer))
@@ -398,6 +399,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -415,6 +424,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -444,22 +461,6 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1199,12 +1200,16 @@
       (:conc-name "struct-shape-create-authorizer-input-"))
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type (common-lisp:error ":authorizer-type is required") :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source (common-lisp:error ":identity-source is required") :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -1212,11 +1217,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-authorizer-input 'make-create-authorizer-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1240,6 +1241,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -1257,6 +1266,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1287,22 +1304,6 @@
       (common-lisp:list
        (common-lisp:cons "Name"
                          (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
-                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1317,12 +1318,16 @@
     (common-lisp:or |__string| common-lisp:null))
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type (common-lisp:error ":authorizer-type is required") :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source (common-lisp:error ":identity-source is required") :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -1330,11 +1335,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-authorizer-request
                     'make-create-authorizer-request))
@@ -1359,6 +1360,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -1376,6 +1385,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1406,22 +1423,6 @@
       (common-lisp:list
        (common-lisp:cons "Name"
                          (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
-                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -1435,12 +1436,16 @@
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
    (authorizer-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -1448,11 +1453,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-authorizer-response
                     'make-create-authorizer-response))
@@ -1484,6 +1485,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -1501,6 +1510,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -1530,22 +1547,6 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -1924,10 +1925,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -2035,16 +2036,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2104,10 +2105,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -2216,16 +2217,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -2288,10 +2289,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -2422,16 +2423,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -5203,12 +5204,16 @@
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
    (authorizer-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -5216,11 +5221,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-authorizer-response 'make-get-authorizer-response))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -5251,6 +5252,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -5268,6 +5277,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -5297,22 +5314,6 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -5766,10 +5767,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -5899,16 +5900,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -7442,10 +7443,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -7570,16 +7571,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -7610,14 +7611,6 @@
 (common-lisp:progn
  (common-lisp:deftype integration-parameters () 'common-lisp:hash-table)
  (common-lisp:defun |make-integration-parameters|
-                    (aws-sdk/generator/shape::key-values)
-   (common-lisp:etypecase aws-sdk/generator/shape::key-values
-     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
-     (common-lisp:list
-      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
-(common-lisp:progn
- (common-lisp:deftype response-parameters () 'common-lisp:hash-table)
- (common-lisp:defun |make-response-parameters|
                     (aws-sdk/generator/shape::key-values)
    (common-lisp:etypecase aws-sdk/generator/shape::key-values
      (common-lisp:hash-table aws-sdk/generator/shape::key-values)
@@ -8283,6 +8276,14 @@
                          (aws-sdk/generator/shape::input
                           reimport-api-response))
    common-lisp:nil))
+(common-lisp:progn
+ (common-lisp:deftype response-parameters () 'common-lisp:hash-table)
+ (common-lisp:defun |make-response-parameters|
+                    (aws-sdk/generator/shape::key-values)
+   (common-lisp:etypecase aws-sdk/generator/shape::key-values
+     (common-lisp:hash-table aws-sdk/generator/shape::key-values)
+     (common-lisp:list
+      (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
  (common-lisp:defstruct
      (route (:copier common-lisp:nil) (:conc-name "struct-shape-route-"))
@@ -9030,9 +9031,9 @@
     (common-lisp:or arn common-lisp:null))
    (description common-lisp:nil :type
     (common-lisp:or string-with-length-between0and1024 common-lisp:null))
-   (disable-schema-validation common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
    (disable-execute-api-endpoint common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
+   (disable-schema-validation common-lisp:nil :type
     (common-lisp:or |__boolean| common-lisp:null))
    (name common-lisp:nil :type
     (common-lisp:or string-with-length-between1and128 common-lisp:null))
@@ -9084,17 +9085,17 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
-                           'disable-schema-validation))
+                           'disable-execute-api-endpoint))
       (common-lisp:list
-       (common-lisp:cons "DisableSchemaValidation"
+       (common-lisp:cons "DisableExecuteApiEndpoint"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
-                           'disable-execute-api-endpoint))
+                           'disable-schema-validation))
       (common-lisp:list
-       (common-lisp:cons "DisableExecuteApiEndpoint"
+       (common-lisp:cons "DisableSchemaValidation"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -9579,12 +9580,16 @@
       (:conc-name "struct-shape-update-authorizer-input-"))
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -9592,11 +9597,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-authorizer-input 'make-update-authorizer-input))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -9620,6 +9621,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -9637,6 +9646,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -9667,22 +9684,6 @@
       (common-lisp:list
        (common-lisp:cons "Name"
                          (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
-                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -9699,12 +9700,16 @@
     (common-lisp:or arn common-lisp:null))
    (authorizer-id (common-lisp:error ":authorizer-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -9712,11 +9717,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-authorizer-request
                     'make-update-authorizer-request))
@@ -9741,6 +9742,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -9758,6 +9767,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -9788,22 +9805,6 @@
       (common-lisp:list
        (common-lisp:cons "Name"
                          (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
-                         (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         (
@@ -9817,12 +9818,16 @@
    (authorizer-credentials-arn common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
    (authorizer-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
+   (authorizer-payload-format-version common-lisp:nil :type
+    (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (authorizer-result-ttl-in-seconds common-lisp:nil :type
     (common-lisp:or integer-with-length-between0and3600 common-lisp:null))
    (authorizer-type common-lisp:nil :type
     (common-lisp:or authorizer-type common-lisp:null))
    (authorizer-uri common-lisp:nil :type
     (common-lisp:or uri-with-length-between1and2048 common-lisp:null))
+   (enable-simple-responses common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
    (identity-source common-lisp:nil :type
     (common-lisp:or identity-source-list common-lisp:null))
    (identity-validation-expression common-lisp:nil :type
@@ -9830,11 +9835,7 @@
    (jwt-configuration common-lisp:nil :type
     (common-lisp:or jwtconfiguration common-lisp:null))
    (name common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and128 common-lisp:null))
-   (authorizer-payload-format-version common-lisp:nil :type
-    (common-lisp:or string-with-length-between1and64 common-lisp:null))
-   (enable-simple-responses common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+    (common-lisp:or string-with-length-between1and128 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-authorizer-response
                     'make-update-authorizer-response))
@@ -9866,6 +9867,14 @@
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
                            aws-sdk/generator/shape::input
+                           'authorizer-payload-format-version))
+      (common-lisp:list
+       (common-lisp:cons "AuthorizerPayloadFormatVersion"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
                            'authorizer-result-ttl-in-seconds))
       (common-lisp:list
        (common-lisp:cons "AuthorizerResultTtlInSeconds"
@@ -9883,6 +9892,14 @@
                            aws-sdk/generator/shape::input 'authorizer-uri))
       (common-lisp:list
        (common-lisp:cons "AuthorizerUri"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'enable-simple-responses))
+      (common-lisp:list
+       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -9912,22 +9929,6 @@
                            aws-sdk/generator/shape::input 'name))
       (common-lisp:list
        (common-lisp:cons "Name"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'authorizer-payload-format-version))
-      (common-lisp:list
-       (common-lisp:cons "AuthorizerPayloadFormatVersion"
-                         (aws-sdk/generator/shape::input-params
-                          aws-sdk/generator/shape::value))))
-    (alexandria:when-let (aws-sdk/generator/shape::value
-                          (common-lisp:slot-value
-                           aws-sdk/generator/shape::input
-                           'enable-simple-responses))
-      (common-lisp:list
-       (common-lisp:cons "EnableSimpleResponses"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -10258,10 +10259,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -10369,16 +10370,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -10440,10 +10441,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -10552,16 +10553,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -10624,10 +10625,10 @@
     (common-lisp:or string-with-length-between1and64 common-lisp:null))
    (request-parameters common-lisp:nil :type
     (common-lisp:or integration-parameters common-lisp:null))
-   (response-parameters common-lisp:nil :type
-    (common-lisp:or response-parameters common-lisp:null))
    (request-templates common-lisp:nil :type
     (common-lisp:or template-map common-lisp:null))
+   (response-parameters common-lisp:nil :type
+    (common-lisp:or response-parameters common-lisp:null))
    (template-selection-expression common-lisp:nil :type
     (common-lisp:or selection-expression common-lisp:null))
    (timeout-in-millis common-lisp:nil :type
@@ -10758,16 +10759,16 @@
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'response-parameters))
+                           aws-sdk/generator/shape::input 'request-templates))
       (common-lisp:list
-       (common-lisp:cons "ResponseParameters"
+       (common-lisp:cons "RequestTemplates"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
                           (common-lisp:slot-value
-                           aws-sdk/generator/shape::input 'request-templates))
+                           aws-sdk/generator/shape::input 'response-parameters))
       (common-lisp:list
-       (common-lisp:cons "RequestTemplates"
+       (common-lisp:cons "ResponseParameters"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))
     (alexandria:when-let (aws-sdk/generator/shape::value
@@ -12504,8 +12505,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v2/apis"
-                                                        "CreateApi"
+                                                        "POST" :rest-json
+                                                        "/v2/apis" "CreateApi"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-api))
@@ -12523,7 +12524,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12543,15 +12544,15 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key api-id authorizer-credentials-arn
+                     authorizer-payload-format-version
                      authorizer-result-ttl-in-seconds authorizer-type
-                     authorizer-uri identity-source
-                     identity-validation-expression jwt-configuration name
-                     authorizer-payload-format-version enable-simple-responses)
+                     authorizer-uri enable-simple-responses identity-source
+                     identity-validation-expression jwt-configuration name)
    (common-lisp:declare
     (common-lisp:ignorable api-id authorizer-credentials-arn
-     authorizer-result-ttl-in-seconds authorizer-type authorizer-uri
-     identity-source identity-validation-expression jwt-configuration name
-     authorizer-payload-format-version enable-simple-responses))
+     authorizer-payload-format-version authorizer-result-ttl-in-seconds
+     authorizer-type authorizer-uri enable-simple-responses identity-source
+     identity-validation-expression jwt-configuration name))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-authorizer-request
                                          aws-sdk/generator/operation::args)))
@@ -12559,7 +12560,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12587,7 +12588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12618,7 +12619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v2/domainnames"
                                                         "CreateDomainName"
                                                         "2018-11-29"))
@@ -12633,15 +12634,15 @@
                      integration-method integration-subtype integration-type
                      integration-uri passthrough-behavior
                      payload-format-version request-parameters
-                     response-parameters request-templates
+                     request-templates response-parameters
                      template-selection-expression timeout-in-millis
                      tls-config)
    (common-lisp:declare
     (common-lisp:ignorable api-id connection-id connection-type
      content-handling-strategy credentials-arn description integration-method
      integration-subtype integration-type integration-uri passthrough-behavior
-     payload-format-version request-parameters response-parameters
-     request-templates template-selection-expression timeout-in-millis
+     payload-format-version request-parameters request-templates
+     response-parameters template-selection-expression timeout-in-millis
      tls-config))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-create-integration-request
@@ -12650,7 +12651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12685,7 +12686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12719,7 +12720,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12755,7 +12756,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12787,7 +12788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12825,7 +12826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12854,7 +12855,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v2/vpclinks"
+                                                        "POST" :rest-json
+                                                        "/v2/vpclinks"
                                                         "CreateVpcLink"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12873,7 +12875,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12905,7 +12907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12933,7 +12935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12965,7 +12967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -12998,7 +13000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13026,7 +13028,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13058,7 +13060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13086,7 +13088,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13121,7 +13123,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13157,7 +13159,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13189,7 +13191,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13223,7 +13225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13260,7 +13262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13296,7 +13298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13332,7 +13334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13364,7 +13366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13395,7 +13397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13428,7 +13430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13460,7 +13462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13487,7 +13489,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13520,7 +13522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13548,8 +13550,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v2/apis"
-                                                        "GetApis"
+                                                        "GET" :rest-json
+                                                        "/v2/apis" "GetApis"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-apis))
@@ -13566,7 +13568,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13598,7 +13600,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13626,7 +13628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13658,7 +13660,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13686,7 +13688,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13714,7 +13716,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v2/domainnames"
+                                                        "GET" :rest-json
+                                                        "/v2/domainnames"
                                                         "GetDomainNames"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13732,7 +13735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13766,7 +13769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13805,7 +13808,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13837,7 +13840,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13865,7 +13868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13897,7 +13900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13929,7 +13932,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13957,7 +13960,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13990,7 +13993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14027,7 +14030,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14059,7 +14062,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14087,7 +14090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14119,7 +14122,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14147,7 +14150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14175,7 +14178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14203,7 +14206,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v2/vpclinks"
+                                                        "GET" :rest-json
+                                                        "/v2/vpclinks"
                                                         "GetVpcLinks"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14221,8 +14225,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/v2/apis"
-                                                        "ImportApi"
+                                                        "PUT" :rest-json
+                                                        "/v2/apis" "ImportApi"
                                                         "2018-11-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-api))
@@ -14240,7 +14244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14268,7 +14272,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14296,7 +14300,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14331,7 +14335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14362,7 +14366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14386,15 +14390,15 @@
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
                      common-lisp:&key api-id authorizer-credentials-arn
-                     authorizer-id authorizer-result-ttl-in-seconds
-                     authorizer-type authorizer-uri identity-source
-                     identity-validation-expression jwt-configuration name
-                     authorizer-payload-format-version enable-simple-responses)
+                     authorizer-id authorizer-payload-format-version
+                     authorizer-result-ttl-in-seconds authorizer-type
+                     authorizer-uri enable-simple-responses identity-source
+                     identity-validation-expression jwt-configuration name)
    (common-lisp:declare
     (common-lisp:ignorable api-id authorizer-credentials-arn authorizer-id
-     authorizer-result-ttl-in-seconds authorizer-type authorizer-uri
-     identity-source identity-validation-expression jwt-configuration name
-     authorizer-payload-format-version enable-simple-responses))
+     authorizer-payload-format-version authorizer-result-ttl-in-seconds
+     authorizer-type authorizer-uri enable-simple-responses identity-source
+     identity-validation-expression jwt-configuration name))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-authorizer-request
                                          aws-sdk/generator/operation::args)))
@@ -14402,7 +14406,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14435,7 +14439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14470,7 +14474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14494,7 +14498,7 @@
                      integration-id integration-method integration-subtype
                      integration-type integration-uri passthrough-behavior
                      payload-format-version request-parameters
-                     response-parameters request-templates
+                     request-templates response-parameters
                      template-selection-expression timeout-in-millis
                      tls-config)
    (common-lisp:declare
@@ -14502,7 +14506,7 @@
      content-handling-strategy credentials-arn description integration-id
      integration-method integration-subtype integration-type integration-uri
      passthrough-behavior payload-format-version request-parameters
-     response-parameters request-templates template-selection-expression
+     request-templates response-parameters template-selection-expression
      timeout-in-millis tls-config))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-update-integration-request
@@ -14511,7 +14515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14550,7 +14554,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14589,7 +14593,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14629,7 +14633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14665,7 +14669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14706,7 +14710,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14738,7 +14742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'apigatewayv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

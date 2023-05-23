@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass mediastore-data-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "mediastore-data"))
+                       (:default-initargs :service "mediastore-data" :protocol
+                        :rest-json))
  (common-lisp:export 'mediastore-data-request))
 (common-lisp:progn
  (common-lisp:define-condition mediastore-data-error
@@ -505,6 +506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediastore-data-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/~A"
                               (common-lisp:slot-value
@@ -525,6 +527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediastore-data-request aws-sdk/generator/operation::input "HEAD"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/~A"
                               (common-lisp:slot-value
@@ -545,6 +548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediastore-data-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/~A"
                               (common-lisp:slot-value
@@ -565,8 +569,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'mediastore-data-request aws-sdk/generator/operation::input "GET" "/"
-        "ListItems" "2017-09-01"))
+        'mediastore-data-request aws-sdk/generator/operation::input "GET"
+        :rest-json "/" "ListItems" "2017-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-items))
 (common-lisp:progn
@@ -585,6 +589,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'mediastore-data-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/~A"
                               (common-lisp:slot-value

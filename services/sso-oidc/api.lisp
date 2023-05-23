@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/sso-oidc/api)
 (common-lisp:progn
  (common-lisp:defclass sso-oidc-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "sso-oidc"))
+                       common-lisp:nil
+                       (:default-initargs :service "sso-oidc" :protocol
+                        :rest-json))
  (common-lisp:export 'sso-oidc-request))
 (common-lisp:progn
  (common-lisp:define-condition sso-oidc-error
@@ -596,8 +598,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-oidc-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/token"
-                                                        "CreateToken"
+                                                        "POST" :rest-json
+                                                        "/token" "CreateToken"
                                                         "2019-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-token))
@@ -614,7 +616,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-oidc-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/client/register"
                                                         "RegisterClient"
                                                         "2019-06-10"))
@@ -635,7 +637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-oidc-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/device_authorization"
                                                         "StartDeviceAuthorization"
                                                         "2019-06-10"))

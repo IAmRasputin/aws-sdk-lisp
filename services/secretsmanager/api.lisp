@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass secretsmanager-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "secretsmanager"))
+                       (:default-initargs :service "secretsmanager" :protocol
+                        :json))
  (common-lisp:export 'secretsmanager-request))
 (common-lisp:progn
  (common-lisp:define-condition secretsmanager-error
@@ -2932,7 +2933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelRotateSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2955,7 +2956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2973,7 +2974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2994,7 +2995,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3012,7 +3013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3036,7 +3037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRandomPassword"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3054,7 +3055,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourcePolicy"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3073,7 +3074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSecretValue"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3094,7 +3095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSecretVersionIds"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3115,7 +3116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSecrets"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3135,7 +3136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3156,7 +3157,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutSecretValue"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3176,7 +3177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveRegionsFromReplication"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3198,7 +3199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReplicateSecretToRegions"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3216,7 +3217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3237,7 +3238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RotateSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3256,7 +3257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopReplicationToReplica"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3274,7 +3275,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3292,7 +3293,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3313,7 +3314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSecret"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3335,7 +3336,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSecretVersionStage"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3353,7 +3354,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'secretsmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ValidateResourcePolicy"
                                                         "2017-10-17"))
       common-lisp:nil common-lisp:nil *error-map*)))

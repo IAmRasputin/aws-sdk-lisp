@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/sms/api)
 (common-lisp:progn
  (common-lisp:defclass sms-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "sms"))
+                       (:default-initargs :service "sms" :protocol :json))
  (common-lisp:export 'sms-request))
 (common-lisp:progn
  (common-lisp:define-condition sms-error
@@ -4644,7 +4644,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateApp"
+                                                        "POST" :json "/"
+                                                        "CreateApp"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-app))
@@ -4666,7 +4667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateReplicationJob"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4687,7 +4688,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteApp"
+                                                        "POST" :json "/"
+                                                        "DeleteApp"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-app))
@@ -4705,7 +4707,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppLaunchConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4724,7 +4726,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppReplicationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4743,7 +4745,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppValidationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4761,7 +4763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteReplicationJob"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4770,7 +4772,8 @@
  (common-lisp:defun delete-server-catalog ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'sms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'sms-request :method "POST" :path "/" :protocol
+                                :json :operation "DeleteServerCatalog" :params
                                 `(("Action" ,@"DeleteServerCatalog")
                                   ("Version" ,@"2016-10-24"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -4788,7 +4791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateConnector"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4806,7 +4809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateChangeSet"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4824,7 +4827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GenerateTemplate"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4842,8 +4845,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetApp"
-                                                        "2016-10-24"))
+                                                        "POST" :json "/"
+                                                        "GetApp" "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-app))
 (common-lisp:progn
@@ -4860,7 +4863,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAppLaunchConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4879,7 +4882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAppReplicationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4898,7 +4901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAppValidationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4917,7 +4920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAppValidationOutput"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4935,7 +4938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetConnectors"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4955,7 +4958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReplicationJobs"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4975,7 +4978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReplicationRuns"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4995,7 +4998,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetServers"
+                                                        "POST" :json "/"
+                                                        "GetServers"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-servers))
@@ -5012,7 +5016,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportAppCatalog"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5021,7 +5025,8 @@
  (common-lisp:defun import-server-catalog ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'sms-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'sms-request :method "POST" :path "/" :protocol
+                                :json :operation "ImportServerCatalog" :params
                                 `(("Action" ,@"ImportServerCatalog")
                                   ("Version" ,@"2016-10-24"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5039,7 +5044,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "LaunchApp"
+                                                        "POST" :json "/"
+                                                        "LaunchApp"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'launch-app))
@@ -5056,7 +5062,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListApps"
+                                                        "POST" :json "/"
+                                                        "ListApps"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-apps))
@@ -5074,7 +5081,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyAppValidationOutput"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5096,7 +5103,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAppLaunchConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5117,7 +5124,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAppReplicationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5139,7 +5146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAppValidationConfiguration"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5157,7 +5164,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartAppReplication"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5176,7 +5183,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartOnDemandAppReplication"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5195,7 +5202,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartOnDemandReplicationRun"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5213,7 +5220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopAppReplication"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5231,7 +5238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TerminateApp"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5252,7 +5259,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateApp"
+                                                        "POST" :json "/"
+                                                        "UpdateApp"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-app))
@@ -5275,7 +5283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sms-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateReplicationJob"
                                                         "2016-10-24"))
       common-lisp:nil common-lisp:nil *error-map*)))

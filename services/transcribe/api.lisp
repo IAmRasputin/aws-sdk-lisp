@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass transcribe-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "transcribe"))
+                       (:default-initargs :service "transcribe" :protocol
+                        :json))
  (common-lisp:export 'transcribe-request))
 (common-lisp:progn
  (common-lisp:define-condition transcribe-error
@@ -6031,7 +6032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCallAnalyticsCategory"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6052,7 +6053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLanguageModel"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6074,7 +6075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMedicalVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6095,7 +6096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6117,7 +6118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateVocabularyFilter"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6136,7 +6137,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCallAnalyticsCategory"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6155,7 +6156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCallAnalyticsJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6173,7 +6174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLanguageModel"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6192,7 +6193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMedicalTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6211,7 +6212,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMedicalVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6229,7 +6230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6247,7 +6248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6265,7 +6266,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVocabularyFilter"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6283,7 +6284,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLanguageModel"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6302,7 +6303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCallAnalyticsCategory"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6320,7 +6321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCallAnalyticsJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6339,7 +6340,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMedicalTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6357,7 +6358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetMedicalVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6375,7 +6376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6393,7 +6394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6411,7 +6412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetVocabularyFilter"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6430,7 +6431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCallAnalyticsCategories"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6450,7 +6451,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCallAnalyticsJobs"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6470,7 +6471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLanguageModels"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6491,7 +6492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMedicalTranscriptionJobs"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6512,7 +6513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMedicalVocabularies"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6530,7 +6531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6550,7 +6551,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTranscriptionJobs"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6570,7 +6571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVocabularies"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6589,7 +6590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVocabularyFilters"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6612,7 +6613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartCallAnalyticsJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6639,7 +6640,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMedicalTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6669,7 +6670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartTranscriptionJob"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6687,7 +6688,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6705,7 +6706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6724,7 +6725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCallAnalyticsCategory"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6745,7 +6746,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMedicalVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6766,7 +6767,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVocabulary"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6787,7 +6788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'transcribe-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVocabularyFilter"
                                                         "2017-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))

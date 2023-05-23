@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass accessanalyzer-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "accessanalyzer"))
+                       (:default-initargs :service "accessanalyzer" :protocol
+                        :rest-json))
  (common-lisp:export 'accessanalyzer-request))
 (common-lisp:progn
  (common-lisp:define-condition accessanalyzer-error
@@ -5080,7 +5081,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/archive-rule"
+                                                        "PUT" :rest-json
+                                                        "/archive-rule"
                                                         "ApplyArchiveRule"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5098,7 +5100,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5127,7 +5129,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/access-preview"
+                                                        "PUT" :rest-json
+                                                        "/access-preview"
                                                         "CreateAccessPreview"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5147,7 +5150,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/analyzer"
+                                                        "PUT" :rest-json
+                                                        "/analyzer"
                                                         "CreateAnalyzer"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5167,7 +5171,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5195,7 +5199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5224,7 +5228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5256,7 +5260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5284,7 +5288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/analyzed-resource"
                                                         "GetAnalyzedResource"
                                                         "2019-11-01"))
@@ -5303,7 +5307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5331,7 +5335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5363,7 +5367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5394,7 +5398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5426,7 +5430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5455,7 +5459,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/access-preview"
+                                                        "GET" :rest-json
+                                                        "/access-preview"
                                                         "ListAccessPreviews"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5475,7 +5480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/analyzed-resource"
                                                         "ListAnalyzedResources"
                                                         "2019-11-01"))
@@ -5494,7 +5499,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/analyzer"
+                                                        "GET" :rest-json
+                                                        "/analyzer"
                                                         "ListAnalyzers"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5513,7 +5519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5543,7 +5549,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/finding"
+                                                        "POST" :rest-json
+                                                        "/finding"
                                                         "ListFindings"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5562,7 +5569,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/policy/generation"
                                                         "ListPolicyGenerations"
                                                         "2019-11-01"))
@@ -5581,7 +5588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5612,7 +5619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/policy/generation"
                                                         "StartPolicyGeneration"
                                                         "2019-11-01"))
@@ -5633,7 +5640,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/resource/scan"
+                                                        "POST" :rest-json
+                                                        "/resource/scan"
                                                         "StartResourceScan"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5651,7 +5659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5679,7 +5687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5709,7 +5717,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5743,7 +5751,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/finding"
+                                                        "PUT" :rest-json
+                                                        "/finding"
                                                         "UpdateFindings"
                                                         "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5764,7 +5773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'accessanalyzer-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/policy/validation"
                                                         "ValidatePolicy"
                                                         "2019-11-01"))

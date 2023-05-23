@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass datapipeline-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "datapipeline"))
+                       (:default-initargs :service "datapipeline" :protocol
+                        :json))
  (common-lisp:export 'datapipeline-request))
 (common-lisp:progn
  (common-lisp:define-condition datapipeline-error
@@ -2148,7 +2149,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ActivatePipeline"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2166,7 +2167,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddTags"
+                                                        "POST" :json "/"
+                                                        "AddTags"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-tags))
@@ -2184,7 +2186,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePipeline"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2202,7 +2204,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeactivatePipeline"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2220,7 +2222,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePipeline"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2240,7 +2242,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeObjects"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2258,7 +2260,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePipelines"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2277,7 +2279,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EvaluateExpression"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2295,7 +2297,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPipelineDefinition"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2313,7 +2315,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelines"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2332,7 +2334,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PollForTask"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2353,7 +2355,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutPipelineDefinition"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2372,7 +2374,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "QueryObjects"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2390,7 +2392,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "RemoveTags"
+                                                        "POST" :json "/"
+                                                        "RemoveTags"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'remove-tags))
@@ -2407,7 +2410,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReportTaskProgress"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2427,7 +2430,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ReportTaskRunnerHeartbeat"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2445,7 +2448,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "SetStatus"
+                                                        "POST" :json "/"
+                                                        "SetStatus"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-status))
@@ -2465,7 +2469,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetTaskStatus"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2487,7 +2491,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'datapipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ValidatePipelineDefinition"
                                                         "2012-10-29"))
       common-lisp:nil common-lisp:nil *error-map*)))

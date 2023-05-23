@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/docdb/api)
 (common-lisp:progn
  (common-lisp:defclass docdb-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "docdb"))
+                       (:default-initargs :service "docdb" :protocol :query))
  (common-lisp:export 'docdb-request))
 (common-lisp:progn
  (common-lisp:define-condition docdb-error
@@ -8138,7 +8138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddSourceIdentifierToSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "AddSourceIdentifierToSubscriptionResult" *error-map*)))
@@ -8156,7 +8156,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddTagsToResource"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8177,7 +8177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ApplyPendingMaintenanceAction"
                                                         "2014-10-31"))
       common-lisp:nil "ApplyPendingMaintenanceActionResult" *error-map*)))
@@ -8202,7 +8202,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBClusterParameterGroupResult" *error-map*)))
@@ -8225,7 +8225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBClusterSnapshotResult" *error-map*)))
@@ -8258,7 +8258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterResult" *error-map*)))
@@ -8280,7 +8280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterParameterGroupResult" *error-map*)))
@@ -8302,7 +8302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterSnapshotResult" *error-map*)))
@@ -8329,7 +8329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBInstanceResult" *error-map*)))
@@ -8350,7 +8350,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBSubnetGroupResult" *error-map*)))
@@ -8372,7 +8372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "CreateEventSubscriptionResult" *error-map*)))
@@ -8395,7 +8395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "CreateGlobalClusterResult" *error-map*)))
@@ -8416,7 +8416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBClusterResult" *error-map*)))
@@ -8435,7 +8435,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8454,7 +8454,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBClusterSnapshotResult" *error-map*)))
@@ -8472,7 +8472,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBInstanceResult" *error-map*)))
@@ -8490,7 +8490,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8509,7 +8509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteEventSubscriptionResult" *error-map*)))
@@ -8527,7 +8527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteGlobalClusterResult" *error-map*)))
@@ -8547,7 +8547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCertificates"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeCertificatesResult" *error-map*)))
@@ -8569,7 +8569,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterParameterGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterParameterGroupsResult" *error-map*)))
@@ -8591,7 +8591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterParametersResult" *error-map*)))
@@ -8610,7 +8610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterSnapshotAttributes"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterSnapshotAttributesResult"
@@ -8634,7 +8634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterSnapshots"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterSnapshotsResult" *error-map*)))
@@ -8654,7 +8654,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClustersResult" *error-map*)))
@@ -8679,7 +8679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBEngineVersions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBEngineVersionsResult" *error-map*)))
@@ -8699,7 +8699,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBInstances"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBInstancesResult" *error-map*)))
@@ -8719,7 +8719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBSubnetGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBSubnetGroupsResult" *error-map*)))
@@ -8741,7 +8741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEngineDefaultClusterParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEngineDefaultClusterParametersResult"
@@ -8761,7 +8761,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventCategories"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventCategoriesResult" *error-map*)))
@@ -8782,7 +8782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventSubscriptions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventSubscriptionsResult" *error-map*)))
@@ -8804,7 +8804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEvents"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventsResult" *error-map*)))
@@ -8825,7 +8825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeGlobalClusters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeGlobalClustersResult" *error-map*)))
@@ -8847,7 +8847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeOrderableDBInstanceOptions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeOrderableDBInstanceOptionsResult" *error-map*)))
@@ -8868,7 +8868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribePendingMaintenanceActions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribePendingMaintenanceActionsResult" *error-map*)))
@@ -8888,7 +8888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "FailoverDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "FailoverDBClusterResult" *error-map*)))
@@ -8906,7 +8906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTagsForResource"
                                                         "2014-10-31"))
       common-lisp:nil "ListTagsForResourceResult" *error-map*)))
@@ -8935,7 +8935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterResult" *error-map*)))
@@ -8956,7 +8956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterParameterGroupResult" *error-map*)))
@@ -8978,7 +8978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBClusterSnapshotAttribute"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterSnapshotAttributeResult" *error-map*)))
@@ -9006,7 +9006,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBInstanceResult" *error-map*)))
@@ -9027,7 +9027,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBSubnetGroupResult" *error-map*)))
@@ -9049,7 +9049,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyEventSubscriptionResult" *error-map*)))
@@ -9070,7 +9070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyGlobalClusterResult" *error-map*)))
@@ -9089,7 +9089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebootDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "RebootDBInstanceResult" *error-map*)))
@@ -9110,7 +9110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveFromGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "RemoveFromGlobalClusterResult" *error-map*)))
@@ -9130,7 +9130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveSourceIdentifierFromSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "RemoveSourceIdentifierFromSubscriptionResult"
@@ -9150,7 +9150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveTagsFromResource"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9172,7 +9172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ResetDBClusterParameterGroupResult" *error-map*)))
@@ -9199,7 +9199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBClusterFromSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBClusterFromSnapshotResult" *error-map*)))
@@ -9226,7 +9226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBClusterToPointInTime"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBClusterToPointInTimeResult" *error-map*)))
@@ -9244,7 +9244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "StartDBClusterResult" *error-map*)))
@@ -9262,7 +9262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "StopDBClusterResult" *error-map*)))

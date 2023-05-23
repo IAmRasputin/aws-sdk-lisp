@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/dlm/api)
 (common-lisp:progn
  (common-lisp:defclass dlm-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "dlm"))
+                       (:default-initargs :service "dlm" :protocol :rest-json))
  (common-lisp:export 'dlm-request))
 (common-lisp:progn
  (common-lisp:define-condition dlm-error
@@ -1914,7 +1914,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/policies"
+                                                        "POST" :rest-json
+                                                        "/policies"
                                                         "CreateLifecyclePolicy"
                                                         "2018-01-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1932,7 +1933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1963,7 +1964,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/policies"
+                                                        "GET" :rest-json
+                                                        "/policies"
                                                         "GetLifecyclePolicies"
                                                         "2018-01-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1981,7 +1983,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2009,7 +2011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2037,7 +2039,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2065,7 +2067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2096,7 +2098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dlm-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

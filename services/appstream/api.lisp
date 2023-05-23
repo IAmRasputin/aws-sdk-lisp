@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass appstream-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "appstream"))
+                       (:default-initargs :service "appstream" :protocol
+                        :json))
  (common-lisp:export 'appstream-request))
 (common-lisp:progn
  (common-lisp:define-condition appstream-error
@@ -8390,7 +8391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateApplicationFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8411,7 +8412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateApplicationToEntitlement"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8429,7 +8430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8448,7 +8449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchAssociateUserStack"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8467,7 +8468,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDisassociateUserStack"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8488,7 +8489,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CopyImage"
+                                                        "POST" :json "/"
+                                                        "CopyImage"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'copy-image))
@@ -8508,7 +8510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAppBlock"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8532,7 +8534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateApplication"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8556,7 +8558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDirectoryConfig"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8577,7 +8579,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEntitlement"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8608,7 +8610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8632,7 +8634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateImageBuilder"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8651,7 +8653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateImageBuilderStreamingURL"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8675,7 +8677,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStack"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8696,7 +8698,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStreamingURL"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8718,7 +8720,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUpdatedImage"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8728,7 +8730,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'appstream-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "CreateUsageReportSubscription" :params
                                 `(("Action" ,@"CreateUsageReportSubscription")
                                   ("Version" ,@"2016-12-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8749,7 +8752,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :json "/"
+                                                        "CreateUser"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
@@ -8766,7 +8770,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppBlock"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8784,7 +8788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteApplication"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8802,7 +8806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDirectoryConfig"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8820,7 +8824,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEntitlement"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8838,7 +8842,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8856,7 +8860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImage"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8874,7 +8878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImageBuilder"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8892,7 +8896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImagePermissions"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8910,7 +8914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStack"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8920,7 +8924,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'appstream-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DeleteUsageReportSubscription" :params
                                 `(("Action" ,@"DeleteUsageReportSubscription")
                                   ("Version" ,@"2016-12-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8938,7 +8943,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -8955,7 +8961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAppBlocks"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8976,7 +8982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeApplicationFleetAssociations"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8994,7 +9000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeApplications"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9014,7 +9020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectoryConfigs"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9033,7 +9039,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEntitlements"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9051,7 +9057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFleets"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9069,7 +9075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImageBuilders"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9090,7 +9096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImagePermissions"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9109,7 +9115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImages"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9130,7 +9136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSessions"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9148,7 +9154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStacks"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9167,7 +9173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUsageReportSubscriptions"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9189,7 +9195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserStackAssociations"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9209,7 +9215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUsers"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9227,7 +9233,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableUser"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9246,7 +9252,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateApplicationFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9267,7 +9273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateApplicationFromEntitlement"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9285,7 +9291,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9303,7 +9309,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "EnableUser"
+                                                        "POST" :json "/"
+                                                        "EnableUser"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable-user))
@@ -9320,7 +9327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExpireSession"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9338,7 +9345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssociatedFleets"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9356,7 +9363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssociatedStacks"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9377,7 +9384,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEntitledApplications"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9395,7 +9402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9413,7 +9420,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StartFleet"
+                                                        "POST" :json "/"
+                                                        "StartFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-fleet))
@@ -9430,7 +9438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartImageBuilder"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9448,7 +9456,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopFleet"
+                                                        "POST" :json "/"
+                                                        "StopFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-fleet))
@@ -9465,7 +9474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopImageBuilder"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9483,7 +9492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9501,7 +9510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9524,7 +9533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApplication"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9548,7 +9557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDirectoryConfig"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9569,7 +9578,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEntitlement"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9601,7 +9610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFleet"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9620,7 +9629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateImagePermissions"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9646,7 +9655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appstream-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateStack"
                                                         "2016-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

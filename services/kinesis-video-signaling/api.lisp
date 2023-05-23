@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass kinesis-video-signaling-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "kinesis-video-signaling"))
+                       (:default-initargs :service "kinesis-video-signaling"
+                        :protocol :rest-json))
  (common-lisp:export 'kinesis-video-signaling-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesis-video-signaling-error
@@ -326,7 +327,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-signaling-request aws-sdk/generator/operation::input
-        "POST" "/v1/get-ice-server-config" "GetIceServerConfig" "2019-12-04"))
+        "POST" :rest-json "/v1/get-ice-server-config" "GetIceServerConfig"
+        "2019-12-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ice-server-config))
 (common-lisp:progn
@@ -345,7 +347,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-signaling-request aws-sdk/generator/operation::input
-        "POST" "/v1/send-alexa-offer-to-master" "SendAlexaOfferToMaster"
-        "2019-12-04"))
+        "POST" :rest-json "/v1/send-alexa-offer-to-master"
+        "SendAlexaOfferToMaster" "2019-12-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-alexa-offer-to-master))

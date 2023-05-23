@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ecs/api)
 (common-lisp:progn
  (common-lisp:defclass ecs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ecs"))
+                       (:default-initargs :service "ecs" :protocol :json))
  (common-lisp:export 'ecs-request))
 (common-lisp:progn
  (common-lisp:define-condition ecs-error
@@ -12038,7 +12038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCapacityProvider"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12061,7 +12061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCluster"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12094,7 +12094,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateService"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12118,7 +12118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTaskSet"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12136,7 +12136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAccountSetting"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12154,7 +12154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAttributes"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12172,7 +12172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCapacityProvider"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12190,7 +12190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCluster"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12208,7 +12208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteService"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12226,7 +12226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTaskDefinitions"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12244,7 +12244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTaskSet"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12264,7 +12264,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterContainerInstance"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12283,7 +12283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterTaskDefinition"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12304,7 +12304,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCapacityProviders"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12322,7 +12322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClusters"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12342,7 +12342,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContainerInstances"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12360,7 +12360,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServices"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12378,7 +12378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTaskDefinition"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12397,7 +12397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTaskSets"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12415,7 +12415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTasks"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12433,7 +12433,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DiscoverPollEndpoint"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12453,7 +12453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteCommand"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12471,7 +12471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTaskProtection"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12492,7 +12492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountSettings"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12513,7 +12513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAttributes"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12531,7 +12531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListClusters"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12551,7 +12551,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContainerInstances"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12572,7 +12572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServices"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12592,7 +12592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServicesByNamespace"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12610,7 +12610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12631,7 +12631,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTaskDefinitionFamilies"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12651,7 +12651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTaskDefinitions"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12673,7 +12673,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTasks"
+                                                        "POST" :json "/"
+                                                        "ListTasks"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tasks))
@@ -12690,7 +12691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAccountSetting"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12709,7 +12710,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAccountSettingDefault"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12727,7 +12728,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAttributes"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12749,7 +12750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutClusterCapacityProviders"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12774,7 +12775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterContainerInstance"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12801,7 +12802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterTaskDefinition"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12829,7 +12830,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "RunTask"
+                                                        "POST" :json "/"
+                                                        "RunTask"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'run-task))
@@ -12852,7 +12854,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StartTask"
+                                                        "POST" :json "/"
+                                                        "StartTask"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-task))
@@ -12869,7 +12872,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopTask"
+                                                        "POST" :json "/"
+                                                        "StopTask"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-task))
@@ -12887,7 +12891,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubmitAttachmentStateChanges"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12909,7 +12913,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubmitContainerStateChange"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12931,7 +12935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SubmitTaskStateChange"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12949,7 +12953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12967,7 +12971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12986,7 +12990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCapacityProvider"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13007,7 +13011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCluster"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13025,7 +13029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateClusterSettings"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13043,7 +13047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContainerAgent"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13063,7 +13067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContainerInstancesState"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13094,7 +13098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateService"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13114,7 +13118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServicePrimaryTaskSet"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13135,7 +13139,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTaskProtection"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13153,7 +13157,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTaskSet"
                                                         "2014-11-13"))
       common-lisp:nil common-lisp:nil *error-map*)))

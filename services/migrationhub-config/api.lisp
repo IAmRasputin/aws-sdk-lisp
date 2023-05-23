@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass migrationhub-config-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "migrationhub-config"))
+                       (:default-initargs :service "migrationhub-config"
+                        :protocol :json))
  (common-lisp:export 'migrationhub-config-request))
 (common-lisp:progn
  (common-lisp:define-condition migrationhub-config-error
@@ -421,7 +422,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhub-config-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateHomeRegionControl" "2019-06-30"))
+        :json "/" "CreateHomeRegionControl" "2019-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-home-region-control))
 (common-lisp:progn
@@ -441,7 +442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhub-config-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeHomeRegionControls" "2019-06-30"))
+        :json "/" "DescribeHomeRegionControls" "2019-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-home-region-controls))
 (common-lisp:progn
@@ -449,7 +450,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'migrationhub-config-request :method "POST"
-                                :path "/" :params
+                                :path "/" :protocol :json :operation
+                                "GetHomeRegion" :params
                                 `(("Action" ,@"GetHomeRegion")
                                   ("Version" ,@"2019-06-30"))))
     common-lisp:nil common-lisp:nil *error-map*))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass docdb-elastic-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "docdb-elastic"))
+                       (:default-initargs :service "docdb-elastic" :protocol
+                        :rest-json))
  (common-lisp:export 'docdb-elastic-request))
 (common-lisp:progn
  (common-lisp:define-condition docdb-elastic-error
@@ -1493,7 +1494,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/cluster"
+                                                        "POST" :rest-json
+                                                        "/cluster"
                                                         "CreateCluster"
                                                         "2022-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1511,7 +1513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/cluster-snapshot"
                                                         "CreateClusterSnapshot"
                                                         "2022-11-28"))
@@ -1530,7 +1532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1558,7 +1560,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1586,7 +1588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1614,7 +1616,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1643,7 +1645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/cluster-snapshots"
                                                         "ListClusterSnapshots"
                                                         "2022-11-28"))
@@ -1662,7 +1664,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/clusters"
+                                                        "GET" :rest-json
+                                                        "/clusters"
                                                         "ListClusters"
                                                         "2022-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1680,7 +1683,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1712,7 +1715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1740,7 +1743,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1768,7 +1771,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1802,7 +1805,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'docdb-elastic-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

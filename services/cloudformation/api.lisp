@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudformation-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudformation"))
+                       (:default-initargs :service "cloudformation" :protocol
+                        :query))
  (common-lisp:export 'cloudformation-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudformation-error
@@ -11675,7 +11676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ActivateType"
                                                         "2010-05-15"))
       common-lisp:nil "ActivateTypeResult" *error-map*)))
@@ -11694,7 +11695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchDescribeTypeConfigurations"
                                                         "2010-05-15"))
       common-lisp:nil "BatchDescribeTypeConfigurationsResult" *error-map*)))
@@ -11713,7 +11714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CancelUpdateStack"
                                                         "2010-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11734,7 +11735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ContinueUpdateRollback"
                                                         "2010-05-15"))
       common-lisp:nil "ContinueUpdateRollbackResult" *error-map*)))
@@ -11761,7 +11762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateChangeSet"
                                                         "2010-05-15"))
       common-lisp:nil "CreateChangeSetResult" *error-map*)))
@@ -11789,7 +11790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateStack"
                                                         "2010-05-15"))
       common-lisp:nil "CreateStackResult" *error-map*)))
@@ -11811,7 +11812,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateStackInstances"
                                                         "2010-05-15"))
       common-lisp:nil "CreateStackInstancesResult" *error-map*)))
@@ -11837,7 +11838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateStackSet"
                                                         "2010-05-15"))
       common-lisp:nil "CreateStackSetResult" *error-map*)))
@@ -11855,7 +11856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeactivateType"
                                                         "2010-05-15"))
       common-lisp:nil "DeactivateTypeResult" *error-map*)))
@@ -11873,7 +11874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteChangeSet"
                                                         "2010-05-15"))
       common-lisp:nil "DeleteChangeSetResult" *error-map*)))
@@ -11894,7 +11895,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteStack"
                                                         "2010-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11916,7 +11917,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteStackInstances"
                                                         "2010-05-15"))
       common-lisp:nil "DeleteStackInstancesResult" *error-map*)))
@@ -11934,7 +11935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteStackSet"
                                                         "2010-05-15"))
       common-lisp:nil "DeleteStackSetResult" *error-map*)))
@@ -11952,7 +11953,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeregisterType"
                                                         "2010-05-15"))
       common-lisp:nil "DeregisterTypeResult" *error-map*)))
@@ -11970,7 +11971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAccountLimits"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeAccountLimitsResult" *error-map*)))
@@ -11989,7 +11990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeChangeSet"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeChangeSetResult" *error-map*)))
@@ -12010,7 +12011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeChangeSetHooks"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeChangeSetHooksResult" *error-map*)))
@@ -12028,7 +12029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribePublisher"
                                                         "2010-05-15"))
       common-lisp:nil "DescribePublisherResult" *error-map*)))
@@ -12047,7 +12048,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackDriftDetectionStatus"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackDriftDetectionStatusResult" *error-map*)))
@@ -12065,7 +12066,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackEvents"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackEventsResult" *error-map*)))
@@ -12086,7 +12087,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackInstance"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackInstanceResult" *error-map*)))
@@ -12104,7 +12105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackResource"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackResourceResult" *error-map*)))
@@ -12127,7 +12128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackResourceDrifts"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackResourceDriftsResult" *error-map*)))
@@ -12148,7 +12149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackResources"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackResourcesResult" *error-map*)))
@@ -12166,7 +12167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackSet"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackSetResult" *error-map*)))
@@ -12186,7 +12187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStackSetOperation"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStackSetOperationResult" *error-map*)))
@@ -12204,7 +12205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeStacks"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeStacksResult" *error-map*)))
@@ -12225,7 +12226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeType"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeTypeResult" *error-map*)))
@@ -12243,7 +12244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeTypeRegistration"
                                                         "2010-05-15"))
       common-lisp:nil "DescribeTypeRegistrationResult" *error-map*)))
@@ -12262,7 +12263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetectStackDrift"
                                                         "2010-05-15"))
       common-lisp:nil "DetectStackDriftResult" *error-map*)))
@@ -12281,7 +12282,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetectStackResourceDrift"
                                                         "2010-05-15"))
       common-lisp:nil "DetectStackResourceDriftResult" *error-map*)))
@@ -12302,7 +12303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetectStackSetDrift"
                                                         "2010-05-15"))
       common-lisp:nil "DetectStackSetDriftResult" *error-map*)))
@@ -12321,7 +12322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EstimateTemplateCost"
                                                         "2010-05-15"))
       common-lisp:nil "EstimateTemplateCostResult" *error-map*)))
@@ -12342,7 +12343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ExecuteChangeSet"
                                                         "2010-05-15"))
       common-lisp:nil "ExecuteChangeSetResult" *error-map*)))
@@ -12360,7 +12361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetStackPolicy"
                                                         "2010-05-15"))
       common-lisp:nil "GetStackPolicyResult" *error-map*)))
@@ -12380,7 +12381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetTemplate"
                                                         "2010-05-15"))
       common-lisp:nil "GetTemplateResult" *error-map*)))
@@ -12401,7 +12402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetTemplateSummary"
                                                         "2010-05-15"))
       common-lisp:nil "GetTemplateSummaryResult" *error-map*)))
@@ -12423,7 +12424,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ImportStacksToStackSet"
                                                         "2010-05-15"))
       common-lisp:nil "ImportStacksToStackSetResult" *error-map*)))
@@ -12441,7 +12442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListChangeSets"
                                                         "2010-05-15"))
       common-lisp:nil "ListChangeSetsResult" *error-map*)))
@@ -12459,7 +12460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListExports"
                                                         "2010-05-15"))
       common-lisp:nil "ListExportsResult" *error-map*)))
@@ -12477,7 +12478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListImports"
                                                         "2010-05-15"))
       common-lisp:nil "ListImportsResult" *error-map*)))
@@ -12499,7 +12500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListStackInstances"
                                                         "2010-05-15"))
       common-lisp:nil "ListStackInstancesResult" *error-map*)))
@@ -12517,7 +12518,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListStackResources"
                                                         "2010-05-15"))
       common-lisp:nil "ListStackResourcesResult" *error-map*)))
@@ -12539,7 +12540,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListStackSetOperationResults"
                                                         "2010-05-15"))
       common-lisp:nil "ListStackSetOperationResultsResult" *error-map*)))
@@ -12559,7 +12560,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListStackSetOperations"
                                                         "2010-05-15"))
       common-lisp:nil "ListStackSetOperationsResult" *error-map*)))
@@ -12578,7 +12579,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListStackSets"
                                                         "2010-05-15"))
       common-lisp:nil "ListStackSetsResult" *error-map*)))
@@ -12596,7 +12597,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListStacks"
+                                                        "POST" :query "/"
+                                                        "ListStacks"
                                                         "2010-05-15"))
       common-lisp:nil "ListStacksResult" *error-map*)))
  (common-lisp:export 'list-stacks))
@@ -12616,7 +12618,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTypeRegistrations"
                                                         "2010-05-15"))
       common-lisp:nil "ListTypeRegistrationsResult" *error-map*)))
@@ -12637,7 +12639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTypeVersions"
                                                         "2010-05-15"))
       common-lisp:nil "ListTypeVersionsResult" *error-map*)))
@@ -12658,7 +12660,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTypes"
+                                                        "POST" :query "/"
+                                                        "ListTypes"
                                                         "2010-05-15"))
       common-lisp:nil "ListTypesResult" *error-map*)))
  (common-lisp:export 'list-types))
@@ -12676,7 +12679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PublishType"
                                                         "2010-05-15"))
       common-lisp:nil "PublishTypeResult" *error-map*)))
@@ -12699,7 +12702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RecordHandlerProgress"
                                                         "2010-05-15"))
       common-lisp:nil "RecordHandlerProgressResult" *error-map*)))
@@ -12719,7 +12722,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RegisterPublisher"
                                                         "2010-05-15"))
       common-lisp:nil "RegisterPublisherResult" *error-map*)))
@@ -12740,7 +12743,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RegisterType"
                                                         "2010-05-15"))
       common-lisp:nil "RegisterTypeResult" *error-map*)))
@@ -12759,7 +12762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RollbackStack"
                                                         "2010-05-15"))
       common-lisp:nil "RollbackStackResult" *error-map*)))
@@ -12779,7 +12782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetStackPolicy"
                                                         "2010-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12800,7 +12803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetTypeConfiguration"
                                                         "2010-05-15"))
       common-lisp:nil "SetTypeConfigurationResult" *error-map*)))
@@ -12818,7 +12821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetTypeDefaultVersion"
                                                         "2010-05-15"))
       common-lisp:nil "SetTypeDefaultVersionResult" *error-map*)))
@@ -12838,7 +12841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SignalResource"
                                                         "2010-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12857,7 +12860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopStackSetOperation"
                                                         "2010-05-15"))
       common-lisp:nil "StopStackSetOperationResult" *error-map*)))
@@ -12877,7 +12880,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TestType"
+                                                        "POST" :query "/"
+                                                        "TestType"
                                                         "2010-05-15"))
       common-lisp:nil "TestTypeResult" *error-map*)))
  (common-lisp:export 'test-type))
@@ -12904,7 +12908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateStack"
                                                         "2010-05-15"))
       common-lisp:nil "UpdateStackResult" *error-map*)))
@@ -12926,7 +12930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateStackInstances"
                                                         "2010-05-15"))
       common-lisp:nil "UpdateStackInstancesResult" *error-map*)))
@@ -12954,7 +12958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateStackSet"
                                                         "2010-05-15"))
       common-lisp:nil "UpdateStackSetResult" *error-map*)))
@@ -12974,7 +12978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateTerminationProtection"
                                                         "2010-05-15"))
       common-lisp:nil "UpdateTerminationProtectionResult" *error-map*)))
@@ -12992,7 +12996,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudformation-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ValidateTemplate"
                                                         "2010-05-15"))
       common-lisp:nil "ValidateTemplateResult" *error-map*)))

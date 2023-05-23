@@ -13,7 +13,7 @@
  (common-lisp:defclass kinesis-video-archived-media-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "kinesis-video-archived-media"))
+                        "kinesis-video-archived-media" :protocol :rest-json))
  (common-lisp:export 'kinesis-video-archived-media-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesis-video-archived-media-error
@@ -1240,8 +1240,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/getClip" "GetClip"
-        "2017-09-30")
+        aws-sdk/generator/operation::input "POST" :rest-json "/getClip"
+        "GetClip" "2017-09-30")
        :want-stream common-lisp:t)
       "blob" common-lisp:nil *error-map*)))
  (common-lisp:export 'get-clip))
@@ -1265,8 +1265,9 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/getDASHStreamingSessionURL"
-        "GetDASHStreamingSessionURL" "2017-09-30"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/getDASHStreamingSessionURL" "GetDASHStreamingSessionURL"
+        "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-dashstreaming-session-url))
 (common-lisp:progn
@@ -1289,8 +1290,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/getHLSStreamingSessionURL"
-        "GetHLSStreamingSessionURL" "2017-09-30"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/getHLSStreamingSessionURL" "GetHLSStreamingSessionURL" "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-hlsstreaming-session-url))
 (common-lisp:progn
@@ -1312,8 +1313,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/getImages" "GetImages"
-        "2017-09-30"))
+        aws-sdk/generator/operation::input "POST" :rest-json "/getImages"
+        "GetImages" "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-images))
 (common-lisp:progn
@@ -1331,8 +1332,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/getMediaForFragmentList"
-        "GetMediaForFragmentList" "2017-09-30")
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/getMediaForFragmentList" "GetMediaForFragmentList" "2017-09-30")
        :want-stream common-lisp:t)
       "blob" common-lisp:nil *error-map*)))
  (common-lisp:export 'get-media-for-fragment-list))
@@ -1352,7 +1353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-archived-media-request
-        aws-sdk/generator/operation::input "POST" "/listFragments"
+        aws-sdk/generator/operation::input "POST" :rest-json "/listFragments"
         "ListFragments" "2017-09-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-fragments))

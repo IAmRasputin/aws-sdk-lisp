@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass s3outposts-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "s3outposts"))
+                       (:default-initargs :service "s3outposts" :protocol
+                        :rest-json))
  (common-lisp:export 's3outposts-request))
 (common-lisp:progn
  (common-lisp:define-condition s3outposts-error
@@ -682,7 +683,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/S3Outposts/CreateEndpoint"
                                                         "CreateEndpoint"
                                                         "2017-07-25"))
@@ -701,7 +702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/S3Outposts/DeleteEndpoint"
                                                         "DeleteEndpoint"
                                                         "2017-07-25"))
@@ -720,7 +721,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/S3Outposts/ListEndpoints"
                                                         "ListEndpoints"
                                                         "2017-07-25"))
@@ -739,7 +740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/S3Outposts/ListOutpostsWithS3"
                                                         "ListOutpostsWithS3"
                                                         "2017-07-25"))
@@ -759,7 +760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 's3outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/S3Outposts/ListSharedEndpoints"
                                                         "ListSharedEndpoints"
                                                         "2017-07-25"))

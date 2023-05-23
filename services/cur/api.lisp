@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/cur/api)
 (common-lisp:progn
  (common-lisp:defclass cur-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "cur"))
+                       (:default-initargs :service "cur" :protocol :json))
  (common-lisp:export 'cur-request))
 (common-lisp:progn
  (common-lisp:define-condition cur-error
@@ -491,7 +491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cur-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteReportDefinition"
                                                         "2017-01-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -510,7 +510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cur-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeReportDefinitions"
                                                         "2017-01-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -528,7 +528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cur-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyReportDefinition"
                                                         "2017-01-06"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -546,7 +546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cur-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutReportDefinition"
                                                         "2017-01-06"))
       common-lisp:nil common-lisp:nil *error-map*)))

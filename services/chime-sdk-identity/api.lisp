@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass chime-sdk-identity-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "chime-sdk-identity"))
+                       (:default-initargs :service "chime-sdk-identity"
+                        :protocol :rest-json))
  (common-lisp:export 'chime-sdk-identity-request))
 (common-lisp:progn
  (common-lisp:define-condition chime-sdk-identity-error
@@ -3069,7 +3070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
-        "/app-instances" "CreateAppInstance" "2021-04-20"))
+        :rest-json "/app-instances" "CreateAppInstance" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-app-instance))
 (common-lisp:progn
@@ -3087,6 +3088,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A/admins"
                               (quri.encode:url-encode
@@ -3112,7 +3114,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
-        "/app-instance-bots" "CreateAppInstanceBot" "2021-04-20"))
+        :rest-json "/app-instance-bots" "CreateAppInstanceBot" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-app-instance-bot))
 (common-lisp:progn
@@ -3132,7 +3134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
-        "/app-instance-users" "CreateAppInstanceUser" "2021-04-20"))
+        :rest-json "/app-instance-users" "CreateAppInstanceUser" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-app-instance-user))
 (common-lisp:progn
@@ -3148,6 +3150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A"
                               (quri.encode:url-encode
@@ -3172,6 +3175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A/admins/~A"
                               (quri.encode:url-encode
@@ -3198,6 +3202,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-bots/~A"
                               (quri.encode:url-encode
@@ -3220,6 +3225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-users/~A"
                               (quri.encode:url-encode
@@ -3244,6 +3250,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/endpoints/~A"
@@ -3271,6 +3278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A"
                               (quri.encode:url-encode
@@ -3295,6 +3303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A/admins/~A"
                               (quri.encode:url-encode
@@ -3322,6 +3331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-bots/~A"
                               (quri.encode:url-encode
@@ -3345,6 +3355,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-users/~A"
                               (quri.encode:url-encode
@@ -3369,6 +3380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/endpoints/~A"
@@ -3397,6 +3409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instances/~A/retention-settings"
@@ -3421,6 +3434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A/admins"
                               (quri.encode:url-encode
@@ -3444,7 +3458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
-        "/app-instance-bots" "ListAppInstanceBots" "2021-04-20"))
+        :rest-json "/app-instance-bots" "ListAppInstanceBots" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-app-instance-bots))
 (common-lisp:progn
@@ -3463,6 +3477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/endpoints"
@@ -3487,7 +3502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
-        "/app-instance-users" "ListAppInstanceUsers" "2021-04-20"))
+        :rest-json "/app-instance-users" "ListAppInstanceUsers" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-app-instance-users))
 (common-lisp:progn
@@ -3503,7 +3518,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
-        "/app-instances" "ListAppInstances" "2021-04-20"))
+        :rest-json "/app-instances" "ListAppInstances" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-app-instances))
 (common-lisp:progn
@@ -3519,7 +3534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "GET"
-        "/tags" "ListTagsForResource" "2021-04-20"))
+        :rest-json "/tags" "ListTagsForResource" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -3538,6 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instances/~A/retention-settings"
@@ -3564,6 +3580,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/expiration-settings"
@@ -3592,6 +3609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/endpoints"
@@ -3615,7 +3633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=tag-resource" "TagResource" "2021-04-20"))
+        :rest-json "/tags?operation=tag-resource" "TagResource" "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -3631,7 +3649,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=untag-resource" "UntagResource" "2021-04-20"))
+        :rest-json "/tags?operation=untag-resource" "UntagResource"
+        "2021-04-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -3647,6 +3666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instances/~A"
                               (quri.encode:url-encode
@@ -3670,6 +3690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-bots/~A"
                               (quri.encode:url-encode
@@ -3693,6 +3714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/app-instance-users/~A"
                               (quri.encode:url-encode
@@ -3719,6 +3741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-identity-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instance-users/~A/endpoints/~A"

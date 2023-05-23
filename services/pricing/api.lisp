@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/pricing/api)
 (common-lisp:progn
  (common-lisp:defclass pricing-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "pricing"))
+                       common-lisp:nil
+                       (:default-initargs :service "pricing" :protocol :json))
  (common-lisp:export 'pricing-request))
 (common-lisp:progn
  (common-lisp:define-condition pricing-error
@@ -782,7 +783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pricing-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServices"
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -802,7 +803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pricing-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAttributeValues"
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -820,7 +821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pricing-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPriceListFileUrl"
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -841,7 +842,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pricing-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetProducts"
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -862,7 +863,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pricing-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPriceLists"
                                                         "2017-10-15"))
       common-lisp:nil common-lisp:nil *error-map*)))

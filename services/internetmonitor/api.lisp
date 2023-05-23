@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass internetmonitor-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "internetmonitor"))
+                       (:default-initargs :service "internetmonitor" :protocol
+                        :rest-json))
  (common-lisp:export 'internetmonitor-request))
 (common-lisp:progn
  (common-lisp:define-condition internetmonitor-error
@@ -1632,7 +1633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "POST"
-        "/v20210603/Monitors" "CreateMonitor" "2021-06-03"))
+        :rest-json "/v20210603/Monitors" "CreateMonitor" "2021-06-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-monitor))
 (common-lisp:progn
@@ -1648,6 +1649,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v20210603/Monitors/~A"
                               (quri.encode:url-encode
@@ -1670,6 +1672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/v20210603/Monitors/~A/HealthEvents/~A"
@@ -1697,6 +1700,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v20210603/Monitors/~A"
                               (quri.encode:url-encode
@@ -1722,6 +1726,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/v20210603/Monitors/~A/HealthEvents"
@@ -1746,7 +1751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "GET"
-        "/v20210603/Monitors" "ListMonitors" "2021-06-03"))
+        :rest-json "/v20210603/Monitors" "ListMonitors" "2021-06-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-monitors))
 (common-lisp:progn
@@ -1762,6 +1767,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1784,6 +1790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1806,6 +1813,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1835,6 +1843,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'internetmonitor-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v20210603/Monitors/~A"
                               (quri.encode:url-encode

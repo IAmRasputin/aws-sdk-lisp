@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/cloudhsm/api)
 (common-lisp:progn
  (common-lisp:defclass cloudhsm-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "cloudhsm"))
+                       common-lisp:nil
+                       (:default-initargs :service "cloudhsm" :protocol :json))
  (common-lisp:export 'cloudhsm-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudhsm-error
@@ -1789,7 +1790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddTagsToResource"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1807,7 +1808,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateHapg"
+                                                        "POST" :json "/"
+                                                        "CreateHapg"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-hapg))
@@ -1827,7 +1829,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateHsm"
+                                                        "POST" :json "/"
+                                                        "CreateHsm"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-hsm))
@@ -1844,7 +1847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLunaClient"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1862,7 +1865,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteHapg"
+                                                        "POST" :json "/"
+                                                        "DeleteHapg"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-hapg))
@@ -1879,7 +1883,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteHsm"
+                                                        "POST" :json "/"
+                                                        "DeleteHsm"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-hsm))
@@ -1896,7 +1901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLunaClient"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1914,7 +1919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHapg"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1932,7 +1937,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHsm"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1951,7 +1956,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLunaClient"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1970,7 +1975,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetConfig"
+                                                        "POST" :json "/"
+                                                        "GetConfig"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-config))
@@ -1979,6 +1985,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'cloudhsm-request :method "POST" :path "/"
+                                :protocol :json :operation "ListAvailableZones"
                                 :params
                                 `(("Action" ,@"ListAvailableZones")
                                   ("Version" ,@"2014-05-30"))))
@@ -1997,7 +2004,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListHapgs"
+                                                        "POST" :json "/"
+                                                        "ListHapgs"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-hapgs))
@@ -2014,7 +2022,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListHsms"
+                                                        "POST" :json "/"
+                                                        "ListHsms"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-hsms))
@@ -2031,7 +2040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLunaClients"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2049,7 +2058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2068,7 +2077,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ModifyHapg"
+                                                        "POST" :json "/"
+                                                        "ModifyHapg"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'modify-hapg))
@@ -2088,7 +2098,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ModifyHsm"
+                                                        "POST" :json "/"
+                                                        "ModifyHsm"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'modify-hsm))
@@ -2105,7 +2116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyLunaClient"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2124,7 +2135,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveTagsFromResource"
                                                         "2014-05-30"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -13,7 +13,8 @@
  (common-lisp:defclass route53-recovery-control-config-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "route53-recovery-control-config"))
+                        "route53-recovery-control-config" :protocol
+                        :rest-json))
  (common-lisp:export 'route53-recovery-control-config-request))
 (common-lisp:progn
  (common-lisp:define-condition route53-recovery-control-config-error
@@ -2318,8 +2319,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "POST" "/cluster" "CreateCluster"
-        "2020-11-02"))
+        aws-sdk/generator/operation::input "POST" :rest-json "/cluster"
+        "CreateCluster" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-cluster))
 (common-lisp:progn
@@ -2337,7 +2338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "POST" "/controlpanel"
+        aws-sdk/generator/operation::input "POST" :rest-json "/controlpanel"
         "CreateControlPanel" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-control-panel))
@@ -2357,7 +2358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "POST" "/routingcontrol"
+        aws-sdk/generator/operation::input "POST" :rest-json "/routingcontrol"
         "CreateRoutingControl" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-routing-control))
@@ -2376,7 +2377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "POST" "/safetyrule"
+        aws-sdk/generator/operation::input "POST" :rest-json "/safetyrule"
         "CreateSafetyRule" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-safety-rule))
@@ -2393,7 +2394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/cluster/~A"
                               (quri.encode:url-encode
@@ -2416,7 +2417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/controlpanel/~A"
                               (quri.encode:url-encode
@@ -2439,7 +2440,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/routingcontrol/~A"
                               (quri.encode:url-encode
@@ -2462,7 +2463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/safetyrule/~A"
                               (quri.encode:url-encode
@@ -2485,7 +2486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/cluster/~A"
                               (quri.encode:url-encode
@@ -2508,7 +2509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/controlpanel/~A"
                               (quri.encode:url-encode
@@ -2531,7 +2532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/routingcontrol/~A"
                               (quri.encode:url-encode
@@ -2554,7 +2555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/safetyrule/~A"
                               (quri.encode:url-encode
@@ -2580,7 +2581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/routingcontrol/~A/associatedRoute53HealthChecks"
@@ -2604,8 +2605,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET" "/cluster" "ListClusters"
-        "2020-11-02"))
+        aws-sdk/generator/operation::input "GET" :rest-json "/cluster"
+        "ListClusters" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-clusters))
 (common-lisp:progn
@@ -2622,7 +2623,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET" "/controlpanels"
+        aws-sdk/generator/operation::input "GET" :rest-json "/controlpanels"
         "ListControlPanels" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-control-panels))
@@ -2640,7 +2641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/controlpanel/~A/routingcontrols"
@@ -2665,7 +2666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/controlpanel/~A/safetyrules"
                               (quri.encode:url-encode
@@ -2688,7 +2689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2711,7 +2712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2734,7 +2735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2758,7 +2759,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "PUT" "/controlpanel"
+        aws-sdk/generator/operation::input "PUT" :rest-json "/controlpanel"
         "UpdateControlPanel" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-control-panel))
@@ -2776,7 +2777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "PUT" "/routingcontrol"
+        aws-sdk/generator/operation::input "PUT" :rest-json "/routingcontrol"
         "UpdateRoutingControl" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-routing-control))
@@ -2794,7 +2795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'route53-recovery-control-config-request
-        aws-sdk/generator/operation::input "PUT" "/safetyrule"
+        aws-sdk/generator/operation::input "PUT" :rest-json "/safetyrule"
         "UpdateSafetyRule" "2020-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-safety-rule))

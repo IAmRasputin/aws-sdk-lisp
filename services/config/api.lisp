@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/config/api)
 (common-lisp:progn
  (common-lisp:defclass config-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "config"))
+                       (:default-initargs :service "config" :protocol :json))
  (common-lisp:export 'config-request))
 (common-lisp:progn
  (common-lisp:define-condition config-error
@@ -14516,7 +14516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetAggregateResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14535,7 +14535,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14556,7 +14556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAggregationAuthorization"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14574,7 +14574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14593,7 +14593,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConfigurationAggregator"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14612,7 +14612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConfigurationRecorder"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14630,7 +14630,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConformancePack"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14648,7 +14648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDeliveryChannel"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14667,7 +14667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEvaluationResults"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14686,7 +14686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteOrganizationConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14706,7 +14706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteOrganizationConformancePack"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14727,7 +14727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePendingAggregationRequest"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14746,7 +14746,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRemediationConfiguration"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14765,7 +14765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRemediationExceptions"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14783,7 +14783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14802,7 +14802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRetentionConfiguration"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14820,7 +14820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStoredQuery"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14838,7 +14838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeliverConfigSnapshot"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14860,7 +14860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAggregateComplianceByConfigRules"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14882,7 +14882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAggregateComplianceByConformancePacks"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14901,7 +14901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAggregationAuthorizations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14922,7 +14922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeComplianceByConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14944,7 +14944,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeComplianceByResource"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14964,7 +14964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigRuleEvaluationStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14983,7 +14983,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigRules"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15005,7 +15005,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigurationAggregatorSourcesStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15026,7 +15026,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigurationAggregators"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15045,7 +15045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigurationRecorderStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15064,7 +15064,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigurationRecorders"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15085,7 +15085,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConformancePackCompliance"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15105,7 +15105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConformancePackStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15125,7 +15125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConformancePacks"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15144,7 +15144,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDeliveryChannelStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15163,7 +15163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDeliveryChannels"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15184,7 +15184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganizationConfigRuleStatuses"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15205,7 +15205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganizationConfigRules"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15227,7 +15227,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganizationConformancePackStatuses"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15249,7 +15249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganizationConformancePacks"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15268,7 +15268,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePendingAggregationRequests"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15287,7 +15287,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRemediationConfigurations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15308,7 +15308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRemediationExceptions"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15329,7 +15329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRemediationExecutionStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15349,7 +15349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRetentionConfigurations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15372,7 +15372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAggregateComplianceDetailsByConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15394,7 +15394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAggregateConfigRuleComplianceSummary"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15416,7 +15416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAggregateConformancePackComplianceSummary"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15438,7 +15438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAggregateDiscoveredResourceCounts"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15459,7 +15459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAggregateResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15480,7 +15480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComplianceDetailsByConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15502,7 +15502,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComplianceDetailsByResource"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15512,7 +15512,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'config-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetComplianceSummaryByConfigRule" :params
                                 `(("Action"
                                    ,@"GetComplianceSummaryByConfigRule")
                                   ("Version" ,@"2014-11-12"))))
@@ -15532,7 +15533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetComplianceSummaryByResourceType"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15553,7 +15554,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetConformancePackComplianceDetails"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15573,7 +15574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetConformancePackComplianceSummary"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15591,7 +15592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCustomRulePolicy"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15611,7 +15612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDiscoveredResourceCounts"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15633,7 +15634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOrganizationConfigRuleDetailedStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15655,7 +15656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOrganizationConformancePackDetailedStatus"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15674,7 +15675,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetOrganizationCustomRulePolicy"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15696,7 +15697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceConfigHistory"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15715,7 +15716,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceEvaluationSummary"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15733,7 +15734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetStoredQuery"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15755,7 +15756,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAggregateDiscoveredResources"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15776,7 +15777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListConformancePackComplianceScores"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15798,7 +15799,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDiscoveredResources"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15817,7 +15818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListResourceEvaluations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15835,7 +15836,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStoredQueries"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15853,7 +15854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15874,7 +15875,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAggregationAuthorization"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15892,7 +15893,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15915,7 +15916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutConfigurationAggregator"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15934,7 +15935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutConfigurationRecorder"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15958,7 +15959,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutConformancePack"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15976,7 +15977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDeliveryChannel"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15995,7 +15996,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutEvaluations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16014,7 +16015,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutExternalEvaluation"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16039,7 +16040,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutOrganizationConfigRule"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16064,7 +16065,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutOrganizationConformancePack"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16083,7 +16084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRemediationConfigurations"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16105,7 +16106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRemediationExceptions"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16126,7 +16127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16145,7 +16146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRetentionConfiguration"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16163,7 +16164,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutStoredQuery"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16185,7 +16186,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SelectAggregateResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16203,7 +16204,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SelectResourceConfig"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16222,7 +16223,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartConfigRulesEvaluation"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16241,7 +16242,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartConfigurationRecorder"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16260,7 +16261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartRemediationExecution"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16282,7 +16283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartResourceEvaluation"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16301,7 +16302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopConfigurationRecorder"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16319,7 +16320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16337,7 +16338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'config-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2014-11-12"))
       common-lisp:nil common-lisp:nil *error-map*)))

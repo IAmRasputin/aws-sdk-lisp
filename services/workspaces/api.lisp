@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass workspaces-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "workspaces"))
+                       (:default-initargs :service "workspaces" :protocol
+                        :json))
  (common-lisp:export 'workspaces-request))
 (common-lisp:progn
  (common-lisp:define-condition workspaces-error
@@ -8209,7 +8210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateConnectionAlias"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8227,7 +8228,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateIpGroups"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8245,7 +8246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AuthorizeIpRules"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8266,7 +8267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopyWorkspaceImage"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8285,7 +8286,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnectClientAddIn"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8303,7 +8304,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnectionAlias"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8322,7 +8323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateIpGroup"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8342,7 +8343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStandbyWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8360,7 +8361,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateTags"
+                                                        "POST" :json "/"
+                                                        "CreateTags"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-tags))
@@ -8379,7 +8381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUpdatedWorkspaceImage"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8400,7 +8402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkspaceBundle"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8419,7 +8421,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkspaceImage"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8437,7 +8439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8455,7 +8457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteClientBranding"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8474,7 +8476,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnectClientAddIn"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8492,7 +8494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnectionAlias"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8510,7 +8512,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteIpGroup"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8528,7 +8530,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTags"
+                                                        "POST" :json "/"
+                                                        "DeleteTags"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
@@ -8545,7 +8548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkspaceBundle"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8563,7 +8566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkspaceImage"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8582,7 +8585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterWorkspaceDirectory"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8592,6 +8595,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'workspaces-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeAccount"
                                 :params
                                 `(("Action" ,@"DescribeAccount")
                                   ("Version" ,@"2015-04-08"))))
@@ -8611,7 +8615,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccountModifications"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8629,7 +8633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClientBranding"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8648,7 +8652,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClientProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8668,7 +8672,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnectClientAddIns"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8688,7 +8692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnectionAliasPermissions"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8708,7 +8712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnectionAliases"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8727,7 +8731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeIpGroups"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8745,7 +8749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTags"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8764,7 +8768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaceBundles"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8783,7 +8787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaceDirectories"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8803,7 +8807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaceImagePermissions"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8824,7 +8828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaceImages"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8843,7 +8847,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaceSnapshots"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8864,7 +8868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8883,7 +8887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkspacesConnectionStatus"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8902,7 +8906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateConnectionAlias"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8920,7 +8924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateIpGroups"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8942,7 +8946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportClientBranding"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8963,7 +8967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportWorkspaceImage"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8985,7 +8989,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAvailableManagementCidrRanges"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9003,7 +9007,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MigrateWorkspace"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9024,7 +9028,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyAccount"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9046,7 +9050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyCertificateBasedAuthProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9064,7 +9068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyClientProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9084,7 +9088,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifySamlProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9104,7 +9108,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifySelfservicePermissions"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9124,7 +9128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyWorkspaceAccessProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9145,7 +9149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyWorkspaceCreationProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9165,7 +9169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyWorkspaceProperties"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9183,7 +9187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyWorkspaceState"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9201,7 +9205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RebootWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9219,7 +9223,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RebuildWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9241,7 +9245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterWorkspaceDirectory"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9259,7 +9263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreWorkspace"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9277,7 +9281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RevokeIpRules"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9295,7 +9299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9313,7 +9317,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9331,7 +9335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TerminateWorkspaces"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9350,7 +9354,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConnectClientAddIn"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9370,7 +9374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConnectionAliasPermission"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9388,7 +9392,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRulesOfIpGroup"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9406,7 +9410,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkspaceBundle"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9427,7 +9431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'workspaces-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkspaceImagePermission"
                                                         "2015-04-08"))
       common-lisp:nil common-lisp:nil *error-map*)))

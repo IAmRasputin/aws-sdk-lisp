@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass organizations-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "organizations"))
+                       (:default-initargs :service "organizations" :protocol
+                        :json))
  (common-lisp:export 'organizations-request))
 (common-lisp:progn
  (common-lisp:define-condition organizations-error
@@ -5162,7 +5163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptHandshake"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5180,7 +5181,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachPolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5198,7 +5199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelHandshake"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5216,7 +5217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CloseAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5237,7 +5238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5258,7 +5259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGovCloudAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5276,7 +5277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateOrganization"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5295,7 +5296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateOrganizationalUnit"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5314,7 +5315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5332,7 +5333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeclineHandshake"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5342,6 +5343,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
+                                :protocol :json :operation "DeleteOrganization"
                                 :params
                                 `(("Action" ,@"DeleteOrganization")
                                   ("Version" ,@"2016-11-28"))))
@@ -5361,7 +5363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteOrganizationalUnit"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5379,7 +5381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5389,7 +5391,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DeleteResourcePolicy" :params
                                 `(("Action" ,@"DeleteResourcePolicy")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5408,7 +5411,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterDelegatedAdministrator"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5426,7 +5429,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5445,7 +5448,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCreateAccountStatus"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5464,7 +5467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEffectivePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5482,7 +5485,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHandshake"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5492,7 +5495,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeOrganization" :params
                                 `(("Action" ,@"DescribeOrganization")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5511,7 +5515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeOrganizationalUnit"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5529,7 +5533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5539,7 +5543,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeResourcePolicy" :params
                                 `(("Action" ,@"DescribeResourcePolicy")
                                   ("Version" ,@"2016-11-28"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -5557,7 +5562,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachPolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5576,7 +5581,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableAWSServiceAccess"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5594,7 +5599,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisablePolicyType"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5612,7 +5617,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableAWSServiceAccess"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5622,6 +5627,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
+                                :protocol :json :operation "EnableAllFeatures"
                                 :params
                                 `(("Action" ,@"EnableAllFeatures")
                                   ("Version" ,@"2016-11-28"))))
@@ -5640,7 +5646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnablePolicyType"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5659,7 +5665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InviteAccountToOrganization"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5669,6 +5675,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'organizations-request :method "POST" :path "/"
+                                :protocol :json :operation "LeaveOrganization"
                                 :params
                                 `(("Action" ,@"LeaveOrganization")
                                   ("Version" ,@"2016-11-28"))))
@@ -5688,7 +5695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAWSServiceAccessForOrganization"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5706,7 +5713,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccounts"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5725,7 +5732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountsForParent"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5745,7 +5752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListChildren"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5764,7 +5771,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCreateAccountStatus"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5784,7 +5791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDelegatedAdministrators"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5804,7 +5811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDelegatedServicesForAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5823,7 +5830,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHandshakesForAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5842,7 +5849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHandshakesForOrganization"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5862,7 +5869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListOrganizationalUnitsForParent"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5881,7 +5888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListParents"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5899,7 +5906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPolicies"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5918,7 +5925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPoliciesForTarget"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5936,7 +5943,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListRoots"
+                                                        "POST" :json "/"
+                                                        "ListRoots"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-roots))
@@ -5953,7 +5961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5972,7 +5980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTargetsForPolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5992,7 +6000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "MoveAccount"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6010,7 +6018,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6029,7 +6037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterDelegatedAdministrator"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6048,7 +6056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveAccountFromOrganization"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6066,7 +6074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6084,7 +6092,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6103,7 +6111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateOrganizationalUnit"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6122,7 +6130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'organizations-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePolicy"
                                                         "2016-11-28"))
       common-lisp:nil common-lisp:nil *error-map*)))

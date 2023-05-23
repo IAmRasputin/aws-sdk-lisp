@@ -38,7 +38,7 @@
 (defgeneric input-headers (input))
 (defgeneric input-payload (input))
 
-(defun make-request-with-input (request-class input method path-conversion action version)
+(defun make-request-with-input (request-class input method protocol path-conversion action version)
   (make-instance request-class
                  :method method
                  :path (etypecase path-conversion
@@ -47,6 +47,8 @@
                          (null "/"))
                  :params (append `(("Action" . ,action) ("Version" . ,version))
                                  (input-params input))
+                 :protocol (intern (format nil "~:@(~A~)" protocol))
+                 :operation action
                  :headers (input-headers input)
                  :payload (input-payload input)))
 

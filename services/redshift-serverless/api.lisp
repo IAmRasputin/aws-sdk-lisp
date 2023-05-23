@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass redshift-serverless-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "redshift-serverless"))
+                       (:default-initargs :service "redshift-serverless"
+                        :protocol :json))
  (common-lisp:export 'redshift-serverless-request))
 (common-lisp:progn
  (common-lisp:define-condition redshift-serverless-error
@@ -4799,7 +4800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ConvertRecoveryPointToSnapshot" "2021-04-21"))
+        :json "/" "ConvertRecoveryPointToSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'convert-recovery-point-to-snapshot))
 (common-lisp:progn
@@ -4818,7 +4819,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateEndpointAccess" "2021-04-21"))
+        :json "/" "CreateEndpointAccess" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-endpoint-access))
 (common-lisp:progn
@@ -4839,7 +4840,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateNamespace" "2021-04-21"))
+        :json "/" "CreateNamespace" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-namespace))
 (common-lisp:progn
@@ -4857,7 +4858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateSnapshot" "2021-04-21"))
+        :json "/" "CreateSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-snapshot))
 (common-lisp:progn
@@ -4876,7 +4877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateUsageLimit" "2021-04-21"))
+        :json "/" "CreateUsageLimit" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-usage-limit))
 (common-lisp:progn
@@ -4898,7 +4899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "CreateWorkgroup" "2021-04-21"))
+        :json "/" "CreateWorkgroup" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-workgroup))
 (common-lisp:progn
@@ -4914,7 +4915,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteEndpointAccess" "2021-04-21"))
+        :json "/" "DeleteEndpointAccess" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-endpoint-access))
 (common-lisp:progn
@@ -4933,7 +4934,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteNamespace" "2021-04-21"))
+        :json "/" "DeleteNamespace" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-namespace))
 (common-lisp:progn
@@ -4949,7 +4950,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteResourcePolicy" "2021-04-21"))
+        :json "/" "DeleteResourcePolicy" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-resource-policy))
 (common-lisp:progn
@@ -4965,7 +4966,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteSnapshot" "2021-04-21"))
+        :json "/" "DeleteSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-snapshot))
 (common-lisp:progn
@@ -4981,7 +4982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteUsageLimit" "2021-04-21"))
+        :json "/" "DeleteUsageLimit" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-usage-limit))
 (common-lisp:progn
@@ -4997,7 +4998,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteWorkgroup" "2021-04-21"))
+        :json "/" "DeleteWorkgroup" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-workgroup))
 (common-lisp:progn
@@ -5014,7 +5015,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetCredentials" "2021-04-21"))
+        :json "/" "GetCredentials" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-credentials))
 (common-lisp:progn
@@ -5030,7 +5031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEndpointAccess" "2021-04-21"))
+        :json "/" "GetEndpointAccess" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-endpoint-access))
 (common-lisp:progn
@@ -5046,7 +5047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetNamespace" "2021-04-21"))
+        :json "/" "GetNamespace" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-namespace))
 (common-lisp:progn
@@ -5062,7 +5063,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetRecoveryPoint" "2021-04-21"))
+        :json "/" "GetRecoveryPoint" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-recovery-point))
 (common-lisp:progn
@@ -5078,7 +5079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetResourcePolicy" "2021-04-21"))
+        :json "/" "GetResourcePolicy" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-resource-policy))
 (common-lisp:progn
@@ -5095,7 +5096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetSnapshot" "2021-04-21"))
+        :json "/" "GetSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-snapshot))
 (common-lisp:progn
@@ -5111,7 +5112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetTableRestoreStatus" "2021-04-21"))
+        :json "/" "GetTableRestoreStatus" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-table-restore-status))
 (common-lisp:progn
@@ -5127,7 +5128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetUsageLimit" "2021-04-21"))
+        :json "/" "GetUsageLimit" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-usage-limit))
 (common-lisp:progn
@@ -5143,7 +5144,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "GetWorkgroup" "2021-04-21"))
+        :json "/" "GetWorkgroup" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-workgroup))
 (common-lisp:progn
@@ -5161,7 +5162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListEndpointAccess" "2021-04-21"))
+        :json "/" "ListEndpointAccess" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-endpoint-access))
 (common-lisp:progn
@@ -5177,7 +5178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListNamespaces" "2021-04-21"))
+        :json "/" "ListNamespaces" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-namespaces))
 (common-lisp:progn
@@ -5196,7 +5197,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListRecoveryPoints" "2021-04-21"))
+        :json "/" "ListRecoveryPoints" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-recovery-points))
 (common-lisp:progn
@@ -5215,7 +5216,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListSnapshots" "2021-04-21"))
+        :json "/" "ListSnapshots" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-snapshots))
 (common-lisp:progn
@@ -5235,7 +5236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTableRestoreStatus" "2021-04-21"))
+        :json "/" "ListTableRestoreStatus" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-table-restore-status))
 (common-lisp:progn
@@ -5251,7 +5252,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTagsForResource" "2021-04-21"))
+        :json "/" "ListTagsForResource" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -5269,7 +5270,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListUsageLimits" "2021-04-21"))
+        :json "/" "ListUsageLimits" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-usage-limits))
 (common-lisp:progn
@@ -5285,7 +5286,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "ListWorkgroups" "2021-04-21"))
+        :json "/" "ListWorkgroups" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-workgroups))
 (common-lisp:progn
@@ -5301,7 +5302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "PutResourcePolicy" "2021-04-21"))
+        :json "/" "PutResourcePolicy" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-resource-policy))
 (common-lisp:progn
@@ -5320,7 +5321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "RestoreFromRecoveryPoint" "2021-04-21"))
+        :json "/" "RestoreFromRecoveryPoint" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'restore-from-recovery-point))
 (common-lisp:progn
@@ -5339,7 +5340,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "RestoreFromSnapshot" "2021-04-21"))
+        :json "/" "RestoreFromSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'restore-from-snapshot))
 (common-lisp:progn
@@ -5362,7 +5363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "RestoreTableFromSnapshot" "2021-04-21"))
+        :json "/" "RestoreTableFromSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'restore-table-from-snapshot))
 (common-lisp:progn
@@ -5378,7 +5379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "TagResource" "2021-04-21"))
+        :json "/" "TagResource" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -5394,7 +5395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UntagResource" "2021-04-21"))
+        :json "/" "UntagResource" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -5411,7 +5412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateEndpointAccess" "2021-04-21"))
+        :json "/" "UpdateEndpointAccess" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-endpoint-access))
 (common-lisp:progn
@@ -5431,7 +5432,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateNamespace" "2021-04-21"))
+        :json "/" "UpdateNamespace" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-namespace))
 (common-lisp:progn
@@ -5447,7 +5448,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateSnapshot" "2021-04-21"))
+        :json "/" "UpdateSnapshot" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-snapshot))
 (common-lisp:progn
@@ -5464,7 +5465,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateUsageLimit" "2021-04-21"))
+        :json "/" "UpdateUsageLimit" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-usage-limit))
 (common-lisp:progn
@@ -5484,6 +5485,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'redshift-serverless-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateWorkgroup" "2021-04-21"))
+        :json "/" "UpdateWorkgroup" "2021-04-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-workgroup))

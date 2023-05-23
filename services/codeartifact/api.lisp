@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codeartifact-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codeartifact"))
+                       (:default-initargs :service "codeartifact" :protocol
+                        :rest-json))
  (common-lisp:export 'codeartifact-request))
 (common-lisp:progn
  (common-lisp:define-condition codeartifact-error
@@ -4381,7 +4382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/repository/external-connection"
                                                         "AssociateExternalConnection"
                                                         "2018-09-22"))
@@ -4405,7 +4406,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/versions/copy"
                                                         "CopyPackageVersions"
                                                         "2018-09-22"))
@@ -4424,7 +4425,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/domain"
+                                                        "POST" :rest-json
+                                                        "/v1/domain"
                                                         "CreateDomain"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4445,7 +4447,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/repository"
+                                                        "POST" :rest-json
+                                                        "/v1/repository"
                                                         "CreateRepository"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4463,7 +4466,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/v1/domain"
+                                                        "DELETE" :rest-json
+                                                        "/v1/domain"
                                                         "DeleteDomain"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4483,7 +4487,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/domain/permissions/policy"
                                                         "DeleteDomainPermissionsPolicy"
                                                         "2018-09-22"))
@@ -4505,7 +4509,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/v1/package"
+                                                        "DELETE" :rest-json
+                                                        "/v1/package"
                                                         "DeletePackage"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4526,7 +4531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/versions/delete"
                                                         "DeletePackageVersions"
                                                         "2018-09-22"))
@@ -4545,7 +4550,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/repository"
                                                         "DeleteRepository"
                                                         "2018-09-22"))
@@ -4567,7 +4572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/repository/permissions/policies"
                                                         "DeleteRepositoryPermissionsPolicy"
                                                         "2018-09-22"))
@@ -4586,7 +4591,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/domain"
+                                                        "GET" :rest-json
+                                                        "/v1/domain"
                                                         "DescribeDomain"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4607,7 +4613,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/package"
+                                                        "GET" :rest-json
+                                                        "/v1/package"
                                                         "DescribePackage"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4628,7 +4635,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/package/version"
                                                         "DescribePackageVersion"
                                                         "2018-09-22"))
@@ -4647,7 +4654,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/repository"
+                                                        "GET" :rest-json
+                                                        "/v1/repository"
                                                         "DescribeRepository"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4668,7 +4676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/repository/external-connection"
                                                         "DisassociateExternalConnection"
                                                         "2018-09-22"))
@@ -4691,7 +4699,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/versions/dispose"
                                                         "DisposePackageVersions"
                                                         "2018-09-22"))
@@ -4711,7 +4719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/authorization-token"
                                                         "GetAuthorizationToken"
                                                         "2018-09-22"))
@@ -4731,7 +4739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/domain/permissions/policy"
                                                         "GetDomainPermissionsPolicy"
                                                         "2018-09-22"))
@@ -4755,7 +4763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/package/version/asset"
                                                         "GetPackageVersionAsset"
                                                         "2018-09-22")
@@ -4779,7 +4787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/package/version/readme"
                                                         "GetPackageVersionReadme"
                                                         "2018-09-22"))
@@ -4799,7 +4807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/repository/endpoint"
                                                         "GetRepositoryEndpoint"
                                                         "2018-09-22"))
@@ -4819,7 +4827,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/repository/permissions/policy"
                                                         "GetRepositoryPermissionsPolicy"
                                                         "2018-09-22"))
@@ -4838,7 +4846,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/domains"
+                                                        "POST" :rest-json
+                                                        "/v1/domains"
                                                         "ListDomains"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4860,7 +4869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/version/assets"
                                                         "ListPackageVersionAssets"
                                                         "2018-09-22"))
@@ -4883,7 +4892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/version/dependencies"
                                                         "ListPackageVersionDependencies"
                                                         "2018-09-22"))
@@ -4906,7 +4915,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/versions"
                                                         "ListPackageVersions"
                                                         "2018-09-22"))
@@ -4929,7 +4938,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/packages"
+                                                        "POST" :rest-json
+                                                        "/v1/packages"
                                                         "ListPackages"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4948,7 +4958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/repositories"
                                                         "ListRepositories"
                                                         "2018-09-22"))
@@ -4971,7 +4981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/domain/repositories"
                                                         "ListRepositoriesInDomain"
                                                         "2018-09-22"))
@@ -4990,7 +5000,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/tags"
+                                                        "POST" :rest-json
+                                                        "/v1/tags"
                                                         "ListTagsForResource"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5012,7 +5023,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/version/publish"
                                                         "PublishPackageVersion"
                                                         "2018-09-22"))
@@ -5035,7 +5046,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/v1/domain/permissions/policy"
                                                         "PutDomainPermissionsPolicy"
                                                         "2018-09-22"))
@@ -5058,7 +5069,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/package"
+                                                        "POST" :rest-json
+                                                        "/v1/package"
                                                         "PutPackageOriginConfiguration"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5080,7 +5092,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/v1/repository/permissions/policy"
                                                         "PutRepositoryPermissionsPolicy"
                                                         "2018-09-22"))
@@ -5099,8 +5111,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/tag"
-                                                        "TagResource"
+                                                        "POST" :rest-json
+                                                        "/v1/tag" "TagResource"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
@@ -5117,7 +5129,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/untag"
+                                                        "POST" :rest-json
+                                                        "/v1/untag"
                                                         "UntagResource"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5140,7 +5153,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/package/versions/update_status"
                                                         "UpdatePackageVersionsStatus"
                                                         "2018-09-22"))
@@ -5162,7 +5175,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codeartifact-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/v1/repository"
+                                                        "PUT" :rest-json
+                                                        "/v1/repository"
                                                         "UpdateRepository"
                                                         "2018-09-22"))
       common-lisp:nil common-lisp:nil *error-map*)))

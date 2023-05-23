@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotevents-data-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotevents-data"))
+                       (:default-initargs :service "iotevents-data" :protocol
+                        :rest-json))
  (common-lisp:export 'iotevents-data-request))
 (common-lisp:progn
  (common-lisp:define-condition iotevents-data-error
@@ -2615,7 +2616,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/alarms/acknowledge"
                                                         "BatchAcknowledgeAlarm"
                                                         "2018-10-23"))
@@ -2634,7 +2635,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/detectors/delete"
                                                         "BatchDeleteDetector"
                                                         "2018-10-23"))
@@ -2653,7 +2654,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/alarms/disable"
                                                         "BatchDisableAlarm"
                                                         "2018-10-23"))
@@ -2672,7 +2673,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/alarms/enable"
+                                                        "POST" :rest-json
+                                                        "/alarms/enable"
                                                         "BatchEnableAlarm"
                                                         "2018-10-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2690,7 +2692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/inputs/messages"
                                                         "BatchPutMessage"
                                                         "2018-10-23"))
@@ -2709,7 +2711,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/alarms/reset"
+                                                        "POST" :rest-json
+                                                        "/alarms/reset"
                                                         "BatchResetAlarm"
                                                         "2018-10-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2727,7 +2730,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/alarms/snooze"
+                                                        "POST" :rest-json
+                                                        "/alarms/snooze"
                                                         "BatchSnoozeAlarm"
                                                         "2018-10-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2745,7 +2749,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/detectors"
+                                                        "POST" :rest-json
+                                                        "/detectors"
                                                         "BatchUpdateDetector"
                                                         "2018-10-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2763,7 +2768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2791,7 +2796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2820,7 +2825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2851,7 +2856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iotevents-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

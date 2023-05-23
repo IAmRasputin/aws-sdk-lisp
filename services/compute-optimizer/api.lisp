@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass compute-optimizer-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "compute-optimizer"))
+                       (:default-initargs :service "compute-optimizer"
+                        :protocol :json))
  (common-lisp:export 'compute-optimizer-request))
 (common-lisp:progn
  (common-lisp:define-condition compute-optimizer-error
@@ -5827,7 +5828,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "DeleteRecommendationPreferences" "2019-11-01"))
+        :json "/" "DeleteRecommendationPreferences" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-recommendation-preferences))
 (common-lisp:progn
@@ -5845,7 +5846,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeRecommendationExportJobs" "2019-11-01"))
+        :json "/" "DescribeRecommendationExportJobs" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-recommendation-export-jobs))
 (common-lisp:progn
@@ -5867,7 +5868,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "ExportAutoScalingGroupRecommendations" "2019-11-01"))
+        :json "/" "ExportAutoScalingGroupRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'export-auto-scaling-group-recommendations))
 (common-lisp:progn
@@ -5887,7 +5888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "ExportEBSVolumeRecommendations" "2019-11-01"))
+        :json "/" "ExportEBSVolumeRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'export-ebsvolume-recommendations))
 (common-lisp:progn
@@ -5909,7 +5910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "ExportEC2InstanceRecommendations" "2019-11-01"))
+        :json "/" "ExportEC2InstanceRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'export-ec2instance-recommendations))
 (common-lisp:progn
@@ -5929,7 +5930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "ExportECSServiceRecommendations" "2019-11-01"))
+        :json "/" "ExportECSServiceRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'export-ecsservice-recommendations))
 (common-lisp:progn
@@ -5949,7 +5950,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "ExportLambdaFunctionRecommendations" "2019-11-01"))
+        :json "/" "ExportLambdaFunctionRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'export-lambda-function-recommendations))
 (common-lisp:progn
@@ -5969,7 +5970,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetAutoScalingGroupRecommendations" "2019-11-01"))
+        :json "/" "GetAutoScalingGroupRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-auto-scaling-group-recommendations))
 (common-lisp:progn
@@ -5989,7 +5990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEBSVolumeRecommendations" "2019-11-01"))
+        :json "/" "GetEBSVolumeRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ebsvolume-recommendations))
 (common-lisp:progn
@@ -6009,7 +6010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEC2InstanceRecommendations" "2019-11-01"))
+        :json "/" "GetEC2InstanceRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ec2instance-recommendations))
 (common-lisp:progn
@@ -6029,7 +6030,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEC2RecommendationProjectedMetrics" "2019-11-01"))
+        :json "/" "GetEC2RecommendationProjectedMetrics" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ec2recommendation-projected-metrics))
 (common-lisp:progn
@@ -6048,7 +6049,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetECSServiceRecommendationProjectedMetrics" "2019-11-01"))
+        :json "/" "GetECSServiceRecommendationProjectedMetrics" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ecsservice-recommendation-projected-metrics))
 (common-lisp:progn
@@ -6068,7 +6069,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetECSServiceRecommendations" "2019-11-01"))
+        :json "/" "GetECSServiceRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-ecsservice-recommendations))
 (common-lisp:progn
@@ -6085,7 +6086,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEffectiveRecommendationPreferences" "2019-11-01"))
+        :json "/" "GetEffectiveRecommendationPreferences" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-effective-recommendation-preferences))
 (common-lisp:progn
@@ -6093,7 +6094,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'compute-optimizer-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetEnrollmentStatus" :params
                                 `(("Action" ,@"GetEnrollmentStatus")
                                   ("Version" ,@"2019-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -6112,7 +6114,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetEnrollmentStatusesForOrganization" "2019-11-01"))
+        :json "/" "GetEnrollmentStatusesForOrganization" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-enrollment-statuses-for-organization))
 (common-lisp:progn
@@ -6132,7 +6134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetLambdaFunctionRecommendations" "2019-11-01"))
+        :json "/" "GetLambdaFunctionRecommendations" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-lambda-function-recommendations))
 (common-lisp:progn
@@ -6151,7 +6153,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetRecommendationPreferences" "2019-11-01"))
+        :json "/" "GetRecommendationPreferences" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-recommendation-preferences))
 (common-lisp:progn
@@ -6169,7 +6171,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "GetRecommendationSummaries" "2019-11-01"))
+        :json "/" "GetRecommendationSummaries" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-recommendation-summaries))
 (common-lisp:progn
@@ -6190,7 +6192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "PutRecommendationPreferences" "2019-11-01"))
+        :json "/" "PutRecommendationPreferences" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-recommendation-preferences))
 (common-lisp:progn
@@ -6206,6 +6208,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'compute-optimizer-request aws-sdk/generator/operation::input "POST"
-        "/" "UpdateEnrollmentStatus" "2019-11-01"))
+        :json "/" "UpdateEnrollmentStatus" "2019-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-enrollment-status))

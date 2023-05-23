@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codeguruprofiler-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codeguruprofiler"))
+                       (:default-initargs :service "codeguruprofiler" :protocol
+                        :rest-json))
  (common-lisp:export 'codeguruprofiler-request))
 (common-lisp:progn
  (common-lisp:define-condition codeguruprofiler-error
@@ -2705,6 +2706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/notificationConfiguration"
@@ -2732,6 +2734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/frames/-/metrics"
@@ -2757,6 +2760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/configureAgent"
@@ -2783,7 +2787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
-        "/profilingGroups" "CreateProfilingGroup" "2019-07-18"))
+        :rest-json "/profilingGroups" "CreateProfilingGroup" "2019-07-18"))
       "structure" common-lisp:nil *error-map*)))
  (common-lisp:export 'create-profiling-group))
 (common-lisp:progn
@@ -2799,6 +2803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A"
                               (quri.encode:url-encode
@@ -2821,6 +2826,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A"
                               (quri.encode:url-encode
@@ -2846,8 +2852,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
-        "/internal/findingsReports" "GetFindingsReportAccountSummary"
-        "2019-07-18"))
+        :rest-json "/internal/findingsReports"
+        "GetFindingsReportAccountSummary" "2019-07-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-findings-report-account-summary))
 (common-lisp:progn
@@ -2864,6 +2870,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/notificationConfiguration"
@@ -2887,6 +2894,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A/policy"
                               (quri.encode:url-encode
@@ -2912,6 +2920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A/profile"
                               (quri.encode:url-encode
@@ -2937,6 +2946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/internal/profilingGroups/~A/recommendations"
@@ -2963,6 +2973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/internal/profilingGroups/~A/findingsReports"
@@ -2989,6 +3000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/profileTimes"
@@ -3014,7 +3026,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
-        "/profilingGroups" "ListProfilingGroups" "2019-07-18"))
+        :rest-json "/profilingGroups" "ListProfilingGroups" "2019-07-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-profiling-groups))
 (common-lisp:progn
@@ -3030,6 +3042,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3055,6 +3068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/agentProfile"
@@ -3081,6 +3095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A/policy/~A"
                               (quri.encode:url-encode
@@ -3109,6 +3124,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/profilingGroups/~A/notificationConfiguration/~A"
@@ -3138,6 +3154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A/policy/~A"
                               (quri.encode:url-encode
@@ -3167,6 +3184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/internal/profilingGroups/~A/anomalies/~A/feedback"
@@ -3194,6 +3212,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3216,6 +3235,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3240,6 +3260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'codeguruprofiler-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/profilingGroups/~A"
                               (quri.encode:url-encode

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/rds/api)
 (common-lisp:progn
  (common-lisp:defclass rds-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "rds"))
+                       (:default-initargs :service "rds" :protocol :query))
  (common-lisp:export 'rds-request))
 (common-lisp:progn
  (common-lisp:define-condition rds-error
@@ -26071,7 +26071,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddRoleToDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -26091,7 +26091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddRoleToDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -26111,7 +26111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddSourceIdentifierToSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "AddSourceIdentifierToSubscriptionResult" *error-map*)))
@@ -26129,7 +26129,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddTagsToResource"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -26150,7 +26150,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ApplyPendingMaintenanceAction"
                                                         "2014-10-31"))
       common-lisp:nil "ApplyPendingMaintenanceActionResult" *error-map*)))
@@ -26173,7 +26173,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeDBSecurityGroupIngress"
                                                         "2014-10-31"))
       common-lisp:nil "AuthorizeDBSecurityGroupIngressResult" *error-map*)))
@@ -26194,7 +26194,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BacktrackDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "BacktrackDBClusterResult" *error-map*)))
@@ -26212,7 +26212,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CancelExportTask"
                                                         "2014-10-31"))
       common-lisp:nil "CancelExportTaskResult" *error-map*)))
@@ -26237,7 +26237,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBClusterParameterGroupResult" *error-map*)))
@@ -26260,7 +26260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBClusterSnapshotResult" *error-map*)))
@@ -26283,7 +26283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBParameterGroupResult" *error-map*)))
@@ -26307,7 +26307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyDBSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CopyDBSnapshotResult" *error-map*)))
@@ -26329,7 +26329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyOptionGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CopyOptionGroupResult" *error-map*)))
@@ -26353,7 +26353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateBlueGreenDeployment"
                                                         "2014-10-31"))
       common-lisp:nil "CreateBlueGreenDeploymentResult" *error-map*)))
@@ -26379,7 +26379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCustomDBEngineVersion"
                                                         "2014-10-31"))
       common-lisp:nil "CreateCustomDBEngineVersionResult" *error-map*)))
@@ -26434,7 +26434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterResult" *error-map*)))
@@ -26457,7 +26457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBClusterEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterEndpointResult" *error-map*)))
@@ -26479,7 +26479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterParameterGroupResult" *error-map*)))
@@ -26501,7 +26501,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBClusterSnapshotResult" *error-map*)))
@@ -26558,7 +26558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBInstanceResult" *error-map*)))
@@ -26604,7 +26604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBInstanceReadReplica"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBInstanceReadReplicaResult" *error-map*)))
@@ -26625,7 +26625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBParameterGroupResult" *error-map*)))
@@ -26648,7 +26648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBProxy"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBProxyResult" *error-map*)))
@@ -26669,7 +26669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBProxyEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBProxyEndpointResult" *error-map*)))
@@ -26690,7 +26690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBSecurityGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBSecurityGroupResult" *error-map*)))
@@ -26710,7 +26710,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBSnapshotResult" *error-map*)))
@@ -26731,7 +26731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateDBSubnetGroupResult" *error-map*)))
@@ -26753,7 +26753,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "CreateEventSubscriptionResult" *error-map*)))
@@ -26776,7 +26776,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "CreateGlobalClusterResult" *error-map*)))
@@ -26797,7 +26797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateOptionGroup"
                                                         "2014-10-31"))
       common-lisp:nil "CreateOptionGroupResult" *error-map*)))
@@ -26818,7 +26818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteBlueGreenDeployment"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteBlueGreenDeploymentResult" *error-map*)))
@@ -26837,7 +26837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCustomDBEngineVersion"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteCustomDBEngineVersionResult" *error-map*)))
@@ -26858,7 +26858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBClusterResult" *error-map*)))
@@ -26877,7 +26877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBClusterEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBClusterEndpointResult" *error-map*)))
@@ -26896,7 +26896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -26915,7 +26915,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBClusterSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBClusterSnapshotResult" *error-map*)))
@@ -26936,7 +26936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBInstanceResult" *error-map*)))
@@ -26957,7 +26957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBInstanceAutomatedBackup"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBInstanceAutomatedBackupResult" *error-map*)))
@@ -26975,7 +26975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -26993,7 +26993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBProxy"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBProxyResult" *error-map*)))
@@ -27011,7 +27011,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBProxyEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBProxyEndpointResult" *error-map*)))
@@ -27029,7 +27029,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBSecurityGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -27047,7 +27047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteDBSnapshotResult" *error-map*)))
@@ -27065,7 +27065,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -27084,7 +27084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteEventSubscriptionResult" *error-map*)))
@@ -27102,7 +27102,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "DeleteGlobalClusterResult" *error-map*)))
@@ -27120,7 +27120,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteOptionGroup"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -27142,7 +27142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeregisterDBProxyTargets"
                                                         "2014-10-31"))
       common-lisp:nil "DeregisterDBProxyTargetsResult" *error-map*)))
@@ -27151,7 +27151,9 @@
  (common-lisp:defun describe-account-attributes ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'rds-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'rds-request :method "POST" :path "/" :protocol
+                                :query :operation "DescribeAccountAttributes"
+                                :params
                                 `(("Action" ,@"DescribeAccountAttributes")
                                   ("Version" ,@"2014-10-31"))))
     common-lisp:nil "DescribeAccountAttributesResult" *error-map*))
@@ -27173,7 +27175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeBlueGreenDeployments"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeBlueGreenDeploymentsResult" *error-map*)))
@@ -27193,7 +27195,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCertificates"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeCertificatesResult" *error-map*)))
@@ -27215,7 +27217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterBacktracks"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterBacktracksResult" *error-map*)))
@@ -27237,7 +27239,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterEndpoints"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterEndpointsResult" *error-map*)))
@@ -27259,7 +27261,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterParameterGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterParameterGroupsResult" *error-map*)))
@@ -27281,7 +27283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterParametersResult" *error-map*)))
@@ -27300,7 +27302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterSnapshotAttributes"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterSnapshotAttributesResult"
@@ -27324,7 +27326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusterSnapshots"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClusterSnapshotsResult" *error-map*)))
@@ -27345,7 +27347,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBClusters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBClustersResult" *error-map*)))
@@ -27370,7 +27372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBEngineVersions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBEngineVersionsResult" *error-map*)))
@@ -27393,7 +27395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBInstanceAutomatedBackups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBInstanceAutomatedBackupsResult" *error-map*)))
@@ -27413,7 +27415,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBInstances"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBInstancesResult" *error-map*)))
@@ -27434,7 +27436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBLogFiles"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBLogFilesResult" *error-map*)))
@@ -27455,7 +27457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBParameterGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBParameterGroupsResult" *error-map*)))
@@ -27476,7 +27478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBParametersResult" *error-map*)))
@@ -27495,7 +27497,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBProxies"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBProxiesResult" *error-map*)))
@@ -27517,7 +27519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBProxyEndpoints"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBProxyEndpointsResult" *error-map*)))
@@ -27539,7 +27541,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBProxyTargetGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBProxyTargetGroupsResult" *error-map*)))
@@ -27560,7 +27562,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBProxyTargets"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBProxyTargetsResult" *error-map*)))
@@ -27581,7 +27583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBSecurityGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBSecurityGroupsResult" *error-map*)))
@@ -27600,7 +27602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBSnapshotAttributes"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBSnapshotAttributesResult" *error-map*)))
@@ -27623,7 +27625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBSnapshots"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBSnapshotsResult" *error-map*)))
@@ -27643,7 +27645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDBSubnetGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeDBSubnetGroupsResult" *error-map*)))
@@ -27665,7 +27667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEngineDefaultClusterParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEngineDefaultClusterParametersResult"
@@ -27688,7 +27690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEngineDefaultParameters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEngineDefaultParametersResult" *error-map*)))
@@ -27707,7 +27709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventCategories"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventCategoriesResult" *error-map*)))
@@ -27728,7 +27730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventSubscriptions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventSubscriptionsResult" *error-map*)))
@@ -27750,7 +27752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEvents"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeEventsResult" *error-map*)))
@@ -27771,7 +27773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeExportTasks"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeExportTasksResult" *error-map*)))
@@ -27792,7 +27794,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeGlobalClusters"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeGlobalClustersResult" *error-map*)))
@@ -27814,7 +27816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeOptionGroupOptions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeOptionGroupOptionsResult" *error-map*)))
@@ -27835,7 +27837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeOptionGroups"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeOptionGroupsResult" *error-map*)))
@@ -27858,7 +27860,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeOrderableDBInstanceOptions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeOrderableDBInstanceOptionsResult" *error-map*)))
@@ -27879,7 +27881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribePendingMaintenanceActions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribePendingMaintenanceActionsResult" *error-map*)))
@@ -27905,7 +27907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedDBInstances"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeReservedDBInstancesResult" *error-map*)))
@@ -27929,7 +27931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedDBInstancesOfferings"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeReservedDBInstancesOfferingsResult"
@@ -27949,7 +27951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeSourceRegions"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeSourceRegionsResult" *error-map*)))
@@ -27968,7 +27970,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeValidDBInstanceModifications"
                                                         "2014-10-31"))
       common-lisp:nil "DescribeValidDBInstanceModificationsResult"
@@ -27991,7 +27993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DownloadDBLogFilePortion"
                                                         "2014-10-31"))
       common-lisp:nil "DownloadDBLogFilePortionResult" *error-map*)))
@@ -28011,7 +28013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "FailoverDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "FailoverDBClusterResult" *error-map*)))
@@ -28032,7 +28034,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "FailoverGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "FailoverGlobalClusterResult" *error-map*)))
@@ -28050,7 +28052,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTagsForResource"
                                                         "2014-10-31"))
       common-lisp:nil "ListTagsForResourceResult" *error-map*)))
@@ -28069,7 +28071,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyActivityStream"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyActivityStreamResult" *error-map*)))
@@ -28089,7 +28091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCertificates"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyCertificatesResult" *error-map*)))
@@ -28111,7 +28113,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCurrentDBClusterCapacity"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyCurrentDBClusterCapacityResult" *error-map*)))
@@ -28131,7 +28133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCustomDBEngineVersion"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyCustomDBEngineVersionResult" *error-map*)))
@@ -28185,7 +28187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterResult" *error-map*)))
@@ -28207,7 +28209,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBClusterEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterEndpointResult" *error-map*)))
@@ -28228,7 +28230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterParameterGroupResult" *error-map*)))
@@ -28250,7 +28252,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBClusterSnapshotAttribute"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBClusterSnapshotAttributeResult" *error-map*)))
@@ -28310,7 +28312,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBInstanceResult" *error-map*)))
@@ -28329,7 +28331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBParameterGroupResult" *error-map*)))
@@ -28351,7 +28353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBProxy"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBProxyResult" *error-map*)))
@@ -28372,7 +28374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBProxyEndpoint"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBProxyEndpointResult" *error-map*)))
@@ -28394,7 +28396,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBProxyTargetGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBProxyTargetGroupResult" *error-map*)))
@@ -28415,7 +28417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBSnapshotResult" *error-map*)))
@@ -28437,7 +28439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBSnapshotAttribute"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBSnapshotAttributeResult" *error-map*)))
@@ -28458,7 +28460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyDBSubnetGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyDBSubnetGroupResult" *error-map*)))
@@ -28480,7 +28482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyEventSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyEventSubscriptionResult" *error-map*)))
@@ -28503,7 +28505,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyGlobalClusterResult" *error-map*)))
@@ -28524,7 +28526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyOptionGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ModifyOptionGroupResult" *error-map*)))
@@ -28545,7 +28547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PromoteReadReplica"
                                                         "2014-10-31"))
       common-lisp:nil "PromoteReadReplicaResult" *error-map*)))
@@ -28564,7 +28566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PromoteReadReplicaDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "PromoteReadReplicaDBClusterResult" *error-map*)))
@@ -28586,7 +28588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PurchaseReservedDBInstancesOffering"
                                                         "2014-10-31"))
       common-lisp:nil "PurchaseReservedDBInstancesOfferingResult"
@@ -28605,7 +28607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebootDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "RebootDBClusterResult" *error-map*)))
@@ -28624,7 +28626,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebootDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "RebootDBInstanceResult" *error-map*)))
@@ -28645,7 +28647,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RegisterDBProxyTargets"
                                                         "2014-10-31"))
       common-lisp:nil "RegisterDBProxyTargetsResult" *error-map*)))
@@ -28666,7 +28668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveFromGlobalCluster"
                                                         "2014-10-31"))
       common-lisp:nil "RemoveFromGlobalClusterResult" *error-map*)))
@@ -28687,7 +28689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveRoleFromDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -28708,7 +28710,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveRoleFromDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -28728,7 +28730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveSourceIdentifierFromSubscription"
                                                         "2014-10-31"))
       common-lisp:nil "RemoveSourceIdentifierFromSubscriptionResult"
@@ -28748,7 +28750,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveTagsFromResource"
                                                         "2014-10-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -28770,7 +28772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetDBClusterParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ResetDBClusterParameterGroupResult" *error-map*)))
@@ -28791,7 +28793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetDBParameterGroup"
                                                         "2014-10-31"))
       common-lisp:nil "ResetDBParameterGroupResult" *error-map*)))
@@ -28833,7 +28835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBClusterFromS3"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBClusterFromS3Result" *error-map*)))
@@ -28870,7 +28872,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBClusterFromSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBClusterFromSnapshotResult" *error-map*)))
@@ -28907,7 +28909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBClusterToPointInTime"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBClusterToPointInTimeResult" *error-map*)))
@@ -28950,7 +28952,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBInstanceFromDBSnapshot"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBInstanceFromDBSnapshotResult" *error-map*)))
@@ -29003,7 +29005,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBInstanceFromS3"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBInstanceFromS3Result" *error-map*)))
@@ -29051,7 +29053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreDBInstanceToPointInTime"
                                                         "2014-10-31"))
       common-lisp:nil "RestoreDBInstanceToPointInTimeResult" *error-map*)))
@@ -29074,7 +29076,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RevokeDBSecurityGroupIngress"
                                                         "2014-10-31"))
       common-lisp:nil "RevokeDBSecurityGroupIngressResult" *error-map*)))
@@ -29095,7 +29097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartActivityStream"
                                                         "2014-10-31"))
       common-lisp:nil "StartActivityStreamResult" *error-map*)))
@@ -29113,7 +29115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "StartDBClusterResult" *error-map*)))
@@ -29131,7 +29133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "StartDBInstanceResult" *error-map*)))
@@ -29153,7 +29155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartDBInstanceAutomatedBackupsReplication"
                                                         "2014-10-31"))
       common-lisp:nil "StartDBInstanceAutomatedBackupsReplicationResult"
@@ -29176,7 +29178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartExportTask"
                                                         "2014-10-31"))
       common-lisp:nil "StartExportTaskResult" *error-map*)))
@@ -29194,7 +29196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopActivityStream"
                                                         "2014-10-31"))
       common-lisp:nil "StopActivityStreamResult" *error-map*)))
@@ -29212,7 +29214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopDBCluster"
                                                         "2014-10-31"))
       common-lisp:nil "StopDBClusterResult" *error-map*)))
@@ -29232,7 +29234,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopDBInstance"
                                                         "2014-10-31"))
       common-lisp:nil "StopDBInstanceResult" *error-map*)))
@@ -29251,7 +29253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StopDBInstanceAutomatedBackupsReplication"
                                                         "2014-10-31"))
       common-lisp:nil "StopDBInstanceAutomatedBackupsReplicationResult"
@@ -29274,7 +29276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SwitchoverBlueGreenDeployment"
                                                         "2014-10-31"))
       common-lisp:nil "SwitchoverBlueGreenDeploymentResult" *error-map*)))
@@ -29292,7 +29294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'rds-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SwitchoverReadReplica"
                                                         "2014-10-31"))
       common-lisp:nil "SwitchoverReadReplicaResult" *error-map*)))

@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/snowball/api)
 (common-lisp:progn
  (common-lisp:defclass snowball-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "snowball"))
+                       common-lisp:nil
+                       (:default-initargs :service "snowball" :protocol :json))
  (common-lisp:export 'snowball-request))
 (common-lisp:progn
  (common-lisp:define-condition snowball-error
@@ -4105,7 +4106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelCluster"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4123,7 +4124,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CancelJob"
+                                                        "POST" :json "/"
+                                                        "CancelJob"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'cancel-job))
@@ -4140,7 +4142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAddress"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4168,7 +4170,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCluster"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4196,7 +4198,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateJob"
+                                                        "POST" :json "/"
+                                                        "CreateJob"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-job))
@@ -4216,7 +4219,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLongTermPricing"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4235,7 +4238,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateReturnShippingLabel"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4253,7 +4256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAddress"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4271,7 +4274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAddresses"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4289,7 +4292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCluster"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4307,7 +4310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeJob"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4326,7 +4329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeReturnShippingLabel"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4344,7 +4347,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetJobManifest"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4362,7 +4365,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetJobUnlockCode"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4372,6 +4375,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'snowball-request :method "POST" :path "/"
+                                :protocol :json :operation "GetSnowballUsage"
                                 :params
                                 `(("Action" ,@"GetSnowballUsage")
                                   ("Version" ,@"2016-06-30"))))
@@ -4390,7 +4394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSoftwareUpdates"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4409,7 +4413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListClusterJobs"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4427,7 +4431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListClusters"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4445,7 +4449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCompatibleImages"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4463,7 +4467,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListJobs"
+                                                        "POST" :json "/"
+                                                        "ListJobs"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-jobs))
@@ -4480,7 +4485,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLongTermPricing"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4501,7 +4506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServiceVersions"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4524,7 +4529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCluster"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4548,7 +4553,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateJob"
+                                                        "POST" :json "/"
+                                                        "UpdateJob"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-job))
@@ -4566,7 +4572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateJobShipmentState"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4587,7 +4593,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'snowball-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateLongTermPricing"
                                                         "2016-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/logs/api)
 (common-lisp:progn
  (common-lisp:defclass logs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "logs"))
+                       (:default-initargs :service "logs" :protocol :json))
  (common-lisp:export 'logs-request))
 (common-lisp:progn
  (common-lisp:define-condition logs-error
@@ -4966,7 +4966,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateKmsKey"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4984,7 +4984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelExportTask"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5006,7 +5006,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExportTask"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5024,7 +5024,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLogGroup"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5042,7 +5042,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLogStream"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5061,7 +5061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataProtectionPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5079,7 +5079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDestination"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5097,7 +5097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLogGroup"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5115,7 +5115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLogStream"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5133,7 +5133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMetricFilter"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5151,7 +5151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteQueryDefinition"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5169,7 +5169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteResourcePolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5187,7 +5187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRetentionPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5206,7 +5206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSubscriptionFilter"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5225,7 +5225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDestinations"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5244,7 +5244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExportTasks"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5266,7 +5266,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLogGroups"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5288,7 +5288,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLogStreams"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5309,7 +5309,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMetricFilters"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5329,7 +5329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeQueries"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5351,7 +5351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeQueryDefinitions"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5370,7 +5370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeResourcePolicies"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5391,7 +5391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSubscriptionFilters"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5409,7 +5409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateKmsKey"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5433,7 +5433,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "FilterLogEvents"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5452,7 +5452,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataProtectionPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5474,7 +5474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLogEvents"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5493,7 +5493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLogGroupFields"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5511,7 +5511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLogRecord"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5529,7 +5529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQueryResults"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5547,7 +5547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5565,7 +5565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsLogGroup"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5585,7 +5585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDataProtectionPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5605,7 +5605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDestination"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5625,7 +5625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutDestinationPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5646,7 +5646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutLogEvents"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5667,7 +5667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutMetricFilter"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5688,7 +5688,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutQueryDefinition"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5706,7 +5706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutResourcePolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5725,7 +5725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRetentionPolicy"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5746,7 +5746,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutSubscriptionFilter"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5768,7 +5768,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StartQuery"
+                                                        "POST" :json "/"
+                                                        "StartQuery"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-query))
@@ -5785,7 +5786,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "StopQuery"
+                                                        "POST" :json "/"
+                                                        "StopQuery"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-query))
@@ -5802,7 +5804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagLogGroup"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5820,7 +5822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5839,7 +5841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TestMetricFilter"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5857,7 +5859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagLogGroup"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5875,7 +5877,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'logs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2014-03-28"))
       common-lisp:nil common-lisp:nil *error-map*)))

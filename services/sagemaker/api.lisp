@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass sagemaker-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "sagemaker"))
+                       (:default-initargs :service "sagemaker" :protocol
+                        :json))
  (common-lisp:export 'sagemaker-request))
 (common-lisp:progn
  (common-lisp:define-condition sagemaker-error
@@ -63469,7 +63470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddAssociation"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63487,7 +63488,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddTags"
+                                                        "POST" :json "/"
+                                                        "AddTags"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-tags))
@@ -63506,7 +63508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63525,7 +63527,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDescribeModelPackage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63546,7 +63548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAction"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63569,7 +63571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAlgorithm"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63590,7 +63592,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateApp"
+                                                        "POST" :json "/"
+                                                        "CreateApp"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-app))
@@ -63610,7 +63613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAppImageConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63631,7 +63634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateArtifact"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63656,7 +63659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAutoMLJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63682,7 +63685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAutoMLJobV2"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63701,7 +63704,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCodeRepository"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63724,7 +63727,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCompilationJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63745,7 +63748,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContext"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63772,7 +63775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63793,7 +63796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDeviceFleet"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63819,7 +63822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDomain"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63841,7 +63844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEdgeDeploymentPlan"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63861,7 +63864,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEdgeDeploymentStage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63884,7 +63887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEdgePackagingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63905,7 +63908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEndpoint"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63928,7 +63931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEndpointConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63948,7 +63951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63972,7 +63975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFeatureGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -63995,7 +63998,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFlowDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64016,7 +64019,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateHub"
+                                                        "POST" :json "/"
+                                                        "CreateHub"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-hub))
@@ -64034,7 +64038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateHumanTaskUi"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64058,7 +64062,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateHyperParameterTuningJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64078,7 +64082,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateImage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64101,7 +64105,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateImageVersion"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64125,7 +64129,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64147,7 +64151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInferenceRecommendationsJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64171,7 +64175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateLabelingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64194,7 +64198,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModel"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64221,7 +64225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelBiasJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64242,7 +64246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelCard"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64264,7 +64268,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelCardExportJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64293,7 +64297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelExplainabilityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64324,7 +64328,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelPackage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64345,7 +64349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelPackageGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64372,7 +64376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateModelQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64394,7 +64398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64423,7 +64427,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64445,7 +64449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNotebookInstanceLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64469,7 +64473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePipeline"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64492,7 +64496,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePresignedDomainUrl"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64514,7 +64518,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePresignedNotebookInstanceUrl"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64540,7 +64544,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProcessingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64561,7 +64565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateProject"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64580,7 +64584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSpace"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64603,7 +64607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStudioLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64637,7 +64641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrainingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64665,7 +64669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTransformJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64686,7 +64690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrial"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64709,7 +64713,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64732,7 +64736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateUserProfile"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64753,7 +64757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkforce"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64775,7 +64779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64793,7 +64797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAction"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64811,7 +64815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAlgorithm"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64832,7 +64836,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteApp"
+                                                        "POST" :json "/"
+                                                        "DeleteApp"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-app))
@@ -64849,7 +64854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAppImageConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64867,7 +64872,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteArtifact"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64885,7 +64890,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAssociation"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64903,7 +64908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCodeRepository"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64921,7 +64926,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContext"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64940,7 +64945,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64958,7 +64963,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDeviceFleet"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64976,7 +64981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDomain"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -64995,7 +65000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEdgeDeploymentPlan"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65015,7 +65020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEdgeDeploymentStage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65033,7 +65038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEndpoint"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65051,7 +65056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEndpointConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65069,7 +65074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65087,7 +65092,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFeatureGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65105,7 +65110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFlowDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65123,7 +65128,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteHub"
+                                                        "POST" :json "/"
+                                                        "DeleteHub"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-hub))
@@ -65143,7 +65149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteHubContent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65161,7 +65167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteHumanTaskUi"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65179,7 +65185,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65197,7 +65203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteImageVersion"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65216,7 +65222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65234,7 +65240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModel"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65253,7 +65259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelBiasJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65271,7 +65277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelCard"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65290,7 +65296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelExplainabilityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65308,7 +65314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelPackage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65326,7 +65332,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelPackageGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65345,7 +65351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelPackageGroupPolicy"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65364,7 +65370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteModelQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65383,7 +65389,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65401,7 +65407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65421,7 +65427,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNotebookInstanceLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65440,7 +65446,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePipeline"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65458,7 +65464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteProject"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65476,7 +65482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSpace"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65495,7 +65501,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteStudioLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65513,7 +65519,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTags"
+                                                        "POST" :json "/"
+                                                        "DeleteTags"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
@@ -65530,7 +65537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTrial"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65548,7 +65555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65566,7 +65573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteUserProfile"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65584,7 +65591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkforce"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65602,7 +65609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65620,7 +65627,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterDevices"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65638,7 +65645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAction"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65656,7 +65663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAlgorithm"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65677,7 +65684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeApp"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65696,7 +65703,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAppImageConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65714,7 +65721,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeArtifact"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65732,7 +65739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAutoMLJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65750,7 +65757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAutoMLJobV2"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65768,7 +65775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCodeRepository"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65786,7 +65793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCompilationJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65804,7 +65811,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContext"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65823,7 +65830,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65842,7 +65849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDevice"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65860,7 +65867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDeviceFleet"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65878,7 +65885,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDomain"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65899,7 +65906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEdgeDeploymentPlan"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65918,7 +65925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEdgePackagingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65936,7 +65943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEndpoint"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65954,7 +65961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEndpointConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65972,7 +65979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -65990,7 +65997,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFeatureGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66010,7 +66017,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFeatureMetadata"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66028,7 +66035,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFlowDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66046,7 +66053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHub"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66067,7 +66074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHubContent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66085,7 +66092,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHumanTaskUi"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66105,7 +66112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHyperParameterTuningJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66123,7 +66130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66141,7 +66148,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImageVersion"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66160,7 +66167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66179,7 +66186,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInferenceRecommendationsJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66197,7 +66204,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLabelingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66215,7 +66222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLineageGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66233,7 +66240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModel"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66252,7 +66259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelBiasJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66271,7 +66278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelCard"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66290,7 +66297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelCardExportJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66309,7 +66316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelExplainabilityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66327,7 +66334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelPackage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66346,7 +66353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelPackageGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66365,7 +66372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeModelQualityJobDefinition"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66384,7 +66391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66402,7 +66409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66422,7 +66429,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNotebookInstanceLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66440,7 +66447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePipeline"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66459,7 +66466,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePipelineDefinitionForExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66478,7 +66485,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePipelineExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66496,7 +66503,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProcessingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66514,7 +66521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeProject"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66532,7 +66539,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSpace"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66551,7 +66558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStudioLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66570,7 +66577,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSubscribedWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66588,7 +66595,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrainingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66606,7 +66613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTransformJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66624,7 +66631,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrial"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66642,7 +66649,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66660,7 +66667,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUserProfile"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66678,7 +66685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkforce"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66696,7 +66703,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66706,6 +66713,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'sagemaker-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "DisableSagemakerServicecatalogPortfolio"
                                 :params
                                 `(("Action"
                                    ,@"DisableSagemakerServicecatalogPortfolio")
@@ -66727,7 +66736,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66737,6 +66746,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'sagemaker-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "EnableSagemakerServicecatalogPortfolio"
                                 :params
                                 `(("Action"
                                    ,@"EnableSagemakerServicecatalogPortfolio")
@@ -66756,7 +66767,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDeviceFleetReport"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66774,7 +66785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLineageGroupPolicy"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66793,7 +66804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetModelPackageGroupPolicy"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66803,6 +66814,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'sagemaker-request :method "POST" :path "/"
+                                :protocol :json :operation
+                                "GetSagemakerServicecatalogPortfolioStatus"
                                 :params
                                 `(("Action"
                                    ,@"GetSagemakerServicecatalogPortfolioStatus")
@@ -66822,7 +66835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSearchSuggestions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66848,7 +66861,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportHubContent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66869,7 +66882,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListActions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66890,7 +66903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAlgorithms"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66910,7 +66923,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAliases"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66934,7 +66947,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAppImageConfigs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66956,7 +66969,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListApps"
+                                                        "POST" :json "/"
+                                                        "ListApps"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-apps))
@@ -66976,7 +66990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListArtifacts"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -66999,7 +67013,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAssociations"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67023,7 +67037,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAutoMLJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67046,7 +67060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCandidatesForAutoMLJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67069,7 +67083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCodeRepositories"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67093,7 +67107,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCompilationJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67114,7 +67128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContexts"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67137,7 +67151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataQualityJobDefinitions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67161,7 +67175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDeviceFleets"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67182,7 +67196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDevices"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67200,7 +67214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDomains"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67226,7 +67240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEdgeDeploymentPlans"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67251,7 +67265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEdgePackagingJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67272,7 +67286,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEndpointConfigs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67296,7 +67310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEndpoints"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67317,7 +67331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExperiments"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67341,7 +67355,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFeatureGroups"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67362,7 +67376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFlowDefinitions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67387,7 +67401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHubContentVersions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67411,7 +67425,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHubContents"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67435,7 +67449,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListHubs"
+                                                        "POST" :json "/"
+                                                        "ListHubs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-hubs))
@@ -67455,7 +67470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHumanTaskUis"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67480,7 +67495,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListHyperParameterTuningJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67504,7 +67519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListImageVersions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67527,7 +67542,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListImages"
+                                                        "POST" :json "/"
+                                                        "ListImages"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-images))
@@ -67551,7 +67567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListInferenceExperiments"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67572,7 +67588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListInferenceRecommendationsJobSteps"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67597,7 +67613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListInferenceRecommendationsJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67621,7 +67637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLabelingJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67645,7 +67661,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLabelingJobsForWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67666,7 +67682,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLineageGroups"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67689,7 +67705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelBiasJobDefinitions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67715,7 +67731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelCardExportJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67737,7 +67753,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelCardVersions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67759,7 +67775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelCards"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67782,7 +67798,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelExplainabilityJobDefinitions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67801,7 +67817,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelMetadata"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67822,7 +67838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelPackageGroups"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67846,7 +67862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelPackages"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67869,7 +67885,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListModelQualityJobDefinitions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67890,7 +67906,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListModels"
+                                                        "POST" :json "/"
+                                                        "ListModels"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-models))
@@ -67914,7 +67931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitoringAlertHistory"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67934,7 +67951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitoringAlerts"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67964,7 +67981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitoringExecutions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -67991,7 +68008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMonitoringSchedules"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68015,7 +68032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNotebookInstanceLifecycleConfigs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68044,7 +68061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNotebookInstances"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68066,7 +68083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelineExecutionSteps"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68087,7 +68104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelineExecutions"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68108,7 +68125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelineParametersForExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68129,7 +68146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelines"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68153,7 +68170,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProcessingJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68174,7 +68191,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListProjects"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68195,7 +68212,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListSpaces"
+                                                        "POST" :json "/"
+                                                        "ListSpaces"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-spaces))
@@ -68216,7 +68234,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStageDevices"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68241,7 +68259,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStudioLifecycleConfigs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68261,7 +68279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSubscribedWorkteams"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68280,7 +68298,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -68304,7 +68323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTrainingJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68326,7 +68345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTrainingJobsForHyperParameterTuningJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68350,7 +68369,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTransformJobs"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68372,7 +68391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTrialComponents"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68394,7 +68413,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTrials"
+                                                        "POST" :json "/"
+                                                        "ListTrials"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-trials))
@@ -68414,7 +68434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListUserProfiles"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68435,7 +68455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkforces"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68456,7 +68476,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkteams"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68476,7 +68496,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutModelPackageGroupPolicy"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68497,7 +68517,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "QueryLineage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68515,7 +68535,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterDevices"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68535,7 +68555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RenderUiTemplate"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68556,7 +68576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetryPipelineExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68577,8 +68597,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "Search"
-                                                        "2017-07-24"))
+                                                        "POST" :json "/"
+                                                        "Search" "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search))
 (common-lisp:progn
@@ -68597,7 +68617,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendPipelineExecutionStepFailure"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68619,7 +68639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendPipelineExecutionStepSuccess"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68639,7 +68659,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartEdgeDeploymentStage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68658,7 +68678,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68677,7 +68697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68695,7 +68715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68719,7 +68739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartPipelineExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68737,7 +68757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopAutoMLJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68755,7 +68775,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopCompilationJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68775,7 +68795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopEdgeDeploymentStage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68793,7 +68813,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopEdgePackagingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68813,7 +68833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopHyperParameterTuningJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68835,7 +68855,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68854,7 +68874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopInferenceRecommendationsJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68872,7 +68892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopLabelingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68890,7 +68910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68908,7 +68928,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68928,7 +68948,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopPipelineExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68946,7 +68966,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopProcessingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68964,7 +68984,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTrainingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -68982,7 +69002,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopTransformJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69003,7 +69023,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAction"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69023,7 +69043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAppImageConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69044,7 +69064,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateArtifact"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69063,7 +69083,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCodeRepository"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69084,7 +69104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContext"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69105,7 +69125,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDeviceFleet"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69123,7 +69143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDevices"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69146,7 +69166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDomain"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69170,7 +69190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEndpoint"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69191,7 +69211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateEndpointWeightsAndCapacities"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69210,7 +69230,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69229,7 +69249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFeatureGroup"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69250,7 +69270,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFeatureMetadata"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69271,7 +69291,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateHub"
+                                                        "POST" :json "/"
+                                                        "UpdateHub"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-hub))
@@ -69291,7 +69312,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateImage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69314,7 +69335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateImageVersion"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69336,7 +69357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateInferenceExperiment"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69356,7 +69377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModelCard"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69381,7 +69402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateModelPackage"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69403,7 +69424,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMonitoringAlert"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69425,7 +69446,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMonitoringSchedule"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69456,7 +69477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNotebookInstance"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69478,7 +69499,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNotebookInstanceLifecycleConfig"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69501,7 +69522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePipeline"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69525,7 +69546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePipelineExecution"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69546,7 +69567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateProject"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69565,7 +69586,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSpace"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69586,7 +69607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrainingJob"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69604,7 +69625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrial"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69628,7 +69649,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateTrialComponent"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69648,7 +69669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateUserProfile"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69669,7 +69690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkforce"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -69690,7 +69711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sagemaker-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkteam"
                                                         "2017-07-24"))
       common-lisp:nil common-lisp:nil *error-map*)))

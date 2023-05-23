@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/textract/api)
 (common-lisp:progn
  (common-lisp:defclass textract-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "textract"))
+                       common-lisp:nil
+                       (:default-initargs :service "textract" :protocol :json))
  (common-lisp:export 'textract-request))
 (common-lisp:progn
  (common-lisp:define-condition textract-error
@@ -3443,7 +3444,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AnalyzeDocument"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3461,7 +3462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AnalyzeExpense"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3479,7 +3480,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AnalyzeID"
+                                                        "POST" :json "/"
+                                                        "AnalyzeID"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'analyze-id))
@@ -3496,7 +3498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetectDocumentText"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3514,7 +3516,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDocumentAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3533,7 +3535,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDocumentTextDetection"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3551,7 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetExpenseAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3569,7 +3571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLendingAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3588,7 +3590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLendingAnalysisSummary"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3610,7 +3612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDocumentAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3632,7 +3634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDocumentTextDetection"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3653,7 +3655,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartExpenseAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3674,7 +3676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'textract-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartLendingAnalysis"
                                                         "2018-06-27"))
       common-lisp:nil common-lisp:nil *error-map*)))

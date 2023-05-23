@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass license-manager-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "license-manager"))
+                       (:default-initargs :service "license-manager" :protocol
+                        :json))
  (common-lisp:export 'license-manager-request))
 (common-lisp:progn
  (common-lisp:define-condition license-manager-error
@@ -7466,8 +7467,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "AcceptGrant" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AcceptGrant" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'accept-grant))
 (common-lisp:progn
@@ -7483,8 +7484,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CheckInLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CheckInLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'check-in-license))
 (common-lisp:progn
@@ -7503,8 +7504,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CheckoutBorrowLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CheckoutBorrowLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'checkout-borrow-license))
 (common-lisp:progn
@@ -7522,8 +7523,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CheckoutLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CheckoutLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'checkout-license))
 (common-lisp:progn
@@ -7541,8 +7542,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateGrant" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateGrant" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-grant))
 (common-lisp:progn
@@ -7561,8 +7562,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateGrantVersion" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateGrantVersion" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-grant-version))
 (common-lisp:progn
@@ -7582,8 +7583,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-license))
 (common-lisp:progn
@@ -7604,8 +7605,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-license-configuration))
 (common-lisp:progn
@@ -7624,8 +7625,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLicenseConversionTaskForResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLicenseConversionTaskForResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-license-conversion-task-for-resource))
 (common-lisp:progn
@@ -7644,8 +7645,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLicenseManagerReportGenerator" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLicenseManagerReportGenerator" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-license-manager-report-generator))
 (common-lisp:progn
@@ -7666,8 +7667,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLicenseVersion" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLicenseVersion" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-license-version))
 (common-lisp:progn
@@ -7685,8 +7686,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateToken" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateToken" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-token))
 (common-lisp:progn
@@ -7702,8 +7703,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteGrant" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteGrant" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-grant))
 (common-lisp:progn
@@ -7718,8 +7719,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-license))
 (common-lisp:progn
@@ -7735,8 +7736,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-license-configuration))
 (common-lisp:progn
@@ -7753,8 +7754,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteLicenseManagerReportGenerator" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteLicenseManagerReportGenerator" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-license-manager-report-generator))
 (common-lisp:progn
@@ -7769,8 +7770,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteToken" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteToken" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-token))
 (common-lisp:progn
@@ -7787,8 +7788,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ExtendLicenseConsumption" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ExtendLicenseConsumption" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'extend-license-consumption))
 (common-lisp:progn
@@ -7803,8 +7804,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetAccessToken" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetAccessToken" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-access-token))
 (common-lisp:progn
@@ -7819,8 +7820,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetGrant" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetGrant" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-grant))
 (common-lisp:progn
@@ -7835,8 +7836,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetLicense" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetLicense" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-license))
 (common-lisp:progn
@@ -7852,8 +7853,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-license-configuration))
 (common-lisp:progn
@@ -7869,8 +7870,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetLicenseConversionTask" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetLicenseConversionTask" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-license-conversion-task))
 (common-lisp:progn
@@ -7887,8 +7888,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetLicenseManagerReportGenerator" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetLicenseManagerReportGenerator" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-license-manager-report-generator))
 (common-lisp:progn
@@ -7903,8 +7904,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "GetLicenseUsage" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetLicenseUsage" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-license-usage))
 (common-lisp:progn
@@ -7912,7 +7913,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'license-manager-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetServiceSettings" :params
                                 `(("Action" ,@"GetServiceSettings")
                                   ("Version" ,@"2018-08-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7932,8 +7934,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListAssociationsForLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListAssociationsForLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-associations-for-license-configuration))
 (common-lisp:progn
@@ -7950,8 +7952,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListDistributedGrants" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListDistributedGrants" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-distributed-grants))
 (common-lisp:progn
@@ -7969,8 +7971,9 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListFailuresForLicenseConfigurationOperations" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListFailuresForLicenseConfigurationOperations"
+        "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-failures-for-license-configuration-operations))
 (common-lisp:progn
@@ -7989,8 +7992,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenseConfigurations" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenseConfigurations" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-license-configurations))
 (common-lisp:progn
@@ -8006,8 +8009,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenseConversionTasks" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenseConversionTasks" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-license-conversion-tasks))
 (common-lisp:progn
@@ -8023,8 +8026,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenseManagerReportGenerators" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenseManagerReportGenerators" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-license-manager-report-generators))
 (common-lisp:progn
@@ -8041,8 +8044,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenseSpecificationsForResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenseSpecificationsForResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-license-specifications-for-resource))
 (common-lisp:progn
@@ -8058,8 +8061,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenseVersions" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenseVersions" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-license-versions))
 (common-lisp:progn
@@ -8076,8 +8079,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLicenses" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLicenses" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-licenses))
 (common-lisp:progn
@@ -8094,8 +8097,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListReceivedGrants" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListReceivedGrants" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-received-grants))
 (common-lisp:progn
@@ -8113,8 +8116,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListReceivedGrantsForOrganization" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListReceivedGrantsForOrganization" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-received-grants-for-organization))
 (common-lisp:progn
@@ -8131,8 +8134,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListReceivedLicenses" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListReceivedLicenses" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-received-licenses))
 (common-lisp:progn
@@ -8148,8 +8151,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListReceivedLicensesForOrganization" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListReceivedLicensesForOrganization" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-received-licenses-for-organization))
 (common-lisp:progn
@@ -8164,8 +8167,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListResourceInventory" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListResourceInventory" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-resource-inventory))
 (common-lisp:progn
@@ -8180,8 +8183,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -8197,8 +8200,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTokens" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTokens" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tokens))
 (common-lisp:progn
@@ -8217,8 +8220,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "ListUsageForLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListUsageForLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-usage-for-license-configuration))
 (common-lisp:progn
@@ -8233,8 +8236,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "RejectGrant" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "RejectGrant" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'reject-grant))
 (common-lisp:progn
@@ -8249,8 +8252,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -8265,8 +8268,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -8289,8 +8292,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateLicenseConfiguration" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateLicenseConfiguration" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-license-configuration))
 (common-lisp:progn
@@ -8311,8 +8314,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateLicenseManagerReportGenerator" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateLicenseManagerReportGenerator" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-license-manager-report-generator))
 (common-lisp:progn
@@ -8331,8 +8334,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateLicenseSpecificationsForResource" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateLicenseSpecificationsForResource" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-license-specifications-for-resource))
 (common-lisp:progn
@@ -8351,7 +8354,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'license-manager-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateServiceSettings" "2018-08-01"))
+        'license-manager-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateServiceSettings" "2018-08-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-service-settings))

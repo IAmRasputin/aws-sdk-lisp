@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/polly/api)
 (common-lisp:progn
  (common-lisp:defclass polly-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "polly"))
+                       (:default-initargs :service "polly" :protocol
+                        :rest-json))
  (common-lisp:export 'polly-request))
 (common-lisp:progn
  (common-lisp:define-condition polly-error
@@ -1332,7 +1333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1363,7 +1364,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/voices"
+                                                        "GET" :rest-json
+                                                        "/v1/voices"
                                                         "DescribeVoices"
                                                         "2016-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1381,7 +1383,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1409,7 +1411,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1437,7 +1439,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/lexicons"
+                                                        "GET" :rest-json
+                                                        "/v1/lexicons"
                                                         "ListLexicons"
                                                         "2016-06-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1456,7 +1459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/v1/synthesisTasks"
                                                         "ListSpeechSynthesisTasks"
                                                         "2016-06-10"))
@@ -1475,7 +1478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1510,7 +1513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/synthesisTasks"
                                                         "StartSpeechSynthesisTask"
                                                         "2016-06-10"))
@@ -1533,7 +1536,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'polly-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/speech"
+                                                        "POST" :rest-json
+                                                        "/v1/speech"
                                                         "SynthesizeSpeech"
                                                         "2016-06-10")
        :want-stream common-lisp:t)

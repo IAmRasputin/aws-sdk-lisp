@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/outposts/api)
 (common-lisp:progn
  (common-lisp:defclass outposts-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "outposts"))
+                       common-lisp:nil
+                       (:default-initargs :service "outposts" :protocol
+                        :rest-json))
  (common-lisp:export 'outposts-request))
 (common-lisp:progn
  (common-lisp:define-condition outposts-error
@@ -3183,7 +3185,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3214,8 +3216,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/orders"
-                                                        "CreateOrder"
+                                                        "POST" :rest-json
+                                                        "/orders" "CreateOrder"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-order))
@@ -3236,7 +3238,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/outposts"
+                                                        "POST" :rest-json
+                                                        "/outposts"
                                                         "CreateOutpost"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3258,8 +3261,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/sites"
-                                                        "CreateSite"
+                                                        "POST" :rest-json
+                                                        "/sites" "CreateSite"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-site))
@@ -3276,7 +3279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3304,7 +3307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3332,7 +3335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3360,7 +3363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3388,7 +3391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3416,7 +3419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3445,7 +3448,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3473,7 +3476,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3501,7 +3504,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3532,7 +3535,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3563,7 +3566,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/catalog/items"
+                                                        "GET" :rest-json
+                                                        "/catalog/items"
                                                         "ListCatalogItems"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3583,7 +3587,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/list-orders"
+                                                        "GET" :rest-json
+                                                        "/list-orders"
                                                         "ListOrders"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3605,7 +3610,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/outposts"
+                                                        "GET" :rest-json
+                                                        "/outposts"
                                                         "ListOutposts"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3629,8 +3635,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/sites"
-                                                        "ListSites"
+                                                        "GET" :rest-json
+                                                        "/sites" "ListSites"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-sites))
@@ -3647,7 +3653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3678,7 +3684,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/connections"
+                                                        "POST" :rest-json
+                                                        "/connections"
                                                         "StartConnection"
                                                         "2019-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3696,7 +3703,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3724,7 +3731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3755,7 +3762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3783,7 +3790,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3811,7 +3818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3846,7 +3853,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'outposts-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

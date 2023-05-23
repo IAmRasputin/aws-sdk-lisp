@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iot-jobs-data-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iot-jobs-data"))
+                       (:default-initargs :service "iot-jobs-data" :protocol
+                        :rest-json))
  (common-lisp:export 'iot-jobs-data-request))
 (common-lisp:progn
  (common-lisp:define-condition iot-jobs-data-error
@@ -697,7 +698,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-jobs-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -730,7 +731,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-jobs-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -761,7 +762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-jobs-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -795,7 +796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-jobs-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

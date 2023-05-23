@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass importexport-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "importexport"))
+                       (:default-initargs :service "importexport" :protocol
+                        :query))
  (common-lisp:export 'importexport-request))
 (common-lisp:progn
  (common-lisp:define-condition importexport-error
@@ -1058,7 +1059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=CancelJob"
                                                         "CancelJob"
                                                         "2010-06-01"))
@@ -1080,7 +1081,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=CreateJob"
                                                         "CreateJob"
                                                         "2010-06-01"))
@@ -1103,7 +1104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=GetShippingLabel"
                                                         "GetShippingLabel"
                                                         "2010-06-01"))
@@ -1122,7 +1123,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=GetStatus"
                                                         "GetStatus"
                                                         "2010-06-01"))
@@ -1141,7 +1142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=ListJobs"
                                                         "ListJobs"
                                                         "2010-06-01"))
@@ -1162,7 +1163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'importexport-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :query
                                                         "/?Operation=UpdateJob"
                                                         "UpdateJob"
                                                         "2010-06-01"))

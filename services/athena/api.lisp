@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/athena/api)
 (common-lisp:progn
  (common-lisp:defclass athena-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "athena"))
+                       (:default-initargs :service "athena" :protocol :json))
  (common-lisp:export 'athena-request))
 (common-lisp:progn
  (common-lisp:define-condition athena-error
@@ -8127,7 +8127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetNamedQuery"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8147,7 +8147,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetPreparedStatement"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8165,7 +8165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetQueryExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8184,7 +8184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataCatalog"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8205,7 +8205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNamedQuery"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8224,7 +8224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNotebook"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8245,7 +8245,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePreparedStatement"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8264,7 +8264,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePresignedNotebookUrl"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8283,7 +8283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateWorkGroup"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8301,7 +8301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataCatalog"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8319,7 +8319,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNamedQuery"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8337,7 +8337,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteNotebook"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8355,7 +8355,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePreparedStatement"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8374,7 +8374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWorkGroup"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8392,7 +8392,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExportNotebook"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8411,7 +8411,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCalculationExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8430,7 +8430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCalculationExecutionCode"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8449,7 +8449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCalculationExecutionStatus"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8467,7 +8467,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDataCatalog"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8485,7 +8485,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDatabase"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8503,7 +8503,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetNamedQuery"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8521,7 +8521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetNotebookMetadata"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8539,7 +8539,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPreparedStatement"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8557,7 +8557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQueryExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8577,7 +8577,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQueryResults"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8596,7 +8596,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetQueryRuntimeStatistics"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8614,7 +8614,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetSession"
+                                                        "POST" :json "/"
+                                                        "GetSession"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-session))
@@ -8631,7 +8632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSessionStatus"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8650,7 +8651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetTableMetadata"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8668,7 +8669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetWorkGroup"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8688,7 +8689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportNotebook"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8706,7 +8707,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListApplicationDPUSizes"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8727,7 +8728,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCalculationExecutions"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8745,7 +8746,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDataCatalogs"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8764,7 +8765,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatabases"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8782,7 +8783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEngineVersions"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8803,7 +8804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListExecutors"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8822,7 +8823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNamedQueries"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8842,7 +8843,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNotebookMetadata"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8861,7 +8862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListNotebookSessions"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8880,7 +8881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPreparedStatements"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8899,7 +8900,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListQueryExecutions"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8919,7 +8920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSessions"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8940,7 +8941,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTableMetadata"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8959,7 +8960,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8977,7 +8978,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWorkGroups"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8999,7 +9000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartCalculationExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9022,7 +9023,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartQueryExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9044,7 +9045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartSession"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9063,7 +9064,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopCalculationExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9081,7 +9082,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopQueryExecution"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9099,7 +9100,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9117,7 +9118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TerminateSession"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9135,7 +9136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9154,7 +9155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDataCatalog"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9174,7 +9175,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNamedQuery"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9195,7 +9196,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNotebook"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9214,7 +9215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNotebookMetadata"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9235,7 +9236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePreparedStatement"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9255,7 +9256,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'athena-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateWorkGroup"
                                                         "2017-05-18"))
       common-lisp:nil common-lisp:nil *error-map*)))

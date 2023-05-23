@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ce/api)
 (common-lisp:progn
  (common-lisp:defclass ce-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ce"))
+                       (:default-initargs :service "ce" :protocol :json))
  (common-lisp:export 'ce-request))
 (common-lisp:progn
  (common-lisp:define-condition ce-error
@@ -9468,7 +9468,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAnomalyMonitor"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9488,7 +9488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAnomalySubscription"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9510,7 +9510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCostCategoryDefinition"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9528,7 +9528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAnomalyMonitor"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9547,7 +9547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAnomalySubscription"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9566,7 +9566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCostCategoryDefinition"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9585,7 +9585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCostCategoryDefinition"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9606,7 +9606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAnomalies"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9626,7 +9626,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAnomalyMonitors"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9648,7 +9648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAnomalySubscriptions"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9669,7 +9669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCostAndUsage"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9691,7 +9691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCostAndUsageWithResources"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9713,7 +9713,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCostCategories"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9734,7 +9734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCostForecast"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9755,7 +9755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDimensionValues"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9776,7 +9776,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReservationCoverage"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9800,7 +9800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReservationPurchaseRecommendation"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9822,7 +9822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetReservationUtilization"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9844,7 +9844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRightsizingRecommendation"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9866,7 +9866,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSavingsPlansCoverage"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9889,7 +9889,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSavingsPlansPurchaseRecommendation"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9909,7 +9909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSavingsPlansUtilization"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9931,7 +9931,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSavingsPlansUtilizationDetails"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9952,7 +9952,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetTags"
+                                                        "POST" :json "/"
+                                                        "GetTags"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-tags))
@@ -9972,7 +9973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetUsageForecast"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9993,7 +9994,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCostAllocationTags"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10013,7 +10014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCostCategoryDefinitions"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10035,7 +10036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSavingsPlansPurchaseRecommendationGeneration"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10053,7 +10054,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10071,7 +10072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ProvideAnomalyFeedback"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10080,7 +10081,10 @@
  (common-lisp:defun start-savings-plans-purchase-recommendation-generation ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ce-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ce-request :method "POST" :path "/" :protocol
+                                :json :operation
+                                "StartSavingsPlansPurchaseRecommendationGeneration"
+                                :params
                                 `(("Action"
                                    ,@"StartSavingsPlansPurchaseRecommendationGeneration")
                                   ("Version" ,@"2017-10-25"))))
@@ -10099,7 +10103,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10117,7 +10121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10135,7 +10139,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAnomalyMonitor"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10158,7 +10162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAnomalySubscription"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10177,7 +10181,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCostAllocationTagsStatus"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10199,7 +10203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ce-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCostCategoryDefinition"
                                                         "2017-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))

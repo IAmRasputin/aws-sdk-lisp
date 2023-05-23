@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass lookoutequipment-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "lookoutequipment"))
+                       (:default-initargs :service "lookoutequipment" :protocol
+                        :json))
  (common-lisp:export 'lookoutequipment-request))
 (common-lisp:progn
  (common-lisp:define-condition lookoutequipment-error
@@ -5450,8 +5451,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateDataset" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateDataset" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-dataset))
 (common-lisp:progn
@@ -5474,8 +5475,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-inference-scheduler))
 (common-lisp:progn
@@ -5493,8 +5494,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLabel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLabel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-label))
 (common-lisp:progn
@@ -5511,8 +5512,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateLabelGroup" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateLabelGroup" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-label-group))
 (common-lisp:progn
@@ -5537,8 +5538,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateModel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateModel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-model))
 (common-lisp:progn
@@ -5553,8 +5554,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteDataset" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteDataset" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-dataset))
 (common-lisp:progn
@@ -5570,8 +5571,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-inference-scheduler))
 (common-lisp:progn
@@ -5586,8 +5587,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteLabel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteLabel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-label))
 (common-lisp:progn
@@ -5602,8 +5603,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteLabelGroup" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteLabelGroup" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-label-group))
 (common-lisp:progn
@@ -5618,8 +5619,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteModel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteModel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-model))
 (common-lisp:progn
@@ -5635,8 +5636,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeDataIngestionJob" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeDataIngestionJob" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-data-ingestion-job))
 (common-lisp:progn
@@ -5651,8 +5652,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeDataset" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeDataset" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-dataset))
 (common-lisp:progn
@@ -5668,8 +5669,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-inference-scheduler))
 (common-lisp:progn
@@ -5684,8 +5685,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeLabel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeLabel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-label))
 (common-lisp:progn
@@ -5700,8 +5701,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeLabelGroup" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeLabelGroup" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-label-group))
 (common-lisp:progn
@@ -5716,8 +5717,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeModel" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeModel" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-model))
 (common-lisp:progn
@@ -5734,8 +5735,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListDataIngestionJobs" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListDataIngestionJobs" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-data-ingestion-jobs))
 (common-lisp:progn
@@ -5752,8 +5753,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListDatasets" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListDatasets" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-datasets))
 (common-lisp:progn
@@ -5772,8 +5773,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListInferenceEvents" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListInferenceEvents" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-inference-events))
 (common-lisp:progn
@@ -5793,8 +5794,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListInferenceExecutions" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListInferenceExecutions" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-inference-executions))
 (common-lisp:progn
@@ -5813,8 +5814,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListInferenceSchedulers" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListInferenceSchedulers" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-inference-schedulers))
 (common-lisp:progn
@@ -5832,8 +5833,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLabelGroups" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLabelGroups" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-label-groups))
 (common-lisp:progn
@@ -5852,8 +5853,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListLabels" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListLabels" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-labels))
 (common-lisp:progn
@@ -5871,8 +5872,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListModels" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListModels" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-models))
 (common-lisp:progn
@@ -5890,8 +5891,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListSensorStatistics" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListSensorStatistics" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-sensor-statistics))
 (common-lisp:progn
@@ -5906,8 +5907,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -5925,8 +5926,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "StartDataIngestionJob" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "StartDataIngestionJob" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-data-ingestion-job))
 (common-lisp:progn
@@ -5942,8 +5943,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "StartInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "StartInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-inference-scheduler))
 (common-lisp:progn
@@ -5958,8 +5959,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "StopInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "StopInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-inference-scheduler))
 (common-lisp:progn
@@ -5974,8 +5975,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -5990,8 +5991,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -6013,8 +6014,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateInferenceScheduler" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateInferenceScheduler" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-inference-scheduler))
 (common-lisp:progn
@@ -6029,7 +6030,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'lookoutequipment-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateLabelGroup" "2020-12-15"))
+        'lookoutequipment-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateLabelGroup" "2020-12-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-label-group))

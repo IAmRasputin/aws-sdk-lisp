@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass applicationcostprofiler-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "applicationcostprofiler"))
+                       (:default-initargs :service "applicationcostprofiler"
+                        :protocol :rest-json))
  (common-lisp:export 'applicationcostprofiler-request))
 (common-lisp:progn
  (common-lisp:define-condition applicationcostprofiler-error
@@ -733,7 +734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/reportDefinition/~A"
                               (quri.encode:url-encode
@@ -756,7 +757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/reportDefinition/~A"
                               (quri.encode:url-encode
@@ -779,7 +780,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "POST" "/importApplicationUsage" "ImportApplicationUsage"
+        "POST" :rest-json "/importApplicationUsage" "ImportApplicationUsage"
         "2020-09-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'import-application-usage))
@@ -796,7 +797,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "GET" "/reportDefinition" "ListReportDefinitions" "2020-09-10"))
+        "GET" :rest-json "/reportDefinition" "ListReportDefinitions"
+        "2020-09-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-report-definitions))
 (common-lisp:progn
@@ -815,7 +817,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "POST" "/reportDefinition" "PutReportDefinition" "2020-09-10"))
+        "POST" :rest-json "/reportDefinition" "PutReportDefinition"
+        "2020-09-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-report-definition))
 (common-lisp:progn
@@ -834,7 +837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'applicationcostprofiler-request aws-sdk/generator/operation::input
-        "PUT"
+        "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/reportDefinition/~A"
                               (quri.encode:url-encode

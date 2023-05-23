@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass chime-sdk-messaging-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "chime-sdk-messaging"))
+                       (:default-initargs :service "chime-sdk-messaging"
+                        :protocol :rest-json))
  (common-lisp:export 'chime-sdk-messaging-request))
 (common-lisp:progn
  (common-lisp:define-condition chime-sdk-messaging-error
@@ -5807,6 +5808,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/channel-flow"
                               (quri.encode:url-encode
@@ -5833,6 +5835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/memberships?operation=batch-create"
@@ -5859,6 +5862,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A?operation=channel-flow-callback"
@@ -5888,7 +5892,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
-        "/channels" "CreateChannel" "2021-05-15"))
+        :rest-json "/channels" "CreateChannel" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-channel))
 (common-lisp:progn
@@ -5905,6 +5909,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/bans"
                               (quri.encode:url-encode
@@ -5930,7 +5935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
-        "/channel-flows" "CreateChannelFlow" "2021-05-15"))
+        :rest-json "/channel-flows" "CreateChannelFlow" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-channel-flow))
 (common-lisp:progn
@@ -5950,6 +5955,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/memberships"
                               (quri.encode:url-encode
@@ -5974,6 +5980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/moderators"
                               (quri.encode:url-encode
@@ -5996,7 +6003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A"
                               (quri.encode:url-encode
@@ -6020,7 +6027,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/bans/~A"
                               (quri.encode:url-encode
@@ -6047,7 +6054,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channel-flows/~A"
                               (quri.encode:url-encode
@@ -6073,7 +6080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/memberships/~A"
                               (quri.encode:url-encode
@@ -6102,7 +6109,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/messages/~A"
                               (quri.encode:url-encode
@@ -6131,7 +6138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/moderators/~A"
                               (quri.encode:url-encode
@@ -6159,7 +6166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instances/~A/streaming-configurations"
@@ -6183,6 +6190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A"
                               (quri.encode:url-encode
@@ -6206,6 +6214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/bans/~A"
                               (quri.encode:url-encode
@@ -6232,6 +6241,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channel-flows/~A"
                               (quri.encode:url-encode
@@ -6257,6 +6267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/memberships/~A"
                               (quri.encode:url-encode
@@ -6286,6 +6297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A?scope=app-instance-user-membership"
@@ -6312,6 +6324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A?scope=app-instance-user-moderated-channel"
@@ -6338,6 +6351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/moderators/~A"
                               (quri.encode:url-encode
@@ -6367,7 +6381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/channel-flow/~A"
                               (quri.encode:url-encode
@@ -6396,6 +6410,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/memberships/~A/preferences"
@@ -6425,6 +6440,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/messages/~A"
                               (quri.encode:url-encode
@@ -6454,6 +6470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/messages/~A?scope=message-status"
@@ -6473,7 +6490,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'chime-sdk-messaging-request :method "GET"
-                                :path "/endpoints/messaging-session" :params
+                                :path "/endpoints/messaging-session" :protocol
+                                :rest-json :operation
+                                "GetMessagingSessionEndpoint" :params
                                 `(("Action" ,@"GetMessagingSessionEndpoint")
                                   ("Version" ,@"2021-05-15"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -6492,6 +6511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instances/~A/streaming-configurations"
@@ -6517,6 +6537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/bans"
                               (quri.encode:url-encode
@@ -6540,7 +6561,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/channel-flows" "ListChannelFlows" "2021-05-15"))
+        :rest-json "/channel-flows" "ListChannelFlows" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-channel-flows))
 (common-lisp:progn
@@ -6559,6 +6580,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/memberships"
                               (quri.encode:url-encode
@@ -6585,7 +6607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/channels?scope=app-instance-user-memberships"
+        :rest-json "/channels?scope=app-instance-user-memberships"
         "ListChannelMembershipsForAppInstanceUser" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-channel-memberships-for-app-instance-user))
@@ -6606,6 +6628,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/messages"
                               (quri.encode:url-encode
@@ -6630,6 +6653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/moderators"
                               (quri.encode:url-encode
@@ -6655,7 +6679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/channels" "ListChannels" "2021-05-15"))
+        :rest-json "/channels" "ListChannels" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-channels))
 (common-lisp:progn
@@ -6673,7 +6697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/channels?scope=channel-flow-associations"
+        :rest-json "/channels?scope=channel-flow-associations"
         "ListChannelsAssociatedWithChannelFlow" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-channels-associated-with-channel-flow))
@@ -6694,7 +6718,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/channels?scope=app-instance-user-moderated-channels"
+        :rest-json "/channels?scope=app-instance-user-moderated-channels"
         "ListChannelsModeratedByAppInstanceUser" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-channels-moderated-by-app-instance-user))
@@ -6713,6 +6737,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/subchannels"
                               (quri.encode:url-encode
@@ -6735,7 +6760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "GET"
-        "/tags" "ListTagsForResource" "2021-05-15"))
+        :rest-json "/tags" "ListTagsForResource" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -6754,6 +6779,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/expiration-settings"
@@ -6780,6 +6806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/memberships/~A/preferences"
@@ -6810,6 +6837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/app-instances/~A/streaming-configurations"
@@ -6835,6 +6863,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/channels/~A/messages/~A?operation=redact"
@@ -6864,7 +6893,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
-        "/channels?operation=search" "SearchChannels" "2021-05-15"))
+        :rest-json "/channels?operation=search" "SearchChannels" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-channels))
 (common-lisp:progn
@@ -6886,6 +6915,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/messages"
                               (quri.encode:url-encode
@@ -6908,7 +6938,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=tag-resource" "TagResource" "2021-05-15"))
+        :rest-json "/tags?operation=tag-resource" "TagResource" "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -6924,7 +6954,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "POST"
-        "/tags?operation=untag-resource" "UntagResource" "2021-05-15"))
+        :rest-json "/tags?operation=untag-resource" "UntagResource"
+        "2021-05-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -6942,6 +6973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A"
                               (quri.encode:url-encode
@@ -6965,6 +6997,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channel-flows/~A"
                               (quri.encode:url-encode
@@ -6990,6 +7023,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/messages/~A"
                               (quri.encode:url-encode
@@ -7017,6 +7051,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'chime-sdk-messaging-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/channels/~A/readMarker"
                               (quri.encode:url-encode

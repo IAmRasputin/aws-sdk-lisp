@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/pi/api)
 (common-lisp:progn
  (common-lisp:defclass pi-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "pi"))
+                       (:default-initargs :service "pi" :protocol :json))
  (common-lisp:export 'pi-request))
 (common-lisp:progn
  (common-lisp:define-condition pi-error
@@ -1486,7 +1486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDimensionKeys"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1508,7 +1508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDimensionKeyDetails"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1526,7 +1526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceMetadata"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1548,7 +1548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetResourceMetrics"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1570,7 +1570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAvailableResourceDimensions"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1592,7 +1592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'pi-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAvailableResourceMetrics"
                                                         "2018-02-27"))
       common-lisp:nil common-lisp:nil *error-map*)))

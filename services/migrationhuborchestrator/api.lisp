@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass migrationhuborchestrator-request
                        (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "migrationhuborchestrator"))
+                       (:default-initargs :service "migrationhuborchestrator"
+                        :protocol :rest-json))
  (common-lisp:export 'migrationhuborchestrator-request))
 (common-lisp:progn
  (common-lisp:define-condition migrationhuborchestrator-error
@@ -4404,7 +4405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST" "/migrationworkflow/" "CreateWorkflow" "2021-08-28"))
+        "POST" :rest-json "/migrationworkflow/" "CreateWorkflow" "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-workflow))
 (common-lisp:progn
@@ -4426,7 +4427,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST" "/workflowstep" "CreateWorkflowStep" "2021-08-28"))
+        "POST" :rest-json "/workflowstep" "CreateWorkflowStep" "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-workflow-step))
 (common-lisp:progn
@@ -4445,7 +4446,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST" "/workflowstepgroups" "CreateWorkflowStepGroup" "2021-08-28"))
+        "POST" :rest-json "/workflowstepgroups" "CreateWorkflowStepGroup"
+        "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-workflow-step-group))
 (common-lisp:progn
@@ -4462,7 +4464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflow/~A"
                               (quri.encode:url-encode
@@ -4484,7 +4486,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstep/~A"
                               (quri.encode:url-encode
@@ -4507,7 +4509,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstepgroup/~A"
                               (quri.encode:url-encode
@@ -4530,7 +4532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflowtemplate/~A"
                               (quri.encode:url-encode
@@ -4552,7 +4554,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/templatestep/~A"
                               (quri.encode:url-encode
@@ -4574,7 +4576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/templates/~A/stepgroups/~A"
                               (quri.encode:url-encode
@@ -4600,7 +4602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflow/~A"
                               (quri.encode:url-encode
@@ -4622,7 +4624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstep/~A"
                               (quri.encode:url-encode
@@ -4644,7 +4646,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstepgroup/~A"
                               (quri.encode:url-encode
@@ -4666,7 +4668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET" "/plugins" "ListPlugins" "2021-08-28"))
+        "GET" :rest-json "/plugins" "ListPlugins" "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-plugins))
 (common-lisp:progn
@@ -4682,7 +4684,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4707,7 +4709,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/templatestepgroups/~A"
                               (quri.encode:url-encode
@@ -4732,7 +4734,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET" "/templatesteps" "ListTemplateSteps" "2021-08-28"))
+        "GET" :rest-json "/templatesteps" "ListTemplateSteps" "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-template-steps))
 (common-lisp:progn
@@ -4749,7 +4751,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET" "/migrationworkflowtemplates" "ListTemplates" "2021-08-28"))
+        "GET" :rest-json "/migrationworkflowtemplates" "ListTemplates"
+        "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-templates))
 (common-lisp:progn
@@ -4767,7 +4770,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET" "/workflowstepgroups" "ListWorkflowStepGroups" "2021-08-28"))
+        "GET" :rest-json "/workflowstepgroups" "ListWorkflowStepGroups"
+        "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-workflow-step-groups))
 (common-lisp:progn
@@ -4785,7 +4789,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET"
+        "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/workflow/~A/workflowstepgroups/~A/workflowsteps"
@@ -4816,7 +4820,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "GET" "/migrationworkflows" "ListWorkflows" "2021-08-28"))
+        "GET" :rest-json "/migrationworkflows" "ListWorkflows" "2021-08-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-workflows))
 (common-lisp:progn
@@ -4832,7 +4836,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/retryworkflowstep/~A"
                               (quri.encode:url-encode
@@ -4854,7 +4858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflow/~A/start"
                               (quri.encode:url-encode
@@ -4876,7 +4880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflow/~A/stop"
                               (quri.encode:url-encode
@@ -4898,7 +4902,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4921,7 +4925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "DELETE"
+        "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4947,7 +4951,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/migrationworkflow/~A"
                               (quri.encode:url-encode
@@ -4975,7 +4979,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstep/~A"
                               (quri.encode:url-encode
@@ -5000,7 +5004,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migrationhuborchestrator-request aws-sdk/generator/operation::input
-        "POST"
+        "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/workflowstepgroup/~A"
                               (quri.encode:url-encode

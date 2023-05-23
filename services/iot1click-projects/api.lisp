@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iot1click-projects-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iot1click-projects"))
+                       (:default-initargs :service "iot1click-projects"
+                        :protocol :rest-json))
  (common-lisp:export 'iot1click-projects-request))
 (common-lisp:progn
  (common-lisp:define-condition iot1click-projects-error
@@ -1404,6 +1405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/projects/~A/placements/~A/devices/~A"
@@ -1436,6 +1438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A/placements"
                               (quri.encode:url-encode
@@ -1460,7 +1463,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "POST"
-        "/projects" "CreateProject" "2018-05-14"))
+        :rest-json "/projects" "CreateProject" "2018-05-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-project))
 (common-lisp:progn
@@ -1476,6 +1479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A/placements/~A"
                               (quri.encode:url-encode
@@ -1502,6 +1506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A"
                               (quri.encode:url-encode
@@ -1524,6 +1529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A/placements/~A"
                               (quri.encode:url-encode
@@ -1550,6 +1556,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A"
                               (quri.encode:url-encode
@@ -1575,6 +1582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/projects/~A/placements/~A/devices/~A"
@@ -1606,6 +1614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/projects/~A/placements/~A/devices"
@@ -1634,6 +1643,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A/placements"
                               (quri.encode:url-encode
@@ -1656,7 +1666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
-        "/projects" "ListProjects" "2018-05-14"))
+        :rest-json "/projects" "ListProjects" "2018-05-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-projects))
 (common-lisp:progn
@@ -1672,6 +1682,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1694,6 +1705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1716,6 +1728,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -1739,6 +1752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A/placements/~A"
                               (quri.encode:url-encode
@@ -1767,6 +1781,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iot1click-projects-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/projects/~A"
                               (quri.encode:url-encode

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ecr/api)
 (common-lisp:progn
  (common-lisp:defclass ecr-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ecr"))
+                       (:default-initargs :service "ecr" :protocol :json))
  (common-lisp:export 'ecr-request))
 (common-lisp:progn
  (common-lisp:define-condition ecr-error
@@ -6778,7 +6778,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchCheckLayerAvailability"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6797,7 +6797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteImage"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6818,7 +6818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetImage"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6837,7 +6837,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchGetRepositoryScanningConfiguration"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6858,7 +6858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CompleteLayerUpload"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6880,7 +6880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePullThroughCacheRule"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6903,7 +6903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRepository"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6921,7 +6921,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteLifecyclePolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6941,7 +6941,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePullThroughCacheRule"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6950,7 +6950,8 @@
  (common-lisp:defun delete-registry-policy ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :protocol
+                                :json :operation "DeleteRegistryPolicy" :params
                                 `(("Action" ,@"DeleteRegistryPolicy")
                                   ("Version" ,@"2015-09-21"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -6969,7 +6970,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepository"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6987,7 +6988,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepositoryPolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7007,7 +7008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImageReplicationStatus"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7029,7 +7030,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImageScanFindings"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7050,7 +7051,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImages"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7072,7 +7073,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePullThroughCacheRules"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7081,7 +7082,8 @@
  (common-lisp:defun describe-registry ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :protocol
+                                :json :operation "DescribeRegistry" :params
                                 `(("Action" ,@"DescribeRegistry")
                                   ("Version" ,@"2015-09-21"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7102,7 +7104,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRepositories"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7120,7 +7122,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetAuthorizationToken"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7140,7 +7142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetDownloadUrlForLayer"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7158,7 +7160,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLifecyclePolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7180,7 +7182,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetLifecyclePolicyPreview"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7189,7 +7191,8 @@
  (common-lisp:defun get-registry-policy ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :protocol
+                                :json :operation "GetRegistryPolicy" :params
                                 `(("Action" ,@"GetRegistryPolicy")
                                   ("Version" ,@"2015-09-21"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7198,7 +7201,9 @@
  (common-lisp:defun get-registry-scanning-configuration ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'ecr-request :method "POST" :path "/" :protocol
+                                :json :operation
+                                "GetRegistryScanningConfiguration" :params
                                 `(("Action"
                                    ,@"GetRegistryScanningConfiguration")
                                   ("Version" ,@"2015-09-21"))))
@@ -7217,7 +7222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepositoryPolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7235,7 +7240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InitiateLayerUpload"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7256,7 +7261,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListImages"
+                                                        "POST" :json "/"
+                                                        "ListImages"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-images))
@@ -7273,7 +7279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7295,7 +7301,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutImage"
+                                                        "POST" :json "/"
+                                                        "PutImage"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-image))
@@ -7316,7 +7323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutImageScanningConfiguration"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7336,7 +7343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutImageTagMutability"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7356,7 +7363,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutLifecyclePolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7374,7 +7381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRegistryPolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7393,7 +7400,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRegistryScanningConfiguration"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7412,7 +7419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutReplicationConfiguration"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7432,7 +7439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetRepositoryPolicy"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7451,7 +7458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartImageScan"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7472,7 +7479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartLifecyclePolicyPreview"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7490,7 +7497,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7508,7 +7515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7529,7 +7536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UploadLayerPart"
                                                         "2015-09-21"))
       common-lisp:nil common-lisp:nil *error-map*)))

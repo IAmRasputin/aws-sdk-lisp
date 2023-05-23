@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass healthlake-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "healthlake"))
+                       (:default-initargs :service "healthlake" :protocol
+                        :json))
  (common-lisp:export 'healthlake-request))
 (common-lisp:progn
  (common-lisp:define-condition healthlake-error
@@ -1902,7 +1903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFHIRDatastore"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1920,7 +1921,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFHIRDatastore"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1938,7 +1939,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFHIRDatastore"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1956,7 +1957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFHIRExportJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1974,7 +1975,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFHIRImportJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1992,7 +1993,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFHIRDatastores"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2013,7 +2014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFHIRExportJobs"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2034,7 +2035,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFHIRImportJobs"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2052,7 +2053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2073,7 +2074,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFHIRExportJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2095,7 +2096,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartFHIRImportJob"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2113,7 +2114,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2131,7 +2132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'healthlake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

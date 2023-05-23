@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass timestream-write-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "timestream-write"))
+                       (:default-initargs :service "timestream-write" :protocol
+                        :json))
  (common-lisp:export 'timestream-write-request))
 (common-lisp:progn
  (common-lisp:define-condition timestream-write-error
@@ -3045,8 +3046,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateBatchLoadTask" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateBatchLoadTask" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-batch-load-task))
 (common-lisp:progn
@@ -3061,8 +3062,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateDatabase" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateDatabase" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-database))
 (common-lisp:progn
@@ -3080,8 +3081,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateTable" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateTable" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-table))
 (common-lisp:progn
@@ -3096,8 +3097,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteDatabase" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteDatabase" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-database))
 (common-lisp:progn
@@ -3112,8 +3113,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteTable" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteTable" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-table))
 (common-lisp:progn
@@ -3128,8 +3129,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeBatchLoadTask" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeBatchLoadTask" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-batch-load-task))
 (common-lisp:progn
@@ -3144,8 +3145,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeDatabase" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeDatabase" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-database))
 (common-lisp:progn
@@ -3153,7 +3154,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'timestream-write-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "DescribeEndpoints" :params
                                 `(("Action" ,@"DescribeEndpoints")
                                   ("Version" ,@"2018-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3170,8 +3172,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeTable" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeTable" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-table))
 (common-lisp:progn
@@ -3187,8 +3189,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "ListBatchLoadTasks" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListBatchLoadTasks" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-batch-load-tasks))
 (common-lisp:progn
@@ -3203,8 +3205,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "ListDatabases" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListDatabases" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-databases))
 (common-lisp:progn
@@ -3220,8 +3222,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTables" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTables" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tables))
 (common-lisp:progn
@@ -3236,8 +3238,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -3252,8 +3254,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "ResumeBatchLoadTask" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ResumeBatchLoadTask" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'resume-batch-load-task))
 (common-lisp:progn
@@ -3268,8 +3270,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -3284,8 +3286,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -3300,8 +3302,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateDatabase" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateDatabase" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-database))
 (common-lisp:progn
@@ -3319,8 +3321,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateTable" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateTable" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-table))
 (common-lisp:progn
@@ -3337,7 +3339,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'timestream-write-request aws-sdk/generator/operation::input "POST" "/"
-        "WriteRecords" "2018-11-01"))
+        'timestream-write-request aws-sdk/generator/operation::input "POST"
+        :json "/" "WriteRecords" "2018-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'write-records))

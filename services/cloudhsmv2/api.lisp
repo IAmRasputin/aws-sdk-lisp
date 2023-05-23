@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudhsmv2-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudhsmv2"))
+                       (:default-initargs :service "cloudhsmv2" :protocol
+                        :json))
  (common-lisp:export 'cloudhsmv2-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudhsmv2-error
@@ -1790,7 +1791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CopyBackupToRegion"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1811,7 +1812,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCluster"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1830,7 +1831,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateHsm"
+                                                        "POST" :json "/"
+                                                        "CreateHsm"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-hsm))
@@ -1847,7 +1849,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBackup"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1865,7 +1867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCluster"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1884,7 +1886,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteHsm"
+                                                        "POST" :json "/"
+                                                        "DeleteHsm"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-hsm))
@@ -1903,7 +1906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBackups"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1921,7 +1924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClusters"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1940,7 +1943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InitializeCluster"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1959,7 +1962,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -1976,7 +1980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyBackupAttributes"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1995,7 +1999,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ModifyCluster"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2013,7 +2017,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreBackup"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2031,7 +2035,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2049,7 +2053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'cloudhsmv2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-04-28"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass opsworkscm-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "opsworkscm"))
+                       (:default-initargs :service "opsworkscm" :protocol
+                        :json))
  (common-lisp:export 'opsworkscm-request))
 (common-lisp:progn
  (common-lisp:define-condition opsworkscm-error
@@ -2388,7 +2389,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateNode"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2406,7 +2407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBackup"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2437,7 +2438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateServer"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2455,7 +2456,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBackup"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2473,7 +2474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteServer"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2483,7 +2484,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'opsworkscm-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeAccountAttributes" :params
                                 `(("Action" ,@"DescribeAccountAttributes")
                                   ("Version" ,@"2016-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -2503,7 +2505,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBackups"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2522,7 +2524,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEvents"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2543,7 +2545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNodeAssociationStatus"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2562,7 +2564,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeServers"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2581,7 +2583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateNode"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2602,7 +2604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExportServerEngineAttribute"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2621,7 +2623,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2641,7 +2643,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreServer"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2659,7 +2661,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartMaintenance"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2677,7 +2679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2695,7 +2697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2717,7 +2719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServer"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2738,7 +2740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'opsworkscm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateServerEngineAttributes"
                                                         "2016-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotdeviceadvisor-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotdeviceadvisor"))
+                       (:default-initargs :service "iotdeviceadvisor" :protocol
+                        :rest-json))
  (common-lisp:export 'iotdeviceadvisor-request))
 (common-lisp:progn
  (common-lisp:define-condition iotdeviceadvisor-error
@@ -25,6 +26,7 @@
     ("ResourceNotFoundException" . resource-not-found-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:deftype amazon-resource-name () 'common-lisp:string)
+(common-lisp:deftype authentication-method () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (iotdeviceadvisor-error)
@@ -186,6 +188,8 @@
    (thing-arn common-lisp:nil :type
     (common-lisp:or amazon-resource-name common-lisp:null))
    (certificate-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (device-role-arn common-lisp:nil :type
     (common-lisp:or amazon-resource-name common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'device-under-test 'make-device-under-test))
@@ -207,6 +211,13 @@
                            aws-sdk/generator/shape::input 'certificate-arn))
       (common-lisp:list
        (common-lisp:cons "certificateArn"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'device-role-arn))
+      (common-lisp:list
+       (common-lisp:cons "deviceRoleArn"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -230,7 +241,11 @@
    (thing-arn common-lisp:nil :type
     (common-lisp:or amazon-resource-name common-lisp:null))
    (certificate-arn common-lisp:nil :type
-    (common-lisp:or amazon-resource-name common-lisp:null)))
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (device-role-arn common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (authentication-method common-lisp:nil :type
+    (common-lisp:or authentication-method common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-endpoint-request 'make-get-endpoint-request))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
@@ -1826,7 +1841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "POST"
-        "/suiteDefinitions" "CreateSuiteDefinition" "2020-09-18"))
+        :rest-json "/suiteDefinitions" "CreateSuiteDefinition" "2020-09-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-suite-definition))
 (common-lisp:progn
@@ -1842,6 +1857,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/suiteDefinitions/~A"
                               (quri.encode:url-encode
@@ -1855,8 +1871,11 @@
  (common-lisp:defun get-endpoint
                     (
                      common-lisp:&rest aws-sdk/generator/operation::args
-                     common-lisp:&key thing-arn certificate-arn)
-   (common-lisp:declare (common-lisp:ignorable thing-arn certificate-arn))
+                     common-lisp:&key thing-arn certificate-arn device-role-arn
+                     authentication-method)
+   (common-lisp:declare
+    (common-lisp:ignorable thing-arn certificate-arn device-role-arn
+     authentication-method))
    (common-lisp:let ((aws-sdk/generator/operation::input
                       (common-lisp:apply 'make-get-endpoint-request
                                          aws-sdk/generator/operation::args)))
@@ -1864,7 +1883,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
-        "/endpoint" "GetEndpoint" "2020-09-18"))
+        :rest-json "/endpoint" "GetEndpoint" "2020-09-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-endpoint))
 (common-lisp:progn
@@ -1882,6 +1901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/suiteDefinitions/~A"
                               (quri.encode:url-encode
@@ -1905,6 +1925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/suiteDefinitions/~A/suiteRuns/~A"
@@ -1933,6 +1954,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/suiteDefinitions/~A/suiteRuns/~A/report"
@@ -1960,7 +1982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
-        "/suiteDefinitions" "ListSuiteDefinitions" "2020-09-18"))
+        :rest-json "/suiteDefinitions" "ListSuiteDefinitions" "2020-09-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-suite-definitions))
 (common-lisp:progn
@@ -1979,7 +2001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
-        "/suiteRuns" "ListSuiteRuns" "2020-09-18"))
+        :rest-json "/suiteRuns" "ListSuiteRuns" "2020-09-18"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-suite-runs))
 (common-lisp:progn
@@ -1995,6 +2017,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2020,6 +2043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/suiteDefinitions/~A/suiteRuns"
                               (quri.encode:url-encode
@@ -2043,6 +2067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/suiteDefinitions/~A/suiteRuns/~A/stop"
@@ -2070,6 +2095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2092,6 +2118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2116,6 +2143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotdeviceadvisor-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/suiteDefinitions/~A"
                               (quri.encode:url-encode

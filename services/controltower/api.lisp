@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass controltower-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "controltower"))
+                       (:default-initargs :service "controltower" :protocol
+                        :rest-json))
  (common-lisp:export 'controltower-request))
 (common-lisp:progn
  (common-lisp:define-condition controltower-error
@@ -493,7 +494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'controltower-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/disable-control"
                                                         "DisableControl"
                                                         "2018-05-10"))
@@ -513,7 +514,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'controltower-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/enable-control"
                                                         "EnableControl"
                                                         "2018-05-10"))
@@ -532,7 +533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'controltower-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/get-control-operation"
                                                         "GetControlOperation"
                                                         "2018-05-10"))
@@ -552,7 +553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'controltower-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-enabled-controls"
                                                         "ListEnabledControls"
                                                         "2018-05-10"))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass storagegateway-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "storagegateway"))
+                       (:default-initargs :service "storagegateway" :protocol
+                        :json))
  (common-lisp:export 'storagegateway-request))
 (common-lisp:progn
  (common-lisp:define-condition storagegateway-error
@@ -11132,7 +11133,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ActivateGateway"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11150,7 +11151,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddCache"
+                                                        "POST" :json "/"
+                                                        "AddCache"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'add-cache))
@@ -11167,7 +11169,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddTagsToResource"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11185,7 +11187,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddUploadBuffer"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11203,7 +11205,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddWorkingStorage"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11223,7 +11225,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssignTapePool"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11246,7 +11248,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateFileSystem"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11267,7 +11269,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachVolume"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11285,7 +11287,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelArchival"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11303,7 +11305,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelRetrieval"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11327,7 +11329,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCachediSCSIVolume"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11355,7 +11357,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateNFSFileShare"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11387,7 +11389,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSMBFileShare"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11406,7 +11408,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSnapshot"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11426,7 +11428,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSnapshotFromVolumeRecoveryPoint"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11449,7 +11451,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateStorediSCSIVolume"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11470,7 +11472,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTapePool"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11491,7 +11493,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTapeWithBarcode"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11514,7 +11516,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTapes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11533,7 +11535,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAutomaticTapeCreationPolicy"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11552,7 +11554,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBandwidthRateLimit"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11570,7 +11572,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteChapCredentials"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11588,7 +11590,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFileShare"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11606,7 +11608,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGateway"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11624,7 +11626,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSnapshotSchedule"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11644,7 +11646,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTape"
+                                                        "POST" :json "/"
+                                                        "DeleteTape"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tape))
@@ -11662,7 +11665,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTapeArchive"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11680,7 +11683,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteTapePool"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11698,7 +11701,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVolume"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11717,7 +11720,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAvailabilityMonitorTest"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11736,7 +11739,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBandwidthRateLimit"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11755,7 +11758,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBandwidthRateLimitSchedule"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11773,7 +11776,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCache"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11792,7 +11795,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCachediSCSIVolumes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11810,7 +11813,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeChapCredentials"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11830,7 +11833,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFileSystemAssociations"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11849,7 +11852,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGatewayInformation"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11868,7 +11871,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMaintenanceStartTime"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11886,7 +11889,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeNFSFileShares"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11904,7 +11907,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSMBFileShares"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11922,7 +11925,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSMBSettings"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11940,7 +11943,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSnapshotSchedule"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11959,7 +11962,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStorediSCSIVolumes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11977,7 +11980,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTapeArchives"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11996,7 +11999,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTapeRecoveryPoints"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12015,7 +12018,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTapes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12033,7 +12036,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUploadBuffer"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12052,7 +12055,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVTLDevices"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12070,7 +12073,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeWorkingStorage"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12088,7 +12091,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachVolume"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12106,7 +12109,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableGateway"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12125,7 +12128,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateFileSystem"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12147,7 +12150,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "JoinDomain"
+                                                        "POST" :json "/"
+                                                        "JoinDomain"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'join-domain))
@@ -12165,7 +12169,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAutomaticTapeCreationPolicies"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12183,7 +12187,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFileShares"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12202,7 +12206,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFileSystemAssociations"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12220,7 +12224,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGateways"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12238,7 +12242,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListLocalDisks"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12256,7 +12260,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12274,7 +12278,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTapePools"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12292,7 +12296,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTapes"
+                                                        "POST" :json "/"
+                                                        "ListTapes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tapes))
@@ -12309,7 +12314,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVolumeInitiators"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12328,7 +12333,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVolumeRecoveryPoints"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12346,7 +12351,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVolumes"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12364,7 +12369,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "NotifyWhenUploaded"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12383,7 +12388,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RefreshCache"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12401,7 +12406,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveTagsFromResource"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12419,7 +12424,8 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ResetCache"
+                                                        "POST" :json "/"
+                                                        "ResetCache"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'reset-cache))
@@ -12436,7 +12442,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetrieveTapeArchive"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12455,7 +12461,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetrieveTapeRecoveryPoint"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12474,7 +12480,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetLocalConsolePassword"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12492,7 +12498,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetSMBGuestPassword"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12510,7 +12516,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ShutdownGateway"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12529,7 +12535,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartAvailabilityMonitorTest"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12547,7 +12553,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartGateway"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12568,7 +12574,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateAutomaticTapeCreationPolicy"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12592,7 +12598,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBandwidthRateLimit"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12613,7 +12619,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateBandwidthRateLimitSchedule"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12635,7 +12641,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateChapCredentials"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12657,7 +12663,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateFileSystemAssociation"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12678,7 +12684,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGatewayInformation"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12697,7 +12703,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGatewaySoftwareNow"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12719,7 +12725,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMaintenanceStartTime"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12745,7 +12751,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateNFSFileShare"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12774,7 +12780,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSMBFileShare"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12794,7 +12800,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSMBFileShareVisibility"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12812,7 +12818,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSMBLocalGroups"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12832,7 +12838,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSMBSecurityStrategy"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12853,7 +12859,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSnapshotSchedule"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12871,7 +12877,7 @@ common-lisp:nil
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'storagegateway-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVTLDeviceType"
                                                         "2013-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/ivschat/api)
 (common-lisp:progn
  (common-lisp:defclass ivschat-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "ivschat"))
+                       common-lisp:nil
+                       (:default-initargs :service "ivschat" :protocol
+                        :rest-json))
  (common-lisp:export 'ivschat-request))
 (common-lisp:progn
  (common-lisp:define-condition ivschat-error
@@ -2235,7 +2237,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateChatToken"
                                                         "CreateChatToken"
                                                         "2020-07-14"))
@@ -2256,7 +2258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateLoggingConfiguration"
                                                         "CreateLoggingConfiguration"
                                                         "2020-07-14"))
@@ -2280,7 +2282,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateRoom"
+                                                        "POST" :rest-json
+                                                        "/CreateRoom"
                                                         "CreateRoom"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2299,7 +2302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteLoggingConfiguration"
                                                         "DeleteLoggingConfiguration"
                                                         "2020-07-14"))
@@ -2318,7 +2321,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteMessage"
+                                                        "POST" :rest-json
+                                                        "/DeleteMessage"
                                                         "DeleteMessage"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2336,7 +2340,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteRoom"
+                                                        "POST" :rest-json
+                                                        "/DeleteRoom"
                                                         "DeleteRoom"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2354,7 +2359,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisconnectUser"
                                                         "DisconnectUser"
                                                         "2020-07-14"))
@@ -2374,7 +2379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetLoggingConfiguration"
                                                         "GetLoggingConfiguration"
                                                         "2020-07-14"))
@@ -2393,8 +2398,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetRoom"
-                                                        "GetRoom"
+                                                        "POST" :rest-json
+                                                        "/GetRoom" "GetRoom"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-room))
@@ -2412,7 +2417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListLoggingConfigurations"
                                                         "ListLoggingConfigurations"
                                                         "2020-07-14"))
@@ -2434,7 +2439,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListRooms"
+                                                        "POST" :rest-json
+                                                        "/ListRooms"
                                                         "ListRooms"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2452,7 +2458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2481,7 +2487,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/SendEvent"
+                                                        "POST" :rest-json
+                                                        "/SendEvent"
                                                         "SendEvent"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2499,7 +2506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2527,7 +2534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2558,7 +2565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateLoggingConfiguration"
                                                         "UpdateLoggingConfiguration"
                                                         "2020-07-14"))
@@ -2583,7 +2590,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivschat-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateRoom"
+                                                        "POST" :rest-json
+                                                        "/UpdateRoom"
                                                         "UpdateRoom"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/ebs/api)
 (common-lisp:progn
  (common-lisp:defclass ebs-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "ebs"))
+                       (:default-initargs :service "ebs" :protocol :rest-json))
  (common-lisp:export 'ebs-request))
 (common-lisp:progn
  (common-lisp:define-condition ebs-error
@@ -920,7 +920,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -949,7 +949,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -985,7 +985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1016,7 +1016,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1047,7 +1047,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1082,7 +1082,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ebs-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/snapshots"
+                                                        "POST" :rest-json
+                                                        "/snapshots"
                                                         "StartSnapshot"
                                                         "2019-11-02"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/iam/api)
 (common-lisp:progn
  (common-lisp:defclass iam-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "iam"))
+                       (:default-initargs :service "iam" :protocol :query))
  (common-lisp:export 'iam-request))
 (common-lisp:progn
  (common-lisp:define-condition iam-error
@@ -14188,7 +14188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddClientIDToOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14208,7 +14208,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddRoleToInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14226,7 +14226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddUserToGroup"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14244,7 +14244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachGroupPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14262,7 +14262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14280,7 +14280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachUserPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14298,7 +14298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ChangePassword"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14316,7 +14316,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateAccessKey"
                                                         "2010-05-08"))
       common-lisp:nil "CreateAccessKeyResult" *error-map*)))
@@ -14334,7 +14334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateAccountAlias"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14352,7 +14352,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateGroup"
                                                         "2010-05-08"))
       common-lisp:nil "CreateGroupResult" *error-map*)))
@@ -14371,7 +14371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil "CreateInstanceProfileResult" *error-map*)))
@@ -14391,7 +14391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateLoginProfile"
                                                         "2010-05-08"))
       common-lisp:nil "CreateLoginProfileResult" *error-map*)))
@@ -14411,7 +14411,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil "CreateOpenIDConnectProviderResult" *error-map*)))
@@ -14431,7 +14431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreatePolicy"
                                                         "2010-05-08"))
       common-lisp:nil "CreatePolicyResult" *error-map*)))
@@ -14451,7 +14451,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreatePolicyVersion"
                                                         "2010-05-08"))
       common-lisp:nil "CreatePolicyVersionResult" *error-map*)))
@@ -14473,7 +14473,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateRole"
+                                                        "POST" :query "/"
+                                                        "CreateRole"
                                                         "2010-05-08"))
       common-lisp:nil "CreateRoleResult" *error-map*)))
  (common-lisp:export 'create-role))
@@ -14491,7 +14492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil "CreateSAMLProviderResult" *error-map*)))
@@ -14512,7 +14513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateServiceLinkedRole"
                                                         "2010-05-08"))
       common-lisp:nil "CreateServiceLinkedRoleResult" *error-map*)))
@@ -14531,7 +14532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateServiceSpecificCredential"
                                                         "2010-05-08"))
       common-lisp:nil "CreateServiceSpecificCredentialResult" *error-map*)))
@@ -14550,7 +14551,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :query "/"
+                                                        "CreateUser"
                                                         "2010-05-08"))
       common-lisp:nil "CreateUserResult" *error-map*)))
  (common-lisp:export 'create-user))
@@ -14568,7 +14570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateVirtualMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil "CreateVirtualMFADeviceResult" *error-map*)))
@@ -14586,7 +14588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeactivateMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14604,7 +14606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAccessKey"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14622,7 +14624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAccountAlias"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14631,7 +14633,9 @@
  (common-lisp:defun delete-account-password-policy ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "DeleteAccountPasswordPolicy"
+                                :params
                                 `(("Action" ,@"DeleteAccountPasswordPolicy")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -14649,7 +14653,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteGroup"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14667,7 +14671,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteGroupPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14685,7 +14689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14703,7 +14707,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteLoginProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14722,7 +14726,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14740,7 +14744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeletePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14758,7 +14762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeletePolicyVersion"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14776,7 +14780,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteRole"
+                                                        "POST" :query "/"
+                                                        "DeleteRole"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-role))
@@ -14794,7 +14799,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteRolePermissionsBoundary"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14812,7 +14817,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14830,7 +14835,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14848,7 +14853,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSSHPublicKey"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14867,7 +14872,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14886,7 +14891,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteServiceLinkedRole"
                                                         "2010-05-08"))
       common-lisp:nil "DeleteServiceLinkedRoleResult" *error-map*)))
@@ -14906,7 +14911,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteServiceSpecificCredential"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14925,7 +14930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSigningCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14943,7 +14948,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :query "/"
+                                                        "DeleteUser"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -14961,7 +14967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteUserPermissionsBoundary"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14979,7 +14985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteUserPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14997,7 +15003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteVirtualMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15015,7 +15021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachGroupPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15033,7 +15039,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15051,7 +15057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachUserPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15072,7 +15078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EnableMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -15081,7 +15087,9 @@
  (common-lisp:defun generate-credential-report ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "GenerateCredentialReport"
+                                :params
                                 `(("Action" ,@"GenerateCredentialReport")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "GenerateCredentialReportResult" *error-map*))
@@ -15101,7 +15109,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GenerateOrganizationsAccessReport"
                                                         "2010-05-08"))
       common-lisp:nil "GenerateOrganizationsAccessReportResult" *error-map*)))
@@ -15120,7 +15128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GenerateServiceLastAccessedDetails"
                                                         "2010-05-08"))
       common-lisp:nil "GenerateServiceLastAccessedDetailsResult" *error-map*)))
@@ -15138,7 +15146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetAccessKeyLastUsed"
                                                         "2010-05-08"))
       common-lisp:nil "GetAccessKeyLastUsedResult" *error-map*)))
@@ -15157,7 +15165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetAccountAuthorizationDetails"
                                                         "2010-05-08"))
       common-lisp:nil "GetAccountAuthorizationDetailsResult" *error-map*)))
@@ -15166,7 +15174,9 @@
  (common-lisp:defun get-account-password-policy ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "GetAccountPasswordPolicy"
+                                :params
                                 `(("Action" ,@"GetAccountPasswordPolicy")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "GetAccountPasswordPolicyResult" *error-map*))
@@ -15175,7 +15185,8 @@
  (common-lisp:defun get-account-summary ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "GetAccountSummary" :params
                                 `(("Action" ,@"GetAccountSummary")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "GetAccountSummaryResult" *error-map*))
@@ -15194,7 +15205,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetContextKeysForCustomPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetContextKeysForCustomPolicyResult" *error-map*)))
@@ -15214,7 +15225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetContextKeysForPrincipalPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetContextKeysForPrincipalPolicyResult" *error-map*)))
@@ -15223,7 +15234,8 @@
  (common-lisp:defun get-credential-report ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "GetCredentialReport" :params
                                 `(("Action" ,@"GetCredentialReport")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "GetCredentialReportResult" *error-map*))
@@ -15241,7 +15253,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetGroup"
+                                                        "POST" :query "/"
+                                                        "GetGroup"
                                                         "2010-05-08"))
       common-lisp:nil "GetGroupResult" *error-map*)))
  (common-lisp:export 'get-group))
@@ -15258,7 +15271,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetGroupPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetGroupPolicyResult" *error-map*)))
@@ -15276,7 +15289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil "GetInstanceProfileResult" *error-map*)))
@@ -15294,7 +15307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetLoginProfile"
                                                         "2010-05-08"))
       common-lisp:nil "GetLoginProfileResult" *error-map*)))
@@ -15313,7 +15326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil "GetOpenIDConnectProviderResult" *error-map*)))
@@ -15333,7 +15346,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetOrganizationsAccessReport"
                                                         "2010-05-08"))
       common-lisp:nil "GetOrganizationsAccessReportResult" *error-map*)))
@@ -15351,7 +15364,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetPolicy"
+                                                        "POST" :query "/"
+                                                        "GetPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetPolicyResult" *error-map*)))
  (common-lisp:export 'get-policy))
@@ -15368,7 +15382,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetPolicyVersion"
                                                         "2010-05-08"))
       common-lisp:nil "GetPolicyVersionResult" *error-map*)))
@@ -15386,7 +15400,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetRole"
+                                                        "POST" :query "/"
+                                                        "GetRole"
                                                         "2010-05-08"))
       common-lisp:nil "GetRoleResult" *error-map*)))
  (common-lisp:export 'get-role))
@@ -15403,7 +15418,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetRolePolicyResult" *error-map*)))
@@ -15421,7 +15436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil "GetSAMLProviderResult" *error-map*)))
@@ -15440,7 +15455,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetSSHPublicKey"
                                                         "2010-05-08"))
       common-lisp:nil "GetSSHPublicKeyResult" *error-map*)))
@@ -15458,7 +15473,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil "GetServerCertificateResult" *error-map*)))
@@ -15477,7 +15492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetServiceLastAccessedDetails"
                                                         "2010-05-08"))
       common-lisp:nil "GetServiceLastAccessedDetailsResult" *error-map*)))
@@ -15498,7 +15513,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetServiceLastAccessedDetailsWithEntities"
                                                         "2010-05-08"))
       common-lisp:nil "GetServiceLastAccessedDetailsWithEntitiesResult"
@@ -15518,7 +15533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetServiceLinkedRoleDeletionStatus"
                                                         "2010-05-08"))
       common-lisp:nil "GetServiceLinkedRoleDeletionStatusResult" *error-map*)))
@@ -15536,7 +15551,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetUser"
+                                                        "POST" :query "/"
+                                                        "GetUser"
                                                         "2010-05-08"))
       common-lisp:nil "GetUserResult" *error-map*)))
  (common-lisp:export 'get-user))
@@ -15553,7 +15569,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetUserPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "GetUserPolicyResult" *error-map*)))
@@ -15571,7 +15587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAccessKeys"
                                                         "2010-05-08"))
       common-lisp:nil "ListAccessKeysResult" *error-map*)))
@@ -15589,7 +15605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAccountAliases"
                                                         "2010-05-08"))
       common-lisp:nil "ListAccountAliasesResult" *error-map*)))
@@ -15609,7 +15625,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAttachedGroupPolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListAttachedGroupPoliciesResult" *error-map*)))
@@ -15629,7 +15645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAttachedRolePolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListAttachedRolePoliciesResult" *error-map*)))
@@ -15649,7 +15665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAttachedUserPolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListAttachedUserPoliciesResult" *error-map*)))
@@ -15670,7 +15686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListEntitiesForPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "ListEntitiesForPolicyResult" *error-map*)))
@@ -15688,7 +15704,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListGroupPolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListGroupPoliciesResult" *error-map*)))
@@ -15706,7 +15722,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListGroups"
+                                                        "POST" :query "/"
+                                                        "ListGroups"
                                                         "2010-05-08"))
       common-lisp:nil "ListGroupsResult" *error-map*)))
  (common-lisp:export 'list-groups))
@@ -15723,7 +15740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListGroupsForUser"
                                                         "2010-05-08"))
       common-lisp:nil "ListGroupsForUserResult" *error-map*)))
@@ -15743,7 +15760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListInstanceProfileTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListInstanceProfileTagsResult" *error-map*)))
@@ -15761,7 +15778,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListInstanceProfiles"
                                                         "2010-05-08"))
       common-lisp:nil "ListInstanceProfilesResult" *error-map*)))
@@ -15780,7 +15797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListInstanceProfilesForRole"
                                                         "2010-05-08"))
       common-lisp:nil "ListInstanceProfilesForRoleResult" *error-map*)))
@@ -15798,7 +15815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListMFADeviceTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListMFADeviceTagsResult" *error-map*)))
@@ -15816,7 +15833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListMFADevices"
                                                         "2010-05-08"))
       common-lisp:nil "ListMFADevicesResult" *error-map*)))
@@ -15837,7 +15854,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListOpenIDConnectProviderTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListOpenIDConnectProviderTagsResult" *error-map*)))
@@ -15846,7 +15863,9 @@
  (common-lisp:defun list-open-idconnect-providers ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "ListOpenIDConnectProviders"
+                                :params
                                 `(("Action" ,@"ListOpenIDConnectProviders")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "ListOpenIDConnectProvidersResult" *error-map*))
@@ -15867,7 +15886,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListPoliciesResult" *error-map*)))
@@ -15886,7 +15905,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPoliciesGrantingServiceAccess"
                                                         "2010-05-08"))
       common-lisp:nil "ListPoliciesGrantingServiceAccessResult" *error-map*)))
@@ -15904,7 +15923,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPolicyTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListPolicyTagsResult" *error-map*)))
@@ -15922,7 +15941,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListPolicyVersions"
                                                         "2010-05-08"))
       common-lisp:nil "ListPolicyVersionsResult" *error-map*)))
@@ -15940,7 +15959,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListRolePolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListRolePoliciesResult" *error-map*)))
@@ -15958,7 +15977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListRoleTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListRoleTagsResult" *error-map*)))
@@ -15976,7 +15995,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListRoles"
+                                                        "POST" :query "/"
+                                                        "ListRoles"
                                                         "2010-05-08"))
       common-lisp:nil "ListRolesResult" *error-map*)))
  (common-lisp:export 'list-roles))
@@ -15994,7 +16014,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSAMLProviderTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListSAMLProviderTagsResult" *error-map*)))
@@ -16003,7 +16023,8 @@
  (common-lisp:defun list-samlproviders ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'iam-request :method "POST" :path "/" :protocol
+                                :query :operation "ListSAMLProviders" :params
                                 `(("Action" ,@"ListSAMLProviders")
                                   ("Version" ,@"2010-05-08"))))
     common-lisp:nil "ListSAMLProvidersResult" *error-map*))
@@ -16021,7 +16042,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSSHPublicKeys"
                                                         "2010-05-08"))
       common-lisp:nil "ListSSHPublicKeysResult" *error-map*)))
@@ -16041,7 +16062,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListServerCertificateTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListServerCertificateTagsResult" *error-map*)))
@@ -16059,7 +16080,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListServerCertificates"
                                                         "2010-05-08"))
       common-lisp:nil "ListServerCertificatesResult" *error-map*)))
@@ -16078,7 +16099,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListServiceSpecificCredentials"
                                                         "2010-05-08"))
       common-lisp:nil "ListServiceSpecificCredentialsResult" *error-map*)))
@@ -16097,7 +16118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListSigningCertificates"
                                                         "2010-05-08"))
       common-lisp:nil "ListSigningCertificatesResult" *error-map*)))
@@ -16115,7 +16136,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListUserPolicies"
                                                         "2010-05-08"))
       common-lisp:nil "ListUserPoliciesResult" *error-map*)))
@@ -16133,7 +16154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListUserTags"
                                                         "2010-05-08"))
       common-lisp:nil "ListUserTagsResult" *error-map*)))
@@ -16151,7 +16172,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListUsers"
+                                                        "POST" :query "/"
+                                                        "ListUsers"
                                                         "2010-05-08"))
       common-lisp:nil "ListUsersResult" *error-map*)))
  (common-lisp:export 'list-users))
@@ -16169,7 +16191,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListVirtualMFADevices"
                                                         "2010-05-08"))
       common-lisp:nil "ListVirtualMFADevicesResult" *error-map*)))
@@ -16188,7 +16210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutGroupPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16207,7 +16229,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutRolePermissionsBoundary"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16226,7 +16248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16245,7 +16267,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutUserPermissionsBoundary"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16264,7 +16286,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutUserPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16284,7 +16306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveClientIDFromOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16304,7 +16326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveRoleFromInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16322,7 +16344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveUserFromGroup"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16342,7 +16364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetServiceSpecificCredential"
                                                         "2010-05-08"))
       common-lisp:nil "ResetServiceSpecificCredentialResult" *error-map*)))
@@ -16363,7 +16385,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResyncMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16382,7 +16404,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetDefaultPolicyVersion"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16401,7 +16423,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetSecurityTokenServicePreferences"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16426,7 +16448,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SimulateCustomPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "SimulateCustomPolicyResult" *error-map*)))
@@ -16452,7 +16474,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SimulatePrincipalPolicy"
                                                         "2010-05-08"))
       common-lisp:nil "SimulatePrincipalPolicyResult" *error-map*)))
@@ -16470,7 +16492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16488,7 +16510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16508,7 +16530,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16526,7 +16548,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TagPolicy"
+                                                        "POST" :query "/"
+                                                        "TagPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-policy))
@@ -16543,7 +16566,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TagRole"
+                                                        "POST" :query "/"
+                                                        "TagRole"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-role))
@@ -16560,7 +16584,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16578,7 +16602,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TagServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16596,7 +16620,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "TagUser"
+                                                        "POST" :query "/"
+                                                        "TagUser"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-user))
@@ -16613,7 +16638,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagInstanceProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16631,7 +16656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagMFADevice"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16651,7 +16676,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagOpenIDConnectProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16669,7 +16694,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16687,7 +16712,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UntagRole"
+                                                        "POST" :query "/"
+                                                        "UntagRole"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-role))
@@ -16704,7 +16730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16723,7 +16749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UntagServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16741,7 +16767,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UntagUser"
+                                                        "POST" :query "/"
+                                                        "UntagUser"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-user))
@@ -16758,7 +16785,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateAccessKey"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16785,7 +16812,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateAccountPasswordPolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16804,7 +16831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateAssumeRolePolicy"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16823,7 +16850,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateGroup"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16843,7 +16870,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateLoginProfile"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16864,7 +16891,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateOpenIDConnectProviderThumbprint"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16884,7 +16911,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateRole"
+                                                        "POST" :query "/"
+                                                        "UpdateRole"
                                                         "2010-05-08"))
       common-lisp:nil "UpdateRoleResult" *error-map*)))
  (common-lisp:export 'update-role))
@@ -16901,7 +16929,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateRoleDescription"
                                                         "2010-05-08"))
       common-lisp:nil "UpdateRoleDescriptionResult" *error-map*)))
@@ -16920,7 +16948,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateSAMLProvider"
                                                         "2010-05-08"))
       common-lisp:nil "UpdateSAMLProviderResult" *error-map*)))
@@ -16939,7 +16967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateSSHPublicKey"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16961,7 +16989,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -16982,7 +17010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateServiceSpecificCredential"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17002,7 +17030,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateSigningCertificate"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17021,7 +17049,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateUser"
+                                                        "POST" :query "/"
+                                                        "UpdateUser"
                                                         "2010-05-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-user))
@@ -17038,7 +17067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UploadSSHPublicKey"
                                                         "2010-05-08"))
       common-lisp:nil "UploadSSHPublicKeyResult" *error-map*)))
@@ -17060,7 +17089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UploadServerCertificate"
                                                         "2010-05-08"))
       common-lisp:nil "UploadServerCertificateResult" *error-map*)))
@@ -17079,7 +17108,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iam-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UploadSigningCertificate"
                                                         "2010-05-08"))
       common-lisp:nil "UploadSigningCertificateResult" *error-map*)))

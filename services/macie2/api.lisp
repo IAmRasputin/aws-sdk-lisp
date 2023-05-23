@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/macie2/api)
 (common-lisp:progn
  (common-lisp:defclass macie2-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "macie2"))
+                       (:default-initargs :service "macie2" :protocol
+                        :rest-json))
  (common-lisp:export 'macie2-request))
 (common-lisp:progn
  (common-lisp:define-condition macie2-error
@@ -13131,7 +13132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/accept"
                                                         "AcceptInvitation"
                                                         "2020-01-01"))
@@ -13151,7 +13152,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/custom-data-identifiers/get"
                                                         "BatchGetCustomDataIdentifiers"
                                                         "2020-01-01"))
@@ -13172,7 +13173,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/allow-lists"
+                                                        "POST" :rest-json
+                                                        "/allow-lists"
                                                         "CreateAllowList"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13199,7 +13201,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobs"
+                                                        "POST" :rest-json
+                                                        "/jobs"
                                                         "CreateClassificationJob"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13222,7 +13225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/custom-data-identifiers"
                                                         "CreateCustomDataIdentifier"
                                                         "2020-01-01"))
@@ -13244,7 +13247,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findingsfilters"
                                                         "CreateFindingsFilter"
                                                         "2020-01-01"))
@@ -13265,7 +13268,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/invitations"
+                                                        "POST" :rest-json
+                                                        "/invitations"
                                                         "CreateInvitations"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13283,7 +13287,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/members"
+                                                        "POST" :rest-json
+                                                        "/members"
                                                         "CreateMember"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13301,7 +13306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findings/sample"
                                                         "CreateSampleFindings"
                                                         "2020-01-01"))
@@ -13320,7 +13325,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/decline"
                                                         "DeclineInvitations"
                                                         "2020-01-01"))
@@ -13339,7 +13344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13368,7 +13373,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13396,7 +13401,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13424,7 +13429,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/invitations/delete"
                                                         "DeleteInvitations"
                                                         "2020-01-01"))
@@ -13443,7 +13448,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13473,7 +13478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/datasources/s3"
                                                         "DescribeBuckets"
                                                         "2020-01-01"))
@@ -13493,7 +13498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13513,7 +13518,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/admin/configuration" :params
+                                "/admin/configuration" :protocol :rest-json
+                                :operation "DescribeOrganizationConfiguration"
+                                :params
                                 `(("Action"
                                    ,@"DescribeOrganizationConfiguration")
                                   ("Version" ,@"2020-01-01"))))
@@ -13524,6 +13531,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "DELETE" :path "/macie"
+                                :protocol :rest-json :operation "DisableMacie"
                                 :params
                                 `(("Action" ,@"DisableMacie")
                                   ("Version" ,@"2020-01-01"))))
@@ -13543,7 +13551,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE" "/admin"
+                                                        "DELETE" :rest-json
+                                                        "/admin"
                                                         "DisableOrganizationAdminAccount"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13553,7 +13562,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "POST" :path
-                                "/administrator/disassociate" :params
+                                "/administrator/disassociate" :protocol
+                                :rest-json :operation
+                                "DisassociateFromAdministratorAccount" :params
                                 `(("Action"
                                    ,@"DisassociateFromAdministratorAccount")
                                   ("Version" ,@"2020-01-01"))))
@@ -13564,7 +13575,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "POST" :path
-                                "/master/disassociate" :params
+                                "/master/disassociate" :protocol :rest-json
+                                :operation "DisassociateFromMasterAccount"
+                                :params
                                 `(("Action" ,@"DisassociateFromMasterAccount")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13582,7 +13595,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13612,8 +13625,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/macie"
-                                                        "EnableMacie"
+                                                        "POST" :rest-json
+                                                        "/macie" "EnableMacie"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable-macie))
@@ -13631,7 +13644,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/admin"
+                                                        "POST" :rest-json
+                                                        "/admin"
                                                         "EnableOrganizationAdminAccount"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -13641,7 +13655,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/administrator" :params
+                                "/administrator" :protocol :rest-json
+                                :operation "GetAdministratorAccount" :params
                                 `(("Action" ,@"GetAdministratorAccount")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13659,7 +13674,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13679,7 +13694,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/automated-discovery/configuration" :params
+                                "/automated-discovery/configuration" :protocol
+                                :rest-json :operation
+                                "GetAutomatedDiscoveryConfiguration" :params
                                 `(("Action"
                                    ,@"GetAutomatedDiscoveryConfiguration")
                                   ("Version" ,@"2020-01-01"))))
@@ -13698,7 +13715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/datasources/s3/statistics"
                                                         "GetBucketStatistics"
                                                         "2020-01-01"))
@@ -13709,7 +13726,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/classification-export-configuration" :params
+                                "/classification-export-configuration"
+                                :protocol :rest-json :operation
+                                "GetClassificationExportConfiguration" :params
                                 `(("Action"
                                    ,@"GetClassificationExportConfiguration")
                                   ("Version" ,@"2020-01-01"))))
@@ -13728,7 +13747,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13757,7 +13776,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13787,7 +13806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findings/statistics"
                                                         "GetFindingStatistics"
                                                         "2020-01-01"))
@@ -13806,7 +13825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findings/describe"
                                                         "GetFindings"
                                                         "2020-01-01"))
@@ -13825,7 +13844,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13845,7 +13864,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/findings-publication-configuration" :params
+                                "/findings-publication-configuration" :protocol
+                                :rest-json :operation
+                                "GetFindingsPublicationConfiguration" :params
                                 `(("Action"
                                    ,@"GetFindingsPublicationConfiguration")
                                   ("Version" ,@"2020-01-01"))))
@@ -13856,7 +13877,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/invitations/count" :params
+                                "/invitations/count" :protocol :rest-json
+                                :operation "GetInvitationsCount" :params
                                 `(("Action" ,@"GetInvitationsCount")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13866,7 +13888,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path "/macie"
-                                :params
+                                :protocol :rest-json :operation
+                                "GetMacieSession" :params
                                 `(("Action" ,@"GetMacieSession")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13876,7 +13899,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path "/master"
-                                :params
+                                :protocol :rest-json :operation
+                                "GetMasterAccount" :params
                                 `(("Action" ,@"GetMasterAccount")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13894,7 +13918,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13922,7 +13946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/resource-profiles"
                                                         "GetResourceProfile"
                                                         "2020-01-01"))
@@ -13933,7 +13957,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'macie2-request :method "GET" :path
-                                "/reveal-configuration" :params
+                                "/reveal-configuration" :protocol :rest-json
+                                :operation "GetRevealConfiguration" :params
                                 `(("Action" ,@"GetRevealConfiguration")
                                   ("Version" ,@"2020-01-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -13952,7 +13977,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -13981,7 +14006,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14010,7 +14035,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14041,7 +14066,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/usage/statistics"
                                                         "GetUsageStatistics"
                                                         "2020-01-01"))
@@ -14060,7 +14085,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/usage"
+                                                        "GET" :rest-json
+                                                        "/usage"
                                                         "GetUsageTotals"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14078,7 +14104,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/allow-lists"
+                                                        "GET" :rest-json
+                                                        "/allow-lists"
                                                         "ListAllowLists"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14099,7 +14126,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobs/list"
+                                                        "POST" :rest-json
+                                                        "/jobs/list"
                                                         "ListClassificationJobs"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14118,7 +14146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/classification-scopes"
                                                         "ListClassificationScopes"
                                                         "2020-01-01"))
@@ -14138,7 +14166,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/custom-data-identifiers/list"
                                                         "ListCustomDataIdentifiers"
                                                         "2020-01-01"))
@@ -14160,7 +14188,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/findings"
+                                                        "POST" :rest-json
+                                                        "/findings"
                                                         "ListFindings"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14178,7 +14207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/findingsfilters"
                                                         "ListFindingsFilters"
                                                         "2020-01-01"))
@@ -14197,7 +14226,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/invitations"
+                                                        "GET" :rest-json
+                                                        "/invitations"
                                                         "ListInvitations"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14216,7 +14246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/managed-data-identifiers/list"
                                                         "ListManagedDataIdentifiers"
                                                         "2020-01-01"))
@@ -14236,7 +14266,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/members"
+                                                        "GET" :rest-json
+                                                        "/members"
                                                         "ListMembers"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14255,7 +14286,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/admin"
+                                                        "GET" :rest-json
+                                                        "/admin"
                                                         "ListOrganizationAdminAccounts"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14274,7 +14306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/resource-profiles/artifacts"
                                                         "ListResourceProfileArtifacts"
                                                         "2020-01-01"))
@@ -14295,7 +14327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/resource-profiles/detections"
                                                         "ListResourceProfileDetections"
                                                         "2020-01-01"))
@@ -14315,7 +14347,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/templates/sensitivity-inspections"
                                                         "ListSensitivityInspectionTemplates"
                                                         "2020-01-01"))
@@ -14334,7 +14366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14363,7 +14395,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/classification-export-configuration"
                                                         "PutClassificationExportConfiguration"
                                                         "2020-01-01"))
@@ -14384,7 +14416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/findings-publication-configuration"
                                                         "PutFindingsPublicationConfiguration"
                                                         "2020-01-01"))
@@ -14406,7 +14438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/datasources/search-resources"
                                                         "SearchResources"
                                                         "2020-01-01"))
@@ -14425,7 +14457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14457,7 +14489,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/custom-data-identifiers/test"
                                                         "TestCustomDataIdentifier"
                                                         "2020-01-01"))
@@ -14476,7 +14508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14504,7 +14536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14533,7 +14565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/automated-discovery/configuration"
                                                         "UpdateAutomatedDiscoveryConfiguration"
                                                         "2020-01-01"))
@@ -14553,7 +14585,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14582,7 +14614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14613,7 +14645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14642,7 +14674,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH" "/macie"
+                                                        "PATCH" :rest-json
+                                                        "/macie"
                                                         "UpdateMacieSession"
                                                         "2020-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -14660,7 +14693,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -14689,7 +14722,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         "/admin/configuration"
                                                         "UpdateOrganizationConfiguration"
                                                         "2020-01-01"))
@@ -14709,7 +14742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         "/resource-profiles"
                                                         "UpdateResourceProfile"
                                                         "2020-01-01"))
@@ -14730,7 +14763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PATCH"
+                                                        "PATCH" :rest-json
                                                         "/resource-profiles/detections"
                                                         "UpdateResourceProfileDetections"
                                                         "2020-01-01"))
@@ -14750,7 +14783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/reveal-configuration"
                                                         "UpdateRevealConfiguration"
                                                         "2020-01-01"))
@@ -14771,7 +14804,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'macie2-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

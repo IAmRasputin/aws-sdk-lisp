@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/redshift/api)
 (common-lisp:progn
  (common-lisp:defclass redshift-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "redshift"))
+                       common-lisp:nil
+                       (:default-initargs :service "redshift" :protocol
+                        :query))
  (common-lisp:export 'redshift-request))
 (common-lisp:progn
  (common-lisp:define-condition redshift-error
@@ -16617,7 +16619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AcceptReservedNodeExchange"
                                                         "2012-12-01"))
       common-lisp:nil "AcceptReservedNodeExchangeResult" *error-map*)))
@@ -16639,7 +16641,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AddPartner"
+                                                        "POST" :query "/"
+                                                        "AddPartner"
                                                         "2012-12-01"))
       common-lisp:nil "AddPartnerResult" *error-map*)))
  (common-lisp:export 'add-partner))
@@ -16660,7 +16663,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AssociateDataShareConsumer"
                                                         "2012-12-01"))
       common-lisp:nil "AssociateDataShareConsumerResult" *error-map*)))
@@ -16682,7 +16685,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeClusterSecurityGroupIngress"
                                                         "2012-12-01"))
       common-lisp:nil "AuthorizeClusterSecurityGroupIngressResult"
@@ -16702,7 +16705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeDataShare"
                                                         "2012-12-01"))
       common-lisp:nil "AuthorizeDataShareResult" *error-map*)))
@@ -16722,7 +16725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "AuthorizeEndpointAccessResult" *error-map*)))
@@ -16744,7 +16747,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeSnapshotAccess"
                                                         "2012-12-01"))
       common-lisp:nil "AuthorizeSnapshotAccessResult" *error-map*)))
@@ -16763,7 +16766,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchDeleteClusterSnapshots"
                                                         "2012-12-01"))
       common-lisp:nil "BatchDeleteClusterSnapshotsResult" *error-map*)))
@@ -16785,7 +16788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchModifyClusterSnapshots"
                                                         "2012-12-01"))
       common-lisp:nil "BatchModifyClusterSnapshotsResult" *error-map*)))
@@ -16803,7 +16806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CancelResize"
                                                         "2012-12-01"))
       common-lisp:nil "CancelResizeResult" *error-map*)))
@@ -16827,7 +16830,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopyClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "CopyClusterSnapshotResult" *error-map*)))
@@ -16849,7 +16852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateAuthenticationProfile"
                                                         "2012-12-01"))
       common-lisp:nil "CreateAuthenticationProfileResult" *error-map*)))
@@ -16891,7 +16894,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCluster"
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterResult" *error-map*)))
@@ -16913,7 +16916,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateClusterParameterGroup"
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterParameterGroupResult" *error-map*)))
@@ -16934,7 +16937,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateClusterSecurityGroup"
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterSecurityGroupResult" *error-map*)))
@@ -16955,7 +16958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterSnapshotResult" *error-map*)))
@@ -16977,7 +16980,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateClusterSubnetGroup"
                                                         "2012-12-01"))
       common-lisp:nil "CreateClusterSubnetGroupResult" *error-map*)))
@@ -16998,7 +17001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "CreateEndpointAccessResult" *error-map*)))
@@ -17021,7 +17024,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateEventSubscription"
                                                         "2012-12-01"))
       common-lisp:nil "CreateEventSubscriptionResult" *error-map*)))
@@ -17041,7 +17044,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateHsmClientCertificate"
                                                         "2012-12-01"))
       common-lisp:nil "CreateHsmClientCertificateResult" *error-map*)))
@@ -17064,7 +17067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateHsmConfiguration"
                                                         "2012-12-01"))
       common-lisp:nil "CreateHsmConfigurationResult" *error-map*)))
@@ -17086,7 +17089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateScheduledAction"
                                                         "2012-12-01"))
       common-lisp:nil "CreateScheduledActionResult" *error-map*)))
@@ -17106,7 +17109,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateSnapshotCopyGrant"
                                                         "2012-12-01"))
       common-lisp:nil "CreateSnapshotCopyGrantResult" *error-map*)))
@@ -17127,7 +17130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateSnapshotSchedule"
                                                         "2012-12-01"))
       common-lisp:nil "CreateSnapshotScheduleResult" *error-map*)))
@@ -17145,7 +17148,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateTags"
+                                                        "POST" :query "/"
+                                                        "CreateTags"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-tags))
@@ -17165,7 +17169,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateUsageLimit"
                                                         "2012-12-01"))
       common-lisp:nil "CreateUsageLimitResult" *error-map*)))
@@ -17184,7 +17188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeauthorizeDataShare"
                                                         "2012-12-01"))
       common-lisp:nil "DeauthorizeDataShareResult" *error-map*)))
@@ -17203,7 +17207,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAuthenticationProfile"
                                                         "2012-12-01"))
       common-lisp:nil "DeleteAuthenticationProfileResult" *error-map*)))
@@ -17227,7 +17231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCluster"
                                                         "2012-12-01"))
       common-lisp:nil "DeleteClusterResult" *error-map*)))
@@ -17246,7 +17250,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteClusterParameterGroup"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17265,7 +17269,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteClusterSecurityGroup"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17285,7 +17289,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "DeleteClusterSnapshotResult" *error-map*)))
@@ -17304,7 +17308,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteClusterSubnetGroup"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17322,7 +17326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "DeleteEndpointAccessResult" *error-map*)))
@@ -17341,7 +17345,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteEventSubscription"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17361,7 +17365,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteHsmClientCertificate"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17379,7 +17383,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteHsmConfiguration"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17401,7 +17405,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeletePartner"
                                                         "2012-12-01"))
       common-lisp:nil "DeletePartnerResult" *error-map*)))
@@ -17419,7 +17423,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteScheduledAction"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17438,7 +17442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSnapshotCopyGrant"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17456,7 +17460,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSnapshotSchedule"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17474,7 +17478,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTags"
+                                                        "POST" :query "/"
+                                                        "DeleteTags"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
@@ -17491,7 +17496,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteUsageLimit"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -17510,7 +17515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAccountAttributes"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeAccountAttributesResult" *error-map*)))
@@ -17529,7 +17534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAuthenticationProfiles"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeAuthenticationProfilesResult" *error-map*)))
@@ -17549,7 +17554,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterDbRevisions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterDbRevisionsResult" *error-map*)))
@@ -17571,7 +17576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterParameterGroups"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterParameterGroupsResult" *error-map*)))
@@ -17592,7 +17597,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterParameters"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterParametersResult" *error-map*)))
@@ -17614,7 +17619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterSecurityGroups"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterSecurityGroupsResult" *error-map*)))
@@ -17639,7 +17644,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterSnapshots"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterSnapshotsResult" *error-map*)))
@@ -17661,7 +17666,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterSubnetGroups"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterSubnetGroupsResult" *error-map*)))
@@ -17681,7 +17686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterTracks"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterTracksResult" *error-map*)))
@@ -17703,7 +17708,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusterVersions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClusterVersionsResult" *error-map*)))
@@ -17724,7 +17729,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeClusters"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeClustersResult" *error-map*)))
@@ -17743,7 +17748,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDataShares"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeDataSharesResult" *error-map*)))
@@ -17763,7 +17768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDataSharesForConsumer"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeDataSharesForConsumerResult" *error-map*)))
@@ -17783,7 +17788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDataSharesForProducer"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeDataSharesForProducerResult" *error-map*)))
@@ -17804,7 +17809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeDefaultClusterParameters"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeDefaultClusterParametersResult" *error-map*)))
@@ -17825,7 +17830,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeEndpointAccessResult" *error-map*)))
@@ -17847,7 +17852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEndpointAuthorization"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeEndpointAuthorizationResult" *error-map*)))
@@ -17866,7 +17871,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventCategories"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeEventCategoriesResult" *error-map*)))
@@ -17888,7 +17893,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEventSubscriptions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeEventSubscriptionsResult" *error-map*)))
@@ -17909,7 +17914,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEvents"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeEventsResult" *error-map*)))
@@ -17931,7 +17936,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeHsmClientCertificates"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeHsmClientCertificatesResult" *error-map*)))
@@ -17953,7 +17958,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeHsmConfigurations"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeHsmConfigurationsResult" *error-map*)))
@@ -17971,7 +17976,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeLoggingStatus"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeLoggingStatusResult" *error-map*)))
@@ -17994,7 +17999,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeNodeConfigurationOptions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeNodeConfigurationOptionsResult" *error-map*)))
@@ -18015,7 +18020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeOrderableClusterOptions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeOrderableClusterOptionsResult" *error-map*)))
@@ -18036,7 +18041,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribePartners"
                                                         "2012-12-01"))
       common-lisp:nil "DescribePartnersResult" *error-map*)))
@@ -18058,7 +18063,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedNodeExchangeStatus"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeReservedNodeExchangeStatusResult" *error-map*)))
@@ -18079,7 +18084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedNodeOfferings"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeReservedNodeOfferingsResult" *error-map*)))
@@ -18098,7 +18103,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedNodes"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeReservedNodesResult" *error-map*)))
@@ -18116,7 +18121,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeResize"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeResizeResult" *error-map*)))
@@ -18138,7 +18143,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeScheduledActions"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeScheduledActionsResult" *error-map*)))
@@ -18160,7 +18165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeSnapshotCopyGrants"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeSnapshotCopyGrantsResult" *error-map*)))
@@ -18182,7 +18187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeSnapshotSchedules"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeSnapshotSchedulesResult" *error-map*)))
@@ -18192,6 +18197,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'redshift-request :method "POST" :path "/"
+                                :protocol :query :operation "DescribeStorage"
                                 :params
                                 `(("Action" ,@"DescribeStorage")
                                   ("Version" ,@"2012-12-01"))))
@@ -18214,7 +18220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeTableRestoreStatus"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeTableRestoreStatusResult" *error-map*)))
@@ -18235,7 +18241,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeTags"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeTagsResult" *error-map*)))
@@ -18256,7 +18262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeUsageLimits"
                                                         "2012-12-01"))
       common-lisp:nil "DescribeUsageLimitsResult" *error-map*)))
@@ -18274,7 +18280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DisableLogging"
                                                         "2012-12-01"))
       common-lisp:nil "DisableLoggingResult" *error-map*)))
@@ -18292,7 +18298,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DisableSnapshotCopy"
                                                         "2012-12-01"))
       common-lisp:nil "DisableSnapshotCopyResult" *error-map*)))
@@ -18314,7 +18320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DisassociateDataShareConsumer"
                                                         "2012-12-01"))
       common-lisp:nil "DisassociateDataShareConsumerResult" *error-map*)))
@@ -18335,7 +18341,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EnableLogging"
                                                         "2012-12-01"))
       common-lisp:nil "EnableLoggingResult" *error-map*)))
@@ -18358,7 +18364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EnableSnapshotCopy"
                                                         "2012-12-01"))
       common-lisp:nil "EnableSnapshotCopyResult" *error-map*)))
@@ -18379,7 +18385,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetClusterCredentials"
                                                         "2012-12-01"))
       common-lisp:nil "GetClusterCredentialsResult" *error-map*)))
@@ -18400,7 +18406,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetClusterCredentialsWithIAM"
                                                         "2012-12-01"))
       common-lisp:nil "GetClusterCredentialsWithIAMResult" *error-map*)))
@@ -18422,7 +18428,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetReservedNodeExchangeConfigurationOptions"
                                                         "2012-12-01"))
       common-lisp:nil "GetReservedNodeExchangeConfigurationOptionsResult"
@@ -18443,7 +18449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetReservedNodeExchangeOfferings"
                                                         "2012-12-01"))
       common-lisp:nil "GetReservedNodeExchangeOfferingsResult" *error-map*)))
@@ -18463,7 +18469,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyAquaConfiguration"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyAquaConfigurationResult" *error-map*)))
@@ -18485,7 +18491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyAuthenticationProfile"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyAuthenticationProfileResult" *error-map*)))
@@ -18523,7 +18529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCluster"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterResult" *error-map*)))
@@ -18543,7 +18549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterDbRevision"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterDbRevisionResult" *error-map*)))
@@ -18564,7 +18570,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterIamRoles"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterIamRolesResult" *error-map*)))
@@ -18588,7 +18594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterMaintenance"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterMaintenanceResult" *error-map*)))
@@ -18608,7 +18614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterParameterGroup"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterParameterGroupResult" *error-map*)))
@@ -18629,7 +18635,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterSnapshotResult" *error-map*)))
@@ -18651,7 +18657,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterSnapshotSchedule"
                                                         "2012-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -18672,7 +18678,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyClusterSubnetGroup"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyClusterSubnetGroupResult" *error-map*)))
@@ -18691,7 +18697,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyEndpointAccessResult" *error-map*)))
@@ -18713,7 +18719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyEventSubscription"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyEventSubscriptionResult" *error-map*)))
@@ -18735,7 +18741,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyScheduledAction"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyScheduledActionResult" *error-map*)))
@@ -18756,7 +18762,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifySnapshotCopyRetentionPeriod"
                                                         "2012-12-01"))
       common-lisp:nil "ModifySnapshotCopyRetentionPeriodResult" *error-map*)))
@@ -18775,7 +18781,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifySnapshotSchedule"
                                                         "2012-12-01"))
       common-lisp:nil "ModifySnapshotScheduleResult" *error-map*)))
@@ -18794,7 +18800,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyUsageLimit"
                                                         "2012-12-01"))
       common-lisp:nil "ModifyUsageLimitResult" *error-map*)))
@@ -18812,7 +18818,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PauseCluster"
                                                         "2012-12-01"))
       common-lisp:nil "PauseClusterResult" *error-map*)))
@@ -18832,7 +18838,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PurchaseReservedNodeOffering"
                                                         "2012-12-01"))
       common-lisp:nil "PurchaseReservedNodeOfferingResult" *error-map*)))
@@ -18850,7 +18856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebootCluster"
                                                         "2012-12-01"))
       common-lisp:nil "RebootClusterResult" *error-map*)))
@@ -18868,7 +18874,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RejectDataShare"
                                                         "2012-12-01"))
       common-lisp:nil "RejectDataShareResult" *error-map*)))
@@ -18890,7 +18896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetClusterParameterGroup"
                                                         "2012-12-01"))
       common-lisp:nil "ResetClusterParameterGroupResult" *error-map*)))
@@ -18913,7 +18919,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResizeCluster"
                                                         "2012-12-01"))
       common-lisp:nil "ResizeClusterResult" *error-map*)))
@@ -18959,7 +18965,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreFromClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "RestoreFromClusterSnapshotResult" *error-map*)))
@@ -18985,7 +18991,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RestoreTableFromClusterSnapshot"
                                                         "2012-12-01"))
       common-lisp:nil "RestoreTableFromClusterSnapshotResult" *error-map*)))
@@ -19003,7 +19009,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResumeCluster"
                                                         "2012-12-01"))
       common-lisp:nil "ResumeClusterResult" *error-map*)))
@@ -19025,7 +19031,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RevokeClusterSecurityGroupIngress"
                                                         "2012-12-01"))
       common-lisp:nil "RevokeClusterSecurityGroupIngressResult" *error-map*)))
@@ -19044,7 +19050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RevokeEndpointAccess"
                                                         "2012-12-01"))
       common-lisp:nil "RevokeEndpointAccessResult" *error-map*)))
@@ -19065,7 +19071,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RevokeSnapshotAccess"
                                                         "2012-12-01"))
       common-lisp:nil "RevokeSnapshotAccessResult" *error-map*)))
@@ -19083,7 +19089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RotateEncryptionKey"
                                                         "2012-12-01"))
       common-lisp:nil "RotateEncryptionKeyResult" *error-map*)))
@@ -19105,7 +19111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdatePartnerStatus"
                                                         "2012-12-01"))
       common-lisp:nil "UpdatePartnerStatusResult" *error-map*)))

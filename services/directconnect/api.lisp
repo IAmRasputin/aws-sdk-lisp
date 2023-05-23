@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass directconnect-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "directconnect"))
+                       (:default-initargs :service "directconnect" :protocol
+                        :json))
  (common-lisp:export 'directconnect-request))
 (common-lisp:progn
  (common-lisp:define-condition directconnect-error
@@ -7110,7 +7111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcceptDirectConnectGatewayAssociationProposal"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7132,7 +7133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocateConnectionOnInterconnect"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7154,7 +7155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocateHostedConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7176,7 +7177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocatePrivateVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7198,7 +7199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocatePublicVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7220,7 +7221,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AllocateTransitVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7239,7 +7240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateConnectionWithLag"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7259,7 +7260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateHostedConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7278,7 +7279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateMacSecKey"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7298,7 +7299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7316,7 +7317,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7335,7 +7336,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmCustomerAgreement"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7357,7 +7358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmPrivateVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7376,7 +7377,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmPublicVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7397,7 +7398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ConfirmTransitVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7416,7 +7417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBGPPeer"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7437,7 +7438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7458,7 +7459,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDirectConnectGateway"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7481,7 +7482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDirectConnectGatewayAssociation"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7507,7 +7508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDirectConnectGatewayAssociationProposal"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7528,7 +7529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInterconnect"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7551,7 +7552,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateLag"
+                                                        "POST" :json "/"
+                                                        "CreateLag"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-lag))
@@ -7571,7 +7573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePrivateVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7592,7 +7594,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePublicVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7613,7 +7615,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateTransitVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7634,7 +7636,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteBGPPeer"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7652,7 +7654,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7671,7 +7673,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDirectConnectGateway"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7693,7 +7695,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDirectConnectGatewayAssociation"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7712,7 +7714,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDirectConnectGatewayAssociationProposal"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7730,7 +7732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInterconnect"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7748,7 +7750,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteLag"
+                                                        "POST" :json "/"
+                                                        "DeleteLag"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-lag))
@@ -7765,7 +7768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteVirtualInterface"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7785,7 +7788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnectionLoa"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7803,7 +7806,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnections"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7822,7 +7825,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConnectionsOnInterconnect"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7832,7 +7835,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'directconnect-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeCustomerMetadata" :params
                                 `(("Action" ,@"DescribeCustomerMetadata")
                                   ("Version" ,@"2012-10-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7854,7 +7858,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectConnectGatewayAssociationProposals"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7877,7 +7881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectConnectGatewayAssociations"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7899,7 +7903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectConnectGatewayAttachments"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7920,7 +7924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDirectConnectGateways"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7939,7 +7943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeHostedConnections"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7960,7 +7964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInterconnectLoa"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7978,7 +7982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInterconnects"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7996,7 +8000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLags"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8016,7 +8020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeLoa"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8026,6 +8030,7 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'directconnect-request :method "POST" :path "/"
+                                :protocol :json :operation "DescribeLocations"
                                 :params
                                 `(("Action" ,@"DescribeLocations")
                                   ("Version" ,@"2012-10-25"))))
@@ -8047,7 +8052,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRouterConfiguration"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8065,7 +8070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTags"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8075,7 +8080,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'directconnect-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "DescribeVirtualGateways" :params
                                 `(("Action" ,@"DescribeVirtualGateways")
                                   ("Version" ,@"2012-10-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8095,7 +8101,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeVirtualInterfaces"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8114,7 +8120,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateConnectionFromLag"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8132,7 +8138,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateMacSecKey"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8154,7 +8160,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListVirtualInterfaceTestHistory"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8175,7 +8181,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartBgpFailoverTest"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8193,7 +8199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopBgpFailoverTest"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8211,7 +8217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8229,7 +8235,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8249,7 +8255,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateConnection"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8271,7 +8277,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDirectConnectGateway"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8295,7 +8301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDirectConnectGatewayAssociation"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8315,7 +8321,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateLag"
+                                                        "POST" :json "/"
+                                                        "UpdateLag"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-lag))
@@ -8336,7 +8343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'directconnect-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateVirtualInterfaceAttributes"
                                                         "2012-10-25"))
       common-lisp:nil common-lisp:nil *error-map*)))

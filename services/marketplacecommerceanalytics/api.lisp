@@ -13,7 +13,7 @@
  (common-lisp:defclass marketplacecommerceanalytics-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "marketplacecommerceanalytics"))
+                        "marketplacecommerceanalytics" :protocol :json))
  (common-lisp:export 'marketplacecommerceanalytics-request))
 (common-lisp:progn
  (common-lisp:define-condition marketplacecommerceanalytics-error
@@ -311,7 +311,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'marketplacecommerceanalytics-request
-        aws-sdk/generator/operation::input "POST" "/" "GenerateDataSet"
+        aws-sdk/generator/operation::input "POST" :json "/" "GenerateDataSet"
         "2015-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'generate-data-set))
@@ -334,7 +334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'marketplacecommerceanalytics-request
-        aws-sdk/generator/operation::input "POST" "/" "StartSupportDataExport"
-        "2015-07-01"))
+        aws-sdk/generator/operation::input "POST" :json "/"
+        "StartSupportDataExport" "2015-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-support-data-export))

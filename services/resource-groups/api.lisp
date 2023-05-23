@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass resource-groups-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "resource-groups"))
+                       (:default-initargs :service "resource-groups" :protocol
+                        :rest-json))
  (common-lisp:export 'resource-groups-request))
 (common-lisp:progn
  (common-lisp:define-condition resource-groups-error
@@ -2101,7 +2102,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/groups" "CreateGroup" "2017-11-27"))
+        :rest-json "/groups" "CreateGroup" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-group))
 (common-lisp:progn
@@ -2117,7 +2118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/delete-group" "DeleteGroup" "2017-11-27"))
+        :rest-json "/delete-group" "DeleteGroup" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-group))
 (common-lisp:progn
@@ -2125,7 +2126,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'resource-groups-request :method "POST" :path
-                                "/get-account-settings" :params
+                                "/get-account-settings" :protocol :rest-json
+                                :operation "GetAccountSettings" :params
                                 `(("Action" ,@"GetAccountSettings")
                                   ("Version" ,@"2017-11-27"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -2143,7 +2145,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/get-group" "GetGroup" "2017-11-27"))
+        :rest-json "/get-group" "GetGroup" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group))
 (common-lisp:progn
@@ -2159,7 +2161,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/get-group-configuration" "GetGroupConfiguration" "2017-11-27"))
+        :rest-json "/get-group-configuration" "GetGroupConfiguration"
+        "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group-configuration))
 (common-lisp:progn
@@ -2175,7 +2178,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/get-group-query" "GetGroupQuery" "2017-11-27"))
+        :rest-json "/get-group-query" "GetGroupQuery" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group-query))
 (common-lisp:progn
@@ -2191,6 +2194,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/resources/~A/tags"
                               (quri.encode:url-encode
@@ -2212,7 +2216,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/group-resources" "GroupResources" "2017-11-27"))
+        :rest-json "/group-resources" "GroupResources" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'group-resources))
 (common-lisp:progn
@@ -2230,7 +2234,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/list-group-resources" "ListGroupResources" "2017-11-27"))
+        :rest-json "/list-group-resources" "ListGroupResources" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-group-resources))
 (common-lisp:progn
@@ -2246,7 +2250,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/groups-list" "ListGroups" "2017-11-27"))
+        :rest-json "/groups-list" "ListGroups" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-groups))
 (common-lisp:progn
@@ -2262,7 +2266,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/put-group-configuration" "PutGroupConfiguration" "2017-11-27"))
+        :rest-json "/put-group-configuration" "PutGroupConfiguration"
+        "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-group-configuration))
 (common-lisp:progn
@@ -2279,7 +2284,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/resources/search" "SearchResources" "2017-11-27"))
+        :rest-json "/resources/search" "SearchResources" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-resources))
 (common-lisp:progn
@@ -2295,6 +2300,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/resources/~A/tags"
                               (quri.encode:url-encode
@@ -2316,7 +2322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/ungroup-resources" "UngroupResources" "2017-11-27"))
+        :rest-json "/ungroup-resources" "UngroupResources" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'ungroup-resources))
 (common-lisp:progn
@@ -2332,6 +2338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "PATCH"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/resources/~A/tags"
                               (quri.encode:url-encode
@@ -2354,7 +2361,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/update-account-settings" "UpdateAccountSettings" "2017-11-27"))
+        :rest-json "/update-account-settings" "UpdateAccountSettings"
+        "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-account-settings))
 (common-lisp:progn
@@ -2370,7 +2378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/update-group" "UpdateGroup" "2017-11-27"))
+        :rest-json "/update-group" "UpdateGroup" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-group))
 (common-lisp:progn
@@ -2387,6 +2395,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'resource-groups-request aws-sdk/generator/operation::input "POST"
-        "/update-group-query" "UpdateGroupQuery" "2017-11-27"))
+        :rest-json "/update-group-query" "UpdateGroupQuery" "2017-11-27"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-group-query))

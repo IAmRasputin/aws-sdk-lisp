@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass connectcampaigns-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "connectcampaigns"))
+                       (:default-initargs :service "connectcampaigns" :protocol
+                        :rest-json))
  (common-lisp:export 'connectcampaigns-request))
 (common-lisp:progn
  (common-lisp:define-condition connectcampaigns-error
@@ -1981,7 +1982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "PUT"
-        "/campaigns" "CreateCampaign" "2021-01-30"))
+        :rest-json "/campaigns" "CreateCampaign" "2021-01-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-campaign))
 (common-lisp:progn
@@ -1997,6 +1998,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A"
                               (quri.encode:url-encode
@@ -2019,6 +2021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/connect-instance/~A/config"
                               (quri.encode:url-encode
@@ -2042,6 +2045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/connect-instance/~A/onboarding"
                               (quri.encode:url-encode
@@ -2064,6 +2068,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A"
                               (quri.encode:url-encode
@@ -2085,6 +2090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/state"
                               (quri.encode:url-encode
@@ -2106,7 +2112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
-        "/campaigns-state" "GetCampaignStateBatch" "2021-01-30"))
+        :rest-json "/campaigns-state" "GetCampaignStateBatch" "2021-01-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-campaign-state-batch))
 (common-lisp:progn
@@ -2123,6 +2129,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/connect-instance/~A/config"
                               (quri.encode:url-encode
@@ -2146,6 +2153,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/connect-instance/~A/onboarding"
                               (quri.encode:url-encode
@@ -2168,7 +2176,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
-        "/campaigns-summary" "ListCampaigns" "2021-01-30"))
+        :rest-json "/campaigns-summary" "ListCampaigns" "2021-01-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-campaigns))
 (common-lisp:progn
@@ -2184,6 +2192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2205,6 +2214,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/pause"
                               (quri.encode:url-encode
@@ -2226,6 +2236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/dial-requests"
                               (quri.encode:url-encode
@@ -2247,6 +2258,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/resume"
                               (quri.encode:url-encode
@@ -2268,6 +2280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/start"
                               (quri.encode:url-encode
@@ -2291,6 +2304,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "PUT"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/connect-instance/~A/onboarding"
                               (quri.encode:url-encode
@@ -2313,6 +2327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/stop"
                               (quri.encode:url-encode
@@ -2334,6 +2349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2355,6 +2371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -2377,6 +2394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/dialer-config"
                               (quri.encode:url-encode
@@ -2398,6 +2416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/campaigns/~A/name"
                               (quri.encode:url-encode
@@ -2423,6 +2442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectcampaigns-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/campaigns/~A/outbound-call-config"

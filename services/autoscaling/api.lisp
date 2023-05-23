@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass autoscaling-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "autoscaling"))
+                       (:default-initargs :service "autoscaling" :protocol
+                        :query))
  (common-lisp:export 'autoscaling-request))
 (common-lisp:progn
  (common-lisp:define-condition autoscaling-error
@@ -10322,7 +10323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachInstances"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10343,7 +10344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachLoadBalancerTargetGroups"
                                                         "2011-01-01"))
       common-lisp:nil "AttachLoadBalancerTargetGroupsResult" *error-map*)))
@@ -10363,7 +10364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachLoadBalancers"
                                                         "2011-01-01"))
       common-lisp:nil "AttachLoadBalancersResult" *error-map*)))
@@ -10382,7 +10383,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AttachTrafficSources"
                                                         "2011-01-01"))
       common-lisp:nil "AttachTrafficSourcesResult" *error-map*)))
@@ -10403,7 +10404,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchDeleteScheduledAction"
                                                         "2011-01-01"))
       common-lisp:nil "BatchDeleteScheduledActionResult" *error-map*)))
@@ -10425,7 +10426,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchPutScheduledUpdateGroupAction"
                                                         "2011-01-01"))
       common-lisp:nil "BatchPutScheduledUpdateGroupActionResult" *error-map*)))
@@ -10443,7 +10444,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CancelInstanceRefresh"
                                                         "2011-01-01"))
       common-lisp:nil "CancelInstanceRefreshResult" *error-map*)))
@@ -10465,7 +10466,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CompleteLifecycleAction"
                                                         "2011-01-01"))
       common-lisp:nil "CompleteLifecycleActionResult" *error-map*)))
@@ -10503,7 +10504,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateAutoScalingGroup"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10533,7 +10534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateLaunchConfiguration"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10551,7 +10552,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateOrUpdateTags"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10570,7 +10571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteAutoScalingGroup"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10588,7 +10589,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteLaunchConfiguration"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10608,7 +10609,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteLifecycleHook"
                                                         "2011-01-01"))
       common-lisp:nil "DeleteLifecycleHookResult" *error-map*)))
@@ -10628,7 +10629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteNotificationConfiguration"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10647,7 +10648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeletePolicy"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10667,7 +10668,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteScheduledAction"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10685,7 +10686,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTags"
+                                                        "POST" :query "/"
+                                                        "DeleteTags"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
@@ -10703,7 +10705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteWarmPool"
                                                         "2011-01-01"))
       common-lisp:nil "DeleteWarmPoolResult" *error-map*)))
@@ -10713,7 +10715,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeAccountLimits" :params
                                 `(("Action" ,@"DescribeAccountLimits")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeAccountLimitsResult" *error-map*))
@@ -10723,7 +10726,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeAdjustmentTypes" :params
                                 `(("Action" ,@"DescribeAdjustmentTypes")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeAdjustmentTypesResult" *error-map*))
@@ -10744,7 +10748,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAutoScalingGroups"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeAutoScalingGroupsResult" *error-map*)))
@@ -10764,7 +10768,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeAutoScalingInstances"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeAutoScalingInstancesResult" *error-map*)))
@@ -10774,7 +10778,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeAutoScalingNotificationTypes" :params
                                 `(("Action"
                                    ,@"DescribeAutoScalingNotificationTypes")
                                   ("Version" ,@"2011-01-01"))))
@@ -10796,7 +10801,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeInstanceRefreshes"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeInstanceRefreshesResult" *error-map*)))
@@ -10816,7 +10821,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeLaunchConfigurations"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeLaunchConfigurationsResult" *error-map*)))
@@ -10826,7 +10831,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeLifecycleHookTypes" :params
                                 `(("Action" ,@"DescribeLifecycleHookTypes")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeLifecycleHookTypesResult" *error-map*))
@@ -10846,7 +10852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeLifecycleHooks"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeLifecycleHooksResult" *error-map*)))
@@ -10867,7 +10873,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeLoadBalancerTargetGroups"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeLoadBalancerTargetGroupsResult" *error-map*)))
@@ -10887,7 +10893,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeLoadBalancers"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeLoadBalancersResult" *error-map*)))
@@ -10897,7 +10903,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeMetricCollectionTypes" :params
                                 `(("Action" ,@"DescribeMetricCollectionTypes")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeMetricCollectionTypesResult" *error-map*))
@@ -10918,7 +10925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeNotificationConfigurations"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeNotificationConfigurationsResult" *error-map*)))
@@ -10939,7 +10946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribePolicies"
                                                         "2011-01-01"))
       common-lisp:nil "DescribePoliciesResult" *error-map*)))
@@ -10960,7 +10967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeScalingActivities"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeScalingActivitiesResult" *error-map*)))
@@ -10970,7 +10977,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeScalingProcessTypes" :params
                                 `(("Action" ,@"DescribeScalingProcessTypes")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeScalingProcessTypesResult" *error-map*))
@@ -10992,7 +11000,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeScheduledActions"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeScheduledActionsResult" *error-map*)))
@@ -11010,7 +11018,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeTags"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeTagsResult" *error-map*)))
@@ -11020,7 +11028,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'autoscaling-request :method "POST" :path "/"
-                                :params
+                                :protocol :query :operation
+                                "DescribeTerminationPolicyTypes" :params
                                 `(("Action" ,@"DescribeTerminationPolicyTypes")
                                   ("Version" ,@"2011-01-01"))))
     common-lisp:nil "DescribeTerminationPolicyTypesResult" *error-map*))
@@ -11041,7 +11050,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeTrafficSources"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeTrafficSourcesResult" *error-map*)))
@@ -11061,7 +11070,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeWarmPool"
                                                         "2011-01-01"))
       common-lisp:nil "DescribeWarmPoolResult" *error-map*)))
@@ -11082,7 +11091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachInstances"
                                                         "2011-01-01"))
       common-lisp:nil "DetachInstancesResult" *error-map*)))
@@ -11103,7 +11112,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachLoadBalancerTargetGroups"
                                                         "2011-01-01"))
       common-lisp:nil "DetachLoadBalancerTargetGroupsResult" *error-map*)))
@@ -11123,7 +11132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachLoadBalancers"
                                                         "2011-01-01"))
       common-lisp:nil "DetachLoadBalancersResult" *error-map*)))
@@ -11142,7 +11151,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DetachTrafficSources"
                                                         "2011-01-01"))
       common-lisp:nil "DetachTrafficSourcesResult" *error-map*)))
@@ -11161,7 +11170,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DisableMetricsCollection"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11181,7 +11190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EnableMetricsCollection"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11202,7 +11211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "EnterStandby"
                                                         "2011-01-01"))
       common-lisp:nil "EnterStandbyResult" *error-map*)))
@@ -11223,7 +11232,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ExecutePolicy"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11242,7 +11251,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ExitStandby"
                                                         "2011-01-01"))
       common-lisp:nil "ExitStandbyResult" *error-map*)))
@@ -11264,7 +11273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "GetPredictiveScalingForecast"
                                                         "2011-01-01"))
       common-lisp:nil "GetPredictiveScalingForecastResult" *error-map*)))
@@ -11288,7 +11297,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutLifecycleHook"
                                                         "2011-01-01"))
       common-lisp:nil "PutLifecycleHookResult" *error-map*)))
@@ -11310,7 +11319,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutNotificationConfiguration"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11338,7 +11347,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutScalingPolicy"
                                                         "2011-01-01"))
       common-lisp:nil "PutScalingPolicyResult" *error-map*)))
@@ -11362,7 +11371,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutScheduledUpdateGroupAction"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11384,7 +11393,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PutWarmPool"
                                                         "2011-01-01"))
       common-lisp:nil "PutWarmPoolResult" *error-map*)))
@@ -11407,7 +11416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RecordLifecycleActionHeartbeat"
                                                         "2011-01-01"))
       common-lisp:nil "RecordLifecycleActionHeartbeatResult" *error-map*)))
@@ -11427,7 +11436,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResumeProcesses"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11445,7 +11454,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RollbackInstanceRefresh"
                                                         "2011-01-01"))
       common-lisp:nil "RollbackInstanceRefreshResult" *error-map*)))
@@ -11466,7 +11475,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetDesiredCapacity"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11487,7 +11496,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetInstanceHealth"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11508,7 +11517,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SetInstanceProtection"
                                                         "2011-01-01"))
       common-lisp:nil "SetInstanceProtectionResult" *error-map*)))
@@ -11529,7 +11538,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartInstanceRefresh"
                                                         "2011-01-01"))
       common-lisp:nil "StartInstanceRefreshResult" *error-map*)))
@@ -11549,7 +11558,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "SuspendProcesses"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -11570,7 +11579,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TerminateInstanceInAutoScalingGroup"
                                                         "2011-01-01"))
       common-lisp:nil "TerminateInstanceInAutoScalingGroupResult"
@@ -11605,7 +11614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'autoscaling-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "UpdateAutoScalingGroup"
                                                         "2011-01-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

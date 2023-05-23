@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass devops-guru-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "devops-guru"))
+                       (:default-initargs :service "devops-guru" :protocol
+                        :rest-json))
  (common-lisp:export 'devops-guru-request))
 (common-lisp:progn
  (common-lisp:define-condition devops-guru-error
@@ -7762,7 +7763,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/channels"
+                                                        "PUT" :rest-json
+                                                        "/channels"
                                                         "AddNotificationChannel"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7780,7 +7782,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7800,7 +7802,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'devops-guru-request :method "GET" :path
-                                "/accounts/health" :params
+                                "/accounts/health" :protocol :rest-json
+                                :operation "DescribeAccountHealth" :params
                                 `(("Action" ,@"DescribeAccountHealth")
                                   ("Version" ,@"2020-12-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7819,7 +7822,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/accounts/overview"
                                                         "DescribeAccountOverview"
                                                         "2020-12-01"))
@@ -7838,7 +7841,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7858,7 +7861,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'devops-guru-request :method "POST" :path
-                                "/event-sources" :params
+                                "/event-sources" :protocol :rest-json
+                                :operation "DescribeEventSourcesConfig" :params
                                 `(("Action" ,@"DescribeEventSourcesConfig")
                                   ("Version" ,@"2020-12-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -7876,7 +7880,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/feedback"
+                                                        "POST" :rest-json
+                                                        "/feedback"
                                                         "DescribeFeedback"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7894,7 +7899,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -7924,7 +7929,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/health"
                                                         "DescribeOrganizationHealth"
                                                         "2020-12-01"))
@@ -7947,7 +7952,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/overview"
                                                         "DescribeOrganizationOverview"
                                                         "2020-12-01"))
@@ -7971,7 +7976,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/health/resource-collection"
                                                         "DescribeOrganizationResourceCollectionHealth"
                                                         "2020-12-01"))
@@ -7992,7 +7997,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8012,7 +8017,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'devops-guru-request :method "GET" :path
-                                "/service-integrations" :params
+                                "/service-integrations" :protocol :rest-json
+                                :operation "DescribeServiceIntegration" :params
                                 `(("Action" ,@"DescribeServiceIntegration")
                                   ("Version" ,@"2020-12-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8030,7 +8036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/cost-estimation"
                                                         "GetCostEstimation"
                                                         "2020-12-01"))
@@ -8050,7 +8056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8082,7 +8088,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8112,7 +8118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-log-anomalies"
                                                         "ListAnomalousLogGroups"
                                                         "2020-12-01"))
@@ -8133,8 +8139,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/events"
-                                                        "ListEvents"
+                                                        "POST" :rest-json
+                                                        "/events" "ListEvents"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-events))
@@ -8152,7 +8158,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/insights"
+                                                        "POST" :rest-json
+                                                        "/insights"
                                                         "ListInsights"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8170,7 +8177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/monitoredResources"
                                                         "ListMonitoredResources"
                                                         "2020-12-01"))
@@ -8190,7 +8197,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/channels"
+                                                        "POST" :rest-json
+                                                        "/channels"
                                                         "ListNotificationChannels"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8212,7 +8220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/insights"
                                                         "ListOrganizationInsights"
                                                         "2020-12-01"))
@@ -8232,7 +8240,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/recommendations"
                                                         "ListRecommendations"
                                                         "2020-12-01"))
@@ -8251,7 +8259,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/feedback"
+                                                        "PUT" :rest-json
+                                                        "/feedback"
                                                         "PutFeedback"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8270,7 +8279,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8301,7 +8310,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/insights/search"
                                                         "SearchInsights"
                                                         "2020-12-01"))
@@ -8324,7 +8333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organization/insights/search"
                                                         "SearchOrganizationInsights"
                                                         "2020-12-01"))
@@ -8344,7 +8353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/cost-estimation"
                                                         "StartCostEstimation"
                                                         "2020-12-01"))
@@ -8364,7 +8373,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/event-sources"
+                                                        "PUT" :rest-json
+                                                        "/event-sources"
                                                         "UpdateEventSourcesConfig"
                                                         "2020-12-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8383,7 +8393,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/resource-collections"
                                                         "UpdateResourceCollection"
                                                         "2020-12-01"))
@@ -8403,7 +8413,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'devops-guru-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/service-integrations"
                                                         "UpdateServiceIntegration"
                                                         "2020-12-01"))

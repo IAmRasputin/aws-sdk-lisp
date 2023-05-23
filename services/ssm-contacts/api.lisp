@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass ssm-contacts-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "ssm-contacts"))
+                       (:default-initargs :service "ssm-contacts" :protocol
+                        :json))
  (common-lisp:export 'ssm-contacts-request))
 (common-lisp:progn
  (common-lisp:define-condition ssm-contacts-error
@@ -4902,7 +4903,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "AcceptPage"
+                                                        "POST" :json "/"
+                                                        "AcceptPage"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'accept-page))
@@ -4920,7 +4922,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ActivateContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4941,7 +4943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContact"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4962,7 +4964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4983,7 +4985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRotation"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5004,7 +5006,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRotationOverride"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5023,7 +5025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeactivateContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5041,7 +5043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContact"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5059,7 +5061,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5077,7 +5079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRotation"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5096,7 +5098,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRotationOverride"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5114,7 +5116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEngagement"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5132,7 +5134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePage"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5150,7 +5152,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetContact"
+                                                        "POST" :json "/"
+                                                        "GetContact"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-contact))
@@ -5167,7 +5170,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5185,7 +5188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetContactPolicy"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5203,7 +5206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRotation"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5222,7 +5225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRotationOverride"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5241,7 +5244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContactChannels"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5260,7 +5263,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListContacts"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5281,7 +5284,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEngagements"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5299,7 +5302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPageReceipts"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5317,7 +5320,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPageResolutions"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5336,7 +5339,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPagesByContact"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5355,7 +5358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPagesByEngagement"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5378,7 +5381,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPreviewRotationShifts"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5399,7 +5402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRotationOverrides"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5420,7 +5423,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRotationShifts"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5440,7 +5443,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRotations"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5458,7 +5461,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5476,7 +5479,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutContactPolicy"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5494,7 +5497,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SendActivationCode"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5516,7 +5519,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartEngagement"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5534,7 +5537,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopEngagement"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5552,7 +5555,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5570,7 +5573,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5588,7 +5591,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContact"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5607,7 +5610,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateContactChannel"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5628,7 +5631,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-contacts-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRotation"
                                                         "2021-05-03"))
       common-lisp:nil common-lisp:nil *error-map*)))

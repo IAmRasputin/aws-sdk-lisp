@@ -11,7 +11,9 @@
 (common-lisp:in-package #:aws-sdk/services/appflow/api)
 (common-lisp:progn
  (common-lisp:defclass appflow-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "appflow"))
+                       common-lisp:nil
+                       (:default-initargs :service "appflow" :protocol
+                        :rest-json))
  (common-lisp:export 'appflow-request))
 (common-lisp:progn
  (common-lisp:define-condition appflow-error
@@ -10175,7 +10177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/create-connector-profile"
                                                         "CreateConnectorProfile"
                                                         "2020-08-23"))
@@ -10200,7 +10202,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/create-flow"
+                                                        "POST" :rest-json
+                                                        "/create-flow"
                                                         "CreateFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10219,7 +10222,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delete-connector-profile"
                                                         "DeleteConnectorProfile"
                                                         "2020-08-23"))
@@ -10238,7 +10241,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/delete-flow"
+                                                        "POST" :rest-json
+                                                        "/delete-flow"
                                                         "DeleteFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10256,7 +10260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-connector"
                                                         "DescribeConnector"
                                                         "2020-08-23"))
@@ -10279,7 +10283,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-connector-entity"
                                                         "DescribeConnectorEntity"
                                                         "2020-08-23"))
@@ -10302,7 +10306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-connector-profiles"
                                                         "DescribeConnectorProfiles"
                                                         "2020-08-23"))
@@ -10322,7 +10326,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-connectors"
                                                         "DescribeConnectors"
                                                         "2020-08-23"))
@@ -10341,7 +10345,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/describe-flow"
+                                                        "POST" :rest-json
+                                                        "/describe-flow"
                                                         "DescribeFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10361,7 +10366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/describe-flow-execution-records"
                                                         "DescribeFlowExecutionRecords"
                                                         "2020-08-23"))
@@ -10383,7 +10388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-connector-entities"
                                                         "ListConnectorEntities"
                                                         "2020-08-23"))
@@ -10402,7 +10407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/list-connectors"
                                                         "ListConnectors"
                                                         "2020-08-23"))
@@ -10421,7 +10426,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/list-flows"
+                                                        "POST" :rest-json
+                                                        "/list-flows"
                                                         "ListFlows"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10439,7 +10445,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10471,7 +10477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/register-connector"
                                                         "RegisterConnector"
                                                         "2020-08-23"))
@@ -10490,7 +10496,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/start-flow"
+                                                        "POST" :rest-json
+                                                        "/start-flow"
                                                         "StartFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10508,8 +10515,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/stop-flow"
-                                                        "StopFlow"
+                                                        "POST" :rest-json
+                                                        "/stop-flow" "StopFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'stop-flow))
@@ -10526,7 +10533,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10554,7 +10561,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/unregister-connector"
                                                         "UnregisterConnector"
                                                         "2020-08-23"))
@@ -10573,7 +10580,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -10604,7 +10611,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-connector-profile"
                                                         "UpdateConnectorProfile"
                                                         "2020-08-23"))
@@ -10627,7 +10634,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/update-connector-registration"
                                                         "UpdateConnectorRegistration"
                                                         "2020-08-23"))
@@ -10651,7 +10658,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appflow-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/update-flow"
+                                                        "POST" :rest-json
+                                                        "/update-flow"
                                                         "UpdateFlow"
                                                         "2020-08-23"))
       common-lisp:nil common-lisp:nil *error-map*)))

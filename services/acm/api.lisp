@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/acm/api)
 (common-lisp:progn
  (common-lisp:defclass acm-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "acm"))
+                       (:default-initargs :service "acm" :protocol :json))
  (common-lisp:export 'acm-request))
 (common-lisp:progn
  (common-lisp:define-condition acm-error
@@ -2059,7 +2059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AddTagsToCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2077,7 +2077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2095,7 +2095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2113,7 +2113,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExportCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2122,7 +2122,9 @@
  (common-lisp:defun get-account-configuration ()
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
-     (common-lisp:make-instance 'acm-request :method "POST" :path "/" :params
+     (common-lisp:make-instance 'acm-request :method "POST" :path "/" :protocol
+                                :json :operation "GetAccountConfiguration"
+                                :params
                                 `(("Action" ,@"GetAccountConfiguration")
                                   ("Version" ,@"2015-12-08"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -2140,7 +2142,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2161,7 +2163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2182,7 +2184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCertificates"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2201,7 +2203,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2221,7 +2223,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutAccountConfiguration"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2240,7 +2242,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RemoveTagsFromCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2258,7 +2260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RenewCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2282,7 +2284,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RequestCertificate"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2301,7 +2303,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ResendValidationEmail"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2320,7 +2322,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCertificateOptions"
                                                         "2015-12-08"))
       common-lisp:nil common-lisp:nil *error-map*)))

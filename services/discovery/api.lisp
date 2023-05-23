@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass discovery-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "discovery"))
+                       (:default-initargs :service "discovery" :protocol
+                        :json))
  (common-lisp:export 'discovery-request))
 (common-lisp:progn
  (common-lisp:define-condition discovery-error
@@ -3571,7 +3572,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AssociateConfigurationItemsToApplication"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3589,7 +3590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteImportData"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3607,7 +3608,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateApplication"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3625,7 +3626,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateTags"
+                                                        "POST" :json "/"
+                                                        "CreateTags"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-tags))
@@ -3642,7 +3644,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteApplications"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3660,7 +3662,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteTags"
+                                                        "POST" :json "/"
+                                                        "DeleteTags"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-tags))
@@ -3678,7 +3681,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAgents"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3696,7 +3699,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeConfigurations"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3716,7 +3719,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeContinuousExports"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3736,7 +3739,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExportConfigurations"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3756,7 +3759,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeExportTasks"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3774,7 +3777,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImportTasks"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3792,7 +3795,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTags"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3813,7 +3816,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisassociateConfigurationItemsFromApplication"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3823,7 +3826,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'discovery-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "ExportConfigurations" :params
                                 `(("Action" ,@"ExportConfigurations")
                                   ("Version" ,@"2015-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3833,7 +3837,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'discovery-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetDiscoverySummary" :params
                                 `(("Action" ,@"GetDiscoverySummary")
                                   ("Version" ,@"2015-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3854,7 +3859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListConfigurations"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3875,7 +3880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListServerNeighbors"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3885,7 +3890,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'discovery-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "StartContinuousExport" :params
                                 `(("Action" ,@"StartContinuousExport")
                                   ("Version" ,@"2015-11-01"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3904,7 +3910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDataCollectionByAgentIds"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3924,7 +3930,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartExportTask"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3943,7 +3949,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartImportTask"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3961,7 +3967,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopContinuousExport"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3980,7 +3986,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopDataCollectionByAgentIds"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3999,7 +4005,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'discovery-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateApplication"
                                                         "2015-11-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

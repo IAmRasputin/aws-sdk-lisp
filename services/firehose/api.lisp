@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/firehose/api)
 (common-lisp:progn
  (common-lisp:defclass firehose-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "firehose"))
+                       common-lisp:nil
+                       (:default-initargs :service "firehose" :protocol :json))
  (common-lisp:export 'firehose-request))
 (common-lisp:progn
  (common-lisp:define-condition firehose-error
@@ -6387,7 +6388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6406,7 +6407,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6427,7 +6428,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6448,7 +6449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDeliveryStreams"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6469,7 +6470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6487,7 +6488,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutRecord"
+                                                        "POST" :json "/"
+                                                        "PutRecord"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-record))
@@ -6504,7 +6506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRecordBatch"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6526,7 +6528,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartDeliveryStreamEncryption"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6545,7 +6547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopDeliveryStreamEncryption"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6563,7 +6565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6581,7 +6583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagDeliveryStream"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6613,7 +6615,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'firehose-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateDestination"
                                                         "2015-08-04"))
       common-lisp:nil common-lisp:nil *error-map*)))

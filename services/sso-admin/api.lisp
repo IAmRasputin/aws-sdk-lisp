@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass sso-admin-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "sso-admin"))
+                       (:default-initargs :service "sso-admin" :protocol
+                        :json))
  (common-lisp:export 'sso-admin-request))
 (common-lisp:progn
  (common-lisp:define-condition sso-admin-error
@@ -4044,7 +4045,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachCustomerManagedPolicyReferenceToPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4066,7 +4067,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AttachManagedPolicyToPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4088,7 +4089,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateAccountAssignment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4110,7 +4111,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateInstanceAccessControlAttributeConfiguration"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4131,7 +4132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4153,7 +4154,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteAccountAssignment"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4173,7 +4174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInlinePolicyFromPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4192,7 +4193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteInstanceAccessControlAttributeConfiguration"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4211,7 +4212,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4231,7 +4232,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePermissionsBoundaryFromPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4253,7 +4254,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccountAssignmentCreationStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4275,7 +4276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAccountAssignmentDeletionStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4294,7 +4295,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeInstanceAccessControlAttributeConfiguration"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4313,7 +4314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4334,7 +4335,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribePermissionSetProvisioningStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4356,7 +4357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachCustomerManagedPolicyReferenceFromPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4378,7 +4379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DetachManagedPolicyFromPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4398,7 +4399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetInlinePolicyForPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4418,7 +4419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPermissionsBoundaryForPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4439,7 +4440,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountAssignmentCreationStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4460,7 +4461,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountAssignmentDeletionStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4481,7 +4482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountAssignments"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4503,7 +4504,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListAccountsForProvisionedPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4525,7 +4526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCustomerManagedPolicyReferencesInPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4544,7 +4545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListInstances"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4566,7 +4567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListManagedPoliciesInPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4587,7 +4588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPermissionSetProvisioningStatus"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4606,7 +4607,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPermissionSets"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4628,7 +4629,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPermissionSetsProvisionedToAccount"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4647,7 +4648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4668,7 +4669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ProvisionPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4689,7 +4690,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutInlinePolicyToPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4711,7 +4712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutPermissionsBoundaryToPermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4729,7 +4730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4748,7 +4749,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4770,7 +4771,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateInstanceAccessControlAttributeConfiguration"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4791,7 +4792,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'sso-admin-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePermissionSet"
                                                         "2020-07-20"))
       common-lisp:nil common-lisp:nil *error-map*)))

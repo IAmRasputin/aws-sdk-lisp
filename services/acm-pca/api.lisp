@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/acm-pca/api)
 (common-lisp:progn
  (common-lisp:defclass acm-pca-request (aws-sdk/request:request)
-                       common-lisp:nil (:default-initargs :service "acm-pca"))
+                       common-lisp:nil
+                       (:default-initargs :service "acm-pca" :protocol :json))
  (common-lisp:export 'acm-pca-request))
 (common-lisp:progn
  (common-lisp:define-condition acm-pca-error
@@ -3132,7 +3133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3154,7 +3155,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCertificateAuthorityAuditReport"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3175,7 +3176,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePermission"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3197,7 +3198,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3217,7 +3218,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePermission"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3235,7 +3236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePolicy"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3254,7 +3255,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3275,7 +3276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCertificateAuthorityAuditReport"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3295,7 +3296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCertificate"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3314,7 +3315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCertificateAuthorityCertificate"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3333,7 +3334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetCertificateAuthorityCsr"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3351,7 +3352,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetPolicy"
+                                                        "POST" :json "/"
+                                                        "GetPolicy"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-policy))
@@ -3372,7 +3374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ImportCertificateAuthorityCertificate"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3395,7 +3397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "IssueCertificate"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3415,7 +3417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCertificateAuthorities"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3435,7 +3437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPermissions"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3455,7 +3457,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -3472,7 +3475,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutPolicy"
+                                                        "POST" :json "/"
+                                                        "PutPolicy"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-policy))
@@ -3490,7 +3494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RestoreCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3511,7 +3515,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RevokeCertificate"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3530,7 +3534,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3549,7 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3571,7 +3575,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'acm-pca-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCertificateAuthority"
                                                         "2017-08-22"))
       common-lisp:nil common-lisp:nil *error-map*)))

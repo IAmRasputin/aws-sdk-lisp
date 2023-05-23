@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass kinesis-video-media-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "kinesis-video-media"))
+                       (:default-initargs :service "kinesis-video-media"
+                        :protocol :rest-json))
  (common-lisp:export 'kinesis-video-media-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesis-video-media-error
@@ -219,7 +220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-media-request aws-sdk/generator/operation::input "POST"
-        "/getMedia" "GetMedia" "2017-09-30")
+        :rest-json "/getMedia" "GetMedia" "2017-09-30")
        :want-stream common-lisp:t)
       "blob" common-lisp:nil *error-map*)))
  (common-lisp:export 'get-media))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass personalize-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "personalize"))
+                       (:default-initargs :service "personalize" :protocol
+                        :json))
  (common-lisp:export 'personalize-request))
 (common-lisp:progn
  (common-lisp:define-condition personalize-error
@@ -9366,7 +9367,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBatchInferenceJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9387,7 +9388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateBatchSegmentJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9408,7 +9409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCampaign"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9429,7 +9430,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDataset"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9451,7 +9452,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatasetExportJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9470,7 +9471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatasetGroup"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9492,7 +9493,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateDatasetImportJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9510,7 +9511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateEventTracker"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9530,7 +9531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateFilter"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9552,7 +9553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateMetricAttribution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9573,7 +9574,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9591,7 +9592,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSchema"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9613,7 +9614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSolution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9632,7 +9633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSolutionVersion"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9650,7 +9651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCampaign"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9668,7 +9669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDataset"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9686,7 +9687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteDatasetGroup"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9704,7 +9705,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteEventTracker"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9722,7 +9723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteFilter"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9741,7 +9742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteMetricAttribution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9759,7 +9760,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9777,7 +9778,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSchema"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9795,7 +9796,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSolution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9813,7 +9814,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeAlgorithm"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9832,7 +9833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBatchInferenceJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9851,7 +9852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeBatchSegmentJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9869,7 +9870,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeCampaign"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9887,7 +9888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDataset"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9906,7 +9907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDatasetExportJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9924,7 +9925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDatasetGroup"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9943,7 +9944,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDatasetImportJob"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9961,7 +9962,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEventTracker"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9980,7 +9981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFeatureTransformation"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9998,7 +9999,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeFilter"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10017,7 +10018,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeMetricAttribution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10035,7 +10036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRecipe"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10053,7 +10054,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10071,7 +10072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSchema"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10089,7 +10090,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSolution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10108,7 +10109,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSolutionVersion"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10126,7 +10127,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetSolutionMetrics"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10147,7 +10148,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBatchInferenceJobs"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10167,7 +10168,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListBatchSegmentJobs"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10186,7 +10187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListCampaigns"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10205,7 +10206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetExportJobs"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10223,7 +10224,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetGroups"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10242,7 +10243,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasetImportJobs"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10261,7 +10262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatasets"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10280,7 +10281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListEventTrackers"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10299,7 +10300,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListFilters"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10320,7 +10321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMetricAttributionMetrics"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10339,7 +10340,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListMetricAttributions"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10359,7 +10360,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRecipes"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10378,7 +10379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListRecommenders"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10396,7 +10397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSchemas"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10415,7 +10416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSolutionVersions"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10434,7 +10435,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSolutions"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10452,7 +10453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10470,7 +10471,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10488,7 +10489,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10507,7 +10508,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopSolutionVersionCreation"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10525,7 +10526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10543,7 +10544,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10564,7 +10565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCampaign"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10586,7 +10587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateMetricAttribution"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -10605,7 +10606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'personalize-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateRecommender"
                                                         "2018-05-22"))
       common-lisp:nil common-lisp:nil *error-map*)))

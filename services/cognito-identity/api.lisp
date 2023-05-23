@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cognito-identity-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cognito-identity"))
+                       (:default-initargs :service "cognito-identity" :protocol
+                        :json))
  (common-lisp:export 'cognito-identity-request))
 (common-lisp:progn
  (common-lisp:define-condition cognito-identity-error
@@ -2404,8 +2405,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateIdentityPool" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateIdentityPool" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-identity-pool))
 (common-lisp:progn
@@ -2420,8 +2421,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteIdentities" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteIdentities" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-identities))
 (common-lisp:progn
@@ -2436,8 +2437,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteIdentityPool" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteIdentityPool" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-identity-pool))
 (common-lisp:progn
@@ -2452,8 +2453,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-identity))
 (common-lisp:progn
@@ -2468,8 +2469,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "DescribeIdentityPool" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DescribeIdentityPool" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-identity-pool))
 (common-lisp:progn
@@ -2486,8 +2487,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetCredentialsForIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetCredentialsForIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-credentials-for-identity))
 (common-lisp:progn
@@ -2503,8 +2504,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetId" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetId" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-id))
 (common-lisp:progn
@@ -2519,8 +2520,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetIdentityPoolRoles" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetIdentityPoolRoles" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-identity-pool-roles))
 (common-lisp:progn
@@ -2535,8 +2536,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetOpenIdToken" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetOpenIdToken" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-open-id-token))
 (common-lisp:progn
@@ -2555,8 +2556,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetOpenIdTokenForDeveloperIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetOpenIdTokenForDeveloperIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-open-id-token-for-developer-identity))
 (common-lisp:progn
@@ -2573,8 +2574,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "GetPrincipalTagAttributeMap" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetPrincipalTagAttributeMap" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-principal-tag-attribute-map))
 (common-lisp:progn
@@ -2592,8 +2593,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "ListIdentities" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListIdentities" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-identities))
 (common-lisp:progn
@@ -2608,8 +2609,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "ListIdentityPools" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListIdentityPools" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-identity-pools))
 (common-lisp:progn
@@ -2624,8 +2625,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTagsForResource" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTagsForResource" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -2643,8 +2644,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "LookupDeveloperIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "LookupDeveloperIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'lookup-developer-identity))
 (common-lisp:progn
@@ -2663,8 +2664,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "MergeDeveloperIdentities" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "MergeDeveloperIdentities" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'merge-developer-identities))
 (common-lisp:progn
@@ -2680,8 +2681,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "SetIdentityPoolRoles" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SetIdentityPoolRoles" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-identity-pool-roles))
 (common-lisp:progn
@@ -2700,8 +2701,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "SetPrincipalTagAttributeMap" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SetPrincipalTagAttributeMap" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-principal-tag-attribute-map))
 (common-lisp:progn
@@ -2716,8 +2717,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -2735,8 +2736,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "UnlinkDeveloperIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UnlinkDeveloperIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'unlink-developer-identity))
 (common-lisp:progn
@@ -2752,8 +2753,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "UnlinkIdentity" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UnlinkIdentity" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'unlink-identity))
 (common-lisp:progn
@@ -2768,8 +2769,8 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -2793,7 +2794,7 @@
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'cognito-identity-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateIdentityPool" "2014-06-30"))
+        'cognito-identity-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateIdentityPool" "2014-06-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-identity-pool))

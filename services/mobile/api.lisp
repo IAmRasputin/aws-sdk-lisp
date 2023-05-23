@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/mobile/api)
 (common-lisp:progn
  (common-lisp:defclass mobile-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "mobile"))
+                       (:default-initargs :service "mobile" :protocol
+                        :rest-json))
  (common-lisp:export 'mobile-request))
 (common-lisp:progn
  (common-lisp:define-condition mobile-error
@@ -937,7 +938,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/projects"
+                                                        "POST" :rest-json
+                                                        "/projects"
                                                         "CreateProject"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -955,7 +957,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -983,7 +985,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1011,7 +1013,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/project"
+                                                        "GET" :rest-json
+                                                        "/project"
                                                         "DescribeProject"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1029,7 +1032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1057,7 +1060,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1085,7 +1088,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/bundles"
+                                                        "GET" :rest-json
+                                                        "/bundles"
                                                         "ListBundles"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1103,7 +1107,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/projects"
+                                                        "GET" :rest-json
+                                                        "/projects"
                                                         "ListProjects"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1121,7 +1126,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mobile-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/update"
+                                                        "POST" :rest-json
+                                                        "/update"
                                                         "UpdateProject"
                                                         "2017-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))

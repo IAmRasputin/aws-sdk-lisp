@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass securitylake-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "securitylake"))
+                       (:default-initargs :service "securitylake" :protocol
+                        :rest-json))
  (common-lisp:export 'securitylake-request))
 (common-lisp:progn
  (common-lisp:define-condition securitylake-error
@@ -3393,7 +3394,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/logsources/aws"
                                                         "CreateAwsLogSource"
                                                         "2018-05-10"))
@@ -3415,7 +3416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/logsources/custom"
                                                         "CreateCustomLogSource"
                                                         "2018-05-10"))
@@ -3437,7 +3438,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/v1/datalake"
+                                                        "POST" :rest-json
+                                                        "/v1/datalake"
                                                         "CreateDatalake"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3456,7 +3458,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/autoenable"
                                                         "CreateDatalakeAutoEnable"
                                                         "2018-05-10"))
@@ -3476,7 +3478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/delegate"
                                                         "CreateDatalakeDelegatedAdmin"
                                                         "2018-05-10"))
@@ -3498,7 +3500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/exceptions/subscription"
                                                         "CreateDatalakeExceptionsSubscription"
                                                         "2018-05-10"))
@@ -3520,7 +3522,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/subscribers"
                                                         "CreateSubscriber"
                                                         "2018-05-10"))
@@ -3544,7 +3546,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3576,7 +3578,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/logsources/aws/delete"
                                                         "DeleteAwsLogSource"
                                                         "2018-05-10"))
@@ -3595,7 +3597,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/logsources/custom"
                                                         "DeleteCustomLogSource"
                                                         "2018-05-10"))
@@ -3606,7 +3608,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "DELETE" :path
-                                "/v1/datalake" :params
+                                "/v1/datalake" :protocol :rest-json :operation
+                                "DeleteDatalake" :params
                                 `(("Action" ,@"DeleteDatalake")
                                   ("Version" ,@"2018-05-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3627,7 +3630,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/autoenable/delete"
                                                         "DeleteDatalakeAutoEnable"
                                                         "2018-05-10"))
@@ -3647,7 +3650,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3667,7 +3670,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "DELETE" :path
-                                "/v1/datalake/exceptions/subscription" :params
+                                "/v1/datalake/exceptions/subscription"
+                                :protocol :rest-json :operation
+                                "DeleteDatalakeExceptionsSubscription" :params
                                 `(("Action"
                                    ,@"DeleteDatalakeExceptionsSubscription")
                                   ("Version" ,@"2018-05-10"))))
@@ -3686,7 +3691,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         "/v1/subscribers"
                                                         "DeleteSubscriber"
                                                         "2018-05-10"))
@@ -3706,7 +3711,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3726,7 +3731,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "GET" :path
-                                "/v1/datalake" :params
+                                "/v1/datalake" :protocol :rest-json :operation
+                                "GetDatalake" :params
                                 `(("Action" ,@"GetDatalake")
                                   ("Version" ,@"2018-05-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3736,7 +3742,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "GET" :path
-                                "/v1/datalake/autoenable" :params
+                                "/v1/datalake/autoenable" :protocol :rest-json
+                                :operation "GetDatalakeAutoEnable" :params
                                 `(("Action" ,@"GetDatalakeAutoEnable")
                                   ("Version" ,@"2018-05-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3746,7 +3753,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "GET" :path
-                                "/v1/datalake/exceptions/expiry" :params
+                                "/v1/datalake/exceptions/expiry" :protocol
+                                :rest-json :operation
+                                "GetDatalakeExceptionsExpiry" :params
                                 `(("Action" ,@"GetDatalakeExceptionsExpiry")
                                   ("Version" ,@"2018-05-10"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3756,7 +3765,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'securitylake-request :method "GET" :path
-                                "/v1/datalake/exceptions/subscription" :params
+                                "/v1/datalake/exceptions/subscription"
+                                :protocol :rest-json :operation
+                                "GetDatalakeExceptionsSubscription" :params
                                 `(("Action"
                                    ,@"GetDatalakeExceptionsSubscription")
                                   ("Version" ,@"2018-05-10"))))
@@ -3777,7 +3788,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/status"
                                                         "GetDatalakeStatus"
                                                         "2018-05-10"))
@@ -3796,7 +3807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3825,7 +3836,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/datalake/exceptions"
                                                         "ListDatalakeExceptions"
                                                         "2018-05-10"))
@@ -3848,7 +3859,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/v1/logsources/list"
                                                         "ListLogSources"
                                                         "2018-05-10"))
@@ -3867,7 +3878,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/v1/subscribers"
+                                                        "GET" :rest-json
+                                                        "/v1/subscribers"
                                                         "ListSubscribers"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3885,7 +3897,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/v1/datalake"
+                                                        "PUT" :rest-json
+                                                        "/v1/datalake"
                                                         "UpdateDatalake"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3904,7 +3917,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/v1/datalake/exceptions/expiry"
                                                         "UpdateDatalakeExceptionsExpiry"
                                                         "2018-05-10"))
@@ -3926,7 +3939,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/v1/datalake/exceptions/subscription"
                                                         "UpdateDatalakeExceptionsSubscription"
                                                         "2018-05-10"))
@@ -3948,7 +3961,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -3981,7 +3994,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'securitylake-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

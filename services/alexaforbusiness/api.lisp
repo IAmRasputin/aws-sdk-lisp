@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass alexaforbusiness-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "alexaforbusiness"))
+                       (:default-initargs :service "alexaforbusiness" :protocol
+                        :json))
  (common-lisp:export 'alexaforbusiness-request))
 (common-lisp:progn
  (common-lisp:define-condition alexaforbusiness-error
@@ -10872,8 +10873,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ApproveSkill" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ApproveSkill" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'approve-skill))
 (common-lisp:progn
@@ -10889,8 +10890,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateContactWithAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateContactWithAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-contact-with-address-book))
 (common-lisp:progn
@@ -10906,8 +10907,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateDeviceWithNetworkProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateDeviceWithNetworkProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-device-with-network-profile))
 (common-lisp:progn
@@ -10923,8 +10924,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateDeviceWithRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateDeviceWithRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-device-with-room))
 (common-lisp:progn
@@ -10940,8 +10941,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateSkillGroupWithRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateSkillGroupWithRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-skill-group-with-room))
 (common-lisp:progn
@@ -10957,8 +10958,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateSkillWithSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateSkillWithSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-skill-with-skill-group))
 (common-lisp:progn
@@ -10974,8 +10975,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "AssociateSkillWithUsers" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "AssociateSkillWithUsers" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-skill-with-users))
 (common-lisp:progn
@@ -10992,8 +10993,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-address-book))
 (common-lisp:progn
@@ -11012,8 +11013,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateBusinessReportSchedule" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateBusinessReportSchedule" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-business-report-schedule))
 (common-lisp:progn
@@ -11033,8 +11034,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateConferenceProvider" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateConferenceProvider" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-conference-provider))
 (common-lisp:progn
@@ -11053,8 +11054,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateContact" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateContact" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-contact))
 (common-lisp:progn
@@ -11071,8 +11072,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateGatewayGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateGatewayGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-gateway-group))
 (common-lisp:progn
@@ -11093,8 +11094,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateNetworkProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateNetworkProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-network-profile))
 (common-lisp:progn
@@ -11117,8 +11118,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-profile))
 (common-lisp:progn
@@ -11136,8 +11137,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-room))
 (common-lisp:progn
@@ -11155,8 +11156,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-skill-group))
 (common-lisp:progn
@@ -11174,8 +11175,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "CreateUser" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "CreateUser" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
 (common-lisp:progn
@@ -11190,8 +11191,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-address-book))
 (common-lisp:progn
@@ -11207,8 +11208,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteBusinessReportSchedule" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteBusinessReportSchedule" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-business-report-schedule))
 (common-lisp:progn
@@ -11224,8 +11225,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteConferenceProvider" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteConferenceProvider" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-conference-provider))
 (common-lisp:progn
@@ -11240,8 +11241,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteContact" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteContact" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-contact))
 (common-lisp:progn
@@ -11256,8 +11257,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteDevice" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteDevice" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-device))
 (common-lisp:progn
@@ -11272,8 +11273,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteDeviceUsageData" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteDeviceUsageData" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-device-usage-data))
 (common-lisp:progn
@@ -11288,8 +11289,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteGatewayGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteGatewayGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-gateway-group))
 (common-lisp:progn
@@ -11304,8 +11305,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteNetworkProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteNetworkProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-network-profile))
 (common-lisp:progn
@@ -11320,8 +11321,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-profile))
 (common-lisp:progn
@@ -11336,8 +11337,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-room))
 (common-lisp:progn
@@ -11354,8 +11355,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteRoomSkillParameter" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteRoomSkillParameter" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-room-skill-parameter))
 (common-lisp:progn
@@ -11371,8 +11372,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteSkillAuthorization" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteSkillAuthorization" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-skill-authorization))
 (common-lisp:progn
@@ -11387,8 +11388,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-skill-group))
 (common-lisp:progn
@@ -11403,8 +11404,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DeleteUser" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DeleteUser" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
 (common-lisp:progn
@@ -11420,8 +11421,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateContactFromAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateContactFromAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-contact-from-address-book))
 (common-lisp:progn
@@ -11437,8 +11438,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateDeviceFromRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateDeviceFromRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-device-from-room))
 (common-lisp:progn
@@ -11454,8 +11455,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateSkillFromSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateSkillFromSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-skill-from-skill-group))
 (common-lisp:progn
@@ -11471,8 +11472,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateSkillFromUsers" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateSkillFromUsers" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-skill-from-users))
 (common-lisp:progn
@@ -11488,8 +11489,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "DisassociateSkillGroupFromRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "DisassociateSkillGroupFromRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-skill-group-from-room))
 (common-lisp:progn
@@ -11505,8 +11506,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ForgetSmartHomeAppliances" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ForgetSmartHomeAppliances" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'forget-smart-home-appliances))
 (common-lisp:progn
@@ -11521,8 +11522,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-address-book))
 (common-lisp:progn
@@ -11530,7 +11531,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'alexaforbusiness-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetConferencePreference" :params
                                 `(("Action" ,@"GetConferencePreference")
                                   ("Version" ,@"2017-11-09"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -11547,8 +11549,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetConferenceProvider" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetConferenceProvider" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-conference-provider))
 (common-lisp:progn
@@ -11563,8 +11565,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetContact" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetContact" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-contact))
 (common-lisp:progn
@@ -11579,8 +11581,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetDevice" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetDevice" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-device))
 (common-lisp:progn
@@ -11595,8 +11597,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetGateway" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetGateway" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-gateway))
 (common-lisp:progn
@@ -11611,8 +11613,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetGatewayGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetGatewayGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-gateway-group))
 (common-lisp:progn
@@ -11620,7 +11622,8 @@ common-lisp:nil
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'alexaforbusiness-request :method "POST" :path
-                                "/" :params
+                                "/" :protocol :json :operation
+                                "GetInvitationConfiguration" :params
                                 `(("Action" ,@"GetInvitationConfiguration")
                                   ("Version" ,@"2017-11-09"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -11637,8 +11640,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetNetworkProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetNetworkProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-network-profile))
 (common-lisp:progn
@@ -11653,8 +11656,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-profile))
 (common-lisp:progn
@@ -11669,8 +11672,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-room))
 (common-lisp:progn
@@ -11686,8 +11689,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetRoomSkillParameter" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetRoomSkillParameter" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-room-skill-parameter))
 (common-lisp:progn
@@ -11702,8 +11705,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "GetSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "GetSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-skill-group))
 (common-lisp:progn
@@ -11719,8 +11722,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListBusinessReportSchedules" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListBusinessReportSchedules" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-business-report-schedules))
 (common-lisp:progn
@@ -11736,8 +11739,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListConferenceProviders" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListConferenceProviders" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-conference-providers))
 (common-lisp:progn
@@ -11754,8 +11757,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListDeviceEvents" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListDeviceEvents" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-device-events))
 (common-lisp:progn
@@ -11770,8 +11773,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListGatewayGroups" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListGatewayGroups" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-gateway-groups))
 (common-lisp:progn
@@ -11787,8 +11790,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListGateways" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListGateways" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-gateways))
 (common-lisp:progn
@@ -11806,8 +11809,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListSkills" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListSkills" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-skills))
 (common-lisp:progn
@@ -11823,8 +11826,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListSkillsStoreCategories" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListSkillsStoreCategories" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-skills-store-categories))
 (common-lisp:progn
@@ -11841,8 +11844,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListSkillsStoreSkillsByCategory" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListSkillsStoreSkillsByCategory" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-skills-store-skills-by-category))
 (common-lisp:progn
@@ -11859,8 +11862,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListSmartHomeAppliances" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListSmartHomeAppliances" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-smart-home-appliances))
 (common-lisp:progn
@@ -11875,8 +11878,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ListTags" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ListTags" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
 (common-lisp:progn
@@ -11892,8 +11895,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "PutConferencePreference" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutConferencePreference" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-conference-preference))
 (common-lisp:progn
@@ -11911,8 +11914,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "PutInvitationConfiguration" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutInvitationConfiguration" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-invitation-configuration))
 (common-lisp:progn
@@ -11928,8 +11931,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "PutRoomSkillParameter" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutRoomSkillParameter" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-room-skill-parameter))
 (common-lisp:progn
@@ -11945,8 +11948,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "PutSkillAuthorization" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "PutSkillAuthorization" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-skill-authorization))
 (common-lisp:progn
@@ -11964,8 +11967,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "RegisterAVSDevice" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "RegisterAVSDevice" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'register-avsdevice))
 (common-lisp:progn
@@ -11980,8 +11983,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "RejectSkill" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "RejectSkill" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'reject-skill))
 (common-lisp:progn
@@ -11996,8 +11999,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "ResolveRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "ResolveRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'resolve-room))
 (common-lisp:progn
@@ -12012,8 +12015,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "RevokeInvitation" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "RevokeInvitation" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'revoke-invitation))
 (common-lisp:progn
@@ -12030,8 +12033,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchAddressBooks" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchAddressBooks" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-address-books))
 (common-lisp:progn
@@ -12048,8 +12051,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchContacts" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchContacts" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-contacts))
 (common-lisp:progn
@@ -12066,8 +12069,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchDevices" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchDevices" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-devices))
 (common-lisp:progn
@@ -12084,8 +12087,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchNetworkProfiles" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchNetworkProfiles" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-network-profiles))
 (common-lisp:progn
@@ -12102,8 +12105,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchProfiles" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchProfiles" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-profiles))
 (common-lisp:progn
@@ -12120,8 +12123,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchRooms" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchRooms" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-rooms))
 (common-lisp:progn
@@ -12138,8 +12141,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchSkillGroups" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchSkillGroups" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-skill-groups))
 (common-lisp:progn
@@ -12156,8 +12159,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SearchUsers" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SearchUsers" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-users))
 (common-lisp:progn
@@ -12175,8 +12178,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SendAnnouncement" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SendAnnouncement" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-announcement))
 (common-lisp:progn
@@ -12191,8 +12194,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "SendInvitation" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "SendInvitation" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-invitation))
 (common-lisp:progn
@@ -12207,8 +12210,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "StartDeviceSync" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "StartDeviceSync" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-device-sync))
 (common-lisp:progn
@@ -12224,8 +12227,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "StartSmartHomeApplianceDiscovery" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "StartSmartHomeApplianceDiscovery" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-smart-home-appliance-discovery))
 (common-lisp:progn
@@ -12240,8 +12243,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "TagResource" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "TagResource" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -12256,8 +12259,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UntagResource" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UntagResource" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -12273,8 +12276,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateAddressBook" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateAddressBook" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-address-book))
 (common-lisp:progn
@@ -12293,8 +12296,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateBusinessReportSchedule" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateBusinessReportSchedule" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-business-report-schedule))
 (common-lisp:progn
@@ -12314,8 +12317,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateConferenceProvider" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateConferenceProvider" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-conference-provider))
 (common-lisp:progn
@@ -12333,8 +12336,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateContact" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateContact" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-contact))
 (common-lisp:progn
@@ -12349,8 +12352,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateDevice" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateDevice" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-device))
 (common-lisp:progn
@@ -12367,8 +12370,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateGateway" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateGateway" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-gateway))
 (common-lisp:progn
@@ -12384,8 +12387,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateGatewayGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateGatewayGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-gateway-group))
 (common-lisp:progn
@@ -12404,8 +12407,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateNetworkProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateNetworkProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-network-profile))
 (common-lisp:progn
@@ -12427,8 +12430,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateProfile" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateProfile" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-profile))
 (common-lisp:progn
@@ -12446,8 +12449,8 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateRoom" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateRoom" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-room))
 (common-lisp:progn
@@ -12464,7 +12467,7 @@ common-lisp:nil
      (aws-sdk/generator/operation::parse-response
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
-        'alexaforbusiness-request aws-sdk/generator/operation::input "POST" "/"
-        "UpdateSkillGroup" "2017-11-09"))
+        'alexaforbusiness-request aws-sdk/generator/operation::input "POST"
+        :json "/" "UpdateSkillGroup" "2017-11-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-skill-group))

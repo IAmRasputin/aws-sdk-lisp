@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass codepipeline-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "codepipeline"))
+                       (:default-initargs :service "codepipeline" :protocol
+                        :json))
  (common-lisp:export 'codepipeline-request))
 (common-lisp:progn
  (common-lisp:define-condition codepipeline-error
@@ -6754,7 +6755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcknowledgeJob"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6773,7 +6774,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "AcknowledgeThirdPartyJob"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6796,7 +6797,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCustomActionType"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6814,7 +6815,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreatePipeline"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6832,7 +6833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCustomActionType"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6850,7 +6851,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeletePipeline"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6868,7 +6869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteWebhook"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6887,7 +6888,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeregisterWebhookWithThirdParty"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6907,7 +6908,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DisableStageTransition"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6926,7 +6927,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "EnableStageTransition"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6945,7 +6946,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetActionType"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6963,7 +6964,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetJobDetails"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6981,7 +6982,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPipeline"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7000,7 +7001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPipelineExecution"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7018,7 +7019,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetPipelineState"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7037,7 +7038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetThirdPartyJobDetails"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7057,7 +7058,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListActionExecutions"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7077,7 +7078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListActionTypes"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7096,7 +7097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelineExecutions"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7114,7 +7115,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListPipelines"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7133,7 +7134,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7151,7 +7152,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListWebhooks"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7171,7 +7172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PollForJobs"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7189,7 +7190,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PollForThirdPartyJobs"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7210,7 +7211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutActionRevision"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7230,7 +7231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutApprovalResult"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7248,7 +7249,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutJobFailureResult"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7269,7 +7270,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutJobSuccessResult"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7289,7 +7290,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutThirdPartyJobFailureResult"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7311,7 +7312,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutThirdPartyJobSuccessResult"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7329,7 +7330,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutWebhook"
+                                                        "POST" :json "/"
+                                                        "PutWebhook"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-webhook))
@@ -7347,7 +7349,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RegisterWebhookWithThirdParty"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7368,7 +7370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "RetryStageExecution"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7386,7 +7388,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StartPipelineExecution"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7406,7 +7408,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "StopPipelineExecution"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7424,7 +7426,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7442,7 +7444,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7460,7 +7462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateActionType"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -7478,7 +7480,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'codepipeline-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdatePipeline"
                                                         "2015-07-09"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -10,6 +10,9 @@
   (:import-from #:aws-sdk/error
                 #:aws-error)
   (:import-from #:quri)
+  (:import-from #:com.inuoe.jzon
+                #:parse
+                #:stringify)
   (:import-from #:cl-ppcre
                 #:regex-replace-all
                 #:do-matches-as-strings)
@@ -17,7 +20,9 @@
                 #:aget)
   (:import-from #:alexandria
                 #:when-let
-                #:ensure-car)
+                #:ensure-car
+                #:hash-table-alist)
+  (:import-from #:babel)
   (:import-from #:xmls)
   (:export #:compile-operation))
 (in-package #:aws-sdk/generator/operation)
@@ -34,9 +39,10 @@
   (list (%xmls-to-alist xmls)))
 
 (defun parse-response (response body-type wrapper-name error-map)
+  (declare (optimize (speed 0) (space 0) (safety 0) (debug 3)))
   (destructuring-bind (body status headers &rest ignore-args)
       response
-    (declare (ignore ignore-args headers))
+    (declare (ignore ignore-args))
     (if (<= 400 status 599)
         (let ((body (ensure-string (or body ""))))
           (when (= 0 (length body))
@@ -51,12 +57,15 @@
                    :status status
                    :body body)))
         (if (equal body-type "blob")
-            body
-            (let ((body (ensure-string (or body ""))))
+            (ensure-string body)
+            (let ((body (ensure-string (or body "")))
+                  (type-header (gethash "content-type" headers)))
               (when (/= 0 (length body))
-                (let* ((output (xmls-to-alist (xmls:parse-to-list body)))
-                       (output ;; Unwrap the root element
-                         (cdr (first output))))
+                (let* ((output (if (or (equal type-header "application/x-amz-json-1.1")
+                                       (equal type-header "application/x-amz-json-1.0")
+                                       (equal type-header "application/json"))
+                                   (hash-table-alist (parse body))
+                                   (cdr (first (xmls-to-alist (xmls:parse-to-list body)))))))
                   (if wrapper-name
                       (values (aget output wrapper-name)
                               (aget output "ResponseMetadata"))
@@ -82,7 +91,7 @@
                      ,@slots))
           path-pattern))))
 
-(defun compile-operation (service name version options params body-type error-map)
+(defun compile-operation (service name version options protocol params body-type error-map)
   (let* ((output (gethash "output" options))
          (method (gethash "method" (gethash "http" options)))
          (request-uri (gethash "requestUri" (gethash "http" options))))
@@ -96,7 +105,7 @@
                   (aws-request
                     (make-request-with-input
                       ',(intern (format nil "~:@(~A-REQUEST~)" service))
-                      input ,method ,(compile-path-pattern request-uri) ,name ,version)
+                      input ,method ,protocol ,(compile-path-pattern request-uri) ,name ,version)
                     ,@(when (equal body-type "blob")
                         '(:want-stream t)))
                   ,body-type
@@ -111,6 +120,8 @@
                  (make-instance ',(intern (format nil "~:@(~A-REQUEST~)" service))
                                 :method ,method
                                 :path ,request-uri
+                                :protocol ,protocol
+                                :operation ,name
                                 :params `(("Action" . ,,name) ("Version" . ,,version)))
                  ,@(when (equal body-type "blob")
                      '(:want-stream t)))

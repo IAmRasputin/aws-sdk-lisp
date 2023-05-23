@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass clouddirectory-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "clouddirectory"))
+                       (:default-initargs :service "clouddirectory" :protocol
+                        :rest-json))
  (common-lisp:export 'clouddirectory-request))
 (common-lisp:progn
  (common-lisp:define-condition clouddirectory-error
@@ -10259,7 +10260,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/facets"
                                                         "AddFacetToObject"
                                                         "2017-01-11"))
@@ -10279,7 +10280,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/apply"
                                                         "ApplySchema"
                                                         "2017-01-11"))
@@ -10301,7 +10302,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/attach"
                                                         "AttachObject"
                                                         "2017-01-11"))
@@ -10322,7 +10323,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/policy/attach"
                                                         "AttachPolicy"
                                                         "2017-01-11"))
@@ -10343,7 +10344,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/index/attach"
                                                         "AttachToIndex"
                                                         "2017-01-11"))
@@ -10365,7 +10366,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/attach"
                                                         "AttachTypedLink"
                                                         "2017-01-11"))
@@ -10386,7 +10387,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/batchread"
                                                         "BatchRead"
                                                         "2017-01-11"))
@@ -10405,7 +10406,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/batchwrite"
                                                         "BatchWrite"
                                                         "2017-01-11"))
@@ -10424,7 +10425,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory/create"
                                                         "CreateDirectory"
                                                         "2017-01-11"))
@@ -10445,7 +10446,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet/create"
                                                         "CreateFacet"
                                                         "2017-01-11"))
@@ -10468,7 +10469,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/index"
                                                         "CreateIndex"
                                                         "2017-01-11"))
@@ -10490,7 +10491,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object"
                                                         "CreateObject"
                                                         "2017-01-11"))
@@ -10509,7 +10510,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/create"
                                                         "CreateSchema"
                                                         "2017-01-11"))
@@ -10528,7 +10529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/create"
                                                         "CreateTypedLinkFacet"
                                                         "2017-01-11"))
@@ -10547,7 +10548,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory"
                                                         "DeleteDirectory"
                                                         "2017-01-11"))
@@ -10566,7 +10567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet/delete"
                                                         "DeleteFacet"
                                                         "2017-01-11"))
@@ -10585,7 +10586,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/delete"
                                                         "DeleteObject"
                                                         "2017-01-11"))
@@ -10604,7 +10605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema"
                                                         "DeleteSchema"
                                                         "2017-01-11"))
@@ -10623,7 +10624,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/delete"
                                                         "DeleteTypedLinkFacet"
                                                         "2017-01-11"))
@@ -10644,7 +10645,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/index/detach"
                                                         "DetachFromIndex"
                                                         "2017-01-11"))
@@ -10664,7 +10665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/detach"
                                                         "DetachObject"
                                                         "2017-01-11"))
@@ -10685,7 +10686,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/policy/detach"
                                                         "DetachPolicy"
                                                         "2017-01-11"))
@@ -10705,7 +10706,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/detach"
                                                         "DetachTypedLink"
                                                         "2017-01-11"))
@@ -10724,7 +10725,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory/disable"
                                                         "DisableDirectory"
                                                         "2017-01-11"))
@@ -10743,7 +10744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory/enable"
                                                         "EnableDirectory"
                                                         "2017-01-11"))
@@ -10763,7 +10764,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/getappliedschema"
                                                         "GetAppliedSchemaVersion"
                                                         "2017-01-11"))
@@ -10782,7 +10783,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory/get"
                                                         "GetDirectory"
                                                         "2017-01-11"))
@@ -10801,7 +10802,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet"
                                                         "GetFacet"
                                                         "2017-01-11"))
@@ -10823,7 +10824,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/attributes/get"
                                                         "GetLinkAttributes"
                                                         "2017-01-11"))
@@ -10845,7 +10846,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/attributes/get"
                                                         "GetObjectAttributes"
                                                         "2017-01-11"))
@@ -10866,7 +10867,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/information"
                                                         "GetObjectInformation"
                                                         "2017-01-11"))
@@ -10885,7 +10886,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/json"
                                                         "GetSchemaAsJson"
                                                         "2017-01-11"))
@@ -10905,7 +10906,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/get"
                                                         "GetTypedLinkFacetInformation"
                                                         "2017-01-11"))
@@ -10926,7 +10927,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/applied"
                                                         "ListAppliedSchemaArns"
                                                         "2017-01-11"))
@@ -10948,7 +10949,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/indices"
                                                         "ListAttachedIndices"
                                                         "2017-01-11"))
@@ -10968,7 +10969,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/development"
                                                         "ListDevelopmentSchemaArns"
                                                         "2017-01-11"))
@@ -10987,7 +10988,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/directory/list"
                                                         "ListDirectories"
                                                         "2017-01-11"))
@@ -11007,7 +11008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet/attributes"
                                                         "ListFacetAttributes"
                                                         "2017-01-11"))
@@ -11027,7 +11028,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet/list"
                                                         "ListFacetNames"
                                                         "2017-01-11"))
@@ -11052,7 +11053,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/incoming"
                                                         "ListIncomingTypedLinks"
                                                         "2017-01-11"))
@@ -11074,7 +11075,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/index/targets"
                                                         "ListIndex"
                                                         "2017-01-11"))
@@ -11094,7 +11095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/managed"
                                                         "ListManagedSchemaArns"
                                                         "2017-01-11"))
@@ -11116,7 +11117,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/attributes"
                                                         "ListObjectAttributes"
                                                         "2017-01-11"))
@@ -11138,7 +11139,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/children"
                                                         "ListObjectChildren"
                                                         "2017-01-11"))
@@ -11160,7 +11161,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/parentpaths"
                                                         "ListObjectParentPaths"
                                                         "2017-01-11"))
@@ -11183,7 +11184,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/parent"
                                                         "ListObjectParents"
                                                         "2017-01-11"))
@@ -11205,7 +11206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/policy"
                                                         "ListObjectPolicies"
                                                         "2017-01-11"))
@@ -11230,7 +11231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/outgoing"
                                                         "ListOutgoingTypedLinks"
                                                         "2017-01-11"))
@@ -11252,7 +11253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/policy/attachment"
                                                         "ListPolicyAttachments"
                                                         "2017-01-11"))
@@ -11273,7 +11274,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/published"
                                                         "ListPublishedSchemaArns"
                                                         "2017-01-11"))
@@ -11293,7 +11294,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/tags"
                                                         "ListTagsForResource"
                                                         "2017-01-11"))
@@ -11314,7 +11315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/attributes"
                                                         "ListTypedLinkFacetAttributes"
                                                         "2017-01-11"))
@@ -11335,7 +11336,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet/list"
                                                         "ListTypedLinkFacetNames"
                                                         "2017-01-11"))
@@ -11357,7 +11358,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/policy/lookup"
                                                         "LookupPolicy"
                                                         "2017-01-11"))
@@ -11378,7 +11379,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/publish"
                                                         "PublishSchema"
                                                         "2017-01-11"))
@@ -11397,7 +11398,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/json"
                                                         "PutSchemaFromJson"
                                                         "2017-01-11"))
@@ -11418,7 +11419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/facets/delete"
                                                         "RemoveFacetFromObject"
                                                         "2017-01-11"))
@@ -11437,7 +11438,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/tags/add"
                                                         "TagResource"
                                                         "2017-01-11"))
@@ -11456,7 +11457,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/tags/remove"
                                                         "UntagResource"
                                                         "2017-01-11"))
@@ -11477,7 +11478,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/facet"
                                                         "UpdateFacet"
                                                         "2017-01-11"))
@@ -11499,7 +11500,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/attributes/update"
                                                         "UpdateLinkAttributes"
                                                         "2017-01-11"))
@@ -11520,7 +11521,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/object/update"
                                                         "UpdateObjectAttributes"
                                                         "2017-01-11"))
@@ -11539,7 +11540,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/update"
                                                         "UpdateSchema"
                                                         "2017-01-11"))
@@ -11561,7 +11562,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/typedlink/facet"
                                                         "UpdateTypedLinkFacet"
                                                         "2017-01-11"))
@@ -11582,7 +11583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/upgradeapplied"
                                                         "UpgradeAppliedSchema"
                                                         "2017-01-11"))
@@ -11604,7 +11605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'clouddirectory-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         "/amazonclouddirectory/2017-01-11/schema/upgradepublished"
                                                         "UpgradePublishedSchema"
                                                         "2017-01-11"))

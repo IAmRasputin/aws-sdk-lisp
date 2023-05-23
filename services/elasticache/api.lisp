@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass elasticache-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "elasticache"))
+                       (:default-initargs :service "elasticache" :protocol
+                        :query))
  (common-lisp:export 'elasticache-request))
 (common-lisp:progn
  (common-lisp:define-condition elasticache-error
@@ -12083,7 +12084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AddTagsToResource"
                                                         "2015-02-02"))
       common-lisp:nil "AddTagsToResourceResult" *error-map*)))
@@ -12105,7 +12106,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "AuthorizeCacheSecurityGroupIngress"
                                                         "2015-02-02"))
       common-lisp:nil "AuthorizeCacheSecurityGroupIngressResult" *error-map*)))
@@ -12127,7 +12128,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchApplyUpdateAction"
                                                         "2015-02-02"))
       common-lisp:nil "BatchApplyUpdateActionResult" *error-map*)))
@@ -12148,7 +12149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "BatchStopUpdateAction"
                                                         "2015-02-02"))
       common-lisp:nil "BatchStopUpdateActionResult" *error-map*)))
@@ -12166,7 +12167,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CompleteMigration"
                                                         "2015-02-02"))
       common-lisp:nil "CompleteMigrationResult" *error-map*)))
@@ -12187,7 +12188,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CopySnapshot"
                                                         "2015-02-02"))
       common-lisp:nil "CopySnapshotResult" *error-map*)))
@@ -12225,7 +12226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCacheCluster"
                                                         "2015-02-02"))
       common-lisp:nil "CreateCacheClusterResult" *error-map*)))
@@ -12247,7 +12248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCacheParameterGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateCacheParameterGroupResult" *error-map*)))
@@ -12268,7 +12269,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCacheSecurityGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateCacheSecurityGroupResult" *error-map*)))
@@ -12290,7 +12291,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateCacheSubnetGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateCacheSubnetGroupResult" *error-map*)))
@@ -12313,7 +12314,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateGlobalReplicationGroupResult" *error-map*)))
@@ -12358,7 +12359,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateReplicationGroupResult" *error-map*)))
@@ -12379,7 +12380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateSnapshot"
                                                         "2015-02-02"))
       common-lisp:nil "CreateSnapshotResult" *error-map*)))
@@ -12401,7 +12402,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :query "/"
+                                                        "CreateUser"
                                                         "2015-02-02"))
       common-lisp:nil "CreateUserResult" *error-map*)))
  (common-lisp:export 'create-user))
@@ -12419,7 +12421,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "CreateUserGroup"
                                                         "2015-02-02"))
       common-lisp:nil "CreateUserGroupResult" *error-map*)))
@@ -12443,7 +12445,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DecreaseNodeGroupsInGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "DecreaseNodeGroupsInGlobalReplicationGroupResult"
@@ -12466,7 +12468,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DecreaseReplicaCount"
                                                         "2015-02-02"))
       common-lisp:nil "DecreaseReplicaCountResult" *error-map*)))
@@ -12486,7 +12488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCacheCluster"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteCacheClusterResult" *error-map*)))
@@ -12505,7 +12507,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCacheParameterGroup"
                                                         "2015-02-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12524,7 +12526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCacheSecurityGroup"
                                                         "2015-02-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12543,7 +12545,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteCacheSubnetGroup"
                                                         "2015-02-02"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -12565,7 +12567,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteGlobalReplicationGroupResult" *error-map*)))
@@ -12586,7 +12588,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteReplicationGroupResult" *error-map*)))
@@ -12604,7 +12606,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteSnapshot"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteSnapshotResult" *error-map*)))
@@ -12622,7 +12624,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :query "/"
+                                                        "DeleteUser"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteUserResult" *error-map*)))
  (common-lisp:export 'delete-user))
@@ -12639,7 +12642,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DeleteUserGroup"
                                                         "2015-02-02"))
       common-lisp:nil "DeleteUserGroupResult" *error-map*)))
@@ -12661,7 +12664,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheClusters"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheClustersResult" *error-map*)))
@@ -12684,7 +12687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheEngineVersions"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheEngineVersionsResult" *error-map*)))
@@ -12705,7 +12708,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheParameterGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheParameterGroupsResult" *error-map*)))
@@ -12727,7 +12730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheParameters"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheParametersResult" *error-map*)))
@@ -12748,7 +12751,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheSecurityGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheSecurityGroupsResult" *error-map*)))
@@ -12769,7 +12772,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeCacheSubnetGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeCacheSubnetGroupsResult" *error-map*)))
@@ -12790,7 +12793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEngineDefaultParameters"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeEngineDefaultParametersResult" *error-map*)))
@@ -12811,7 +12814,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeEvents"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeEventsResult" *error-map*)))
@@ -12833,7 +12836,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeGlobalReplicationGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeGlobalReplicationGroupsResult" *error-map*)))
@@ -12853,7 +12856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReplicationGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeReplicationGroupsResult" *error-map*)))
@@ -12877,7 +12880,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedCacheNodes"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeReservedCacheNodesResult" *error-map*)))
@@ -12900,7 +12903,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeReservedCacheNodesOfferings"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeReservedCacheNodesOfferingsResult"
@@ -12922,7 +12925,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeServiceUpdates"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeServiceUpdatesResult" *error-map*)))
@@ -12944,7 +12947,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeSnapshots"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeSnapshotsResult" *error-map*)))
@@ -12968,7 +12971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeUpdateActions"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeUpdateActionsResult" *error-map*)))
@@ -12987,7 +12990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeUserGroups"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeUserGroupsResult" *error-map*)))
@@ -13007,7 +13010,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DescribeUsers"
                                                         "2015-02-02"))
       common-lisp:nil "DescribeUsersResult" *error-map*)))
@@ -13029,7 +13032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "DisassociateGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "DisassociateGlobalReplicationGroupResult" *error-map*)))
@@ -13051,7 +13054,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "FailoverGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "FailoverGlobalReplicationGroupResult" *error-map*)))
@@ -13074,7 +13077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "IncreaseNodeGroupsInGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "IncreaseNodeGroupsInGlobalReplicationGroupResult"
@@ -13096,7 +13099,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "IncreaseReplicaCount"
                                                         "2015-02-02"))
       common-lisp:nil "IncreaseReplicaCountResult" *error-map*)))
@@ -13116,7 +13119,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListAllowedNodeTypeModifications"
                                                         "2015-02-02"))
       common-lisp:nil "ListAllowedNodeTypeModificationsResult" *error-map*)))
@@ -13134,7 +13137,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ListTagsForResource"
                                                         "2015-02-02"))
       common-lisp:nil "ListTagsForResourceResult" *error-map*)))
@@ -13169,7 +13172,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCacheCluster"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyCacheClusterResult" *error-map*)))
@@ -13190,7 +13193,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCacheParameterGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyCacheParameterGroupResult" *error-map*)))
@@ -13212,7 +13215,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyCacheSubnetGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyCacheSubnetGroupResult" *error-map*)))
@@ -13238,7 +13241,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyGlobalReplicationGroupResult" *error-map*)))
@@ -13278,7 +13281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyReplicationGroupResult" *error-map*)))
@@ -13302,7 +13305,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyReplicationGroupShardConfiguration"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyReplicationGroupShardConfigurationResult"
@@ -13325,7 +13328,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ModifyUser"
+                                                        "POST" :query "/"
+                                                        "ModifyUser"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyUserResult" *error-map*)))
  (common-lisp:export 'modify-user))
@@ -13344,7 +13348,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ModifyUserGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ModifyUserGroupResult" *error-map*)))
@@ -13366,7 +13370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "PurchaseReservedCacheNodesOffering"
                                                         "2015-02-02"))
       common-lisp:nil "PurchaseReservedCacheNodesOfferingResult" *error-map*)))
@@ -13387,7 +13391,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebalanceSlotsInGlobalReplicationGroup"
                                                         "2015-02-02"))
       common-lisp:nil "RebalanceSlotsInGlobalReplicationGroupResult"
@@ -13408,7 +13412,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RebootCacheCluster"
                                                         "2015-02-02"))
       common-lisp:nil "RebootCacheClusterResult" *error-map*)))
@@ -13427,7 +13431,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RemoveTagsFromResource"
                                                         "2015-02-02"))
       common-lisp:nil "RemoveTagsFromResourceResult" *error-map*)))
@@ -13449,7 +13453,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "ResetCacheParameterGroup"
                                                         "2015-02-02"))
       common-lisp:nil "ResetCacheParameterGroupResult" *error-map*)))
@@ -13471,7 +13475,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "RevokeCacheSecurityGroupIngress"
                                                         "2015-02-02"))
       common-lisp:nil "RevokeCacheSecurityGroupIngressResult" *error-map*)))
@@ -13491,7 +13495,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "StartMigration"
                                                         "2015-02-02"))
       common-lisp:nil "StartMigrationResult" *error-map*)))
@@ -13510,7 +13514,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'elasticache-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :query "/"
                                                         "TestFailover"
                                                         "2015-02-02"))
       common-lisp:nil "TestFailoverResult" *error-map*)))

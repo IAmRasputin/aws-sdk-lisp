@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass support-app-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "support-app"))
+                       (:default-initargs :service "support-app" :protocol
+                        :rest-json))
  (common-lisp:export 'support-app-request))
 (common-lisp:progn
  (common-lisp:define-condition support-app-error
@@ -1077,7 +1078,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/create-slack-channel-configuration"
                                                         "CreateSlackChannelConfiguration"
                                                         "2021-08-20"))
@@ -1088,7 +1089,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'support-app-request :method "POST" :path
-                                "/control/delete-account-alias" :params
+                                "/control/delete-account-alias" :protocol
+                                :rest-json :operation "DeleteAccountAlias"
+                                :params
                                 `(("Action" ,@"DeleteAccountAlias")
                                   ("Version" ,@"2021-08-20"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1107,7 +1110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/delete-slack-channel-configuration"
                                                         "DeleteSlackChannelConfiguration"
                                                         "2021-08-20"))
@@ -1127,7 +1130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/delete-slack-workspace-configuration"
                                                         "DeleteSlackWorkspaceConfiguration"
                                                         "2021-08-20"))
@@ -1138,7 +1141,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'support-app-request :method "POST" :path
-                                "/control/get-account-alias" :params
+                                "/control/get-account-alias" :protocol
+                                :rest-json :operation "GetAccountAlias" :params
                                 `(("Action" ,@"GetAccountAlias")
                                   ("Version" ,@"2021-08-20"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -1157,7 +1161,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/list-slack-channel-configurations"
                                                         "ListSlackChannelConfigurations"
                                                         "2021-08-20"))
@@ -1177,7 +1181,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/list-slack-workspace-configurations"
                                                         "ListSlackWorkspaceConfigurations"
                                                         "2021-08-20"))
@@ -1196,7 +1200,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/put-account-alias"
                                                         "PutAccountAlias"
                                                         "2021-08-20"))
@@ -1216,7 +1220,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/register-slack-workspace-for-organization"
                                                         "RegisterSlackWorkspaceForOrganization"
                                                         "2021-08-20"))
@@ -1242,7 +1246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'support-app-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/control/update-slack-channel-configuration"
                                                         "UpdateSlackChannelConfiguration"
                                                         "2021-08-20"))

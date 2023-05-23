@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass inspector2-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "inspector2"))
+                       (:default-initargs :service "inspector2" :protocol
+                        :rest-json))
  (common-lisp:export 'inspector2-request))
 (common-lisp:progn
  (common-lisp:define-condition inspector2-error
@@ -8090,7 +8091,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/members/associate"
                                                         "AssociateMember"
                                                         "2020-06-08"))
@@ -8109,7 +8110,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/status/batch/get"
                                                         "BatchGetAccountStatus"
                                                         "2020-06-08"))
@@ -8129,7 +8130,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/freetrialinfo/batchget"
                                                         "BatchGetFreeTrialInfo"
                                                         "2020-06-08"))
@@ -8148,7 +8149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/reporting/cancel"
                                                         "CancelFindingsReport"
                                                         "2020-06-08"))
@@ -8170,7 +8171,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/filters/create"
                                                         "CreateFilter"
                                                         "2020-06-08"))
@@ -8191,7 +8192,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/reporting/create"
                                                         "CreateFindingsReport"
                                                         "2020-06-08"))
@@ -8210,7 +8211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/filters/delete"
                                                         "DeleteFilter"
                                                         "2020-06-08"))
@@ -8221,7 +8222,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'inspector2-request :method "POST" :path
-                                "/organizationconfiguration/describe" :params
+                                "/organizationconfiguration/describe" :protocol
+                                :rest-json :operation
+                                "DescribeOrganizationConfiguration" :params
                                 `(("Action"
                                    ,@"DescribeOrganizationConfiguration")
                                   ("Version" ,@"2020-06-08"))))
@@ -8240,8 +8243,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/disable"
-                                                        "Disable"
+                                                        "POST" :rest-json
+                                                        "/disable" "Disable"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disable))
@@ -8259,7 +8262,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delegatedadminaccounts/disable"
                                                         "DisableDelegatedAdminAccount"
                                                         "2020-06-08"))
@@ -8278,7 +8281,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/members/disassociate"
                                                         "DisassociateMember"
                                                         "2020-06-08"))
@@ -8298,8 +8301,9 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/enable"
-                                                        "Enable" "2020-06-08"))
+                                                        "POST" :rest-json
+                                                        "/enable" "Enable"
+                                                        "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'enable))
 (common-lisp:progn
@@ -8317,7 +8321,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delegatedadminaccounts/enable"
                                                         "EnableDelegatedAdminAccount"
                                                         "2020-06-08"))
@@ -8328,7 +8332,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'inspector2-request :method "POST" :path
-                                "/configuration/get" :params
+                                "/configuration/get" :protocol :rest-json
+                                :operation "GetConfiguration" :params
                                 `(("Action" ,@"GetConfiguration")
                                   ("Version" ,@"2020-06-08"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8338,7 +8343,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'inspector2-request :method "POST" :path
-                                "/delegatedadminaccounts/get" :params
+                                "/delegatedadminaccounts/get" :protocol
+                                :rest-json :operation
+                                "GetDelegatedAdminAccount" :params
                                 `(("Action" ,@"GetDelegatedAdminAccount")
                                   ("Version" ,@"2020-06-08"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8357,7 +8364,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/reporting/status/get"
                                                         "GetFindingsReportStatus"
                                                         "2020-06-08"))
@@ -8376,7 +8383,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/members/get"
+                                                        "POST" :rest-json
+                                                        "/members/get"
                                                         "GetMember"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8394,7 +8402,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/accountpermissions/list"
                                                         "ListAccountPermissions"
                                                         "2020-06-08"))
@@ -8414,7 +8422,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/coverage/list"
+                                                        "POST" :rest-json
+                                                        "/coverage/list"
                                                         "ListCoverage"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8433,7 +8442,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/coverage/statistics/list"
                                                         "ListCoverageStatistics"
                                                         "2020-06-08"))
@@ -8453,7 +8462,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/delegatedadminaccounts/list"
                                                         "ListDelegatedAdminAccounts"
                                                         "2020-06-08"))
@@ -8473,7 +8482,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/filters/list"
+                                                        "POST" :rest-json
+                                                        "/filters/list"
                                                         "ListFilters"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8495,7 +8505,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/findings/aggregation/list"
                                                         "ListFindingAggregations"
                                                         "2020-06-08"))
@@ -8517,7 +8527,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/findings/list"
+                                                        "POST" :rest-json
+                                                        "/findings/list"
                                                         "ListFindings"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8536,7 +8547,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/members/list"
+                                                        "POST" :rest-json
+                                                        "/members/list"
                                                         "ListMembers"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8554,7 +8566,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8583,7 +8595,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/usage/list"
+                                                        "POST" :rest-json
+                                                        "/usage/list"
                                                         "ListUsageTotals"
                                                         "2020-06-08"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8601,7 +8614,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8629,7 +8642,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8657,7 +8670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/configuration/update"
                                                         "UpdateConfiguration"
                                                         "2020-06-08"))
@@ -8679,7 +8692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/filters/update"
                                                         "UpdateFilter"
                                                         "2020-06-08"))
@@ -8699,7 +8712,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'inspector2-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/organizationconfiguration/update"
                                                         "UpdateOrganizationConfiguration"
                                                         "2020-06-08"))

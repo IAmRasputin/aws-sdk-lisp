@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass ivs-realtime-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "ivs-realtime"))
+                       (:default-initargs :service "ivs-realtime" :protocol
+                        :rest-json))
  (common-lisp:export 'ivs-realtime-request))
 (common-lisp:progn
  (common-lisp:define-condition ivs-realtime-error
@@ -1016,7 +1017,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateParticipantToken"
                                                         "CreateParticipantToken"
                                                         "2020-07-14"))
@@ -1037,7 +1038,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateStage"
+                                                        "POST" :rest-json
+                                                        "/CreateStage"
                                                         "CreateStage"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1055,7 +1057,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteStage"
+                                                        "POST" :rest-json
+                                                        "/DeleteStage"
                                                         "DeleteStage"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1074,7 +1077,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DisconnectParticipant"
                                                         "DisconnectParticipant"
                                                         "2020-07-14"))
@@ -1093,8 +1096,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetStage"
-                                                        "GetStage"
+                                                        "POST" :rest-json
+                                                        "/GetStage" "GetStage"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-stage))
@@ -1111,7 +1114,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListStages"
+                                                        "POST" :rest-json
+                                                        "/ListStages"
                                                         "ListStages"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -1129,7 +1133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1157,7 +1161,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1185,7 +1189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -1213,7 +1217,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ivs-realtime-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateStage"
+                                                        "POST" :rest-json
+                                                        "/UpdateStage"
                                                         "UpdateStage"
                                                         "2020-07-14"))
       common-lisp:nil common-lisp:nil *error-map*)))

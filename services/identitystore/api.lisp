@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass identitystore-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "identitystore"))
+                       (:default-initargs :service "identitystore" :protocol
+                        :json))
  (common-lisp:export 'identitystore-request))
 (common-lisp:progn
  (common-lisp:define-condition identitystore-error
@@ -2676,7 +2677,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGroup"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2695,7 +2696,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateGroupMembership"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2719,7 +2720,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "CreateUser"
+                                                        "POST" :json "/"
+                                                        "CreateUser"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-user))
@@ -2736,7 +2738,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGroup"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2755,7 +2757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteGroupMembership"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2773,7 +2775,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "DeleteUser"
+                                                        "POST" :json "/"
+                                                        "DeleteUser"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-user))
@@ -2790,7 +2793,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGroup"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2810,7 +2813,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeGroupMembership"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2828,7 +2831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeUser"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2847,7 +2850,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetGroupId"
+                                                        "POST" :json "/"
+                                                        "GetGroupId"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-group-id))
@@ -2865,7 +2869,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetGroupMembershipId"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2884,7 +2888,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "GetUserId"
+                                                        "POST" :json "/"
+                                                        "GetUserId"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-user-id))
@@ -2902,7 +2907,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "IsMemberInGroups"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2922,7 +2927,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGroupMemberships"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2943,7 +2948,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListGroupMembershipsForMember"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2963,7 +2968,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListGroups"
+                                                        "POST" :json "/"
+                                                        "ListGroups"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-groups))
@@ -2982,7 +2988,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListUsers"
+                                                        "POST" :json "/"
+                                                        "ListUsers"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-users))
@@ -3000,7 +3007,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateGroup"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3019,7 +3026,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'identitystore-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "UpdateUser"
+                                                        "POST" :json "/"
+                                                        "UpdateUser"
                                                         "2020-06-15"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-user))

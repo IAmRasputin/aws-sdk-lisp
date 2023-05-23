@@ -11,7 +11,8 @@
 (common-lisp:in-package #:aws-sdk/services/braket/api)
 (common-lisp:progn
  (common-lisp:defclass braket-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "braket"))
+                       (:default-initargs :service "braket" :protocol
+                        :rest-json))
  (common-lisp:export 'braket-request))
 (common-lisp:progn
  (common-lisp:define-condition braket-error
@@ -2304,7 +2305,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2332,7 +2333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2367,8 +2368,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/job"
-                                                        "CreateJob"
+                                                        "POST" :rest-json
+                                                        "/job" "CreateJob"
                                                         "2019-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-job))
@@ -2389,7 +2390,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/quantum-task"
+                                                        "POST" :rest-json
+                                                        "/quantum-task"
                                                         "CreateQuantumTask"
                                                         "2019-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2407,7 +2409,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2435,7 +2437,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2462,7 +2464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2490,7 +2492,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2518,7 +2520,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/devices"
+                                                        "POST" :rest-json
+                                                        "/devices"
                                                         "SearchDevices"
                                                         "2019-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2536,8 +2539,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/jobs"
-                                                        "SearchJobs"
+                                                        "POST" :rest-json
+                                                        "/jobs" "SearchJobs"
                                                         "2019-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'search-jobs))
@@ -2554,7 +2557,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/quantum-tasks"
+                                                        "POST" :rest-json
+                                                        "/quantum-tasks"
                                                         "SearchQuantumTasks"
                                                         "2019-09-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2572,7 +2576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -2600,7 +2604,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'braket-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iot-roborunner-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iot-roborunner"))
+                       (:default-initargs :service "iot-roborunner" :protocol
+                        :rest-json))
  (common-lisp:export 'iot-roborunner-request))
 (common-lisp:progn
  (common-lisp:define-condition iot-roborunner-error
@@ -2655,7 +2656,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createDestination"
                                                         "CreateDestination"
                                                         "2018-05-10"))
@@ -2676,7 +2677,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createSite"
+                                                        "POST" :rest-json
+                                                        "/createSite"
                                                         "CreateSite"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2700,7 +2702,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/createWorker"
+                                                        "POST" :rest-json
+                                                        "/createWorker"
                                                         "CreateWorker"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2720,7 +2723,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createWorkerFleet"
                                                         "CreateWorkerFleet"
                                                         "2018-05-10"))
@@ -2739,7 +2742,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteDestination"
                                                         "DeleteDestination"
                                                         "2018-05-10"))
@@ -2758,7 +2761,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteSite"
+                                                        "POST" :rest-json
+                                                        "/deleteSite"
                                                         "DeleteSite"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2776,7 +2780,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/deleteWorker"
+                                                        "POST" :rest-json
+                                                        "/deleteWorker"
                                                         "DeleteWorker"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2794,7 +2799,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteWorkerFleet"
                                                         "DeleteWorkerFleet"
                                                         "2018-05-10"))
@@ -2813,7 +2818,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/getDestination"
+                                                        "GET" :rest-json
+                                                        "/getDestination"
                                                         "GetDestination"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2831,8 +2837,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/getSite"
-                                                        "GetSite"
+                                                        "GET" :rest-json
+                                                        "/getSite" "GetSite"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-site))
@@ -2849,7 +2855,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/getWorker"
+                                                        "GET" :rest-json
+                                                        "/getWorker"
                                                         "GetWorker"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2867,7 +2874,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/getWorkerFleet"
+                                                        "GET" :rest-json
+                                                        "/getWorkerFleet"
                                                         "GetWorkerFleet"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2886,7 +2894,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/listDestinations"
                                                         "ListDestinations"
                                                         "2018-05-10"))
@@ -2905,7 +2913,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/listSites"
+                                                        "GET" :rest-json
+                                                        "/listSites"
                                                         "ListSites"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2923,7 +2932,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/listWorkerFleets"
                                                         "ListWorkerFleets"
                                                         "2018-05-10"))
@@ -2943,7 +2952,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/listWorkers"
+                                                        "GET" :rest-json
+                                                        "/listWorkers"
                                                         "ListWorkers"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2963,7 +2973,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateDestination"
                                                         "UpdateDestination"
                                                         "2018-05-10"))
@@ -2983,7 +2993,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/updateSite"
+                                                        "POST" :rest-json
+                                                        "/updateSite"
                                                         "UpdateSite"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3005,7 +3016,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/updateWorker"
+                                                        "POST" :rest-json
+                                                        "/updateWorker"
                                                         "UpdateWorker"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3024,7 +3036,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'iot-roborunner-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateWorkerFleet"
                                                         "UpdateWorkerFleet"
                                                         "2018-05-10"))

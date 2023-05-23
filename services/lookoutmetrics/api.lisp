@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass lookoutmetrics-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "lookoutmetrics"))
+                       (:default-initargs :service "lookoutmetrics" :protocol
+                        :rest-json))
  (common-lisp:export 'lookoutmetrics-request))
 (common-lisp:progn
  (common-lisp:define-condition lookoutmetrics-error
@@ -5934,7 +5935,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ActivateAnomalyDetector"
                                                         "ActivateAnomalyDetector"
                                                         "2017-07-25"))
@@ -5954,7 +5955,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/BackTestAnomalyDetector"
                                                         "BackTestAnomalyDetector"
                                                         "2017-07-25"))
@@ -5977,7 +5978,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/CreateAlert"
+                                                        "POST" :rest-json
+                                                        "/CreateAlert"
                                                         "CreateAlert"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -5999,7 +6001,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateAnomalyDetector"
                                                         "CreateAnomalyDetector"
                                                         "2017-07-25"))
@@ -6024,7 +6026,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/CreateMetricSet"
                                                         "CreateMetricSet"
                                                         "2017-07-25"))
@@ -6044,7 +6046,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeactivateAnomalyDetector"
                                                         "DeactivateAnomalyDetector"
                                                         "2017-07-25"))
@@ -6063,7 +6065,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DeleteAlert"
+                                                        "POST" :rest-json
+                                                        "/DeleteAlert"
                                                         "DeleteAlert"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6081,7 +6084,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DeleteAnomalyDetector"
                                                         "DeleteAnomalyDetector"
                                                         "2017-07-25"))
@@ -6100,7 +6103,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/DescribeAlert"
+                                                        "POST" :rest-json
+                                                        "/DescribeAlert"
                                                         "DescribeAlert"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6122,7 +6126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeAnomalyDetectionExecutions"
                                                         "DescribeAnomalyDetectionExecutions"
                                                         "2017-07-25"))
@@ -6142,7 +6146,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeAnomalyDetector"
                                                         "DescribeAnomalyDetector"
                                                         "2017-07-25"))
@@ -6161,7 +6165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DescribeMetricSet"
                                                         "DescribeMetricSet"
                                                         "2017-07-25"))
@@ -6182,7 +6186,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/DetectMetricSetConfig"
                                                         "DetectMetricSetConfig"
                                                         "2017-07-25"))
@@ -6202,7 +6206,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetAnomalyGroup"
                                                         "GetAnomalyGroup"
                                                         "2017-07-25"))
@@ -6222,7 +6226,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/GetDataQualityMetrics"
                                                         "GetDataQualityMetrics"
                                                         "2017-07-25"))
@@ -6244,7 +6248,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetFeedback"
+                                                        "POST" :rest-json
+                                                        "/GetFeedback"
                                                         "GetFeedback"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6262,7 +6267,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/GetSampleData"
+                                                        "POST" :rest-json
+                                                        "/GetSampleData"
                                                         "GetSampleData"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6282,7 +6288,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/ListAlerts"
+                                                        "POST" :rest-json
+                                                        "/ListAlerts"
                                                         "ListAlerts"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6300,7 +6307,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListAnomalyDetectors"
                                                         "ListAnomalyDetectors"
                                                         "2017-07-25"))
@@ -6323,7 +6330,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListAnomalyGroupRelatedMetrics"
                                                         "ListAnomalyGroupRelatedMetrics"
                                                         "2017-07-25"))
@@ -6346,7 +6353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListAnomalyGroupSummaries"
                                                         "ListAnomalyGroupSummaries"
                                                         "2017-07-25"))
@@ -6369,7 +6376,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListAnomalyGroupTimeSeries"
                                                         "ListAnomalyGroupTimeSeries"
                                                         "2017-07-25"))
@@ -6390,7 +6397,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/ListMetricSets"
                                                         "ListMetricSets"
                                                         "2017-07-25"))
@@ -6409,7 +6416,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6440,7 +6447,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/PutFeedback"
+                                                        "POST" :rest-json
+                                                        "/PutFeedback"
                                                         "PutFeedback"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6458,7 +6466,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6486,7 +6494,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -6517,7 +6525,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/UpdateAlert"
+                                                        "POST" :rest-json
+                                                        "/UpdateAlert"
                                                         "UpdateAlert"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -6538,7 +6547,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateAnomalyDetector"
                                                         "UpdateAnomalyDetector"
                                                         "2017-07-25"))
@@ -6562,7 +6571,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'lookoutmetrics-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/UpdateMetricSet"
                                                         "UpdateMetricSet"
                                                         "2017-07-25"))

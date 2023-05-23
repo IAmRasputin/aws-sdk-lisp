@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass ssm-incidents-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "ssm-incidents"))
+                       (:default-initargs :service "ssm-incidents" :protocol
+                        :rest-json))
  (common-lisp:export 'ssm-incidents-request))
 (common-lisp:progn
  (common-lisp:define-condition ssm-incidents-error
@@ -4305,7 +4306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createReplicationSet"
                                                         "CreateReplicationSet"
                                                         "2018-05-10"))
@@ -4328,7 +4329,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createResponsePlan"
                                                         "CreateResponsePlan"
                                                         "2018-05-10"))
@@ -4350,7 +4351,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/createTimelineEvent"
                                                         "CreateTimelineEvent"
                                                         "2018-05-10"))
@@ -4369,7 +4370,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteIncidentRecord"
                                                         "DeleteIncidentRecord"
                                                         "2018-05-10"))
@@ -4388,7 +4389,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteReplicationSet"
                                                         "DeleteReplicationSet"
                                                         "2018-05-10"))
@@ -4407,7 +4408,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteResourcePolicy"
                                                         "DeleteResourcePolicy"
                                                         "2018-05-10"))
@@ -4426,7 +4427,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteResponsePlan"
                                                         "DeleteResponsePlan"
                                                         "2018-05-10"))
@@ -4445,7 +4446,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/deleteTimelineEvent"
                                                         "DeleteTimelineEvent"
                                                         "2018-05-10"))
@@ -4464,7 +4465,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/getIncidentRecord"
                                                         "GetIncidentRecord"
                                                         "2018-05-10"))
@@ -4483,7 +4484,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/getReplicationSet"
                                                         "GetReplicationSet"
                                                         "2018-05-10"))
@@ -4503,7 +4504,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/getResourcePolicies"
                                                         "GetResourcePolicies"
                                                         "2018-05-10"))
@@ -4522,7 +4523,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/getResponsePlan"
                                                         "GetResponsePlan"
                                                         "2018-05-10"))
@@ -4541,7 +4542,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/getTimelineEvent"
                                                         "GetTimelineEvent"
                                                         "2018-05-10"))
@@ -4560,7 +4561,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listIncidentRecords"
                                                         "ListIncidentRecords"
                                                         "2018-05-10"))
@@ -4581,7 +4582,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listRelatedItems"
                                                         "ListRelatedItems"
                                                         "2018-05-10"))
@@ -4600,7 +4601,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listReplicationSets"
                                                         "ListReplicationSets"
                                                         "2018-05-10"))
@@ -4619,7 +4620,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listResponsePlans"
                                                         "ListResponsePlans"
                                                         "2018-05-10"))
@@ -4638,7 +4639,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4669,7 +4670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/listTimelineEvents"
                                                         "ListTimelineEvents"
                                                         "2018-05-10"))
@@ -4688,7 +4689,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/putResourcePolicy"
                                                         "PutResourcePolicy"
                                                         "2018-05-10"))
@@ -4710,7 +4711,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/startIncident"
+                                                        "POST" :rest-json
+                                                        "/startIncident"
                                                         "StartIncident"
                                                         "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4728,7 +4730,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4756,7 +4758,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4785,7 +4787,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateDeletionProtection"
                                                         "UpdateDeletionProtection"
                                                         "2018-05-10"))
@@ -4807,7 +4809,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateIncidentRecord"
                                                         "UpdateIncidentRecord"
                                                         "2018-05-10"))
@@ -4829,7 +4831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateRelatedItems"
                                                         "UpdateRelatedItems"
                                                         "2018-05-10"))
@@ -4848,7 +4850,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateReplicationSet"
                                                         "UpdateReplicationSet"
                                                         "2018-05-10"))
@@ -4876,7 +4878,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateResponsePlan"
                                                         "UpdateResponsePlan"
                                                         "2018-05-10"))
@@ -4899,7 +4901,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ssm-incidents-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/updateTimelineEvent"
                                                         "UpdateTimelineEvent"
                                                         "2018-05-10"))

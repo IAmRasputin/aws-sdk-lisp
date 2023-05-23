@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass iotsecuretunneling-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "iotsecuretunneling"))
+                       (:default-initargs :service "iotsecuretunneling"
+                        :protocol :json))
  (common-lisp:export 'iotsecuretunneling-request))
 (common-lisp:progn
  (common-lisp:define-condition iotsecuretunneling-error
@@ -970,7 +971,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "CloseTunnel" "2018-10-05"))
+        :json "/" "CloseTunnel" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'close-tunnel))
 (common-lisp:progn
@@ -986,7 +987,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "DescribeTunnel" "2018-10-05"))
+        :json "/" "DescribeTunnel" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-tunnel))
 (common-lisp:progn
@@ -1002,7 +1003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTagsForResource" "2018-10-05"))
+        :json "/" "ListTagsForResource" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -1019,7 +1020,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "ListTunnels" "2018-10-05"))
+        :json "/" "ListTunnels" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tunnels))
 (common-lisp:progn
@@ -1037,7 +1038,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "OpenTunnel" "2018-10-05"))
+        :json "/" "OpenTunnel" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'open-tunnel))
 (common-lisp:progn
@@ -1055,7 +1056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "RotateTunnelAccessToken" "2018-10-05"))
+        :json "/" "RotateTunnelAccessToken" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'rotate-tunnel-access-token))
 (common-lisp:progn
@@ -1071,7 +1072,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "TagResource" "2018-10-05"))
+        :json "/" "TagResource" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -1087,6 +1088,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'iotsecuretunneling-request aws-sdk/generator/operation::input "POST"
-        "/" "UntagResource" "2018-10-05"))
+        :json "/" "UntagResource" "2018-10-05"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))

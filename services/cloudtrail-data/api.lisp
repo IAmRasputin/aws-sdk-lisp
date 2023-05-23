@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass cloudtrail-data-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "cloudtrail-data"))
+                       (:default-initargs :service "cloudtrail-data" :protocol
+                        :rest-json))
  (common-lisp:export 'cloudtrail-data-request))
 (common-lisp:progn
  (common-lisp:define-condition cloudtrail-data-error
@@ -312,6 +313,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'cloudtrail-data-request aws-sdk/generator/operation::input "POST"
-        "/PutAuditEvents" "PutAuditEvents" "2021-08-11"))
+        :rest-json "/PutAuditEvents" "PutAuditEvents" "2021-08-11"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-audit-events))

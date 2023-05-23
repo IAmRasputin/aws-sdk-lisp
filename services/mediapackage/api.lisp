@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass mediapackage-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "mediapackage"))
+                       (:default-initargs :service "mediapackage" :protocol
+                        :rest-json))
  (common-lisp:export 'mediapackage-request))
 (common-lisp:progn
  (common-lisp:define-condition mediapackage-error
@@ -2328,7 +2329,11 @@
     (common-lisp:or |__integer| common-lisp:null))
    (program-date-time-interval-seconds common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
-   (url common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+   (url common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
+   (ad-triggers common-lisp:nil :type
+    (common-lisp:or ad-triggers common-lisp:null))
+   (ads-on-delivery-restrictions common-lisp:nil :type
+    (common-lisp:or ads-on-delivery-restrictions common-lisp:null)))
  (common-lisp:export (common-lisp:list 'hls-manifest 'make-hls-manifest))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input hls-manifest))
@@ -2393,6 +2398,21 @@
                            aws-sdk/generator/shape::input 'url))
       (common-lisp:list
        (common-lisp:cons "Url"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input 'ad-triggers))
+      (common-lisp:list
+       (common-lisp:cons "AdTriggers"
+                         (aws-sdk/generator/shape::input-params
+                          aws-sdk/generator/shape::value))))
+    (alexandria:when-let (aws-sdk/generator/shape::value
+                          (common-lisp:slot-value
+                           aws-sdk/generator/shape::input
+                           'ads-on-delivery-restrictions))
+      (common-lisp:list
+       (common-lisp:cons "AdsOnDeliveryRestrictions"
                          (aws-sdk/generator/shape::input-params
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
@@ -4537,7 +4557,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4565,7 +4585,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/channels"
+                                                        "POST" :rest-json
+                                                        "/channels"
                                                         "CreateChannel"
                                                         "2017-10-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4586,7 +4607,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/harvest_jobs"
+                                                        "POST" :rest-json
+                                                        "/harvest_jobs"
                                                         "CreateHarvestJob"
                                                         "2017-10-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4610,7 +4632,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/origin_endpoints"
                                                         "CreateOriginEndpoint"
                                                         "2017-10-12"))
@@ -4629,7 +4651,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4657,7 +4679,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4685,7 +4707,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4713,7 +4735,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4741,7 +4763,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4769,7 +4791,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/channels"
+                                                        "GET" :rest-json
+                                                        "/channels"
                                                         "ListChannels"
                                                         "2017-10-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4790,7 +4813,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/harvest_jobs"
+                                                        "GET" :rest-json
+                                                        "/harvest_jobs"
                                                         "ListHarvestJobs"
                                                         "2017-10-12"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -4809,7 +4833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/origin_endpoints"
                                                         "ListOriginEndpoints"
                                                         "2017-10-12"))
@@ -4828,7 +4852,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4857,7 +4881,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4886,7 +4910,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4918,7 +4942,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4946,7 +4970,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -4974,7 +4998,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -5008,7 +5032,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'mediapackage-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)

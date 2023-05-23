@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass privatenetworks-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "privatenetworks"))
+                       (:default-initargs :service "privatenetworks" :protocol
+                        :rest-json))
  (common-lisp:export 'privatenetworks-request))
 (common-lisp:progn
  (common-lisp:define-condition privatenetworks-error
@@ -3113,7 +3114,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/orders/acknowledge" "AcknowledgeOrderReceipt" "2021-12-03"))
+        :rest-json "/v1/orders/acknowledge" "AcknowledgeOrderReceipt"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'acknowledge-order-receipt))
 (common-lisp:progn
@@ -3131,7 +3133,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/device-identifiers/activate" "ActivateDeviceIdentifier"
+        :rest-json "/v1/device-identifiers/activate" "ActivateDeviceIdentifier"
         "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'activate-device-identifier))
@@ -3150,7 +3152,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-sites/activate" "ActivateNetworkSite" "2021-12-03"))
+        :rest-json "/v1/network-sites/activate" "ActivateNetworkSite"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'activate-network-site))
 (common-lisp:progn
@@ -3169,7 +3172,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-resources/configure" "ConfigureAccessPoint" "2021-12-03"))
+        :rest-json "/v1/network-resources/configure" "ConfigureAccessPoint"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'configure-access-point))
 (common-lisp:progn
@@ -3187,7 +3191,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/networks" "CreateNetwork" "2021-12-03"))
+        :rest-json "/v1/networks" "CreateNetwork" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-network))
 (common-lisp:progn
@@ -3207,7 +3211,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-sites" "CreateNetworkSite" "2021-12-03"))
+        :rest-json "/v1/network-sites" "CreateNetworkSite" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-network-site))
 (common-lisp:progn
@@ -3225,8 +3229,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/device-identifiers/deactivate" "DeactivateDeviceIdentifier"
-        "2021-12-03"))
+        :rest-json "/v1/device-identifiers/deactivate"
+        "DeactivateDeviceIdentifier" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'deactivate-device-identifier))
 (common-lisp:progn
@@ -3242,6 +3246,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/networks/~A"
                               (quri.encode:url-encode
@@ -3264,6 +3269,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/network-sites/~A"
                               (quri.encode:url-encode
@@ -3286,6 +3292,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/device-identifiers/~A"
                               (quri.encode:url-encode
@@ -3308,6 +3315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/networks/~A"
                               (quri.encode:url-encode
@@ -3330,6 +3338,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/network-resources/~A"
                               (quri.encode:url-encode
@@ -3352,6 +3361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/network-sites/~A"
                               (quri.encode:url-encode
@@ -3374,6 +3384,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/v1/orders/~A"
                               (quri.encode:url-encode
@@ -3398,7 +3409,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/device-identifiers/list" "ListDeviceIdentifiers" "2021-12-03"))
+        :rest-json "/v1/device-identifiers/list" "ListDeviceIdentifiers"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-device-identifiers))
 (common-lisp:progn
@@ -3416,7 +3428,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-resources" "ListNetworkResources" "2021-12-03"))
+        :rest-json "/v1/network-resources" "ListNetworkResources"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-network-resources))
 (common-lisp:progn
@@ -3434,7 +3447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-sites/list" "ListNetworkSites" "2021-12-03"))
+        :rest-json "/v1/network-sites/list" "ListNetworkSites" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-network-sites))
 (common-lisp:progn
@@ -3451,7 +3464,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/networks/list" "ListNetworks" "2021-12-03"))
+        :rest-json "/v1/networks/list" "ListNetworks" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-networks))
 (common-lisp:progn
@@ -3469,7 +3482,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/orders/list" "ListOrders" "2021-12-03"))
+        :rest-json "/v1/orders/list" "ListOrders" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-orders))
 (common-lisp:progn
@@ -3485,6 +3498,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "GET"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3499,7 +3513,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'privatenetworks-request :method "GET" :path
-                                "/ping" :params
+                                "/ping" :protocol :rest-json :operation "Ping"
+                                :params
                                 `(("Action" ,@"Ping")
                                   ("Version" ,@"2021-12-03"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3521,7 +3536,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
-        "/v1/network-resources/update" "StartNetworkResourceUpdate"
+        :rest-json "/v1/network-resources/update" "StartNetworkResourceUpdate"
         "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-network-resource-update))
@@ -3538,6 +3553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "POST"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3560,6 +3576,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "DELETE"
+        :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -3584,7 +3601,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "PUT"
-        "/v1/network-sites/site" "UpdateNetworkSite" "2021-12-03"))
+        :rest-json "/v1/network-sites/site" "UpdateNetworkSite" "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-network-site))
 (common-lisp:progn
@@ -3602,6 +3619,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'privatenetworks-request aws-sdk/generator/operation::input "PUT"
-        "/v1/network-sites/plan" "UpdateNetworkSitePlan" "2021-12-03"))
+        :rest-json "/v1/network-sites/plan" "UpdateNetworkSitePlan"
+        "2021-12-03"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-network-site-plan))

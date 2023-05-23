@@ -13,7 +13,7 @@
  (common-lisp:defclass sagemaker-featurestore-runtime-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "sagemaker-featurestore-runtime"))
+                        "sagemaker-featurestore-runtime" :protocol :rest-json))
  (common-lisp:export 'sagemaker-featurestore-runtime-request))
 (common-lisp:progn
  (common-lisp:define-condition sagemaker-featurestore-runtime-error
@@ -532,7 +532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-featurestore-runtime-request
-        aws-sdk/generator/operation::input "POST" "/BatchGetRecord"
+        aws-sdk/generator/operation::input "POST" :rest-json "/BatchGetRecord"
         "BatchGetRecord" "2020-07-01"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-get-record))
@@ -553,7 +553,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-featurestore-runtime-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/FeatureGroup/~A"
                               (quri.encode:url-encode
@@ -579,7 +579,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-featurestore-runtime-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/FeatureGroup/~A"
                               (quri.encode:url-encode
@@ -603,7 +603,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'sagemaker-featurestore-runtime-request
-        aws-sdk/generator/operation::input "PUT"
+        aws-sdk/generator/operation::input "PUT" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/FeatureGroup/~A"
                               (quri.encode:url-encode

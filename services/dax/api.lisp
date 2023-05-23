@@ -11,7 +11,7 @@
 (common-lisp:in-package #:aws-sdk/services/dax/api)
 (common-lisp:progn
  (common-lisp:defclass dax-request (aws-sdk/request:request) common-lisp:nil
-                       (:default-initargs :service "dax"))
+                       (:default-initargs :service "dax" :protocol :json))
  (common-lisp:export 'dax-request))
 (common-lisp:progn
  (common-lisp:define-condition dax-error
@@ -2943,7 +2943,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateCluster"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2962,7 +2962,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateParameterGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2981,7 +2981,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateSubnetGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3003,7 +3003,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DecreaseReplicationFactor"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3021,7 +3021,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteCluster"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3039,7 +3039,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteParameterGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3057,7 +3057,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteSubnetGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3076,7 +3076,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeClusters"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3095,7 +3095,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeDefaultParameters"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3116,7 +3116,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeEvents"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3137,7 +3137,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeParameterGroups"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3157,7 +3157,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeParameters"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3177,7 +3177,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeSubnetGroups"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3199,7 +3199,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "IncreaseReplicationFactor"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3217,7 +3217,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTags"
+                                                        "POST" :json "/"
+                                                        "ListTags"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags))
@@ -3234,7 +3235,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "RebootNode"
+                                                        "POST" :json "/"
+                                                        "RebootNode"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'reboot-node))
@@ -3251,7 +3253,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3269,7 +3271,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3293,7 +3295,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateCluster"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3313,7 +3315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateParameterGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3332,7 +3334,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'dax-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UpdateSubnetGroup"
                                                         "2017-04-19"))
       common-lisp:nil common-lisp:nil *error-map*)))

@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass meteringmarketplace-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "meteringmarketplace"))
+                       (:default-initargs :service "meteringmarketplace"
+                        :protocol :json))
  (common-lisp:export 'meteringmarketplace-request))
 (common-lisp:progn
  (common-lisp:define-condition meteringmarketplace-error
@@ -732,7 +733,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'meteringmarketplace-request aws-sdk/generator/operation::input "POST"
-        "/" "BatchMeterUsage" "2016-01-14"))
+        :json "/" "BatchMeterUsage" "2016-01-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'batch-meter-usage))
 (common-lisp:progn
@@ -751,7 +752,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'meteringmarketplace-request aws-sdk/generator/operation::input "POST"
-        "/" "MeterUsage" "2016-01-14"))
+        :json "/" "MeterUsage" "2016-01-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'meter-usage))
 (common-lisp:progn
@@ -768,7 +769,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'meteringmarketplace-request aws-sdk/generator/operation::input "POST"
-        "/" "RegisterUsage" "2016-01-14"))
+        :json "/" "RegisterUsage" "2016-01-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'register-usage))
 (common-lisp:progn
@@ -784,6 +785,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'meteringmarketplace-request aws-sdk/generator/operation::input "POST"
-        "/" "ResolveCustomer" "2016-01-14"))
+        :json "/" "ResolveCustomer" "2016-01-14"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'resolve-customer))

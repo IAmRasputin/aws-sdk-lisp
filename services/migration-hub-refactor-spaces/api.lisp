@@ -13,7 +13,7 @@
  (common-lisp:defclass migration-hub-refactor-spaces-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "migration-hub-refactor-spaces"))
+                        "migration-hub-refactor-spaces" :protocol :rest-json))
  (common-lisp:export 'migration-hub-refactor-spaces-request))
 (common-lisp:progn
  (common-lisp:define-condition migration-hub-refactor-spaces-error
@@ -4163,7 +4163,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/environments/~A/applications"
                               (quri.encode:url-encode
@@ -4189,7 +4189,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "POST" "/environments"
+        aws-sdk/generator/operation::input "POST" :rest-json "/environments"
         "CreateEnvironment" "2021-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-environment))
@@ -4210,7 +4210,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/routes"
@@ -4243,7 +4243,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/services"
@@ -4273,7 +4273,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A"
@@ -4301,7 +4301,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/environments/~A"
                               (quri.encode:url-encode
@@ -4324,7 +4324,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/resourcepolicy/~A"
                               (quri.encode:url-encode
@@ -4350,7 +4350,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/routes/~A"
@@ -4385,7 +4385,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/services/~A"
@@ -4419,7 +4419,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A"
@@ -4447,7 +4447,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/environments/~A"
                               (quri.encode:url-encode
@@ -4470,7 +4470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/resourcepolicy/~A"
                               (quri.encode:url-encode
@@ -4496,7 +4496,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/routes/~A"
@@ -4531,7 +4531,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/services/~A"
@@ -4565,7 +4565,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/environments/~A/applications"
                               (quri.encode:url-encode
@@ -4590,7 +4590,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/environments/~A/vpcs"
                               (quri.encode:url-encode
@@ -4613,7 +4613,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET" "/environments"
+        aws-sdk/generator/operation::input "GET" :rest-json "/environments"
         "ListEnvironments" "2021-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-environments))
@@ -4633,7 +4633,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/routes"
@@ -4664,7 +4664,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/services"
@@ -4692,7 +4692,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "GET"
+        aws-sdk/generator/operation::input "GET" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4715,7 +4715,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "PUT" "/resourcepolicy"
+        aws-sdk/generator/operation::input "PUT" :rest-json "/resourcepolicy"
         "PutResourcePolicy" "2021-10-26"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-resource-policy))
@@ -4732,7 +4732,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "POST"
+        aws-sdk/generator/operation::input "POST" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4755,7 +4755,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "DELETE"
+        aws-sdk/generator/operation::input "DELETE" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil "/tags/~A"
                               (quri.encode:url-encode
@@ -4781,7 +4781,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'migration-hub-refactor-spaces-request
-        aws-sdk/generator/operation::input "PATCH"
+        aws-sdk/generator/operation::input "PATCH" :rest-json
         (common-lisp:lambda (aws-sdk/generator/operation::input)
           (common-lisp:format common-lisp:nil
                               "/environments/~A/applications/~A/routes/~A"

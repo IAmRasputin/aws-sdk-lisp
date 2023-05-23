@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass appconfigdata-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "appconfigdata"))
+                       (:default-initargs :service "appconfigdata" :protocol
+                        :rest-json))
  (common-lisp:export 'appconfigdata-request))
 (common-lisp:progn
  (common-lisp:define-condition appconfigdata-error
@@ -338,7 +339,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appconfigdata-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/configuration"
+                                                        "GET" :rest-json
+                                                        "/configuration"
                                                         "GetLatestConfiguration"
                                                         "2021-11-11")
        :want-stream common-lisp:t)
@@ -363,7 +365,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'appconfigdata-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/configurationsessions"
                                                         "StartConfigurationSession"
                                                         "2021-11-11"))

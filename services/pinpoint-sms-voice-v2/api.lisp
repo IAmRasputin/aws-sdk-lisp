@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass pinpoint-sms-voice-v2-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "pinpoint-sms-voice-v2"))
+                       (:default-initargs :service "pinpoint-sms-voice-v2"
+                        :protocol :json))
  (common-lisp:export 'pinpoint-sms-voice-v2-request))
 (common-lisp:progn
  (common-lisp:define-condition pinpoint-sms-voice-v2-error
@@ -6647,7 +6648,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "AssociateOriginationIdentity" "2022-03-31"))
+        "POST" :json "/" "AssociateOriginationIdentity" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'associate-origination-identity))
 (common-lisp:progn
@@ -6664,7 +6665,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "CreateConfigurationSet" "2022-03-31"))
+        "POST" :json "/" "CreateConfigurationSet" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-configuration-set))
 (common-lisp:progn
@@ -6686,7 +6687,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "CreateEventDestination" "2022-03-31"))
+        "POST" :json "/" "CreateEventDestination" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-event-destination))
 (common-lisp:progn
@@ -6703,7 +6704,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "CreateOptOutList" "2022-03-31"))
+        "POST" :json "/" "CreateOptOutList" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-opt-out-list))
 (common-lisp:progn
@@ -6723,7 +6724,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "CreatePool" "2022-03-31"))
+        "POST" :json "/" "CreatePool" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-pool))
 (common-lisp:progn
@@ -6739,7 +6740,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteConfigurationSet" "2022-03-31"))
+        "POST" :json "/" "DeleteConfigurationSet" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-configuration-set))
 (common-lisp:progn
@@ -6756,7 +6757,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteDefaultMessageType" "2022-03-31"))
+        "POST" :json "/" "DeleteDefaultMessageType" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-default-message-type))
 (common-lisp:progn
@@ -6772,7 +6773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteDefaultSenderId" "2022-03-31"))
+        "POST" :json "/" "DeleteDefaultSenderId" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-default-sender-id))
 (common-lisp:progn
@@ -6790,7 +6791,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteEventDestination" "2022-03-31"))
+        "POST" :json "/" "DeleteEventDestination" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-event-destination))
 (common-lisp:progn
@@ -6806,7 +6807,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteKeyword" "2022-03-31"))
+        "POST" :json "/" "DeleteKeyword" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-keyword))
 (common-lisp:progn
@@ -6822,7 +6823,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteOptOutList" "2022-03-31"))
+        "POST" :json "/" "DeleteOptOutList" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-opt-out-list))
 (common-lisp:progn
@@ -6839,7 +6840,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeleteOptedOutNumber" "2022-03-31"))
+        "POST" :json "/" "DeleteOptedOutNumber" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-opted-out-number))
 (common-lisp:progn
@@ -6855,7 +6856,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DeletePool" "2022-03-31"))
+        "POST" :json "/" "DeletePool" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'delete-pool))
 (common-lisp:progn
@@ -6863,7 +6864,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'pinpoint-sms-voice-v2-request :method "POST"
-                                :path "/" :params
+                                :path "/" :protocol :json :operation
+                                "DeleteTextMessageSpendLimitOverride" :params
                                 `(("Action"
                                    ,@"DeleteTextMessageSpendLimitOverride")
                                   ("Version" ,@"2022-03-31"))))
@@ -6874,7 +6876,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'pinpoint-sms-voice-v2-request :method "POST"
-                                :path "/" :params
+                                :path "/" :protocol :json :operation
+                                "DeleteVoiceMessageSpendLimitOverride" :params
                                 `(("Action"
                                    ,@"DeleteVoiceMessageSpendLimitOverride")
                                   ("Version" ,@"2022-03-31"))))
@@ -6894,7 +6897,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeAccountAttributes" "2022-03-31"))
+        "POST" :json "/" "DescribeAccountAttributes" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-account-attributes))
 (common-lisp:progn
@@ -6910,7 +6913,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeAccountLimits" "2022-03-31"))
+        "POST" :json "/" "DescribeAccountLimits" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-account-limits))
 (common-lisp:progn
@@ -6930,7 +6933,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeConfigurationSets" "2022-03-31"))
+        "POST" :json "/" "DescribeConfigurationSets" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-configuration-sets))
 (common-lisp:progn
@@ -6949,7 +6952,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeKeywords" "2022-03-31"))
+        "POST" :json "/" "DescribeKeywords" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-keywords))
 (common-lisp:progn
@@ -6967,7 +6970,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeOptOutLists" "2022-03-31"))
+        "POST" :json "/" "DescribeOptOutLists" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-opt-out-lists))
 (common-lisp:progn
@@ -6987,7 +6990,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeOptedOutNumbers" "2022-03-31"))
+        "POST" :json "/" "DescribeOptedOutNumbers" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-opted-out-numbers))
 (common-lisp:progn
@@ -7005,7 +7008,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribePhoneNumbers" "2022-03-31"))
+        "POST" :json "/" "DescribePhoneNumbers" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-phone-numbers))
 (common-lisp:progn
@@ -7022,7 +7025,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribePools" "2022-03-31"))
+        "POST" :json "/" "DescribePools" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-pools))
 (common-lisp:progn
@@ -7040,7 +7043,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeSenderIds" "2022-03-31"))
+        "POST" :json "/" "DescribeSenderIds" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-sender-ids))
 (common-lisp:progn
@@ -7056,7 +7059,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DescribeSpendLimits" "2022-03-31"))
+        "POST" :json "/" "DescribeSpendLimits" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'describe-spend-limits))
 (common-lisp:progn
@@ -7076,7 +7079,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "DisassociateOriginationIdentity" "2022-03-31"))
+        "POST" :json "/" "DisassociateOriginationIdentity" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disassociate-origination-identity))
 (common-lisp:progn
@@ -7094,7 +7097,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "ListPoolOriginationIdentities" "2022-03-31"))
+        "POST" :json "/" "ListPoolOriginationIdentities" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-pool-origination-identities))
 (common-lisp:progn
@@ -7110,7 +7113,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "ListTagsForResource" "2022-03-31"))
+        "POST" :json "/" "ListTagsForResource" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
@@ -7129,7 +7132,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "PutKeyword" "2022-03-31"))
+        "POST" :json "/" "PutKeyword" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-keyword))
 (common-lisp:progn
@@ -7146,7 +7149,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "PutOptedOutNumber" "2022-03-31"))
+        "POST" :json "/" "PutOptedOutNumber" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-opted-out-number))
 (common-lisp:progn
@@ -7162,7 +7165,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "ReleasePhoneNumber" "2022-03-31"))
+        "POST" :json "/" "ReleasePhoneNumber" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'release-phone-number))
 (common-lisp:progn
@@ -7184,7 +7187,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "RequestPhoneNumber" "2022-03-31"))
+        "POST" :json "/" "RequestPhoneNumber" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'request-phone-number))
 (common-lisp:progn
@@ -7206,7 +7209,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SendTextMessage" "2022-03-31"))
+        "POST" :json "/" "SendTextMessage" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-text-message))
 (common-lisp:progn
@@ -7228,7 +7231,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SendVoiceMessage" "2022-03-31"))
+        "POST" :json "/" "SendVoiceMessage" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-voice-message))
 (common-lisp:progn
@@ -7245,7 +7248,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SetDefaultMessageType" "2022-03-31"))
+        "POST" :json "/" "SetDefaultMessageType" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-default-message-type))
 (common-lisp:progn
@@ -7262,7 +7265,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SetDefaultSenderId" "2022-03-31"))
+        "POST" :json "/" "SetDefaultSenderId" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-default-sender-id))
 (common-lisp:progn
@@ -7279,7 +7282,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SetTextMessageSpendLimitOverride" "2022-03-31"))
+        "POST" :json "/" "SetTextMessageSpendLimitOverride" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-text-message-spend-limit-override))
 (common-lisp:progn
@@ -7296,7 +7299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "SetVoiceMessageSpendLimitOverride" "2022-03-31"))
+        "POST" :json "/" "SetVoiceMessageSpendLimitOverride" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'set-voice-message-spend-limit-override))
 (common-lisp:progn
@@ -7312,7 +7315,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "TagResource" "2022-03-31"))
+        "POST" :json "/" "TagResource" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'tag-resource))
 (common-lisp:progn
@@ -7328,7 +7331,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "UntagResource" "2022-03-31"))
+        "POST" :json "/" "UntagResource" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
@@ -7350,7 +7353,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "UpdateEventDestination" "2022-03-31"))
+        "POST" :json "/" "UpdateEventDestination" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-event-destination))
 (common-lisp:progn
@@ -7371,7 +7374,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "UpdatePhoneNumber" "2022-03-31"))
+        "POST" :json "/" "UpdatePhoneNumber" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-phone-number))
 (common-lisp:progn
@@ -7393,6 +7396,6 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'pinpoint-sms-voice-v2-request aws-sdk/generator/operation::input
-        "POST" "/" "UpdatePool" "2022-03-31"))
+        "POST" :json "/" "UpdatePool" "2022-03-31"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'update-pool))

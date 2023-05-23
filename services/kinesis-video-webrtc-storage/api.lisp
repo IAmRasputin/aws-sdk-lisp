@@ -13,7 +13,7 @@
  (common-lisp:defclass kinesis-video-webrtc-storage-request
                        (aws-sdk/request:request) common-lisp:nil
                        (:default-initargs :service
-                        "kinesis-video-webrtc-storage"))
+                        "kinesis-video-webrtc-storage" :protocol :rest-json))
  (common-lisp:export 'kinesis-video-webrtc-storage-request))
 (common-lisp:progn
  (common-lisp:define-condition kinesis-video-webrtc-storage-error
@@ -102,7 +102,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'kinesis-video-webrtc-storage-request
-        aws-sdk/generator/operation::input "POST" "/joinStorageSession"
-        "JoinStorageSession" "2018-05-10"))
+        aws-sdk/generator/operation::input "POST" :rest-json
+        "/joinStorageSession" "JoinStorageSession" "2018-05-10"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'join-storage-session))

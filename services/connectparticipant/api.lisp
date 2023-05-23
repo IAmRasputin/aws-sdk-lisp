@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass connectparticipant-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "connectparticipant"))
+                       (:default-initargs :service "connectparticipant"
+                        :protocol :rest-json))
  (common-lisp:export 'connectparticipant-request))
 (common-lisp:progn
  (common-lisp:define-condition connectparticipant-error
@@ -1251,8 +1252,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/complete-attachment-upload" "CompleteAttachmentUpload"
-        "2018-09-07"))
+        :rest-json "/participant/complete-attachment-upload"
+        "CompleteAttachmentUpload" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'complete-attachment-upload))
 (common-lisp:progn
@@ -1271,7 +1272,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/connection" "CreateParticipantConnection" "2018-09-07"))
+        :rest-json "/participant/connection" "CreateParticipantConnection"
+        "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'create-participant-connection))
 (common-lisp:progn
@@ -1287,7 +1289,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/disconnect" "DisconnectParticipant" "2018-09-07"))
+        :rest-json "/participant/disconnect" "DisconnectParticipant"
+        "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'disconnect-participant))
 (common-lisp:progn
@@ -1303,7 +1306,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/attachment" "GetAttachment" "2018-09-07"))
+        :rest-json "/participant/attachment" "GetAttachment" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-attachment))
 (common-lisp:progn
@@ -1322,7 +1325,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/transcript" "GetTranscript" "2018-09-07"))
+        :rest-json "/participant/transcript" "GetTranscript" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'get-transcript))
 (common-lisp:progn
@@ -1340,7 +1343,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/event" "SendEvent" "2018-09-07"))
+        :rest-json "/participant/event" "SendEvent" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-event))
 (common-lisp:progn
@@ -1358,7 +1361,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/message" "SendMessage" "2018-09-07"))
+        :rest-json "/participant/message" "SendMessage" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'send-message))
 (common-lisp:progn
@@ -1377,7 +1380,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input
         'connectparticipant-request aws-sdk/generator/operation::input "POST"
-        "/participant/start-attachment-upload" "StartAttachmentUpload"
-        "2018-09-07"))
+        :rest-json "/participant/start-attachment-upload"
+        "StartAttachmentUpload" "2018-09-07"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'start-attachment-upload))

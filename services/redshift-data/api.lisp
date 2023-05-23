@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass redshift-data-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "redshift-data"))
+                       (:default-initargs :service "redshift-data" :protocol
+                        :json))
  (common-lisp:export 'redshift-data-request))
 (common-lisp:progn
  (common-lisp:define-condition redshift-data-error
@@ -2081,7 +2082,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchExecuteStatement"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2099,7 +2100,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CancelStatement"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2117,7 +2118,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeStatement"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2139,7 +2140,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeTable"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2161,7 +2162,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ExecuteStatement"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2179,7 +2180,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetStatementResult"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2200,7 +2201,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListDatabases"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2222,7 +2223,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListSchemas"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2243,7 +2244,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListStatements"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -2266,7 +2267,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'redshift-data-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "ListTables"
+                                                        "POST" :json "/"
+                                                        "ListTables"
                                                         "2019-12-20"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'list-tables))

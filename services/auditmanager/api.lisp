@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass auditmanager-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "auditmanager"))
+                       (:default-initargs :service "auditmanager" :protocol
+                        :rest-json))
  (common-lisp:export 'auditmanager-request))
 (common-lisp:progn
  (common-lisp:define-condition auditmanager-error
@@ -8295,7 +8296,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8326,7 +8327,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8356,7 +8357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8385,7 +8386,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8416,7 +8417,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8448,7 +8449,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8488,7 +8489,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/assessments"
+                                                        "POST" :rest-json
+                                                        "/assessments"
                                                         "CreateAssessment"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8509,7 +8511,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/assessmentFrameworks"
                                                         "CreateAssessmentFramework"
                                                         "2017-07-25"))
@@ -8530,7 +8532,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8562,7 +8564,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/controls"
+                                                        "POST" :rest-json
+                                                        "/controls"
                                                         "CreateControl"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8580,7 +8583,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8609,7 +8612,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8638,7 +8641,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8667,7 +8670,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8699,7 +8702,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8719,7 +8722,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'auditmanager-request :method "POST" :path
-                                "/account/deregisterAccount" :params
+                                "/account/deregisterAccount" :protocol
+                                :rest-json :operation "DeregisterAccount"
+                                :params
                                 `(("Action" ,@"DeregisterAccount")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8738,7 +8743,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/account/deregisterOrganizationAdminAccount"
                                                         "DeregisterOrganizationAdminAccount"
                                                         "2017-07-25"))
@@ -8759,7 +8764,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8779,7 +8784,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'auditmanager-request :method "GET" :path
-                                "/account/status" :params
+                                "/account/status" :protocol :rest-json
+                                :operation "GetAccountStatus" :params
                                 `(("Action" ,@"GetAccountStatus")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -8797,7 +8803,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8825,7 +8831,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8855,7 +8861,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8890,7 +8896,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8918,7 +8924,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -8946,7 +8952,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/delegations"
+                                                        "GET" :rest-json
+                                                        "/delegations"
                                                         "GetDelegations"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -8967,7 +8974,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9011,7 +9018,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9049,7 +9056,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9087,7 +9094,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9119,7 +9126,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9147,7 +9154,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'auditmanager-request :method "GET" :path
-                                "/insights" :params
+                                "/insights" :protocol :rest-json :operation
+                                "GetInsights" :params
                                 `(("Action" ,@"GetInsights")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9166,7 +9174,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9186,7 +9194,9 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'auditmanager-request :method "GET" :path
-                                "/account/organizationAdminAccount" :params
+                                "/account/organizationAdminAccount" :protocol
+                                :rest-json :operation
+                                "GetOrganizationAdminAccount" :params
                                 `(("Action" ,@"GetOrganizationAdminAccount")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9196,7 +9206,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'auditmanager-request :method "GET" :path
-                                "/services" :params
+                                "/services" :protocol :rest-json :operation
+                                "GetServicesInScope" :params
                                 `(("Action" ,@"GetServicesInScope")
                                   ("Version" ,@"2017-07-25"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -9214,7 +9225,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9246,7 +9257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/insights/controls-by-assessment"
                                                         "ListAssessmentControlInsightsByControlDomain"
                                                         "2017-07-25"))
@@ -9267,7 +9278,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/assessmentFrameworkShareRequests"
                                                         "ListAssessmentFrameworkShareRequests"
                                                         "2017-07-25"))
@@ -9288,7 +9299,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/assessmentFrameworks"
                                                         "ListAssessmentFrameworks"
                                                         "2017-07-25"))
@@ -9307,7 +9318,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/assessmentReports"
                                                         "ListAssessmentReports"
                                                         "2017-07-25"))
@@ -9326,7 +9337,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/assessments"
+                                                        "GET" :rest-json
+                                                        "/assessments"
                                                         "ListAssessments"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9345,7 +9357,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/insights/control-domains"
                                                         "ListControlDomainInsights"
                                                         "2017-07-25"))
@@ -9366,7 +9378,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/insights/control-domains-by-assessment"
                                                         "ListControlDomainInsightsByAssessment"
                                                         "2017-07-25"))
@@ -9387,7 +9399,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/insights/controls"
                                                         "ListControlInsightsByControlDomain"
                                                         "2017-07-25"))
@@ -9407,7 +9419,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/controls"
+                                                        "GET" :rest-json
+                                                        "/controls"
                                                         "ListControls"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9426,7 +9439,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         "/dataSourceKeywords"
                                                         "ListKeywordsForDataSource"
                                                         "2017-07-25"))
@@ -9445,7 +9458,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET" "/notifications"
+                                                        "GET" :rest-json
+                                                        "/notifications"
                                                         "ListNotifications"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9463,7 +9477,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "GET"
+                                                        "GET" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9492,7 +9506,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/account/registerAccount"
                                                         "RegisterAccount"
                                                         "2017-07-25"))
@@ -9512,7 +9526,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/account/registerOrganizationAdminAccount"
                                                         "RegisterOrganizationAdminAccount"
                                                         "2017-07-25"))
@@ -9535,7 +9549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9563,7 +9577,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9591,7 +9605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "DELETE"
+                                                        "DELETE" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9623,7 +9637,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9655,7 +9669,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9694,7 +9708,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9730,7 +9744,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9759,7 +9773,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9787,7 +9801,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9819,7 +9833,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT"
+                                                        "PUT" :rest-json
                                                         (common-lisp:lambda
                                                             (
                                                              aws-sdk/generator/operation::input)
@@ -9853,7 +9867,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "PUT" "/settings"
+                                                        "PUT" :rest-json
+                                                        "/settings"
                                                         "UpdateSettings"
                                                         "2017-07-25"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -9872,7 +9887,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'auditmanager-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST"
+                                                        "POST" :rest-json
                                                         "/assessmentReports/integrity"
                                                         "ValidateAssessmentReportIntegrity"
                                                         "2017-07-25"))

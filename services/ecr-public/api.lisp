@@ -12,7 +12,8 @@
 (common-lisp:progn
  (common-lisp:defclass ecr-public-request (aws-sdk/request:request)
                        common-lisp:nil
-                       (:default-initargs :service "ecr-public"))
+                       (:default-initargs :service "ecr-public" :protocol
+                        :json))
  (common-lisp:export 'ecr-public-request))
 (common-lisp:progn
  (common-lisp:define-condition ecr-public-error
@@ -3216,7 +3217,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchCheckLayerAvailability"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3235,7 +3236,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "BatchDeleteImage"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3256,7 +3257,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CompleteLayerUpload"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3275,7 +3276,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "CreateRepository"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3294,7 +3295,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepository"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3312,7 +3313,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DeleteRepositoryPolicy"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3332,7 +3333,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImageTags"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3353,7 +3354,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeImages"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3371,7 +3372,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRegistries"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3392,7 +3393,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "DescribeRepositories"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3402,7 +3403,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'ecr-public-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetAuthorizationToken" :params
                                 `(("Action" ,@"GetAuthorizationToken")
                                   ("Version" ,@"2020-10-30"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3412,7 +3414,8 @@
    (aws-sdk/generator/operation::parse-response
     (aws-sdk/api:aws-request
      (common-lisp:make-instance 'ecr-public-request :method "POST" :path "/"
-                                :params
+                                :protocol :json :operation
+                                "GetRegistryCatalogData" :params
                                 `(("Action" ,@"GetRegistryCatalogData")
                                   ("Version" ,@"2020-10-30"))))
     common-lisp:nil common-lisp:nil *error-map*))
@@ -3431,7 +3434,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepositoryCatalogData"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3449,7 +3452,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "GetRepositoryPolicy"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3467,7 +3470,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "InitiateLayerUpload"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3485,7 +3488,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "ListTagsForResource"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3507,7 +3510,8 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/" "PutImage"
+                                                        "POST" :json "/"
+                                                        "PutImage"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
  (common-lisp:export 'put-image))
@@ -3525,7 +3529,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRegistryCatalogData"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3545,7 +3549,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "PutRepositoryCatalogData"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3565,7 +3569,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "SetRepositoryPolicy"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3583,7 +3587,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "TagResource"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3601,7 +3605,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UntagResource"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
@@ -3622,7 +3626,7 @@
       (aws-sdk/api:aws-request
        (aws-sdk/generator/shape:make-request-with-input 'ecr-public-request
                                                         aws-sdk/generator/operation::input
-                                                        "POST" "/"
+                                                        "POST" :json "/"
                                                         "UploadLayerPart"
                                                         "2020-10-30"))
       common-lisp:nil common-lisp:nil *error-map*)))
