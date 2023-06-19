@@ -10,7 +10,7 @@
   (:import-from #:trivial-timeout
                 #:timeout-error)
   (:import-from #:cl-ppcre)
-  (:import-from #:yason)
+  (:import-from #:com.inuoe.jzon)
   (:import-from #:local-time)
   (:export #:ec2role-provider))
 (in-package #:aws-sdk/credentials/ec2role)
@@ -23,7 +23,7 @@
       (let ((role (ppcre:scan-to-strings "^.+?(?=(?:[\\r\\n]|$))"
                                          (ec2metadata "/iam/security-credentials/"))))
         (when role
-          (let ((res (yason:parse
+          (let ((res (com.inuoe.jzon:parse
                       (ec2metadata (format nil "/iam/security-credentials/~A" role)))))
             (setf (provider-expiration provider)
                   (local-time:parse-timestring (gethash "Expiration" res)))

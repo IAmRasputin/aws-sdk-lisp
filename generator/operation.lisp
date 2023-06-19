@@ -64,8 +64,9 @@
                 (let* ((output (if (or (equal type-header "application/x-amz-json-1.1")
                                        (equal type-header "application/x-amz-json-1.0")
                                        (equal type-header "application/json"))
-                                   (hash-table-alist (parse body))
-                                   (cdr (first (xmls-to-alist (xmls:parse-to-list body)))))))
+                                   (parse body)
+                                   (xmls:parse-to-list body))))
+                  (break)
                   (if wrapper-name
                       (values (aget output wrapper-name)
                               (aget output "ResponseMetadata"))
