@@ -27,6 +27,17 @@
   (:export #:compile-operation))
 (in-package #:aws-sdk/generator/operation)
 
+(defun rec-hash-alist (json)
+  (typecase json
+    (hash-table (let ((alisted (hash-table-alist json)))
+                  (dolist (entry alisted)
+                    (setf (aget alisted (car entry))
+                          (rec-hash-alist (aget alisted (car entry)))))
+                  alisted))
+    (string json) ;; Otherwise strings get picked up by the vector clause below
+    (vector (map 'vector #'rec-hash-alist json))
+    (t json)))
+
 (defun %xmls-to-alist (xmls)
   (unless (consp xmls)
     (return-from %xmls-to-alist xmls))
@@ -35,6 +46,7 @@
     (declare (ignore attrs))
     (cons (ensure-car name-and-ns)
           (mapcar #'%xmls-to-alist contents))))
+
 (defun xmls-to-alist (xmls)
   (list (%xmls-to-alist xmls)))
 
@@ -58,15 +70,15 @@
                    :body body)))
         (if (equal body-type "blob")
             (ensure-string body)
-            (let ((body (ensure-string (or body "")))
-                  (type-header (gethash "content-type" headers)))
+            (let* ((body (ensure-string (or body "")))
+                   (type-header (gethash "content-type" headers))
+                   (is-json (or (equal type-header "application/x-amz-json-1.1")
+                                (equal type-header "application/x-amz-json-1.0")
+                                (equal type-header "application/json"))))
               (when (/= 0 (length body))
-                (let* ((output (if (or (equal type-header "application/x-amz-json-1.1")
-                                       (equal type-header "application/x-amz-json-1.0")
-                                       (equal type-header "application/json"))
-                                   (parse body)
-                                   (xmls:parse-to-list body))))
-                  (break)
+                (let* ((output (if is-json
+                                   (rec-hash-alist (parse body))
+                                   (cdr (first (xmls-to-alist (xmls:parse-to-list body)))))))
                   (if wrapper-name
                       (values (aget output wrapper-name)
                               (aget output "ResponseMetadata"))
