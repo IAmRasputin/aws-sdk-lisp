@@ -20,7 +20,8 @@
                 #:request-path
                 #:request-params
                 #:request-host
-                #:request-endpoint)
+                #:request-endpoint
+                #:*global-service-endpoints*)
   (:import-from #:aws-sign4)
   (:import-from #:dexador)
   (:import-from #:quri)
@@ -59,7 +60,9 @@
                            "{}"
                            ""))))
       (multiple-value-bind (authorization x-amz-date)
-          (aws-sign4:aws-sign4 :region region
+          (aws-sign4:aws-sign4 :region (if (member service *global-service-endpoints* :test #'equalp)
+                                           "us-east-1"
+                                           region)
                                :service service
                                :method (ecase protocol
                                          ((:rest-json :rest-xml) (request-method req))

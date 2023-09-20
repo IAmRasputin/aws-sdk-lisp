@@ -17,8 +17,19 @@
            #:request-payload
            #:request-session
            #:request-host
-           #:request-endpoint))
+           #:request-endpoint
+           #:*global-service-endpoints*))
 (in-package #:aws-sdk/request)
+
+(defparameter *global-service-endpoints* '("iam"
+                                           "globalaccelerator"
+                                           "cloudfront"
+                                           "networkmanager"
+                                           "organizations"
+                                           "route53"
+                                           "shield"
+                                           "waf")
+  "These are global services which don't support regions.  See: https://docs.aws.amazon.com/general/latest/gr/rande.html")
 
 (defclass request ()
   ((service :initarg :service
@@ -82,7 +93,9 @@
 
 (defgeneric request-host (request region)
   (:method ((req request) region)
-    (format nil "~(~A~).~(~A~).amazonaws.com" (request-service req) region)))
+    (if (member (request-service req) *global-service-endpoints* :test #'equalp)
+        (format nil "~(~A~).amazonaws.com" (request-service req))
+        (format nil "~(~A~).~(~A~).amazonaws.com" (request-service req) region))))
 
 (defgeneric request-endpoint (request region)
   (:method ((req request) region)
