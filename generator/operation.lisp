@@ -51,7 +51,6 @@
   (list (%xmls-to-alist xmls)))
 
 (defun parse-response (response body-type wrapper-name error-map)
-  (declare (optimize (speed 0) (space 0) (safety 0) (debug 3)))
   (destructuring-bind (body status headers &rest ignore-args)
       response
     (declare (ignore ignore-args))
