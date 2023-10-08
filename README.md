@@ -11,7 +11,14 @@ AWS-SDK provides interfaces for each AWS services as individual systems under "a
 Here's an example to send an SMS via Amazon Simple Notification Service:
 
 ```common-lisp
-(ql:quickload '(:aws-sdk :aws-sdk/services/sns))
+;; You must load aws-sdk first, then you can load services
+(ql:quickload :aws-sdk)
+
+;; Services can be loaded by name with quicklisp
+(ql:quickload :aws-sdk/services/sns)
+
+;; ...or via load-service
+(load-service sns)
 
 ;; "Log in" to AWS by setting *session* via make-session
 (setf aws:*session* (aws:make-session))
@@ -25,6 +32,11 @@ You can also configure AWS-SDK to use a configured profile for authentication:
 (setf aws:*session* (aws:make-session :profile "profile_name_here"))
 ```
 
+You can _also_ also use the `LOG-IN` function as shorthand:
+
+``` common-lisp
+(log-in :profile "profile_name_here")
+```
 
 
 ## Configuring the SDK
