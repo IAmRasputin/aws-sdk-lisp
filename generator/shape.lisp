@@ -47,7 +47,7 @@
                          (null "/"))
                  :params (append `(("Action" . ,action) ("Version" . ,version))
                                  (input-params input))
-                 :protocol (intern (format nil "~:@(~A~)" protocol))
+                 :protocol (intern (format nil "~:@(~A~)" protocol) :keyword)
                  :operation action
                  :headers (input-headers input)
                  :payload (input-payload input)))
