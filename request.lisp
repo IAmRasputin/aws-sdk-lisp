@@ -8,6 +8,13 @@
                 #:render-uri)
   (:import-from #:assoc-utils
                 #:alistp)
+  (:import-from #:com.inuoe.jzon
+                #:parse
+                #:stringify)
+  (:import-from #:serapeum
+                #:dict)
+  (:import-from #:xmls
+                #:nodelist->node)
   (:export #:request
            #:request-service
            #:request-method
@@ -63,12 +70,22 @@
 (defmethod initialize-instance :after ((req request) &rest args &key path params &allow-other-keys)
   (declare (ignore args))
   (let ((uri (quri:uri path)))
+    (format t "service: ~a~%uri: ~a~%params ~s (~a)~%payload: ~a~%-----~%" (request-service req) uri (request-params req) (request-protocol req) (request-payload req))
     (setf (slot-value req 'path) (quri:uri-path uri))
-    (setf (slot-value req 'params)
-          (append
-            (quri:uri-query-params uri)
-            (loop for (k . v) in params
-                  append (to-query-params k v))))))
+    (ecase (request-protocol req)
+      (('ec2 'query) (setf (slot-value req 'params)
+                           (append
+                            (quri:uri-query-params uri)
+                            (loop for (k . v) in params
+                                  append (to-query-params k v)))))
+      (('rest-json 'json) (setf (slot-value req 'payload)
+                                (stringify
+                                 (apply #'dict
+                                        (loop for (k . v) in params
+                                              append (list k v))))))
+      ('rest-xml (setf (slot-value req 'payload)
+                       (xmls:nodelist->node params))))))
+
 
 (defun to-query-params (key value)
   (typecase value
