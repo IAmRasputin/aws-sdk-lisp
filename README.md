@@ -17,8 +17,8 @@ Here's an example to send an SMS via Amazon Simple Notification Service:
 ;; Services can be loaded by name with quicklisp
 (ql:quickload :aws-sdk/services/sns)
 
-;; ...or via load-service
-(load-service sns)
+;; ...or via aws-load
+(aws-load sns)
 
 ;; "Log in" to AWS by setting *session* via make-session
 (setf aws:*session* (aws:make-session))

@@ -11,8 +11,7 @@
   (:export #:lispify
            #:gethash+
            #:ensure-string
-           #:log-in
-           #:load-service))
+           #:aws-load))
 (in-package #:aws-sdk/utils)
 
 (defun lispify (value &optional (package *package*))
@@ -55,8 +54,5 @@
     (vector (babel:octets-to-string value))
     (stream (slurp-string-stream value))))
 
-(defun log-in (&rest args)
-  (setf aws:*session* (apply #'aws:make-session args)))
-
-(defmacro load-service (name)
-  `(ql:quickload (format nil "aws-sdk/services/~a" ',name)))
+(defmacro aws-load (service-name)
+  `(ql:quickload (format nil "aws-sdk/services/~a" ',service-name)))

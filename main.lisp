@@ -7,8 +7,7 @@
                  #:aws-sdk/api
                  #:aws-sdk/error)
   (:import-from #:aws-sdk/utils
-                #:log-in
-                #:load-service)
+                #:aws-load)
   (:import-from #:aws-sdk/utils/config
                 #:*aws-profile*)
   (:export #:*aws-profile*))
