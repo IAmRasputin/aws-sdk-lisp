@@ -62,7 +62,7 @@
 
         (loop for name being each hash-key of (gethash "shapes" service-json)
               using (hash-value options)
-              do (format stream "~&~S~%" (compile-shape name options exception-name)))
+              do (format stream "~&~S~%" (compile-shape name options exception-name service-protocol)))
 
         (loop for action being each hash-key of (gethash "operations" service-json)
               using (hash-value options)

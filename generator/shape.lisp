@@ -6,6 +6,17 @@
                 #:ensure-car
                 #:alist-hash-table
                 #:when-let)
+  (:import-from #:serapeum
+                #:@
+                #:href-default)
+  (:import-from #:kebab
+                #:to-pascal-case)
+  (:import-from #:xml-emitter
+                #:with-xml-output
+                #:with-tag
+                #:simple-tag)
+  (:import-from #:com.inuoe.jzon
+                #:stringify)
   (:export #:compile-shape
            #:make-request-with-input))
 (in-package #:aws-sdk/generator/shape)
@@ -58,7 +69,10 @@
         if (equal (gethash key member-options) value)
         collect (cons member-name member-options)))
 
-(defun compile-structure-shape (name &key required members payload)
+(defun compile-structure-shape (name &key required members payload protocol)
+  ;(declare (optimize (debug 3) (speed 0) (space 0) (safety 0)))
+  ;(when (equalp name "CreateBucketConfiguration")
+  ;  (break))
   (let ((shape-name (lispify* name)))
     `(progn
        (defstruct (,shape-name (:copier nil) (:conc-name ,(format nil "struct-shape-~A-" shape-name)))
@@ -101,7 +115,13 @@
                               (list (cons ,key (input-params value)))))))
        (defmethod input-payload ((input ,shape-name))
          ,(if payload
-              `(slot-value input ',(lispify payload))
+              (case protocol
+                ((:json :rest-json) `(stringify (slot-value input ',(lispify payload))))
+                (:rest-xml `(with-output-to-string (s)
+                              (format t "~s~%" input)
+                              (with-xml-output (s :encoding "UTF-8")
+                                (with-tag (,payload nil ,(href-default nil members payload "xmlNamespace" "uri"))
+                                  ())))))
               'nil)))))
 
 (defun compile-exception-shape (name &key members exception)
@@ -143,7 +163,7 @@
              (lispify type)
              (lisp-native-type type)))))
 
-(defun compile-shape (name options exception-name)
+(defun compile-shape (name options exception-name service-protocol)
   (let ((type (gethash "type" options)))
     (cond
       ((string= type "map")
@@ -160,6 +180,7 @@
            (compile-structure-shape name
                                     :required (gethash "required" options)
                                     :members (gethash "members" options)
-                                    :payload (gethash "payload" options))))
+                                    :payload (gethash "payload" options)
+                                    :protocol service-protocol)))
       (t
        (compile-otherwise name type)))))
